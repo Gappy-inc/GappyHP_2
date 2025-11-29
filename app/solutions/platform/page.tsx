@@ -1,4 +1,22 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
+import { SITE_URL, SITE_NAME } from '@/lib/config'
+
+export const metadata: Metadata = {
+  title: `Gappy Platform | ${SITE_NAME}`,
+  description:
+    '旅ナカの「いま・ここ・誰と・気分」を理解し、15〜120分の隙間時間にちょうどいいコトを秒で見つけるAI旅ナカツール。',
+  openGraph: {
+    title: `Gappy Platform | ${SITE_NAME}`,
+    description:
+      '旅ナカの「いま・ここ・誰と・気分」を理解し、15〜120分の隙間時間にちょうどいいコトを秒で見つけるAI旅ナカツール。',
+    url: `${SITE_URL}/solutions/platform`,
+    type: 'website',
+  },
+  alternates: {
+    canonical: `${SITE_URL}/solutions/platform`,
+  },
+}
 
 export default function Platform() {
   return (
