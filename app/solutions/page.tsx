@@ -1,4 +1,22 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
+import { SITE_URL, SITE_NAME } from '@/lib/config'
+
+export const metadata: Metadata = {
+  title: `Solutions | ${SITE_NAME}`,
+  description:
+    'Gappyのプロダクトとソリューション。旅ナカAIプラットフォーム、事業者向けソリューション、データ分析サービスをご紹介します。',
+  openGraph: {
+    title: `Solutions | ${SITE_NAME}`,
+    description:
+      'Gappyのプロダクトとソリューション。旅ナカAIプラットフォーム、事業者向けソリューション、データ分析サービスをご紹介します。',
+    url: `${SITE_URL}/solutions`,
+    type: 'website',
+  },
+  alternates: {
+    canonical: `${SITE_URL}/solutions`,
+  },
+}
 
 export default function Solutions() {
   return (

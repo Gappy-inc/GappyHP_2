@@ -1,4 +1,22 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
+import { SITE_URL, SITE_NAME } from '@/lib/config'
+
+export const metadata: Metadata = {
+  title: `Gappy for Partners | ${SITE_NAME}`,
+  description:
+    '旅ナカAIを現場のタッチポイントに。Embed / QR / サイネージ / APIで「どこ行こう？」を「ここ行こう！」に変えるソリューション。',
+  openGraph: {
+    title: `Gappy for Partners | ${SITE_NAME}`,
+    description:
+      '旅ナカAIを現場のタッチポイントに。Embed / QR / サイネージ / APIで「どこ行こう？」を「ここ行こう！」に変えるソリューション。',
+    url: `${SITE_URL}/solutions/partners`,
+    type: 'website',
+  },
+  alternates: {
+    canonical: `${SITE_URL}/solutions/partners`,
+  },
+}
 
 export default function Partners() {
   return (

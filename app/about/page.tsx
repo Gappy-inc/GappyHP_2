@@ -1,3 +1,22 @@
+import type { Metadata } from 'next'
+import { SITE_URL, SITE_NAME } from '@/lib/config'
+
+export const metadata: Metadata = {
+  title: `About | ${SITE_NAME}`,
+  description:
+    '株式会社Gappy（ギャッピー）について。旅の余白から、街の価値をひらく。代表・CTO・COOからのメッセージ、チーム紹介、会社情報をご覧いただけます。',
+  openGraph: {
+    title: `About | ${SITE_NAME}`,
+    description:
+      '株式会社Gappy（ギャッピー）について。旅の余白から、街の価値をひらく。代表・CTO・COOからのメッセージ、チーム紹介、会社情報をご覧いただけます。',
+    url: `${SITE_URL}/about`,
+    type: 'website',
+  },
+  alternates: {
+    canonical: `${SITE_URL}/about`,
+  },
+}
+
 export default function About() {
   return (
     <div className="bg-white">
@@ -47,6 +66,54 @@ export default function About() {
             <div className="mt-10 text-right">
               <p className="text-lg text-gray-600">株式会社Gappy</p>
               <p className="text-xl text-gappy-dark font-semibold">代表取締役　浅野 充輝</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTO Message Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gappy-dark mb-4">CTOメッセージ</h2>
+          </div>
+          <div className="bg-gray-50 rounded-xl p-8 md:p-12">
+            <p className="text-xl text-gappy-dark font-semibold leading-relaxed mb-8">技術で旅ナカの体験を変える。</p>
+            <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
+              <p>
+                観光業界は、日本にとって重要な産業でありながら、テクノロジー導入やデジタル化は他産業に比べてまだ遅れています。平均年齢の高さや、長く続く慣習も相まって、「変えたいけれど、どこから手をつければいいか分からない」という声を多く聞いてきました。
+              </p>
+              <p>
+                一方で、AIをはじめとしたテクノロジーは、正しく使えば小さな事業者でも大きな力になります。学生発の企業であるGappyには、AIリテラシーの高いメンバーが集まっており、その強みを活かして、観光の現場とテクノロジーのギャップを埋めていきたいと考えています。
+              </p>
+              <p>
+                参入障壁の高い観光業界だからこそ、私たちのようなプレイヤーが挑戦する意味がある。そう信じて、Gappyはパートナーの皆さまと共に、この業界を少しずつアップデートしていきます。
+              </p>
+            </div>
+            <div className="mt-10 text-right">
+              <p className="text-lg text-gray-600">株式会社Gappy</p>
+              <p className="text-xl text-gappy-dark font-semibold">CTO　片山 雄太</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* COO Message Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gappy-dark mb-4">COOメッセージ</h2>
+          </div>
+          <div className="bg-white rounded-xl p-8 md:p-12">
+            <p className="text-xl text-gappy-dark font-semibold leading-relaxed mb-8">オペレーションで価値を届ける。</p>
+            <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
+              <p>
+                COOメッセージの内容をここに記載してください。
+              </p>
+            </div>
+            <div className="mt-10 text-right">
+              <p className="text-lg text-gray-600">株式会社Gappy</p>
+              <p className="text-xl text-gappy-dark font-semibold">COO　三ツ谷 寛羽</p>
             </div>
           </div>
         </div>
@@ -102,7 +169,7 @@ export default function About() {
               <div className="border-b border-gray-200 pb-4">
                 <dt className="text-sm font-semibold text-gray-500 mb-2">所在地</dt>
                 <dd className="text-lg text-gappy-dark">
-                  〒150-0043 東京都渋谷区道玄坂1丁目10番8号 渋谷道玄坂東急ビル3F
+                  〒150-0043 東京都渋谷区道玄坂1丁目10番8号 渋谷道玄坂東急ビル2F
                 </dd>
               </div>
               <div className="border-b border-gray-200 pb-4">
@@ -136,8 +203,8 @@ export default function About() {
               <div className="border-b border-gray-200 pb-4">
                 <dt className="text-sm font-semibold text-gray-500 mb-2">リンク</dt>
                 <dd className="text-lg text-gappy-dark">
-                  <a href="https://gappy.jp" target="_blank" rel="noopener noreferrer" className="text-gappy-green hover:underline">
-                    https://gappy.jp
+                  <a href={SITE_URL} target="_blank" rel="noopener noreferrer" className="text-gappy-green hover:underline">
+                    {SITE_URL}
                   </a>
                 </dd>
               </div>

@@ -1,4 +1,22 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
+import { SITE_URL, SITE_NAME } from '@/lib/config'
+
+export const metadata: Metadata = {
+  title: `Gappy Insight / Studio | ${SITE_NAME}`,
+  description:
+    '行動データが映す、旅ナカの中身とコト消費トレンド。回遊・滞在時間延長・分散観光の施策設計と検証を支援します。',
+  openGraph: {
+    title: `Gappy Insight / Studio | ${SITE_NAME}`,
+    description:
+      '行動データが映す、旅ナカの中身とコト消費トレンド。回遊・滞在時間延長・分散観光の施策設計と検証を支援します。',
+    url: `${SITE_URL}/solutions/insight`,
+    type: 'website',
+  },
+  alternates: {
+    canonical: `${SITE_URL}/solutions/insight`,
+  },
+}
 
 export default function Insight() {
   return (
