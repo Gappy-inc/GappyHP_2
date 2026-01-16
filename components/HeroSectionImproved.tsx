@@ -110,7 +110,7 @@ export default function HeroSectionImproved() {
  *   return (
  *     <div>
  *       <HeroSectionImproved />
- *       {/* 他のセクション */}
+ *       // 他のセクション
  *     </div>
  *   )
  * }
