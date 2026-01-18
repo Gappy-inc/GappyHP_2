@@ -14,12 +14,15 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center transition-transform duration-200 hover:scale-105">
             <Image
-              src="/gappy-logo.svg"
+              src="/gappy_icon.png"
               alt="Gappy"
-              width={120}
-              height={30}
-              className="h-8 w-auto"
+              width={40}
+              height={40}
+              className="h-10 w-10"
             />
+            <span className="text-[#00FF7D] font-bold text-lg -ml-1">
+              Gappy
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -108,7 +111,7 @@ export default function Header() {
               href="https://docs.google.com/forms/d/e/1FAIpQLSeSSQ4jbQusmwcpyYt7OQbqsDSUzbJk2COF_7UYZdHXF9e5Og/viewform"
               target="_blank"
               rel="noopener noreferrer"
-              className="block mt-2 bg-gappy-green text-gappy-dark px-4 py-2 rounded-md font-semibold text-center"
+              className="block mt-2 bg-gappy-green text-gappy-dark px-4 py-2 rounded-md font-semibold text-center hover:bg-opacity-90 transition-all"
             >
               Contact
             </Link>

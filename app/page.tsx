@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { newsItems } from '@/lib/newsData'
 import { SITE_URL, SITE_NAME } from '@/lib/config'
+import HeroSection from '@/components/HeroSection'
 
 export const metadata: Metadata = {
   title: `${SITE_NAME} | 旅ナカの「いま・ここでできること」をAIで可視化する`,
@@ -23,53 +24,7 @@ export default function Home() {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-gray-50 to-white py-20 md:py-32 motion-safe:animate-fade-up">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gappy-dark mb-6 leading-tight">
-            <span className="block">日本のタビナカを起点に、</span>
-            <span className="block">世界のタビナカを変えていくAIツール。</span>
-          </h1>
-          <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed space-y-4">
-            <span className="block">
-              Gappyは、日本のタビナカから生まれた、15〜120分の隙間時間（Gap-time）に特化したAI旅ナカツールです。
-            </span>
-            <span className="block">
-              旅行者一人ひとりにちょうどフィットする「コト(体験)」を造成/レコメンドし、日本から世界中の街へ、旅の余白を新しい価値に変えていきます。
-            </span>
-            <span className="block">街・事業者には、回遊・滞在時間延長・分散観光という成果をもたらします。</span>
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Link
-              href="https://docs.google.com/forms/d/e/1FAIpQLSeSSQ4jbQusmwcpyYt7OQbqsDSUzbJk2COF_7UYZdHXF9e5Og/viewform"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-gappy-green text-gappy-dark px-8 py-4 rounded-lg font-semibold text-center hover:bg-opacity-90 transition-all shadow-lg hover:shadow-xl"
-            >
-              資料請求をする
-            </Link>
-            <Link
-              href="/solutions"
-              className="bg-white text-gappy-dark px-8 py-4 rounded-lg font-semibold text-center border-2 border-gray-300 hover:border-gappy-green transition-all"
-            >
-              Solutionをみる
-            </Link>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-4 mt-6">
-            <Link
-              href="/solutions#gappy-platform"
-              className="text-gappy-dark font-semibold underline-offset-4 hover:underline text-center"
-            >
-              Gappy Platformを見る
-            </Link>
-            <Link
-              href="/solutions#gappy-for-partners"
-              className="text-gappy-dark font-semibold underline-offset-4 hover:underline text-center"
-            >
-              事業者・自治体の方へ
-            </Link>
-          </div>
-        </div>
-      </section>
+      <HeroSection />
 
       {/* What we do Section */}
       <section className="py-20 bg-white motion-safe:animate-fade-up">
@@ -268,7 +223,7 @@ export default function Home() {
             href="https://docs.google.com/forms/d/e/1FAIpQLSeSSQ4jbQusmwcpyYt7OQbqsDSUzbJk2COF_7UYZdHXF9e5Og/viewform"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-gappy-green text-gappy-dark px-10 py-4 rounded-lg font-semibold text-lg hover:bg-opacity-90 transition-all shadow-lg hover:shadow-xl"
+            className="inline-block bg-blue-600 text-white px-10 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl"
           >
             お問い合わせ
           </Link>
