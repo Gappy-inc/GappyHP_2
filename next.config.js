@@ -12,7 +12,7 @@ const nextConfig = {
             value: 'gappy-hp-2.vercel.app',
           },
         ],
-        destination: 'https://official.gappy.jp/:path*',
+        destination: 'https://gappy.jp/:path*',
         permanent: true,
       },
     ]
