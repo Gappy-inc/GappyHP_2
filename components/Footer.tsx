@@ -3,30 +3,34 @@ import Image from 'next/image'
 
 export default function Footer() {
   return (
-    <footer className="bg-gappy-dark text-white motion-safe:animate-fade-up">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <footer className="bg-white text-gappy-dark motion-safe:animate-fade-up">
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo and Company Info */}
           <div className="col-span-1 md:col-span-2">
-            <Image
-              src="/gappy-logo.svg"
-              alt="Gappy"
-              width={120}
-              height={30}
-              className="h-8 w-auto mb-4 brightness-0 invert transition-transform duration-200 hover:scale-105"
-            />
-            <div className="text-sm text-gray-400 space-y-1 mt-6">
-              <p className="font-semibold text-white">株式会社Gappy（ギャッピー）</p>
+            <Link href="/" className="flex items-center transition-transform duration-200 hover:scale-105 w-fit">
+              <Image
+                src="/gappy_icon.png"
+                alt="Gappy"
+                width={40}
+                height={40}
+                className="h-10 w-10"
+              />
+              <span className="text-[#00FF7D] font-bold text-lg -ml-1">
+                Gappy
+              </span>
+            </Link>
+            <div className="text-sm text-gray-600 space-y-1 mt-6">
+              <p className="font-semibold text-gappy-dark">株式会社Gappy（ギャッピー）</p>
               <p>東京都渋谷区</p>
               <p>代表取締役：浅野充輝</p>
-              <p>資本金：400万</p>
             </div>
           </div>
 
           {/* Navigation */}
           <div>
-            <h3 className="font-semibold mb-4">ナビゲーション</h3>
-            <ul className="space-y-2 text-sm text-gray-400">
+            <h3 className="font-semibold mb-4 text-gappy-dark">ナビゲーション</h3>
+            <ul className="space-y-2 text-sm text-gray-600">
               <li>
                 <Link href="/solutions" className="hover:text-gappy-green transition-colors">
                   Solutions
@@ -62,8 +66,8 @@ export default function Footer() {
 
           {/* Products */}
           <div>
-            <h3 className="font-semibold mb-4">プロダクト</h3>
-            <ul className="space-y-2 text-sm text-gray-400">
+            <h3 className="font-semibold mb-4 text-gappy-dark">プロダクト</h3>
+            <ul className="space-y-2 text-sm text-gray-600">
               <li>
                 <Link href="/solutions/platform" className="hover:text-gappy-green transition-colors">
                   Gappy Platform
@@ -84,11 +88,10 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-gray-800 mt-12 pt-8 text-sm text-gray-400 text-center">
+        <div className="border-t border-gray-200 mt-12 pt-8 text-sm text-gray-500 text-center">
           <p>© {new Date().getFullYear()} Gappy, Inc. All Rights Reserved.</p>
         </div>
-      </div>
+      </nav>
     </footer>
   )
-}
-    
+} 

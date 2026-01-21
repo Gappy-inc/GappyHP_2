@@ -1,14 +1,15 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { SITE_URL, SITE_NAME } from '@/lib/config'
 
 export const metadata: Metadata = {
   title: `About | ${SITE_NAME}`,
   description:
-    '株式会社Gappy（ギャッピー）について。旅の余白から、街の価値をひらく。代表・CTO・COOからのメッセージ、チーム紹介、会社情報をご覧いただけます。',
+    '株式会社Gappy（ギャッピー）について。旅の余白から、街の価値をひらく。代表からのメッセージ、チーム紹介、会社情報をご覧いただけます。',
   openGraph: {
     title: `About | ${SITE_NAME}`,
     description:
-      '株式会社Gappy（ギャッピー）について。旅の余白から、街の価値をひらく。代表・CTO・COOからのメッセージ、チーム紹介、会社情報をご覧いただけます。',
+      '株式会社Gappy（ギャッピー）について。旅の余白から、街の価値をひらく。代表からのメッセージ、チーム紹介、会社情報をご覧いただけます。',
     url: `${SITE_URL}/about`,
     type: 'website',
   },
@@ -52,68 +53,37 @@ export default function About() {
             <h2 className="text-3xl md:text-4xl font-bold text-gappy-dark mb-4">代表メッセージ</h2>
           </div>
           <div className="bg-white rounded-xl p-8 md:p-12">
-            <p className="text-xl text-gappy-dark font-semibold leading-relaxed mb-8">口コミの次は、“いま・ここ・気分”で決める時代へ。</p>
-            <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
-              <p>
-                日本には世界に誇れる文化資本がありながら、それが旅先で生まれる15〜120分の“すきま時間”には十分届いていないと感じてきました。
-              </p>
-              <p>
-                Gappyは、AIとデータを活用して、訪日旅行者の「いま・ここ・誰と・気分」に合わせてコト体験を提案し、その行動データを地域や事業者に還元するプラットフォームです。旅行者には新しい発見を、街には回遊・滞在時間延長・分散観光という価値を生み出していきます。
-              </p>
-              <p>日本のタビナカを起点に、世界の旅ナカをアップデートする。</p>
-              <p>その挑戦を、Gappyは日本から本気で進めていきます。</p>
-            </div>
-            <div className="mt-10 text-right">
-              <p className="text-lg text-gray-600">株式会社Gappy</p>
-              <p className="text-xl text-gappy-dark font-semibold">代表取締役　浅野 充輝</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTO Message Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gappy-dark mb-4">CTOメッセージ</h2>
-          </div>
-          <div className="bg-gray-50 rounded-xl p-8 md:p-12">
-            <p className="text-xl text-gappy-dark font-semibold leading-relaxed mb-8">技術で旅ナカの体験を変える。</p>
-            <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
-              <p>
-                観光業界は、日本にとって重要な産業でありながら、テクノロジー導入やデジタル化は他産業に比べてまだ遅れています。平均年齢の高さや、長く続く慣習も相まって、「変えたいけれど、どこから手をつければいいか分からない」という声を多く聞いてきました。
-              </p>
-              <p>
-                一方で、AIをはじめとしたテクノロジーは、正しく使えば小さな事業者でも大きな力になります。学生発の企業であるGappyには、AIリテラシーの高いメンバーが集まっており、その強みを活かして、観光の現場とテクノロジーのギャップを埋めていきたいと考えています。
-              </p>
-              <p>
-                参入障壁の高い観光業界だからこそ、私たちのようなプレイヤーが挑戦する意味がある。そう信じて、Gappyはパートナーの皆さまと共に、この業界を少しずつアップデートしていきます。
-              </p>
-            </div>
-            <div className="mt-10 text-right">
-              <p className="text-lg text-gray-600">株式会社Gappy</p>
-              <p className="text-xl text-gappy-dark font-semibold">CTO　片山 雄太</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* COO Message Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gappy-dark mb-4">COOメッセージ</h2>
-          </div>
-          <div className="bg-white rounded-xl p-8 md:p-12">
-            <p className="text-xl text-gappy-dark font-semibold leading-relaxed mb-8">オペレーションで価値を届ける。</p>
-            <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
-              <p>
-                COOメッセージの内容をここに記載してください。
-              </p>
-            </div>
-            <div className="mt-10 text-right">
-              <p className="text-lg text-gray-600">株式会社Gappy</p>
-              <p className="text-xl text-gappy-dark font-semibold">COO　三ツ谷 寛羽</p>
+            <div className="flex flex-col md:flex-row gap-8 items-start">
+              {/* 顔写真 */}
+              <div className="flex-shrink-0 mx-auto md:mx-0">
+                <div className="w-40 h-52 md:w-48 md:h-64 rounded-2xl bg-gray-200 overflow-hidden border-4 border-gappy-green">
+                  <Image
+                    src="/CEO.jpg"
+                    alt="代表取締役 浅野 充輝"
+                    width={192}
+                    height={256}
+                    className="w-full h-full object-cover object-top"
+                  />
+                </div>
+              </div>
+              {/* メッセージ */}
+              <div className="flex-1">
+                <p className="text-xl text-gappy-dark font-semibold leading-relaxed mb-6">口コミの次は、"いま・ここ・気分"で決める時代へ。</p>
+                <div className="space-y-4 text-base md:text-lg text-gray-700 leading-relaxed">
+                  <p>
+                    日本には世界に誇れる文化資本がありながら、それが旅先で生まれる15〜120分の"すきま時間"には十分届いていないと感じてきました。
+                  </p>
+                  <p>
+                    Gappyは、AIとデータを活用して、訪日旅行者の「いま・ここ・誰と・気分」に合わせてコト体験を提案し、その行動データを地域や事業者に還元するプラットフォームです。旅行者には新しい発見を、街には回遊・滞在時間延長・分散観光という価値を生み出していきます。
+                  </p>
+                  <p>日本のタビナカを起点に、世界の旅ナカをアップデートする。</p>
+                  <p>その挑戦を、Gappyは日本から本気で進めていきます。</p>
+                </div>
+                <div className="mt-8 text-right">
+                  <p className="text-base text-gray-600">株式会社Gappy</p>
+                  <p className="text-lg text-gappy-dark font-semibold">代表取締役　浅野 充輝</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

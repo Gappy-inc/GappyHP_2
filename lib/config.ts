@@ -5,7 +5,7 @@
 
 // 環境変数からドメインを取得、なければデフォルト値を使用
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || 'https://official.gappy.jp'
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://gappy.jp'
 
 // ベースURL（プロトコルなし）
 export const BASE_DOMAIN = SITE_URL.replace(/^https?:\/\//, '')
