@@ -51,7 +51,7 @@ export default function Home() {
               </div>
               
               <p className="text-base md:text-xl lg:text-2xl text-gray-600 leading-relaxed animate-fade-in-up animate-delay-200">
-                15〜120分の隙間時間に特化した
+                隙間時間に特化した
                 <br className="md:hidden" />
                 旅ナカAIツール。
               </p>
