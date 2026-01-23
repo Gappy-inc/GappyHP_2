@@ -19,6 +19,7 @@ export default function Header() {
               width={40}
               height={40}
               className="h-10 w-10"
+              priority
             />
             <span className="text-[#00FF7D] font-bold text-lg -ml-1">
               Gappy

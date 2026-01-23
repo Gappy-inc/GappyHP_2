@@ -15,6 +15,7 @@ export default function Footer() {
                 width={40}
                 height={40}
                 className="h-10 w-10"
+                priority
               />
               <span className="text-[#00FF7D] font-bold text-lg -ml-1">
                 Gappy
@@ -89,7 +90,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="border-t border-gray-200 mt-12 pt-8 text-sm text-gray-500 text-center">
-          <p>© {new Date().getFullYear()} Gappy, Inc. All Rights Reserved.</p>
+          <p>© 2026 Gappy, Inc. All Rights Reserved.</p>
         </div>
       </nav>
     </footer>
