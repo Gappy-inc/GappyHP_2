@@ -151,6 +151,34 @@ export default function Partners() {
             </ul>
           </div>
 
+          <div className="bg-gradient-to-r from-gappy-green/10 to-gappy-green/5 rounded-xl p-8 mb-12">
+            <h2 className="text-2xl font-bold text-gappy-dark mb-4">🆕 Gappy for Business も提供開始</h2>
+            <p className="text-gray-700 mb-6">
+              観光サイトの滞在率を改善し、回遊と次アクションにつなげる多言語AIコンシェルジュ基盤
+              「Gappy for Business」のPoC（概念実証）プログラムも提供開始しました。
+              <br className="hidden md:block" />
+              公式サイトを「読む場所」から「動く場所」へ変える、新しいソリューションです。
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="https://business.gappy.jp/#poc"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-white border-2 border-gappy-green text-gappy-green px-8 py-3 rounded-lg font-semibold hover:bg-gappy-green hover:text-gappy-dark transition-all text-center"
+              >
+                Gappy for Business 詳細を見る →
+              </Link>
+              <Link
+                href="https://prtimes.jp/main/html/rd/p/000000005.000173634.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-white border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all text-center"
+              >
+                プレスリリースを読む
+              </Link>
+            </div>
+          </div>
+
           <div className="text-center">
             <Link
               href="https://docs.google.com/forms/d/e/1FAIpQLSeSSQ4jbQusmwcpyYt7OQbqsDSUzbJk2COF_7UYZdHXF9e5Og/viewform"

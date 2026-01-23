@@ -7,6 +7,29 @@ import { newsItems } from '@/lib/newsData'
 export default function News() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
 
+  // URLを検出してリンクに変換する関数
+  const renderContentWithLinks = (content: string) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g
+    const parts = content.split(urlRegex)
+    
+    return parts.map((part, index) => {
+      if (part.match(urlRegex)) {
+        return (
+          <Link
+            key={index}
+            href={part}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gappy-green underline hover:text-opacity-80"
+          >
+            {part}
+          </Link>
+        )
+      }
+      return <span key={index}>{part}</span>
+    })
+  }
+
   return (
     <div className="bg-white">
       {/* Hero Section */}
@@ -49,13 +72,31 @@ export default function News() {
                 {expandedIndex === index && (
                   <div className="mt-6 pt-6 border-t border-gray-200">
                     <div className="text-gray-700 whitespace-pre-line leading-relaxed">
-                      {item.content}
+                      {renderContentWithLinks(item.content)}
                     </div>
                   </div>
                 )}
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* PR TIMES Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold text-gappy-dark mb-4">プレスリリース一覧</h2>
+          <p className="text-lg text-gray-600 mb-8">
+            最新のプレスリリースはPR TIMESでもご覧いただけます。
+          </p>
+          <Link
+            href="https://prtimes.jp/main/html/searchrlp/company_id/173634"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-white border-2 border-gappy-green text-gappy-green px-10 py-4 rounded-lg font-semibold text-lg hover:bg-gappy-green hover:text-gappy-dark transition-all shadow-lg hover:shadow-xl"
+          >
+            PR TIMESで見る →
+          </Link>
         </div>
       </section>
 
