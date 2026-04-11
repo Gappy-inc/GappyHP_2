@@ -202,7 +202,7 @@ export default function About() {
               旅ナカの体験とデータを設計しています。
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
             <div className="bg-gray-50 rounded-xl p-8 h-full">
               <h3 className="text-xl font-bold text-gappy-dark">浅野 充輝</h3>
               <p className="text-sm text-gappy-green font-semibold mt-2">代表取締役CEO</p>
@@ -214,19 +214,6 @@ export default function About() {
                   <li>クライアント（観光事業者や自治体等）との最終交渉</li>
                   <li>コンサルプロジェクトの全体方針・納品クオリティ管理</li>
                   <li>プラットフォームの方向性・ビジョン・UI/UX方針などの最終意思決定</li>
-                </ul>
-              </div>
-            </div>
-            <div className="bg-gray-50 rounded-xl p-8 h-full">
-              <h3 className="text-xl font-bold text-gappy-dark">片山 雄太</h3>
-              <p className="text-sm text-gappy-green font-semibold mt-2">開発責任者</p>
-              <div className="mt-6 space-y-2 text-gray-600">
-                <p className="font-semibold text-gappy-dark">役割</p>
-                <ul className="list-disc list-inside space-y-1 text-sm leading-relaxed">
-                  <li>フルスタック開発者</li>
-                  <li>AI・機械学習システム開発の専門家</li>
-                  <li>プラットフォーム技術アーキテクチャ設計</li>
-                  <li>個人情報保護管理責任者</li>
                 </ul>
               </div>
             </div>

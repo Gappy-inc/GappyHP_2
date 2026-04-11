@@ -34,13 +34,13 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6">
-            <Link href="#problem" className="text-white/60 hover:text-white text-sm transition-colors">
+            <Link href="/#problem" className="text-white/60 hover:text-white text-sm transition-colors">
               課題
             </Link>
-            <Link href="#how-it-works" className="text-white/60 hover:text-white text-sm transition-colors">
+            <Link href="/#how-it-works" className="text-white/60 hover:text-white text-sm transition-colors">
               仕組み
             </Link>
-            <Link href="#roi" className="text-white/60 hover:text-white text-sm transition-colors">
+            <Link href="/#roi" className="text-white/60 hover:text-white text-sm transition-colors">
               ROI
             </Link>
             <Link href="/cases" className="text-white/60 hover:text-white text-sm transition-colors">
@@ -78,13 +78,13 @@ export default function Header() {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden pb-4 border-t border-white/[0.08] pt-4 space-y-1">
-            <Link href="#problem" onClick={() => setIsMenuOpen(false)} className="block py-2 text-white/70 hover:text-white text-sm">
+            <Link href="/#problem" onClick={() => setIsMenuOpen(false)} className="block py-2 text-white/70 hover:text-white text-sm">
               課題
             </Link>
-            <Link href="#how-it-works" onClick={() => setIsMenuOpen(false)} className="block py-2 text-white/70 hover:text-white text-sm">
+            <Link href="/#how-it-works" onClick={() => setIsMenuOpen(false)} className="block py-2 text-white/70 hover:text-white text-sm">
               仕組み
             </Link>
-            <Link href="#roi" onClick={() => setIsMenuOpen(false)} className="block py-2 text-white/70 hover:text-white text-sm">
+            <Link href="/#roi" onClick={() => setIsMenuOpen(false)} className="block py-2 text-white/70 hover:text-white text-sm">
               ROI
             </Link>
             <Link href="/cases" className="block py-2 text-white/70 hover:text-white text-sm">
