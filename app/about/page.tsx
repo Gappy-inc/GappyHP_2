@@ -12,38 +12,39 @@ export const metadata: Metadata = {
     '株式会社Gappy（ギャッピー）について。ホテル向けAIアップセルSaaS「Gappy Stay」を開発・提供。代表メッセージ、チーム紹介、会社概要をご覧いただけます。',
   openGraph: {
     title: `About | ${SITE_NAME}`,
-    description:
-      '株式会社Gappy（ギャッピー）について。ホテル向けAIアップセルSaaS「Gappy Stay」を開発・提供。',
+    description: 'ホテル向けAIアップセルSaaS「Gappy Stay」を開発・提供する株式会社Gappyについて。',
     url: `${SITE_URL}/about`,
     type: 'website',
   },
-  alternates: {
-    canonical: `${SITE_URL}/about`,
-  },
+  alternates: { canonical: `${SITE_URL}/about` },
 }
 
 export default function About() {
   return (
-    <div className="bg-white">
+    <div className="bg-[#0A0A0A] text-white">
+
       {/* Hero */}
-      <section className="bg-gradient-to-br from-gray-50 to-white py-20">
+      <section className="py-20 border-b border-white/[0.06]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-gappy-dark mb-4">About</h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">株式会社Gappyについて</p>
+          <p className="text-[#00E676] text-xs font-bold tracking-[0.3em] uppercase mb-4">ABOUT</p>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">株式会社Gappyについて</h1>
+          <p className="text-white/50 text-lg max-w-2xl mx-auto">
+            ホテル向けAIアップセルSaaS「Gappy Stay」を開発・提供しています。
+          </p>
         </div>
       </section>
 
       {/* Mission */}
-      <section className="py-20 bg-white">
+      <section className="py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gappy-dark mb-4">Mission</h2>
-            <p className="text-2xl text-gappy-green font-semibold mb-6">
-              観光という日本の最強のソフトパワーを、テクノロジーで武装する。
-            </p>
+            <p className="text-[#00E676] text-xs font-bold tracking-[0.3em] uppercase mb-4">MISSION</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              観光という日本の最強のソフトパワーを、<br className="hidden md:block" />テクノロジーで武装する。
+            </h2>
           </div>
-          <div className="bg-gray-50 rounded-xl p-8 md:p-12">
-            <p className="text-lg text-gray-700 leading-relaxed">
+          <div className="card-dark rounded-2xl p-8 md:p-12">
+            <p className="text-white/70 text-lg leading-relaxed">
               訪日外国人数が過去最高を更新し続ける一方、日本のホテル・旅館業では人材不足が深刻化しています。
               フロントスタッフが足りず、収益機会を日々取り逃がしている。私たちはその構造的な課題を、AIで解決します。
               Gappyは「Global × Inbound Tourism × AI」を軸に、ホテル・宿泊施設が人手をかけずに収益を最大化できる
@@ -54,29 +55,30 @@ export default function About() {
       </section>
 
       {/* Representative Message */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 border-t border-white/[0.06]" style={{ background: '#111111' }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gappy-dark mb-4">代表メッセージ</h2>
+            <p className="text-[#00E676] text-xs font-bold tracking-[0.3em] uppercase mb-4">MESSAGE</p>
+            <h2 className="text-3xl md:text-4xl font-bold">代表メッセージ</h2>
           </div>
-          <div className="bg-white rounded-xl p-8 md:p-12">
+          <div className="card-dark rounded-2xl p-8 md:p-12">
             <div className="flex flex-col md:flex-row gap-8 items-start">
               <div className="flex-shrink-0 mx-auto md:mx-0">
-                <div className="w-40 h-52 md:w-48 md:h-64 rounded-2xl bg-gray-200 overflow-hidden border-4 border-gappy-green">
+                <div className="w-40 h-52 md:w-44 md:h-60 rounded-2xl overflow-hidden border-2 border-[#00E676]/40">
                   <Image
                     src="/CEO.jpg"
                     alt="代表取締役 浅野 充輝"
-                    width={192}
-                    height={256}
+                    width={176}
+                    height={240}
                     className="w-full h-full object-cover object-top"
                   />
                 </div>
               </div>
               <div className="flex-1">
-                <p className="text-xl text-gappy-dark font-semibold leading-relaxed mb-6">
+                <p className="text-xl font-semibold leading-relaxed mb-6">
                   日本のホテルは、最も買ってくれる顧客を放置している。
                 </p>
-                <div className="space-y-4 text-base md:text-lg text-gray-700 leading-relaxed">
+                <div className="space-y-4 text-white/70 leading-relaxed">
                   <p>
                     既存の予約客へのアップセル成功率は60〜70%と言われています。一方、フロントでの口頭提案の成功率はわずか1〜3%。
                     この差は、「タイミング」と「言語」の問題です。
@@ -94,8 +96,8 @@ export default function About() {
                   </p>
                 </div>
                 <div className="mt-8 text-right">
-                  <p className="text-base text-gray-600">株式会社Gappy</p>
-                  <p className="text-lg text-gappy-dark font-semibold">代表取締役　浅野 充輝</p>
+                  <p className="text-white/50 text-sm">株式会社Gappy</p>
+                  <p className="font-semibold">代表取締役　浅野 充輝</p>
                 </div>
               </div>
             </div>
@@ -104,102 +106,81 @@ export default function About() {
       </section>
 
       {/* What we build */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 border-t border-white/[0.06]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gappy-dark mb-4">What we build</h2>
-            <p className="text-gray-600 text-lg">Gappy Stayが解決する、4つの課題</p>
+            <p className="text-[#00E676] text-xs font-bold tracking-[0.3em] uppercase mb-4">PRODUCT</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">What we build</h2>
+            <p className="text-white/40">Gappy Stayが解決する、4つの課題</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <div className="bg-gray-50 rounded-xl p-8">
-              <h3 className="text-xl font-bold text-gappy-dark mb-4">チェックイン前72時間の空白をなくす</h3>
-              <p className="text-gray-600 leading-relaxed">
-                予約後〜チェックインまでの間、ホテルはゲストに何も届けていません。
-                Gappy Stayはこの空白に着目し、期待感が最高潮のタイミングでアップセルオファーを自動配信します。
-              </p>
-            </div>
-            <div className="bg-gray-50 rounded-xl p-8">
-              <h3 className="text-xl font-bold text-gappy-dark mb-4">25言語対応・インバウンドの壁を撤廃</h3>
-              <p className="text-gray-600 leading-relaxed">
-                電話番号から国籍を自動判定し、ゲストの母国語でメッセージを生成。
-                日本人にはLINE、欧米豪にはWhatsAppで配信するマルチチャネル対応により、開封率・転換率を最大化します。
-              </p>
-            </div>
-            <div className="bg-gray-50 rounded-xl p-8">
-              <h3 className="text-xl font-bold text-gappy-dark mb-4">PMS改修不要・最短1週間で導入</h3>
-              <p className="text-gray-600 leading-relaxed">
-                サイトコントローラー（手間いらず / TL-リンカーン等）から予約データを自動取得。
-                PMSとの直接連携や複雑なIT改修は不要。初期費用¥0・成功報酬型で、リスクなく始められます。
-              </p>
-            </div>
-            <div className="bg-gray-50 rounded-xl p-8">
-              <h3 className="text-xl font-bold text-gappy-dark mb-4">スタッフの作業ゼロで収益が積み上がる</h3>
-              <p className="text-gray-600 leading-relaxed">
-                データ取得から配信・決済・PMSへの反映まで全自動。
-                人手不足の現場でも、フロントスタッフが何もしなくてもアップセル収益が継続的に発生し続けます。
-              </p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              {
+                title: 'チェックイン前72時間の空白をなくす',
+                desc: '予約後〜チェックインまでの間、ホテルはゲストに何も届けていません。Gappy Stayはこの空白に着目し、期待感が最高潮のタイミングでアップセルオファーを自動配信します。',
+              },
+              {
+                title: '25言語対応・インバウンドの壁を撤廃',
+                desc: '電話番号から国籍を自動判定し、ゲストの母国語でメッセージを生成。日本人にはLINE、欧米豪にはWhatsAppで配信。開封率・転換率を最大化します。',
+              },
+              {
+                title: 'PMS改修不要・最短1週間で導入',
+                desc: 'サイトコントローラーから予約データを自動取得。複雑なIT改修は不要。初期費用¥0・成功報酬型で、リスクなく始められます。',
+              },
+              {
+                title: 'スタッフの作業ゼロで収益が積み上がる',
+                desc: 'データ取得から配信・決済・PMSへの反映まで全自動。人手不足の現場でも、スタッフが何もしなくてもアップセル収益が継続的に発生します。',
+              },
+            ].map((item, i) => (
+              <div key={i} className="card-dark rounded-2xl p-8">
+                <h3 className="text-lg font-bold mb-3">{item.title}</h3>
+                <p className="text-white/55 text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Company Info */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 border-t border-white/[0.06]" style={{ background: '#111111' }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gappy-dark mb-6">Company</h2>
+            <p className="text-[#00E676] text-xs font-bold tracking-[0.3em] uppercase mb-4">COMPANY</p>
+            <h2 className="text-3xl md:text-4xl font-bold">会社概要</h2>
           </div>
-          <div className="bg-white rounded-xl p-8 md:p-12">
+          <div className="card-dark rounded-2xl p-8 md:p-12">
             <dl className="space-y-6">
-              <div className="border-b border-gray-200 pb-4">
-                <dt className="text-sm font-semibold text-gray-500 mb-2">会社名</dt>
-                <dd className="text-lg text-gappy-dark">株式会社Gappy（ギャッピー）</dd>
-              </div>
-              <div className="border-b border-gray-200 pb-4">
-                <dt className="text-sm font-semibold text-gray-500 mb-2">所在地</dt>
-                <dd className="text-lg text-gappy-dark">
-                  〒150-0043 東京都渋谷区道玄坂1丁目10番8号 渋谷道玄坂東急ビル2F
-                </dd>
-              </div>
-              <div className="border-b border-gray-200 pb-4">
-                <dt className="text-sm font-semibold text-gray-500 mb-2">代表取締役</dt>
-                <dd className="text-lg text-gappy-dark">浅野 充輝</dd>
-              </div>
-              <div className="border-b border-gray-200 pb-4">
-                <dt className="text-sm font-semibold text-gray-500 mb-2">設立</dt>
-                <dd className="text-lg text-gappy-dark">2025年</dd>
-              </div>
-              <div className="border-b border-gray-200 pb-4">
-                <dt className="text-sm font-semibold text-gray-500 mb-2">資本金</dt>
-                <dd className="text-lg text-gappy-dark">4,003,200円</dd>
-              </div>
-              <div className="border-b border-gray-200 pb-4">
-                <dt className="text-sm font-semibold text-gray-500 mb-2">メール</dt>
-                <dd className="text-lg text-gappy-dark">
-                  <a href="mailto:mitsuki@gappy.jp" className="text-gappy-green hover:underline">
+              {[
+                { label: '会社名', value: '株式会社Gappy（ギャッピー）' },
+                { label: '所在地', value: '〒150-0043 東京都渋谷区道玄坂1丁目10番8号 渋谷道玄坂東急ビル2F' },
+                { label: '代表取締役', value: '浅野 充輝' },
+                { label: '設立', value: '2025年' },
+                { label: '資本金', value: '4,003,200円' },
+              ].map((row) => (
+                <div key={row.label} className="border-b border-white/[0.06] pb-4 flex flex-col sm:flex-row sm:gap-8">
+                  <dt className="text-white/40 text-sm font-medium w-28 flex-shrink-0 mb-1 sm:mb-0">{row.label}</dt>
+                  <dd className="text-white/80">{row.value}</dd>
+                </div>
+              ))}
+              <div className="border-b border-white/[0.06] pb-4 flex flex-col sm:flex-row sm:gap-8">
+                <dt className="text-white/40 text-sm font-medium w-28 flex-shrink-0 mb-1 sm:mb-0">メール</dt>
+                <dd>
+                  <a href="mailto:mitsuki@gappy.jp" className="text-[#00E676] hover:underline">
                     mitsuki@gappy.jp
                   </a>
                 </dd>
               </div>
-              <div className="border-b border-gray-200 pb-4">
-                <dt className="text-sm font-semibold text-gray-500 mb-2">電話</dt>
-                <dd className="text-lg text-gappy-dark">
-                  <a href="tel:07011853131" className="text-gappy-green hover:underline">
+              <div className="border-b border-white/[0.06] pb-4 flex flex-col sm:flex-row sm:gap-8">
+                <dt className="text-white/40 text-sm font-medium w-28 flex-shrink-0 mb-1 sm:mb-0">電話</dt>
+                <dd>
+                  <a href="tel:07011853131" className="text-[#00E676] hover:underline">
                     070-1185-3131
                   </a>
                 </dd>
               </div>
-              <div className="border-b border-gray-200 pb-4">
-                <dt className="text-sm font-semibold text-gray-500 mb-2">リンク</dt>
-                <dd className="text-lg text-gappy-dark">
-                  <a href={SITE_URL} target="_blank" rel="noopener noreferrer" className="text-gappy-green hover:underline">
-                    {SITE_URL}
-                  </a>
-                </dd>
-              </div>
-              <div className="pb-4">
-                <dt className="text-sm font-semibold text-gray-500 mb-2">事業内容</dt>
-                <dd className="text-lg text-gappy-dark leading-relaxed">
+              <div className="flex flex-col sm:flex-row sm:gap-8">
+                <dt className="text-white/40 text-sm font-medium w-28 flex-shrink-0 mb-1 sm:mb-0">事業内容</dt>
+                <dd className="text-white/80 leading-relaxed">
                   ホテル・宿泊施設向けAIアップセル自動化SaaS「Gappy Stay」の開発・提供<br />
                   インバウンド旅行者向け多言語コミュニケーション支援<br />
                   宿泊施設の収益最適化コンサルティング
@@ -211,68 +192,77 @@ export default function About() {
       </section>
 
       {/* Team */}
-      <section className="py-20 bg-white">
+      <section className="py-20 border-t border-white/[0.06]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gappy-dark mb-4">Team</h2>
-            <p className="text-lg text-gray-600">
+            <p className="text-[#00E676] text-xs font-bold tracking-[0.3em] uppercase mb-4">TEAM</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Team</h2>
+            <p className="text-white/50">
               インバウンド・AI・ホテル業界の知見を持つメンバーが、<br className="hidden md:block" />
               ホテルの収益課題を本気で解決します。
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-            <div className="bg-gray-50 rounded-xl p-8 h-full">
-              <h3 className="text-xl font-bold text-gappy-dark">浅野 充輝</h3>
-              <p className="text-sm text-gappy-green font-semibold mt-2">代表取締役CEO</p>
-              <div className="mt-6 space-y-2 text-gray-600">
-                <p className="font-semibold text-gappy-dark">役割</p>
-                <ul className="list-disc list-inside space-y-1 text-sm leading-relaxed">
-                  <li>全体方針決定・事業推進</li>
-                  <li>ホテル・宿泊施設へのセールス・パートナーシップ</li>
-                  <li>プロダクト方向性・UI/UX方針の最終意思決定</li>
-                  <li>インバウンド市場・観光業界の戦略立案</li>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            {[
+              {
+                name: '浅野 充輝',
+                role: '代表取締役CEO',
+                items: [
+                  '全体方針決定・事業推進',
+                  'ホテル・宿泊施設へのセールス・パートナーシップ',
+                  'プロダクト方向性・UI/UX方針の最終意思決定',
+                  'インバウンド市場・観光業界の戦略立案',
+                ],
+              },
+              {
+                name: '三ツ谷 寛羽',
+                role: 'オペレーション責任者',
+                items: [
+                  'PoC施設との導入・運用サポート',
+                  'ゲスト向けコミュニケーション設計',
+                  'オペレーション全般・品質管理',
+                  '現地調査・ユーザーリサーチ',
+                ],
+              },
+            ].map((member) => (
+              <div key={member.name} className="card-dark rounded-2xl p-8">
+                <h3 className="text-xl font-bold">{member.name}</h3>
+                <p className="text-[#00E676] text-sm font-semibold mt-1 mb-6">{member.role}</p>
+                <ul className="space-y-2 text-white/55 text-sm leading-relaxed">
+                  {member.items.map((item) => (
+                    <li key={item} className="flex items-start gap-2">
+                      <span className="text-[#00E676]/50 mt-0.5">—</span>
+                      {item}
+                    </li>
+                  ))}
                 </ul>
               </div>
-            </div>
-            <div className="bg-gray-50 rounded-xl p-8 h-full">
-              <h3 className="text-xl font-bold text-gappy-dark">三ツ谷 寛羽</h3>
-              <p className="text-sm text-gappy-green font-semibold mt-2">オペレーション責任者</p>
-              <div className="mt-6 space-y-2 text-gray-600">
-                <p className="font-semibold text-gappy-dark">役割</p>
-                <ul className="list-disc list-inside space-y-1 text-sm leading-relaxed">
-                  <li>PoC施設との導入・運用サポート</li>
-                  <li>ゲスト向けコミュニケーション設計</li>
-                  <li>オペレーション全般・品質管理</li>
-                  <li>現地調査・ユーザーリサーチ</li>
-                </ul>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 border-t border-[#00E676]/10" style={{ background: 'linear-gradient(to bottom, rgba(0,230,118,0.03), #0A0A0A)' }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gappy-dark mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
             導入・ご相談はお気軽に
           </h2>
-          <p className="text-lg text-gray-600 mb-8">
+          <p className="text-white/50 text-lg mb-10">
             PoCのご相談、資料請求、デモのご依頼など、<br className="hidden md:block" />
             まずはお気軽にご連絡ください。3営業日以内にご返信します。
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href={CONTACT_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-gappy-green text-gappy-dark px-10 py-4 rounded-lg font-semibold text-lg hover:bg-opacity-90 transition-all shadow-lg hover:shadow-xl"
-            >
-              お問い合わせ / デモ相談
-            </Link>
-          </div>
+          <Link
+            href={CONTACT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-[#00E676] text-black px-10 py-4 rounded-lg font-bold text-lg hover:shadow-[0_0_30px_rgba(0,230,118,0.5)] transition-all"
+          >
+            お問い合わせ / デモ相談
+          </Link>
         </div>
       </section>
+
     </div>
   )
 }
