@@ -4,72 +4,66 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
 
+const CONTACT_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLSeSSQ4jbQusmwcpyYt7OQbqsDSUzbJk2COF_7UYZdHXF9e5Og/viewform'
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50 motion-safe:animate-fade-down">
+    <header
+      className="sticky top-0 z-50 border-b border-white/[0.08]"
+      style={{ background: 'rgba(10,10,10,0.9)', backdropFilter: 'blur(12px)' }}
+    >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center transition-transform duration-200 hover:scale-105">
+          <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
             <Image
               src="/gappy_icon.png"
               alt="Gappy"
-              width={40}
-              height={40}
-              className="h-10 w-10"
+              width={32}
+              height={32}
+              className="h-8 w-8"
               priority
             />
-            <span className="text-[#00FF7D] font-bold text-lg -ml-1">
+            <span className="text-[#00E676] font-bold text-lg tracking-tight">
               Gappy
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-700 hover:text-gappy-green transition-colors">
-              Home
+          <div className="hidden md:flex items-center gap-6">
+            <Link href="#problem" className="text-white/60 hover:text-white text-sm transition-colors">
+              課題
             </Link>
-            <div className="relative group">
-              <Link href="/solutions" className="text-gray-700 hover:text-gappy-green transition-colors">
-                Solutions
-              </Link>
-              <div className="absolute left-0 mt-2 w-56 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                <Link href="/solutions/platform" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                  Gappy Platform
-                </Link>
-                <Link href="/solutions/partners" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                  Gappy for Partners
-                </Link>
-                <Link href="/solutions/insight" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                  Gappy Insight / Studio
-                </Link>
-              </div>
-            </div>
-            <Link href="/cases" className="text-gray-700 hover:text-gappy-green transition-colors">
-              Cases
+            <Link href="#how-it-works" className="text-white/60 hover:text-white text-sm transition-colors">
+              仕組み
             </Link>
-            <Link href="/about" className="text-gray-700 hover:text-gappy-green transition-colors">
-              About
+            <Link href="#roi" className="text-white/60 hover:text-white text-sm transition-colors">
+              ROI
             </Link>
-            <Link href="/news" className="text-gray-700 hover:text-gappy-green transition-colors">
-              News
+            <Link href="/cases" className="text-white/60 hover:text-white text-sm transition-colors">
+              導入事例
+            </Link>
+            <Link href="/about" className="text-white/60 hover:text-white text-sm transition-colors">
+              会社情報
             </Link>
             <Link
-              href="https://docs.google.com/forms/d/e/1FAIpQLSeSSQ4jbQusmwcpyYt7OQbqsDSUzbJk2COF_7UYZdHXF9e5Og/viewform"
+              href={CONTACT_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-gappy-green text-gappy-dark px-6 py-2 rounded-md font-semibold hover:bg-opacity-90 transition-all"
+              className="bg-[#00E676] text-black px-5 py-2 rounded-lg text-sm font-bold hover:shadow-[0_0_20px_rgba(0,230,118,0.5)] transition-all"
             >
-              Contact
+              お問い合わせ
             </Link>
           </div>
 
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden text-gray-700 hover:text-gappy-green"
+            className="md:hidden text-white/70 hover:text-white"
+            aria-label="メニューを開く"
           >
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               {isMenuOpen ? (
@@ -83,38 +77,29 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden pb-4">
-            <Link href="/" className="block py-2 text-gray-700 hover:text-gappy-green">
-              Home
+          <div className="md:hidden pb-4 border-t border-white/[0.08] pt-4 space-y-1">
+            <Link href="#problem" onClick={() => setIsMenuOpen(false)} className="block py-2 text-white/70 hover:text-white text-sm">
+              課題
             </Link>
-            <Link href="/solutions" className="block py-2 text-gray-700 hover:text-gappy-green">
-              Solutions
+            <Link href="#how-it-works" onClick={() => setIsMenuOpen(false)} className="block py-2 text-white/70 hover:text-white text-sm">
+              仕組み
             </Link>
-            <Link href="/solutions/platform" className="block py-2 pl-4 text-sm text-gray-600 hover:text-gappy-green">
-              Gappy Platform
+            <Link href="#roi" onClick={() => setIsMenuOpen(false)} className="block py-2 text-white/70 hover:text-white text-sm">
+              ROI
             </Link>
-            <Link href="/solutions/partners" className="block py-2 pl-4 text-sm text-gray-600 hover:text-gappy-green">
-              Gappy for Partners
+            <Link href="/cases" className="block py-2 text-white/70 hover:text-white text-sm">
+              導入事例
             </Link>
-            <Link href="/solutions/insight" className="block py-2 pl-4 text-sm text-gray-600 hover:text-gappy-green">
-              Gappy Insight / Studio
-            </Link>
-            <Link href="/cases" className="block py-2 text-gray-700 hover:text-gappy-green">
-              Cases
-            </Link>
-            <Link href="/about" className="block py-2 text-gray-700 hover:text-gappy-green">
-              About
-            </Link>
-            <Link href="/news" className="block py-2 text-gray-700 hover:text-gappy-green">
-              News
+            <Link href="/about" className="block py-2 text-white/70 hover:text-white text-sm">
+              会社情報
             </Link>
             <Link
-              href="https://docs.google.com/forms/d/e/1FAIpQLSeSSQ4jbQusmwcpyYt7OQbqsDSUzbJk2COF_7UYZdHXF9e5Og/viewform"
+              href={CONTACT_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="block mt-2 bg-gappy-green text-gappy-dark px-4 py-2 rounded-md font-semibold text-center hover:bg-opacity-90 transition-all"
+              className="block mt-3 bg-[#00E676] text-black px-4 py-3 rounded-lg font-bold text-center text-sm"
             >
-              Contact
+              お問い合わせ / デモ相談
             </Link>
           </div>
         )}
