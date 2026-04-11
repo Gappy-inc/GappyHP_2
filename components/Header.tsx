@@ -25,23 +25,20 @@ export default function Header() {
         <div className="flex items-center justify-between h-16 gap-8">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 flex-shrink-0 hover:opacity-80 transition-opacity">
+          <Link href="/" className="flex items-center gap-2 flex-shrink-0 hover:opacity-80 transition-opacity">
             <Image
               src="/gappy_icon.png"
-              alt="Gappy Stay"
+              alt="Gappy"
               width={32}
               height={32}
               className="h-8 w-8"
               priority
             />
-            <div className="flex flex-col leading-none">
-              <span className="text-[#00E676] font-bold text-base tracking-tight">Gappy Stay</span>
-              <span className="text-white/30 text-[10px] tracking-wide hidden sm:block">Hotel Upsell AI</span>
-            </div>
+            <span className="text-[#00E676] font-bold text-base tracking-tight">Gappy</span>
           </Link>
 
-          {/* Desktop nav — center */}
-          <div className="hidden md:flex items-center gap-1 flex-1 justify-center">
+          {/* Desktop nav + CTAs — right aligned */}
+          <div className="hidden md:flex items-center gap-1 ml-auto">
             {NAV_LINKS.map(({ label, href }) => (
               <Link
                 key={href}
@@ -51,10 +48,7 @@ export default function Header() {
                 {label}
               </Link>
             ))}
-          </div>
-
-          {/* Desktop CTAs — right */}
-          <div className="hidden md:flex items-center gap-3 flex-shrink-0">
+            <div className="w-px h-4 bg-white/10 mx-2" />
             <Link
               href={CONTACT_URL}
               target="_blank"
