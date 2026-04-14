@@ -129,7 +129,7 @@ const features = [
 
 export default function FeaturesSection() {
   return (
-    <section className="py-24 px-6 lg:px-16" style={{ background: '#111111' }}>
+    <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-16" style={{ background: '#111111' }}>
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -145,14 +145,14 @@ export default function FeaturesSection() {
             FEATURES
           </span>
           <h2
-            className="text-3xl lg:text-4xl font-bold mt-4"
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold mt-4"
             style={{ fontFamily: 'var(--font-noto-serif-jp, serif)' }}
           >
             Gappy Stayが選ばれる3つの理由
           </h2>
         </motion.div>
 
-        <div className="flex flex-col gap-24">
+        <div className="flex flex-col gap-16 sm:gap-20 lg:gap-24">
           {features.map((feature, idx) => {
             const IconComponent = feature.icon;
             const textBlock = (
@@ -161,7 +161,7 @@ export default function FeaturesSection() {
                   <IconComponent size={24} color="#00E676" />
                 </div>
                 <h3
-                  className="text-2xl font-bold mb-4"
+                  className="text-xl sm:text-2xl font-bold mb-4"
                   style={{ fontFamily: 'var(--font-noto-serif-jp, serif)' }}
                 >
                   {feature.title}
@@ -191,7 +191,7 @@ export default function FeaturesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true, amount: 0.3 }}
-                className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+                className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
               >
                 {feature.textLeft ? (
                   <>

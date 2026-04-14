@@ -15,7 +15,7 @@ const trustBadges = [
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center px-6 lg:px-12 pt-16 pb-24 overflow-hidden">
+    <section className="relative min-h-screen flex items-center px-4 sm:px-6 lg:px-12 pt-12 sm:pt-16 pb-16 sm:pb-24 overflow-hidden">
       {/* Background glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div
@@ -49,7 +49,7 @@ export default function HeroSection() {
             className="font-extrabold leading-tight mb-6"
             style={{
               fontFamily: 'var(--font-space-grotesk, sans-serif)',
-              fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
+              fontSize: 'clamp(1.75rem, 7vw, 3.5rem)',
               letterSpacing: '-0.02em',
             }}
           >
@@ -68,7 +68,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.25 }}
-            className="text-white/60 text-lg leading-relaxed mb-10 max-w-xl"
+            className="text-white/60 text-base sm:text-lg leading-relaxed mb-10 max-w-xl"
             style={{ fontFamily: 'var(--font-noto-sans-jp, sans-serif)' }}
           >
             人手ゼロ・PMS改修不要。チェックイン前72時間の空白を収益に変え、
@@ -86,7 +86,7 @@ export default function HeroSection() {
               href={CONTACT_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#00E676] text-black font-bold px-8 py-4 rounded-lg text-base hover:shadow-[0_0_30px_rgba(0,230,118,0.6)] transition-all"
+              className="bg-[#00E676] text-black font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-sm sm:text-base hover:shadow-[0_0_30px_rgba(0,230,118,0.6)] transition-all"
             >
               無料PoCに申し込む →
             </a>
@@ -94,7 +94,7 @@ export default function HeroSection() {
               href={CONTACT_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="border border-white/30 text-white px-8 py-4 rounded-lg text-base hover:bg-white/10 transition-colors"
+              className="border border-white/30 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-sm sm:text-base hover:bg-white/10 transition-colors"
             >
               資料ダウンロード
             </a>

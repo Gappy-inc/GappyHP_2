@@ -13,7 +13,7 @@ const timelineSteps = [
 
 export default function WhatIsSection() {
   return (
-    <section className="py-24 px-6 lg:px-16" style={{ background: '#111111' }}>
+    <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-16" style={{ background: '#111111' }}>
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -29,13 +29,13 @@ export default function WhatIsSection() {
             PRODUCT 01
           </span>
           <h2
-            className="text-4xl lg:text-5xl font-extrabold mt-3 mb-4"
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mt-3 mb-4"
             style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}
           >
             Gappy Stay とは
           </h2>
           <p
-            className="text-xl lg:text-2xl text-white/80 mb-4 leading-relaxed"
+            className="text-lg sm:text-xl lg:text-2xl text-white/80 mb-4 leading-relaxed"
             style={{ fontFamily: 'var(--font-noto-serif-jp, serif)' }}
           >
             予約後〜チェックインまでの72時間を収益に変えるAI。

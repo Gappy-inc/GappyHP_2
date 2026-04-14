@@ -52,7 +52,7 @@ export default function ROISection() {
   return (
     <section
       id="roi"
-      className="py-24 px-6 lg:px-16 relative overflow-hidden"
+      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-16 relative overflow-hidden"
       style={{
         background: '#0A0A0A',
         borderTop: '1px solid rgba(0,230,118,0.1)',
@@ -81,7 +81,7 @@ export default function ROISection() {
             ROI SIMULATION
           </span>
           <h2
-            className="text-3xl lg:text-5xl font-bold mt-4"
+            className="text-2xl sm:text-3xl lg:text-5xl font-bold mt-4"
             style={{ fontFamily: 'var(--font-noto-serif-jp, serif)' }}
           >
             圧倒的な投資対効果（ROI）
@@ -92,7 +92,7 @@ export default function ROISection() {
         {/* Main ROI Card */}
         <motion.div
           ref={roiRef}
-          className="rounded-3xl border-2 border-[#00E676]/30 bg-[#141414] p-8 lg:p-12 mt-12 relative overflow-hidden"
+          className="rounded-3xl border-2 border-[#00E676]/30 bg-[#141414] p-6 sm:p-8 lg:p-12 mt-12 relative overflow-hidden"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
@@ -100,7 +100,7 @@ export default function ROISection() {
         >
           <p className="text-white/50 text-sm mb-2">月間追加収益（試算）</p>
           <span
-            className="text-6xl lg:text-8xl font-bold text-glow-green"
+            className="text-5xl sm:text-6xl lg:text-8xl font-bold text-glow-green"
             style={{
               fontFamily: 'var(--font-dm-mono, monospace)',
               color: '#00E676',
@@ -110,7 +110,7 @@ export default function ROISection() {
             ¥{roiCount.toLocaleString()}
           </span>
           <p
-            className="text-white/30 text-xs mt-4"
+            className="text-white/30 text-[10px] sm:text-xs mt-4 break-all"
             style={{ fontFamily: 'var(--font-dm-mono, monospace)' }}
           >
             100室 × 稼働率70% × アップセル転換率10% × 平均追加単価¥15,737/件 = 月間 ¥1,101,600

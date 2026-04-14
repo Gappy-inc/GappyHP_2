@@ -8,7 +8,7 @@ const CONTACT_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLSeSSQ4jbQusmwcpyYt7OQbqsDSUzbJk2COF_7UYZdHXF9e5Og/viewform'
 
 const NAV_LINKS = [
-  { label: '機能', href: '/#how-it-works' },
+  { label: '仕組み', href: '/#how-it-works' },
   { label: '導入事例', href: '/cases' },
   { label: '会社情報', href: '/about' },
 ]

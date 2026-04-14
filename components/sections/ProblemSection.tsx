@@ -5,7 +5,7 @@ import { Users, TrendingDown, BarChart3, AlertTriangle } from 'lucide-react';
 
 export default function ProblemSection() {
   return (
-    <section id="problem" className="bg-[#0A0A0A] py-24 px-6 lg:px-16">
+    <section id="problem" className="bg-[#0A0A0A] py-16 sm:py-24 px-4 sm:px-6 lg:px-16">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
@@ -21,7 +21,7 @@ export default function ProblemSection() {
             THE PROBLEM
           </span>
           <h2
-            className="text-3xl lg:text-4xl font-bold mt-4 mb-12 leading-tight"
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold mt-4 mb-12 leading-tight"
             style={{ fontFamily: 'var(--font-noto-serif-jp, serif)' }}
           >
             日本のホテルが毎日<br />垂れ流している3つの機会損失
@@ -32,7 +32,7 @@ export default function ProblemSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* CARD A — 人手不足 (wide) */}
           <motion.div
-            className="md:col-span-2 card-dark rounded-2xl p-8 relative overflow-hidden"
+            className="md:col-span-2 card-dark rounded-2xl p-6 sm:p-8 relative overflow-hidden"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0 }}
@@ -44,7 +44,7 @@ export default function ProblemSection() {
             />
             <Users size={32} className="mb-4" style={{ color: 'rgba(255,100,100,0.7)' }} />
             <span
-              className="text-8xl font-bold text-white block leading-none"
+              className="text-6xl sm:text-8xl font-bold text-white block leading-none"
               style={{ fontFamily: 'var(--font-dm-mono, monospace)' }}
             >
               71.1%
@@ -66,7 +66,7 @@ export default function ProblemSection() {
 
           {/* CARD B — 機会損失 */}
           <motion.div
-            className="card-dark rounded-2xl p-8 relative overflow-hidden"
+            className="card-dark rounded-2xl p-6 sm:p-8 relative overflow-hidden"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
@@ -74,7 +74,7 @@ export default function ProblemSection() {
           >
             <TrendingDown size={32} className="mb-4" style={{ color: 'rgba(0,230,118,0.7)' }} />
             <span
-              className="text-5xl font-bold block leading-none"
+              className="text-4xl sm:text-5xl font-bold block leading-none"
               style={{ fontFamily: 'var(--font-dm-mono, monospace)', color: '#00E676' }}
             >
               ¥2,040億
@@ -90,7 +90,7 @@ export default function ProblemSection() {
 
           {/* CARD C — 成功率格差 */}
           <motion.div
-            className="card-dark rounded-2xl p-8 relative overflow-hidden"
+            className="card-dark rounded-2xl p-6 sm:p-8 relative overflow-hidden"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -100,7 +100,7 @@ export default function ProblemSection() {
             <div className="flex items-end gap-4 my-4">
               <div>
                 <span
-                  className="text-3xl text-white/30 font-bold"
+                  className="text-2xl sm:text-3xl text-white/30 font-bold"
                   style={{ fontFamily: 'var(--font-dm-mono, monospace)' }}
                 >
                   1〜3%
@@ -110,7 +110,7 @@ export default function ProblemSection() {
               <div className="text-white/20 text-2xl pb-5">→</div>
               <div>
                 <span
-                  className="text-5xl font-bold"
+                  className="text-4xl sm:text-5xl font-bold"
                   style={{ fontFamily: 'var(--font-dm-mono, monospace)', color: '#00E676' }}
                 >
                   60〜70%
@@ -127,7 +127,7 @@ export default function ProblemSection() {
 
           {/* CARD D — 物理的限界 (wide) */}
           <motion.div
-            className="md:col-span-2 card-dark rounded-2xl p-8 relative overflow-hidden"
+            className="md:col-span-2 card-dark rounded-2xl p-6 sm:p-8 relative overflow-hidden"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
@@ -135,7 +135,7 @@ export default function ProblemSection() {
           >
             <AlertTriangle size={32} className="mb-4" style={{ color: 'rgba(255,100,100,0.7)' }} />
             <div
-              className="text-xl font-bold mb-2"
+              className="text-base sm:text-xl font-bold mb-2 leading-relaxed"
               style={{ fontFamily: 'var(--font-dm-mono, monospace)' }}
             >
               <span className="text-white">約80件/日</span>

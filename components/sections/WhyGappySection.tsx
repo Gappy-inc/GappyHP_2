@@ -27,7 +27,7 @@ const strengths = [
 
 export default function WhyGappySection() {
   return (
-    <section className="py-24 px-6 lg:px-16" style={{ background: '#111111' }}>
+    <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-16" style={{ background: '#111111' }}>
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -43,7 +43,7 @@ export default function WhyGappySection() {
             WHY GAPPY
           </span>
           <h2
-            className="text-3xl lg:text-4xl font-bold mt-4 mb-4 leading-tight"
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold mt-4 mb-4 leading-tight"
             style={{ fontFamily: 'var(--font-noto-serif-jp, serif)' }}
           >
             なぜ今、Gappyなのか。
@@ -65,7 +65,7 @@ export default function WhyGappySection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               viewport={{ once: true, amount: 0.3 }}
-              className="card-dark rounded-2xl p-8"
+              className="card-dark rounded-2xl p-6 sm:p-8"
             >
               <div className="flex items-start gap-4">
                 <span

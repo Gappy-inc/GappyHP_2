@@ -132,7 +132,7 @@ export default function About() {
                 desc: 'データ取得から配信・決済・PMSへの反映まで全自動。人手不足の現場でも、スタッフが何もしなくてもアップセル収益が継続的に発生します。',
               },
             ].map((item, i) => (
-              <div key={i} className="card-dark rounded-2xl p-8">
+              <div key={i} className="card-dark rounded-2xl p-6 sm:p-8">
                 <h3 className="text-lg font-bold mb-3">{item.title}</h3>
                 <p className="text-white/55 text-sm leading-relaxed">{item.desc}</p>
               </div>
@@ -256,7 +256,7 @@ export default function About() {
             href={CONTACT_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-[#00E676] text-black px-10 py-4 rounded-lg font-bold text-lg hover:shadow-[0_0_30px_rgba(0,230,118,0.5)] transition-all"
+            className="inline-block bg-[#00E676] text-black px-7 sm:px-10 py-3 sm:py-4 rounded-lg font-bold text-base sm:text-lg hover:shadow-[0_0_30px_rgba(0,230,118,0.5)] transition-all"
           >
             お問い合わせ / デモ相談
           </Link>

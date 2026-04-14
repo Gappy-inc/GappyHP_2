@@ -38,7 +38,7 @@ const steps = [
 
 export default function HowItWorksSection() {
   return (
-    <section id="how-it-works" className="bg-[#0A0A0A] py-24 px-6 lg:px-16">
+    <section id="how-it-works" className="bg-[#0A0A0A] py-16 sm:py-24 px-4 sm:px-6 lg:px-16">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
@@ -55,7 +55,7 @@ export default function HowItWorksSection() {
             HOW IT WORKS
           </span>
           <h2
-            className="text-3xl lg:text-4xl font-bold mt-4"
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold mt-4"
             style={{ fontFamily: 'var(--font-noto-serif-jp, serif)' }}
           >
             5ステップで収益化まで全自動

@@ -50,11 +50,11 @@ export default function Cases() {
       </section>
 
       {/* Coming Soon */}
-      <section className="py-24">
+      <section className="py-16 sm:py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-block rounded-2xl border border-[#00E676]/30 bg-[#00E676]/5 px-8 py-6 mb-8">
+          <div className="inline-block rounded-2xl border border-[#00E676]/30 bg-[#00E676]/5 px-6 sm:px-8 py-6 mb-8">
             <p className="text-[#00E676] text-sm font-bold tracking-widest uppercase mb-2">PoC 実施中</p>
-            <p className="text-3xl font-bold">3施設 同時展開中</p>
+            <p className="text-2xl sm:text-3xl font-bold">3施設 同時展開中</p>
           </div>
           <p className="text-white/50 text-lg mb-4">
             詳細な導入事例・成果データは現在準備中です。<br />
@@ -67,7 +67,7 @@ export default function Cases() {
       </section>
 
       {/* PoC Process */}
-      <section className="py-24 border-t border-white/[0.06]" style={{ background: '#111111' }}>
+      <section className="py-16 sm:py-24 border-t border-white/[0.06]" style={{ background: '#111111' }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <p className="text-[#00E676] text-xs font-bold tracking-[0.3em] uppercase mb-4">PROCESS</p>
@@ -102,7 +102,7 @@ export default function Cases() {
             href={CONTACT_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-[#00E676] text-black px-10 py-4 rounded-lg font-bold text-lg hover:shadow-[0_0_30px_rgba(0,230,118,0.5)] transition-all"
+            className="inline-block bg-[#00E676] text-black px-7 sm:px-10 py-3 sm:py-4 rounded-lg font-bold text-base sm:text-lg hover:shadow-[0_0_30px_rgba(0,230,118,0.5)] transition-all"
           >
             お問い合わせ / 資料請求
           </Link>
