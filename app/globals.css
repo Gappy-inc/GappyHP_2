@@ -17,6 +17,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #0a0a0a;
+  color: #ffffff;
 }
 
 /* IMA風の大胆なタイポグラフィ */
@@ -365,4 +367,40 @@ body {
   overflow: hidden;
   pointer-events: none;
   z-index: 1;
+}
+
+/* ===== Gappy Stay LP — ダークテーマ共通 ===== */
+
+.card-dark {
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  transition: border-color 300ms ease, box-shadow 300ms ease;
+}
+
+.card-dark:hover {
+  border-color: rgba(0, 230, 118, 0.4);
+  box-shadow: 0 0 40px rgba(0, 230, 118, 0.08);
+}
+
+.text-glow-green {
+  text-shadow: 0 0 30px rgba(0, 230, 118, 0.5);
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(0, 230, 118, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(0, 230, 118, 0.9), 0 0 40px rgba(0, 230, 118, 0.3); }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-glow { animation: none; }
 }

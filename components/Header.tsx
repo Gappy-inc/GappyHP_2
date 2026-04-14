@@ -4,118 +4,115 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
 
+const CONTACT_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLSeSSQ4jbQusmwcpyYt7OQbqsDSUzbJk2COF_7UYZdHXF9e5Og/viewform'
+
+const NAV_LINKS = [
+  { label: '仕組み', href: '/#how-it-works' },
+  { label: '導入事例', href: '/cases' },
+  { label: '会社情報', href: '/about' },
+]
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50 motion-safe:animate-fade-down">
+    <header
+      className="sticky top-0 z-50 border-b border-white/[0.06]"
+      style={{ background: 'rgba(10,10,10,0.85)', backdropFilter: 'blur(16px)' }}
+    >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex items-center justify-between h-16 gap-8">
+
           {/* Logo */}
-          <Link href="/" className="flex items-center transition-transform duration-200 hover:scale-105">
+          <Link href="/" className="flex items-center gap-2 flex-shrink-0 hover:opacity-80 transition-opacity">
             <Image
               src="/gappy_icon.png"
               alt="Gappy"
-              width={40}
-              height={40}
-              className="h-10 w-10"
+              width={32}
+              height={32}
+              className="h-8 w-8"
               priority
             />
-            <span className="text-[#00FF7D] font-bold text-lg -ml-1">
-              Gappy
-            </span>
+            <span className="text-[#00E676] font-bold text-base tracking-tight">Gappy</span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-700 hover:text-gappy-green transition-colors">
-              Home
-            </Link>
-            <div className="relative group">
-              <Link href="/solutions" className="text-gray-700 hover:text-gappy-green transition-colors">
-                Solutions
+          {/* Desktop nav + CTAs — right aligned */}
+          <div className="hidden md:flex items-center gap-1 ml-auto">
+            {NAV_LINKS.map(({ label, href }) => (
+              <Link
+                key={href}
+                href={href}
+                className="px-4 py-2 text-sm text-white/55 hover:text-white rounded-md hover:bg-white/[0.05] transition-all"
+              >
+                {label}
               </Link>
-              <div className="absolute left-0 mt-2 w-56 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                <Link href="/solutions/platform" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                  Gappy Platform
-                </Link>
-                <Link href="/solutions/partners" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                  Gappy for Partners
-                </Link>
-                <Link href="/solutions/insight" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                  Gappy Insight / Studio
-                </Link>
-              </div>
-            </div>
-            <Link href="/cases" className="text-gray-700 hover:text-gappy-green transition-colors">
-              Cases
-            </Link>
-            <Link href="/about" className="text-gray-700 hover:text-gappy-green transition-colors">
-              About
-            </Link>
-            <Link href="/news" className="text-gray-700 hover:text-gappy-green transition-colors">
-              News
-            </Link>
+            ))}
+            <div className="w-px h-4 bg-white/10 mx-2" />
             <Link
-              href="https://docs.google.com/forms/d/e/1FAIpQLSeSSQ4jbQusmwcpyYt7OQbqsDSUzbJk2COF_7UYZdHXF9e5Og/viewform"
+              href={CONTACT_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-gappy-green text-gappy-dark px-6 py-2 rounded-md font-semibold hover:bg-opacity-90 transition-all"
+              className="px-4 py-2 text-sm text-white/70 border border-white/20 rounded-lg hover:border-white/40 hover:text-white transition-all"
             >
-              Contact
+              資料請求
+            </Link>
+            <Link
+              href={CONTACT_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-2 text-sm font-bold text-black bg-[#00E676] rounded-lg hover:shadow-[0_0_16px_rgba(0,230,118,0.5)] transition-all"
+            >
+              デモ相談 →
             </Link>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile hamburger */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden text-gray-700 hover:text-gappy-green"
+            className="md:hidden flex-shrink-0 text-white/60 hover:text-white transition-colors p-1"
+            aria-label="メニューを開く"
           >
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              {isMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              {isMenuOpen
+                ? <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                : <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              }
             </svg>
           </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile drawer */}
         {isMenuOpen && (
-          <div className="md:hidden pb-4">
-            <Link href="/" className="block py-2 text-gray-700 hover:text-gappy-green">
-              Home
-            </Link>
-            <Link href="/solutions" className="block py-2 text-gray-700 hover:text-gappy-green">
-              Solutions
-            </Link>
-            <Link href="/solutions/platform" className="block py-2 pl-4 text-sm text-gray-600 hover:text-gappy-green">
-              Gappy Platform
-            </Link>
-            <Link href="/solutions/partners" className="block py-2 pl-4 text-sm text-gray-600 hover:text-gappy-green">
-              Gappy for Partners
-            </Link>
-            <Link href="/solutions/insight" className="block py-2 pl-4 text-sm text-gray-600 hover:text-gappy-green">
-              Gappy Insight / Studio
-            </Link>
-            <Link href="/cases" className="block py-2 text-gray-700 hover:text-gappy-green">
-              Cases
-            </Link>
-            <Link href="/about" className="block py-2 text-gray-700 hover:text-gappy-green">
-              About
-            </Link>
-            <Link href="/news" className="block py-2 text-gray-700 hover:text-gappy-green">
-              News
-            </Link>
-            <Link
-              href="https://docs.google.com/forms/d/e/1FAIpQLSeSSQ4jbQusmwcpyYt7OQbqsDSUzbJk2COF_7UYZdHXF9e5Og/viewform"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block mt-2 bg-gappy-green text-gappy-dark px-4 py-2 rounded-md font-semibold text-center hover:bg-opacity-90 transition-all"
-            >
-              Contact
-            </Link>
+          <div className="md:hidden border-t border-white/[0.06] py-4 space-y-1">
+            {NAV_LINKS.map(({ label, href }) => (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setIsMenuOpen(false)}
+                className="block px-2 py-2.5 text-sm text-white/60 hover:text-white hover:bg-white/[0.04] rounded-md transition-all"
+              >
+                {label}
+              </Link>
+            ))}
+            <div className="pt-3 space-y-2">
+              <Link
+                href={CONTACT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-center py-3 text-sm text-white/70 border border-white/20 rounded-lg"
+              >
+                資料請求
+              </Link>
+              <Link
+                href={CONTACT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-center py-3 text-sm font-bold text-black bg-[#00E676] rounded-lg"
+              >
+                デモ相談 →
+              </Link>
+            </div>
           </div>
         )}
       </nav>
