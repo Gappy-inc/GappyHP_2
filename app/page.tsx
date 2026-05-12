@@ -4,6 +4,7 @@ import WhatIsSection from '@/components/sections/WhatIsSection'
 import HowItWorksSection from '@/components/sections/HowItWorksSection'
 import FeaturesSection from '@/components/sections/FeaturesSection'
 import WhyGappySection from '@/components/sections/WhyGappySection'
+import Phase1PartnerSection from '@/components/sections/Phase1PartnerSection'
 import PricingSection from '@/components/sections/PricingSection'
 import ResourcesSection from '@/components/sections/ResourcesSection'
 import CTASection from '@/components/sections/CTASection'
@@ -17,6 +18,7 @@ export default function Home() {
       <FeaturesSection />
       <HowItWorksSection />
       <WhyGappySection />
+      <Phase1PartnerSection />
       <PricingSection />
       <ResourcesSection />
       <CTASection />
