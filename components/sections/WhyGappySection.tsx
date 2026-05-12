@@ -2,126 +2,73 @@
 
 import { motion } from 'framer-motion';
 
-const strengths = [
+const points = [
   {
     num: '01',
-    title: 'インバウンド × AI に特化した深い知見',
-    desc: '訪日外国人の旅行行動データ、観光業界のオペレーション、AIモデル設計——3つの専門知識を統合したチームが開発。表面的な多言語対応ではなく、文化・文脈を理解した提案を実現。',
+    title: '施設ごとの文化を尊重する、伴走型の導入サポート',
+    desc: '旅館・ホテルのおもてなし文化を理解した専任チームが、施設の世界観・言葉づかい・温度感を理解した上で導入を伴走。「ツールを押し付けられた」ではなく「一緒に作った」と感じていただける体制です。',
   },
   {
     num: '02',
-    title: '日本市場に最適化された唯一の設計',
-    desc: '海外製ツールとは異なり、日本のホテル現場（サイトコントローラー / PMS環境）に合わせた設計。LINEへの配信、日本語対応、税込表示など、日本向けに一から作り直したアーキテクチャ。',
+    title: 'ブランドの世界観を損なわない自動化',
+    desc: '貴館のブランドが表に出るように設計。ゲスト側にGappyブランドが表示されることは一切なく、貴館からの一通として機能します。専用ドメイン・ロゴ・写真・文面・配色まですべて貴館仕様。',
   },
   {
     num: '03',
-    title: 'PoC実績と国際ベンチマーク',
-    desc: '国内3施設でPoC実施中。参照事例として Hard Rock Hotel New York では ROI 41x を記録。グローバルでの成功モデルを日本市場に移植・最適化する実行力を持つ。',
+    title: 'IT担当者不要 — スタッフがそのまま使える',
+    desc: 'OTA予約確認メールの転送設定（1行追加）のみで稼働。PMSやサイトコントローラーの改修は不要です。現場スタッフの日常業務を一切変えずに、収益向上を実現できます。',
   },
   {
     num: '04',
-    title: 'インバウンド需要・回復期という追い風',
-    desc: '2024年の訪日外客数は3,687万人（過去最高）。ホテル稼働率は上昇する一方、人材不足は深刻化。テクノロジーによる収益最大化ニーズが急速に高まっているのが今。',
+    title: '月次レポートで成果を共に追う',
+    desc: '配信数・開封率・返信率・成約件数・追加売上を月次レポートで共有。専任担当との定期レビューで改善施策を立案し、継続的な収益最大化をサポートします。',
   },
 ];
 
 export default function WhyGappySection() {
   return (
-    <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-16" style={{ background: '#111111' }}>
-      <div className="max-w-6xl mx-auto">
+    <section
+      className="relative py-24 md:py-36 overflow-hidden"
+      style={{ background: 'linear-gradient(180deg, #fdfcf8 0%, #faf8f1 100%)' }}
+    >
+      <div className="container-luxe">
+
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.55 }}
           viewport={{ once: true, amount: 0.3 }}
-          className="mb-16"
+          className="mb-14"
         >
-          <span
-            className="text-[#00E676] text-xs tracking-[0.3em] uppercase font-bold"
-            style={{ fontFamily: 'var(--font-dm-mono, monospace)' }}
-          >
-            WHY GAPPY
-          </span>
-          <h2
-            className="text-2xl sm:text-3xl lg:text-4xl font-bold mt-4 mb-4 leading-tight"
-            style={{ fontFamily: 'var(--font-noto-serif-jp, serif)' }}
-          >
-            なぜ今、Gappyなのか。
-          </h2>
-          <p
-            className="text-white/50 max-w-2xl leading-relaxed text-sm"
-            style={{ fontFamily: 'var(--font-noto-sans-jp, sans-serif)' }}
-          >
-            Global × Inbound Tourism × AI という3つの軸の交差点に、Gappyは立っています。
-            観光という日本最強のソフトパワーを、テクノロジーで武装する。
+          <p className="font-mono text-[11px] tracking-[0.4em] text-gold-600 uppercase mb-5">
+            Why Gappy Stay
           </p>
+          <h2 className="heading-jp text-[clamp(24px,3vw,40px)] leading-[1.55] font-medium space-y-1">
+            <span className="block">選ばれる理由。</span>
+          </h2>
+          <span className="gold-line block w-12 h-px mt-5" />
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {strengths.map((item, i) => (
+        {/* Points */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+          {points.map((p, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="card-dark rounded-2xl p-6 sm:p-8"
+              transition={{ duration: 0.45, delay: i * 0.08 }}
+              viewport={{ once: true, amount: 0.2 }}
+              className="gold-card rounded-2xl p-7 sm:p-8"
             >
-              <div className="flex items-start gap-4">
-                <span
-                  className="text-3xl font-bold flex-shrink-0 mt-1"
-                  style={{
-                    fontFamily: 'var(--font-dm-mono, monospace)',
-                    color: 'rgba(0,230,118,0.3)',
-                  }}
-                >
-                  {item.num}
-                </span>
-                <div>
-                  <h3
-                    className="text-lg font-bold mb-3 leading-snug"
-                    style={{ fontFamily: 'var(--font-noto-serif-jp, serif)' }}
-                  >
-                    {item.title}
-                  </h3>
-                  <p
-                    className="text-white/50 text-sm leading-relaxed"
-                    style={{ fontFamily: 'var(--font-noto-sans-jp, sans-serif)' }}
-                  >
-                    {item.desc}
-                  </p>
-                </div>
-              </div>
+              <p className="font-mono text-[10px] tracking-[0.3em] text-gold-500 mb-4">{p.num}</p>
+              <h3 className="font-serif-jp text-[15px] font-medium text-navy-900 tracking-[0.06em] mb-3 leading-relaxed">
+                {p.title}
+              </h3>
+              <p className="text-jp text-[13px] text-ink-500 leading-[2]">{p.desc}</p>
             </motion.div>
           ))}
         </div>
-
-        {/* Keyword cloud */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          viewport={{ once: true, amount: 0.3 }}
-          className="mt-16 flex flex-wrap gap-3 justify-center"
-        >
-          {[
-            'インバウンド需要 過去最高',
-            '訪日外客 3,687万人（2024年）',
-            'ホテル人材不足率 71.1%',
-            'RevPAR向上',
-            '多言語AI',
-            '行動経済学 × アップセル',
-            'LINE / WhatsApp',
-            '成功報酬型',
-          ].map((kw) => (
-            <span
-              key={kw}
-              className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-white/50 text-sm"
-            >
-              {kw}
-            </span>
-          ))}
-        </motion.div>
       </div>
     </section>
   );

@@ -1,155 +1,86 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import React from 'react';
-
-const timelineSteps = [
-  { num: 1, label: '予約前', player: '', highlight: false },
-  { num: 2, label: '予約時', player: 'tripla等', highlight: false },
-  { num: 3, label: '予約後〜\nチェックイン前', player: 'Gappy Stay', highlight: true },
-  { num: 4, label: 'チェックイン', player: 'Canary等', highlight: false },
-  { num: 5, label: '滞在中', player: 'Duve等', highlight: false },
-];
+import Image from 'next/image';
 
 export default function WhatIsSection() {
   return (
-    <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-16" style={{ background: '#111111' }}>
-      <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true, amount: 0.3 }}
-          className="mb-16"
-        >
-          <span
-            className="text-[#00E676] text-xs tracking-[0.3em] uppercase font-bold"
-            style={{ fontFamily: 'var(--font-dm-mono, monospace)' }}
-          >
-            PRODUCT 01
-          </span>
-          <h2
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mt-3 mb-4"
-            style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}
-          >
-            Gappy Stay とは
-          </h2>
-          <p
-            className="text-lg sm:text-xl lg:text-2xl text-white/80 mb-4 leading-relaxed"
-            style={{ fontFamily: 'var(--font-noto-serif-jp, serif)' }}
-          >
-            予約後〜チェックインまでの72時間を収益に変えるAI。
-          </p>
-          <p
-            className="text-white/50 max-w-2xl leading-relaxed"
-            style={{ fontFamily: 'var(--font-noto-sans-jp, sans-serif)' }}
-          >
-            宿泊ゲストが旅行への期待感で満たされているチェックイン7〜10日前。
-            このタイミングを狙い撃ちし、アーリーチェックイン・部屋タイプアップグレード・朝食付きプランなどを
-            ゲストのスマホへ母国語で自動提案。スタッフの作業ゼロで客室単価とRevPARを向上させます。
-          </p>
-        </motion.div>
+    <section className="relative py-24 md:py-36 bg-ivory-50 overflow-hidden">
+      {/* Top gold line */}
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold-500/30 to-transparent" />
 
-        {/* Positioning Timeline */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true, amount: 0.3 }}
-          className="mb-16"
-        >
-          <p className="text-white/40 text-sm text-center mb-8">
-            「予約後〜チェックイン前」は競合不在の空白地帯
-          </p>
-          <div className="overflow-x-auto pb-4">
-            <div className="flex items-start gap-0 min-w-max mx-auto justify-center">
-              {timelineSteps.map((step, i) => (
-                <React.Fragment key={i}>
-                  <div className="flex flex-col items-center min-w-[100px]">
-                    <div
-                      className={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold transition-all ${
-                        step.highlight
-                          ? 'bg-[#00E676] text-black pulse-glow'
-                          : 'bg-white/10 text-white/50'
-                      }`}
-                    >
-                      {step.num}
-                    </div>
-                    <p
-                      className={`text-xs mt-2 text-center whitespace-pre-line leading-tight ${
-                        step.highlight ? 'text-[#00E676] font-bold' : 'text-white/40'
-                      }`}
-                    >
-                      {step.label}
-                    </p>
-                    {step.player && (
-                      <p
-                        className={`text-[11px] mt-1.5 px-2 py-0.5 rounded-full border text-center ${
-                          step.highlight
-                            ? 'text-black bg-[#00E676] border-[#00E676]'
-                            : 'text-white/30 border-white/10'
-                        }`}
-                      >
-                        {step.player}
-                      </p>
-                    )}
-                  </div>
-                  {i < timelineSteps.length - 1 && (
-                    <div className="w-12 lg:w-20 h-px bg-white/20 mt-6 mx-1 flex-shrink-0" />
-                  )}
-                </React.Fragment>
+      <div className="container-luxe">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-14 lg:gap-20 items-center">
+
+          {/* Left — text */}
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.65 }}
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <p className="font-mono text-[11px] tracking-[0.4em] text-gold-600 uppercase mb-6">
+              Our Approach
+            </p>
+            <h2 className="heading-jp text-[clamp(28px,3.4vw,48px)] leading-[1.45] font-medium mb-5">
+              <span className="block">貴館のオペレーションに</span>
+              <span className="block">馴染む形で導入。</span>
+            </h2>
+
+            <span className="gold-line block w-full max-w-[440px] mb-7" />
+
+            <p className="font-serif-jp text-[15px] md:text-[16px] leading-[2.1] text-ink-700 max-w-xl tracking-[0.06em] mb-8">
+              旅館の女将・ホテルの支配人がIT操作することなく、
+              貴館の言葉づかい・温度感・ブランドカラーをすべて反映した
+              コミュニケーションを自動化いたします。
+              専任の導入サポート担当が、業務フローを深く理解した上で
+              最適な活用方法をご提案します。
+            </p>
+
+            {/* Points */}
+            <div className="space-y-4">
+              {[
+                { num: '01', text: '貴館の言葉づかい・温度感・ブランドカラーをすべて反映' },
+                { num: '02', text: '専任の導入サポート担当が業務フローを理解し伴走' },
+                { num: '03', text: 'スタッフのIT操作は一切不要' },
+              ].map((p) => (
+                <div key={p.num} className="flex items-start gap-4">
+                  <span
+                    className="font-mono text-[11px] text-gold-500 tracking-widest mt-1 flex-shrink-0"
+                  >
+                    {p.num}
+                  </span>
+                  <p className="font-serif-jp text-[14px] leading-relaxed text-ink-700 tracking-[0.06em]">
+                    {p.text}
+                  </p>
+                </div>
               ))}
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
 
-        {/* 3 Value Props */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            {
-              num: '01',
-              title: '人手ゼロで稼働',
-              desc: 'サイトコントローラーから予約データを自動取得。配信・決済・PMSへの反映まで全自動。スタッフは何もしなくていい。',
-            },
-            {
-              num: '02',
-              title: 'ゲスト体験を損なわない',
-              desc: 'ゲストの旅行期待感が最高潮のタイミングで、母国語・最適チャネルで届ける。押しつけではなく、喜ばれる提案に。',
-            },
-            {
-              num: '03',
-              title: '初期費用¥0・成功報酬型',
-              desc: '固定費ゼロ、PMS改修不要。最短1週間で稼働開始。収益が生まれてから費用が発生する、リスクゼロの導入モデル。',
-            },
-          ].map((item, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="card-dark rounded-2xl p-6"
-            >
-              <span
-                className="text-[#00E676]/50 text-xs font-bold tracking-widest"
-                style={{ fontFamily: 'var(--font-dm-mono, monospace)' }}
-              >
-                {item.num}
-              </span>
-              <h3
-                className="text-xl font-bold mt-3 mb-3"
-                style={{ fontFamily: 'var(--font-noto-serif-jp, serif)' }}
-              >
-                {item.title}
-              </h3>
-              <p
-                className="text-white/50 text-sm leading-relaxed"
-                style={{ fontFamily: 'var(--font-noto-sans-jp, sans-serif)' }}
-              >
-                {item.desc}
-              </p>
-            </motion.div>
-          ))}
+          {/* Right — image */}
+          <motion.div
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.65, delay: 0.1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            className="relative"
+          >
+            {/* Background blur circle */}
+            <div className="absolute inset-0 -z-10">
+              <div className="absolute inset-0 bg-gradient-to-br from-gold-300/10 via-transparent to-navy-700/5 blur-3xl scale-110" />
+            </div>
+
+            <div className="relative drop-shadow-[0_30px_60px_rgba(11,22,50,0.25)]">
+              <Image
+                src="/support-scene.png"
+                alt="旅館・ホテルの導入サポート担当とオンライン会議を行う様子（伴走型サポート）"
+                width={620}
+                height={480}
+                className="w-full h-auto rounded-2xl select-none"
+              />
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

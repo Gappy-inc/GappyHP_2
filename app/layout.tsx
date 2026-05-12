@@ -1,9 +1,22 @@
 import type { Metadata } from 'next'
-import { Space_Grotesk, Noto_Serif_JP, Noto_Sans_JP, DM_Mono } from 'next/font/google'
+import { Cormorant_Garamond, DM_Serif_Display, Space_Grotesk, Noto_Serif_JP, Noto_Sans_JP, DM_Mono } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { SITE_URL, SITE_NAME } from '@/lib/config'
+
+const cormorantGaramond = Cormorant_Garamond({
+  variable: '--font-cormorant',
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+})
+
+const dmSerifDisplay = DM_Serif_Display({
+  variable: '--font-dm-serif',
+  subsets: ['latin'],
+  weight: ['400'],
+})
 
 const spaceGrotesk = Space_Grotesk({
   variable: '--font-space-grotesk',
@@ -85,7 +98,7 @@ export default function RootLayout({
   return (
     <html
       lang="ja"
-      className={`${spaceGrotesk.variable} ${notoSerifJP.variable} ${notoSansJP.variable} ${dmMono.variable}`}
+      className={`${cormorantGaramond.variable} ${dmSerifDisplay.variable} ${spaceGrotesk.variable} ${notoSerifJP.variable} ${notoSansJP.variable} ${dmMono.variable} scroll-smooth`}
     >
       <head>
         <script
@@ -120,7 +133,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen bg-[#0A0A0A] text-white antialiased">
+      <body className="min-h-screen bg-[#FAFAF8] text-[#1C1C1E] antialiased">
         <Header />
         <main className="min-h-screen">
           {children}
