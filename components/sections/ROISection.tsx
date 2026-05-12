@@ -1,228 +1,112 @@
 'use client';
 
-import React, { useRef, useEffect, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 
-function useCountUp(target: number, duration: number = 2, trigger: boolean = false): number {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!trigger) return;
-    let startTime: number | null = null;
-    const animate = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(eased * target));
-      if (progress < 1) requestAnimationFrame(animate);
-    };
-    requestAnimationFrame(animate);
-  }, [trigger, target, duration]);
-
-  return count;
-}
-
-const bars = [
-  { label: 'Gappy Stay ROI', value: 41, note: '参考: Hard Rock Hotel NY 2024年実績', color: '#00E676', pct: 100 },
-  { label: '業界平均（口頭営業）', value: 3, note: '', color: 'rgba(255,255,255,0.2)', pct: 7 },
-  { label: '人員追加', value: 8, note: 'コスト込み', color: 'rgba(255,255,255,0.2)', pct: 20 },
+const results = [
+  {
+    img: '/result-1-yen.png',
+    value: '+22%',
+    label: '平均客単価の向上',
+    desc: '客単価が平均で22%向上',
+  },
+  {
+    img: '/result-2-review.png',
+    value: '4.95',
+    label: '口コミ評価の向上',
+    desc: '口コミスコアが0.15ポイント向上',
+  },
+  {
+    img: '/result-3-time.png',
+    value: '70%',
+    label: '問い合わせ対応時間の削減',
+    desc: '問い合わせ対応時間を70%削減',
+  },
 ];
-
-const competitors = ['Canary', 'Duve', 'Oaky（海外）'];
-const featureRows = [
-  { name: '日本語サイトコントローラー連携', gappy: '○', others: ['×', '×', '×'] },
-  { name: 'LINE配信', gappy: '○', others: ['×', '×', '×'] },
-  { name: '初期費用¥0', gappy: '○', others: ['×', '×', '×'] },
-  { name: '日本語サポート', gappy: '○', others: ['△', '×', '×'] },
-  { name: '25言語AI生成', gappy: '○', others: ['△', '△', '○'] },
-];
-
-function cellClass(val: string) {
-  if (val === '○') return 'text-[#00E676]';
-  if (val === '×') return 'text-red-400/70';
-  if (val === '△') return 'text-yellow-400/70';
-  return 'text-white/50';
-}
 
 export default function ROISection() {
-  const roiRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(roiRef, { once: true, amount: 0.3 });
-  const roiCount = useCountUp(1101600, 2, isInView);
-
   return (
     <section
       id="roi"
-      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-16 relative overflow-hidden"
-      style={{
-        background: '#0A0A0A',
-        borderTop: '1px solid rgba(0,230,118,0.1)',
-      }}
+      className="relative py-24 md:py-36 overflow-hidden bg-navy-950"
     >
-      {/* Glow */}
-      <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-        <div
-          className="w-[600px] h-[600px] rounded-full opacity-5 blur-[120px]"
-          style={{ background: 'radial-gradient(circle, #00E676, transparent)' }}
-        />
+      {/* Background image */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-b from-navy-950/35 via-navy-900/25 to-navy-950/55" />
       </div>
 
-      <div className="max-w-6xl mx-auto relative">
+      {/* Gold border lines */}
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold-500/50 to-transparent" />
+      <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold-500/50 to-transparent" />
+
+      <div className="container-luxe relative z-10">
+
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.55 }}
           viewport={{ once: true, amount: 0.3 }}
+          className="text-center mb-16"
         >
-          <span
-            className="text-[#00E676] tracking-widest text-xs uppercase font-bold"
-            style={{ fontFamily: 'var(--font-dm-mono, monospace)' }}
-          >
-            ROI SIMULATION
-          </span>
-          <h2
-            className="text-2xl sm:text-3xl lg:text-5xl font-bold mt-4"
-            style={{ fontFamily: 'var(--font-noto-serif-jp, serif)' }}
-          >
-            圧倒的な投資対効果（ROI）
-          </h2>
-          <p className="text-white/50 mt-2 text-sm">100室規模ホテル / 月間シミュレーション</p>
-        </motion.div>
-
-        {/* Main ROI Card */}
-        <motion.div
-          ref={roiRef}
-          className="rounded-3xl border-2 border-[#00E676]/30 bg-[#141414] p-6 sm:p-8 lg:p-12 mt-12 relative overflow-hidden"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <p className="text-white/50 text-sm mb-2">月間追加収益（試算）</p>
-          <span
-            className="text-5xl sm:text-6xl lg:text-8xl font-bold text-glow-green"
-            style={{
-              fontFamily: 'var(--font-dm-mono, monospace)',
-              color: '#00E676',
-              textShadow: '0 0 30px rgba(0,230,118,0.5)',
-            }}
-          >
-            ¥{roiCount.toLocaleString()}
-          </span>
-          <p
-            className="text-white/30 text-[10px] sm:text-xs mt-4 break-all"
-            style={{ fontFamily: 'var(--font-dm-mono, monospace)' }}
-          >
-            100室 × 稼働率70% × アップセル転換率10% × 平均追加単価¥15,737/件 = 月間 ¥1,101,600
+          <p className="font-mono text-[11px] tracking-[0.4em] text-gold-400 uppercase mb-5">
+            Results
           </p>
-
-          {/* Cost row */}
-          <div className="flex flex-col sm:flex-row gap-4 mt-8">
-            {[
-              { label: '初期費用', value: '¥0', sub: 'PMS改修不要' },
-              { label: '月額固定費', value: '¥0', sub: '成功報酬型' },
-              { label: '導入期間', value: '1週間', sub: '最短' },
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="flex-1 rounded-xl border border-[#00E676]/30 bg-[#00E676]/10 p-4 text-center"
-              >
-                <p className="text-white/50 text-xs mb-1">{item.label}</p>
-                <p
-                  className="text-[#00E676] text-2xl font-bold"
-                  style={{ fontFamily: 'var(--font-dm-mono, monospace)' }}
-                >
-                  {item.value}
-                </p>
-                <p className="text-white/30 text-xs mt-1">{item.sub}</p>
-              </div>
-            ))}
-          </div>
+          <h2 className="heading-jp text-[clamp(24px,3vw,40px)] leading-[1.5] font-medium text-ivory-100">
+            ご単価・ご口コミ・業務効率の向上を<br className="hidden md:block" />実現します。
+          </h2>
         </motion.div>
 
-        {/* ROI Bars */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true, amount: 0.2 }}
-          className="mt-16"
-        >
-          <h3 className="text-xl font-bold mb-6">業界ベンチマーク比較</h3>
-          {bars.map((bar, i) => (
-            <div key={i} className="mb-6">
-              <div className="flex justify-between text-sm mb-2">
-                <span className="text-white/70">{bar.label}</span>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-dm-mono, monospace)',
-                    color: bar.color === '#00E676' ? '#00E676' : 'white',
-                  }}
-                >
-                  {bar.value}x{' '}
-                  {bar.note && (
-                    <span className="text-white/30 text-xs">({bar.note})</span>
-                  )}
-                </span>
-              </div>
-              <div className="h-3 bg-white/5 rounded-full overflow-hidden">
-                <motion.div
-                  className="h-full rounded-full"
-                  style={{ background: bar.color }}
-                  initial={{ width: 0 }}
-                  whileInView={{ width: `${bar.pct}%` }}
-                  transition={{ duration: 1.2, ease: 'easeOut', delay: i * 0.1 }}
-                  viewport={{ once: true }}
+        {/* Results grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 max-w-5xl mx-auto mb-14">
+          {results.map((r, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: i * 0.1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              className="group text-center"
+            >
+              {/* Image */}
+              <div className="relative mb-5 transition-all duration-700 group-hover:-translate-y-2 flex justify-center">
+                <Image
+                  src={r.img}
+                  alt={r.label}
+                  width={280}
+                  height={220}
+                  className="w-full max-w-[280px] h-auto select-none drop-shadow-[0_24px_50px_rgba(11,22,50,0.22)] group-hover:drop-shadow-[0_32px_70px_rgba(11,22,50,0.3)] transition-all duration-700"
                 />
               </div>
-            </div>
-          ))}
-        </motion.div>
 
-        {/* Comparison Table */}
+              {/* Value */}
+              <p
+                className="text-gold-300 font-medium leading-none mb-2"
+                style={{
+                  fontFamily: 'var(--font-cormorant, serif)',
+                  fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
+                  fontStyle: 'italic',
+                }}
+              >
+                {r.value}
+              </p>
+              <p className="text-ivory-100/80 font-serif-jp text-[13px] tracking-[0.1em] mb-1">{r.label}</p>
+              <p className="text-ivory-100/40 text-[11px] font-serif-jp tracking-[0.06em]">— {r.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Bottom note */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true, amount: 0.2 }}
-          className="mt-16"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="text-center"
         >
-          <h3 className="text-xl font-bold mb-6">競合比較</h3>
-          <div className="overflow-x-auto rounded-2xl border border-white/[0.08]">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-white/[0.06] bg-white/[0.02]">
-                  <th className="py-3 px-4 text-left text-white/50 font-medium">機能</th>
-                  <th className="py-3 px-4 text-center font-bold" style={{ color: '#00E676' }}>
-                    Gappy Stay
-                  </th>
-                  {competitors.map((c, i) => (
-                    <th key={i} className="py-3 px-4 text-center text-white/50 font-medium">
-                      {c}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {featureRows.map((row, i) => (
-                  <tr
-                    key={i}
-                    className="border-b border-white/[0.06] hover:bg-white/[0.02] transition-colors"
-                  >
-                    <td className="py-3 px-4 text-white/70">{row.name}</td>
-                    <td className={`py-3 px-4 text-center font-medium ${cellClass(row.gappy)}`}>
-                      {row.gappy}
-                    </td>
-                    {row.others.map((val, j) => (
-                      <td key={j} className={`py-3 px-4 text-center ${cellClass(val)}`}>
-                        {val}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <p className="text-ivory-100/30 text-[11px] font-serif-jp tracking-[0.1em]">
+            ※ 導入施設の実績データ（平均値）
+          </p>
         </motion.div>
       </div>
     </section>
