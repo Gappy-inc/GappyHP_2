@@ -1,95 +1,133 @@
+
 import Link from 'next/link'
 import Image from 'next/image'
 
-const CONTACT_URL =
-  'https://docs.google.com/forms/d/e/1FAIpQLSeSSQ4jbQusmwcpyYt7OQbqsDSUzbJk2COF_7UYZdHXF9e5Og/viewform'
+const GOODTIME_URL = 'https://meet.goodtime.io/w/gappyjp/mitsuki/30-min-video'
+const RESOURCE_URL = 'https://forms.gle/NUgbw2pFFrmoLtsv5'
+
+const navCols = [
+  {
+    title: 'サービス',
+    links: [
+      { label: '機能',           href: '/#features' },
+      { label: 'ご料金',         href: '/#pricing' },
+      { label: '仕組み',         href: '/#how-it-works' },
+      { label: 'お役立ち資料',   href: RESOURCE_URL, external: true },
+    ],
+  },
+  {
+    title: '導入事例・サポート',
+    links: [
+      { label: '導入事例インタビュー', href: '/cases' },
+      { label: 'お問い合わせ',         href: GOODTIME_URL, external: true },
+    ],
+  },
+  {
+    title: '会社情報',
+    links: [
+      { label: 'ミッション・ビジョン',       href: '/about' },
+      { label: 'プライバシーに関する方針',    href: '/about' },
+    ],
+  },
+  {
+    title: 'リソース',
+    links: [
+      { label: 'プロダクトアップデート', href: '/news' },
+      { label: 'ホスピタリティDXレポート', href: RESOURCE_URL, external: true },
+    ],
+  },
+]
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/[0.08]" style={{ background: '#0A0A0A' }}>
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Logo and Company Info */}
-          <div className="col-span-1 md:col-span-2">
-            <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity w-fit">
-              <Image
-                src="/gappy_icon.png"
-                alt="Gappy"
-                width={32}
-                height={32}
-                className="h-8 w-8"
-                priority
-              />
-              <span className="text-[#00E676] font-bold text-lg">
-                Gappy
-              </span>
-            </Link>
-            <p className="text-white/40 text-xs mt-3 mb-6 max-w-xs leading-relaxed">
-              ホテル向けAIアップセル自動化SaaS。宿泊ゲストのスマホに最適タイミングで提案し、
-              客室単価・RevPARを向上させる。
-            </p>
-            <div className="text-xs text-white/30 space-y-1">
-              <p className="text-white/50 font-medium">株式会社Gappy（ギャッピー）</p>
-              <p>東京都渋谷区道玄坂1丁目10番8号</p>
-              <p>代表取締役：浅野充輝</p>
-              <p>mitsuki@gappy.jp</p>
+    <footer className="relative bg-ink-900 text-ivory-100/80 pt-16 pb-8 overflow-hidden">
+      {/* Top gold line */}
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold-500/60 to-transparent" />
+      {/* Background glow */}
+      <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[800px] h-64 rounded-full bg-gold-500/[0.04] blur-3xl pointer-events-none" />
+
+      <div className="container-luxe relative z-10">
+
+        {/* Top row — logo + tagline */}
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-12 border-b border-ivory-100/8">
+          <Link href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
+            <Image
+              src="/gappy_icon.png"
+              alt="Gappy Stay"
+              width={24}
+              height={24}
+              className="h-6 w-6"
+            />
+            <span className="font-serif-jp text-[15px] tracking-[0.12em] text-ivory-100">
+              Gappy Stay
+            </span>
+          </Link>
+
+          <p className="font-serif-jp text-[12px] text-ivory-100/50 tracking-[0.08em] max-w-xs leading-relaxed">
+            高級宿泊施設のためのご予約後コミュニケーションAI。
+            貴館のブランドのまま自動配信いたします。
+          </p>
+        </div>
+
+        {/* Nav grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8 py-12">
+          {navCols.map((col) => (
+            <div key={col.title}>
+              <p className="font-serif-jp text-[13px] tracking-[0.2em] text-gold-400 mb-5 font-medium">
+                {col.title}
+              </p>
+              <ul className="space-y-3">
+                {col.links.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      target={link.external ? '_blank' : undefined}
+                      rel={link.external ? 'noopener noreferrer' : undefined}
+                      className="font-serif-jp text-[12px] text-ivory-100/70 hover:text-gold-400 transition-colors tracking-[0.06em] flex items-center gap-2 group"
+                    >
+                      <span className="w-1 h-1 rounded-full bg-gold-500/60 group-hover:bg-gold-400 transition-colors flex-shrink-0" />
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
+          ))}
+        </div>
+
+        {/* Gold divider */}
+        <div className="h-px bg-gradient-to-r from-transparent via-gold-500/30 to-transparent" />
+
+        {/* Bottom row */}
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pt-8 text-[11px] tracking-[0.12em] text-ivory-100/50 font-serif-jp">
+          <div className="space-y-1">
+            <p className="text-ivory-100/60">株式会社Gappy（ギャッピー）</p>
+            <p>東京都渋谷区道玄坂1丁目10番8号 ／ 代表取締役：浅野充輝</p>
+            <a href="mailto:mitsuki@gappy.jp" className="hover:text-gold-400 transition-colors">
+              mitsuki@gappy.jp
+            </a>
           </div>
 
-          {/* Navigation */}
-          <div>
-            <h3 className="text-white/60 text-xs font-bold tracking-widest uppercase mb-4">Menu</h3>
-            <ul className="space-y-2 text-sm text-white/40">
-              <li>
-                <Link href="/cases" className="hover:text-[#00E676] transition-colors">
-                  導入事例
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="hover:text-[#00E676] transition-colors">
-                  会社情報
-                </Link>
-              </li>
-              <li>
-                <Link href="/news" className="hover:text-[#00E676] transition-colors">
-                  ニュース
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={CONTACT_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#00E676] transition-colors"
-                >
-                  お問い合わせ
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact CTA */}
-          <div>
-            <h3 className="text-white/60 text-xs font-bold tracking-widest uppercase mb-4">お問い合わせ</h3>
-            <p className="text-white/40 text-xs leading-relaxed mb-4">
-              導入検討・デモ相談・資料請求は<br />お気軽にご連絡ください。
-            </p>
-            <Link
-              href={CONTACT_URL}
+          <div className="flex items-center gap-4">
+            {/* SNS placeholder */}
+            <a
+              href={GOODTIME_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block bg-[#00E676] text-black px-5 py-2.5 rounded-lg text-sm font-bold hover:shadow-[0_0_20px_rgba(0,230,118,0.4)] transition-all"
+              className="w-10 h-10 rounded-full border border-ivory-100/15 hover:border-gold-500/60 hover:bg-gold-500/10 text-ivory-100/70 hover:text-gold-400 flex items-center justify-center transition-all duration-300"
+              aria-label="お問い合わせ"
             >
-              無料相談する →
-            </Link>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+              </svg>
+            </a>
           </div>
         </div>
 
-        {/* Copyright */}
-        <div className="border-t border-white/[0.06] mt-12 pt-8 text-xs text-white/20 text-center">
-          <p>© 2026 Gappy, Inc. All Rights Reserved.</p>
-        </div>
-      </nav>
+        <p className="text-center text-[10px] text-ivory-100/30 font-serif-jp tracking-[0.1em] mt-8">
+          © 2026 Gappy, Inc. All Rights Reserved.
+        </p>
+      </div>
     </footer>
   )
-}  
+}
