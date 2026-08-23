@@ -3,7 +3,7 @@ import { Cormorant_Garamond, DM_Serif_Display, Space_Grotesk, Noto_Serif_JP, Not
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import { SITE_URL, SITE_NAME } from '@/lib/config'
+import { SITE_URL, SITE_NAME, LEGAL_NAME } from '@/lib/config'
 
 const cormorantGaramond = Cormorant_Garamond({
   variable: '--font-cormorant',
@@ -43,46 +43,45 @@ const dmMono = DM_Mono({
 })
 
 export const metadata: Metadata = {
-  title: `Gappy Stay | ホテル向けAIアップセル自動化ツール — RevPAR・客室単価を向上`,
+  metadataBase: new URL(SITE_URL),
+  applicationName: SITE_NAME,
+  title: 'Gappy | AI Workforce for Travel Operations',
   description:
-    '宿泊ゲストのスマホに最適タイミングで自動提案。人手ゼロで客室単価・RevPARを向上させるホテル向けAIアップセルSaaS。初期費用¥0・成功報酬型。PMS直接連携不要で最短1週間導入。',
+    'Gappy builds AI Workforce for travel companies, automating booking operations, supplier communications, reconciliation, and other workflows across existing systems.',
   keywords: [
-    'Gappy Stay',
-    'ホテル アップセル',
-    'RevPAR向上',
-    '客室単価向上',
-    'インバウンド ホテル',
-    'ホテル AI',
-    '宿泊施設 DX',
-    '旅館 収益向上',
+    'AI Workforce',
+    'Travel Operations',
+    'Booking Operations',
+    'Supplier Operations',
+    'Travel Automation',
     '株式会社Gappy',
   ],
   openGraph: {
-    title: `Gappy Stay | ホテル向けAIアップセル自動化ツール`,
+    title: 'Gappy | AI Workforce for Travel Operations',
     description:
-      '宿泊ゲストのスマホに最適タイミングで自動提案。人手ゼロで客室単価・RevPARを向上。初期費用¥0・成功報酬型。',
-    url: SITE_URL,
+      'Gappy builds AI Workforce that executes travel operations end to end across existing systems.',
+    url: `${SITE_URL}/`,
     siteName: SITE_NAME,
-    locale: 'ja_JP',
+    locale: 'en_US',
     type: 'website',
     images: [
       {
-        url: `${SITE_URL}/gappy-logo.svg`,
-        width: 1200,
-        height: 630,
-        alt: 'Gappy Stay',
+        url: `${SITE_URL}/og.png`,
+        width: 1730,
+        height: 909,
+        alt: 'Gappy — AI Workforce for Travel Operations',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: `Gappy Stay | ホテル向けAIアップセル自動化ツール`,
+    title: 'Gappy | AI Workforce for Travel Operations',
     description:
-      '宿泊ゲストのスマホに最適タイミングで自動提案。人手ゼロで客室単価・RevPARを向上。',
-    images: [`${SITE_URL}/gappy-logo.svg`],
+      'Gappy builds AI Workforce that executes travel operations end to end across existing systems.',
+    images: [`${SITE_URL}/og.png`],
   },
   alternates: {
-    canonical: SITE_URL,
+    canonical: `${SITE_URL}/`,
   },
   robots: {
     index: true,
@@ -97,7 +96,7 @@ export default function RootLayout({
 }) {
   return (
     <html
-      lang="ja"
+      lang="en"
       className={`${cormorantGaramond.variable} ${dmSerifDisplay.variable} ${spaceGrotesk.variable} ${notoSerifJP.variable} ${notoSansJP.variable} ${dmMono.variable} scroll-smooth`}
     >
       <head>
@@ -106,29 +105,40 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
-              '@type': 'Organization',
-              name: SITE_NAME,
-              alternateName: 'Gappy Inc.',
-              url: SITE_URL,
-              logo: `${SITE_URL}/gappy-logo.svg`,
-              description:
-                '宿泊ゲストのスマホに最適タイミングでアップセルを自動提案。人手ゼロで客室単価・RevPARを向上させるホテル向けAI SaaS。',
-              address: {
-                '@type': 'PostalAddress',
-                streetAddress: '道玄坂1丁目10番8号 渋谷道玄坂東急ビル2F',
-                addressLocality: '渋谷区',
-                addressRegion: '東京都',
-                postalCode: '150-0043',
-                addressCountry: 'JP',
-              },
-              contactPoint: {
-                '@type': 'ContactPoint',
-                email: 'mitsuki@gappy.jp',
-                telephone: '+81-70-1185-3131',
-                contactType: 'customer service',
-                availableLanguage: ['ja', 'en'],
-              },
-              sameAs: [SITE_URL],
+              '@graph': [
+                {
+                  '@type': 'Organization',
+                  '@id': `${SITE_URL}/#organization`,
+                  name: SITE_NAME,
+                  legalName: LEGAL_NAME,
+                  alternateName: 'Gappy, Inc.',
+                  url: `${SITE_URL}/`,
+                  logo: {
+                    '@type': 'ImageObject',
+                    url: `${SITE_URL}/gappy_icon.png`,
+                  },
+                  description:
+                    'Gappy builds AI Workforce for travel companies, automating operational workflows across existing systems.',
+                  email: 'mitsuki@gappy.jp',
+                  address: {
+                    '@type': 'PostalAddress',
+                    streetAddress: '道玄坂1丁目10番8号 渋谷道玄坂東急ビル2F',
+                    addressLocality: '渋谷区',
+                    addressRegion: '東京都',
+                    postalCode: '150-0043',
+                    addressCountry: 'JP',
+                  },
+                },
+                {
+                  '@type': 'WebSite',
+                  '@id': `${SITE_URL}/#website`,
+                  url: `${SITE_URL}/`,
+                  name: SITE_NAME,
+                  alternateName: LEGAL_NAME,
+                  publisher: { '@id': `${SITE_URL}/#organization` },
+                  inLanguage: ['en', 'ja'],
+                },
+              ],
             }),
           }}
         />
@@ -143,4 +153,3 @@ export default function RootLayout({
     </html>
   )
 }
- 

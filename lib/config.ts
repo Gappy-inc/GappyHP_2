@@ -10,6 +10,6 @@ export const SITE_URL =
 // ベースURL（プロトコルなし）
 export const BASE_DOMAIN = SITE_URL.replace(/^https?:\/\//, '')
 
-// サイト名
-export const SITE_NAME = '株式会社Gappy'
-
+// Public-facing corporate site name
+export const SITE_NAME = 'Gappy'
+export const LEGAL_NAME = '株式会社Gappy'
