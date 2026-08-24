@@ -2,12 +2,13 @@ import Link from 'next/link'
 
 type BrandMarkProps = {
   inverse?: boolean
+  href?: string
 }
 
-export default function BrandMark({ inverse = false }: BrandMarkProps) {
+export default function BrandMark({ inverse = false, href = '/' }: BrandMarkProps) {
   return (
     <Link
-      href="/"
+      href={href}
       className="inline-flex min-h-11 items-center gap-3 rounded-sm"
       aria-label="Gappy home"
     >

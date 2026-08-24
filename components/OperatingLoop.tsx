@@ -1,21 +1,15 @@
-export const operatingLoop = [
-  ['Trigger', 'Detect the event that creates work.'],
-  ['Understand', 'Gather the operational context required to act.'],
-  ['Decide', 'Apply policy, constraints, and bounded judgment.'],
-  ['Operate', 'Take authorized action across the relevant systems.'],
-  ['Communicate', 'Coordinate with customers, suppliers, or internal teams.'],
-  ['Verify', 'Check that the intended outcome actually happened.'],
-  ['Escalate', 'Hand ambiguity, policy exceptions, or risk to the right person with context.'],
-]
-
 type OperatingLoopProps = {
   compact?: boolean
+  items: string[][]
 }
 
-export default function OperatingLoop({ compact = false }: OperatingLoopProps) {
+export default function OperatingLoop({
+  compact = false,
+  items,
+}: OperatingLoopProps) {
   return (
     <ol className="grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-7">
-      {operatingLoop.map(([title, description], index) => (
+      {items.map(([title, description], index) => (
         <li
           key={title}
           className={`${compact ? 'min-h-36' : 'min-h-52'} bg-navy-900 p-5 text-white lg:p-6`}

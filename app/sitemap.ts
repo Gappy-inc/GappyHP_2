@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next'
+import { localizedPath } from '@/content'
 import { SITE_URL } from '@/lib/config'
 
 const routes = [
@@ -13,9 +14,28 @@ const routes = [
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return routes.map((route) => ({
-    url: `${SITE_URL}${route.path}`,
-    changeFrequency: route.changeFrequency,
-    priority: route.priority,
-  }))
+  return routes.flatMap((route) => {
+    const englishPath = localizedPath(route.path, 'en')
+    const japanesePath = localizedPath(route.path, 'ja')
+    const languages = {
+      en: `${SITE_URL}${englishPath}`,
+      ja: `${SITE_URL}${japanesePath}`,
+      'x-default': `${SITE_URL}${englishPath}`,
+    }
+
+    return [
+      {
+        url: `${SITE_URL}${englishPath}`,
+        changeFrequency: route.changeFrequency,
+        priority: route.priority,
+        alternates: { languages },
+      },
+      {
+        url: `${SITE_URL}${japanesePath}`,
+        changeFrequency: route.changeFrequency,
+        priority: route.priority,
+        alternates: { languages },
+      },
+    ]
+  })
 }

@@ -6,9 +6,14 @@ const systems = [
   ['Human', 'right-[35%] bottom-[1%]'],
 ]
 
-const stages = ['Trigger', 'Understand', 'Decide', 'Operate', 'Verify']
+const stageSets = {
+  en: ['Trigger', 'Understand', 'Decide', 'Operate', 'Verify'],
+  ja: ['発生', '理解', '判断', '実行', '確認'],
+}
 
-export default function OperationalGraph() {
+export default function OperationalGraph({ locale = 'en' }: { locale?: 'en' | 'ja' }) {
+  const stages = stageSets[locale]
+
   return (
     <div className="relative min-h-[470px] overflow-hidden rounded-[28px] border border-white/10 bg-navy-950 p-5 shadow-[0_32px_90px_rgba(7,14,34,0.25)] sm:p-7">
       <div className="absolute inset-0 hairline-grid opacity-60" aria-hidden="true" />
@@ -16,7 +21,11 @@ export default function OperationalGraph() {
         viewBox="0 0 620 520"
         className="absolute inset-0 h-full w-full"
         role="img"
-        aria-label="Operational network connecting business systems to a trigger, context, decision, action, and verification loop"
+        aria-label={
+          locale === 'ja'
+            ? '既存システムを発生、理解、判断、実行、確認のループにつなぐ業務ネットワーク'
+            : 'Operational network connecting business systems to a trigger, context, decision, action, and verification loop'
+        }
       >
         <path
           d="M42 92 C130 92 122 208 204 208 H500"
@@ -61,7 +70,11 @@ export default function OperationalGraph() {
       <div className="relative z-10 flex items-start justify-between">
         <div>
           <p className="eyebrow text-gold-300">Operational network</p>
-          <p className="mt-2 text-xs text-white/45">Bounded execution across existing systems</p>
+          <p className="mt-2 text-xs text-white/45">
+            {locale === 'ja'
+              ? '既存システムを横断する、権限内での業務実行'
+              : 'Bounded execution across existing systems'}
+          </p>
         </div>
         <span className="rounded-full border border-emerald-300/30 bg-emerald-300/10 px-3 py-1 font-mono text-[9px] tracking-[0.16em] text-emerald-300">
           HUMAN CONTROL

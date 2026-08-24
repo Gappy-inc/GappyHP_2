@@ -32,6 +32,26 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+body[data-locale="ja"] {
+  font-family: var(--font-noto-sans-jp), var(--font-space-grotesk), -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-break: strict;
+}
+
+body[data-locale="ja"] .display-title {
+  letter-spacing: -0.045em;
+  line-height: 1.08;
+}
+
+body[data-locale="ja"] .section-title {
+  letter-spacing: -0.035em;
+  line-height: 1.16;
+}
+
+body[data-locale="ja"] .body-lead {
+  line-height: 2;
+}
+
 a {
   color: inherit;
 }

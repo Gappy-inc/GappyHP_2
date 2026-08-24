@@ -4,23 +4,22 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import BrandMark from '@/components/BrandMark'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
+import { getContent, isJapanesePath, localizedPath } from '@/content'
 import { GOODTIME_URL } from '@/lib/config'
-
-const primaryLinks = [
-  { label: 'Technology', href: '/technology' },
-  { label: 'Travel', href: '/travel' },
-  { label: 'Projects', href: '/cases' },
-  { label: 'Insights', href: '/resources' },
-]
-
-const companyLinks = [
-  { label: 'About', href: '/about' },
-  { label: 'Careers', href: '/careers' },
-  { label: 'Contact', href: '/contact' },
-]
 
 export default function Header() {
   const pathname = usePathname()
+  const locale = isJapanesePath(pathname) ? 'ja' : 'en'
+  const copy = getContent(locale).navigation
+  const primaryLinks = copy.primary.map(({ label, path }) => ({
+    label,
+    href: localizedPath(path, locale),
+  }))
+  const companyLinks = copy.company.map(({ label, path }) => ({
+    label,
+    href: localizedPath(path, locale),
+  }))
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isCompanyOpen, setIsCompanyOpen] = useState(false)
   const [isMobileCompanyOpen, setIsMobileCompanyOpen] = useState(false)
@@ -75,9 +74,9 @@ export default function Header() {
       }`}
     >
       <div className="container-luxe flex h-[76px] items-center justify-between lg:h-[84px]">
-        <BrandMark />
+        <BrandMark href={localizedPath('/', locale)} />
 
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
+        <nav className="hidden items-center gap-6 lg:flex" aria-label={copy.primaryLabel}>
           {primaryLinks.map(({ label, href }) => (
             <Link
               key={href}
@@ -106,7 +105,7 @@ export default function Header() {
               aria-controls="company-navigation"
               onClick={() => setIsCompanyOpen((open) => !open)}
             >
-              Company
+              {copy.companyLabel}
               <span
                 className={`text-[10px] transition-transform ${isCompanyOpen ? 'rotate-180' : ''}`}
                 aria-hidden="true"
@@ -133,14 +132,15 @@ export default function Header() {
           </div>
         </nav>
 
-        <div className="hidden lg:block">
+        <div className="hidden items-center gap-3 lg:flex">
+          <LanguageSwitcher />
           <a
             href={GOODTIME_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary"
           >
-            Talk to Gappy
+            {copy.talk}
           </a>
         </div>
 
@@ -148,7 +148,7 @@ export default function Header() {
           type="button"
           className="grid h-11 w-11 place-items-center rounded-md lg:hidden"
           onClick={() => setIsMenuOpen((open) => !open)}
-          aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+          aria-label={isMenuOpen ? copy.closeMenu : copy.openMenu}
           aria-expanded={isMenuOpen}
           aria-controls="mobile-navigation"
         >
@@ -180,7 +180,7 @@ export default function Header() {
       >
         <nav
           className="container-luxe max-h-[calc(100vh-76px)] overflow-y-auto py-5"
-          aria-label="Mobile navigation"
+          aria-label={copy.mobileLabel}
         >
           {primaryLinks.map(({ label, href }) => (
             <Link
@@ -198,7 +198,7 @@ export default function Header() {
             aria-controls="mobile-company-navigation"
             onClick={() => setIsMobileCompanyOpen((open) => !open)}
           >
-            Company
+            {copy.companyLabel}
             <span aria-hidden="true">{isMobileCompanyOpen ? '−' : '+'}</span>
           </button>
           {isMobileCompanyOpen ? (
@@ -220,8 +220,9 @@ export default function Header() {
             rel="noopener noreferrer"
             className="btn-primary mt-5 w-full"
           >
-            Talk to Gappy
+            {copy.talk}
           </a>
+          <LanguageSwitcher mobile />
         </nav>
       </div>
     </header>

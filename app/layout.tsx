@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import { DM_Mono, Noto_Sans_JP, Space_Grotesk } from 'next/font/google'
+import { headers } from 'next/headers'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import { getContent, type Locale } from '@/content'
 import {
   COMPANY_ADDRESS,
   CONTACT_EMAIL,
@@ -50,6 +52,7 @@ export const metadata: Metadata = {
     url: `${SITE_URL}/`,
     siteName: SITE_NAME,
     locale: 'en_US',
+    alternateLocale: ['ja_JP'],
     type: 'website',
     images: [
       {
@@ -76,14 +79,19 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const requestHeaders = await headers()
+  const locale: Locale =
+    requestHeaders.get('x-gappy-locale') === 'ja' ? 'ja' : 'en'
+  const copy = getContent(locale)
+
   return (
     <html
-      lang="en"
+      lang={copy.htmlLang}
       className={`${spaceGrotesk.variable} ${notoSansJP.variable} ${dmMono.variable} scroll-smooth`}
     >
       <head>
@@ -105,7 +113,10 @@ export default function RootLayout({
                     url: `${SITE_URL}/gappy_icon.png`,
                   },
                   description:
-                    'Gappy is an applied AI company building AI Workforce for complex business operations, starting with travel.',
+                    locale === 'ja'
+                      ? 'Gappyは、複雑な業務を実行するAI Workforceを開発するApplied AI Companyです。まず旅行業界から取り組んでいます。'
+                      : 'Gappy is an applied AI company building AI Workforce for complex business operations, starting with travel.',
+                  inLanguage: copy.htmlLang,
                   email: CONTACT_EMAIL,
                   address: {
                     '@type': 'PostalAddress',
@@ -130,18 +141,21 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen bg-ivory-50 text-ink-900 antialiased">
+      <body
+        className="min-h-screen bg-ivory-50 text-ink-900 antialiased"
+        data-locale={locale}
+      >
         <a
           href="#main-content"
           className="fixed left-4 top-4 z-[100] -translate-y-24 rounded bg-white px-4 py-3 text-sm font-semibold text-navy-900 shadow-lg transition-transform focus:translate-y-0"
         >
-          Skip to content
+          {copy.navigation.skip}
         </a>
         <Header />
         <main id="main-content" className="min-h-screen">
           {children}
         </main>
-        <Footer />
+        <Footer locale={locale} />
       </body>
     </html>
   )

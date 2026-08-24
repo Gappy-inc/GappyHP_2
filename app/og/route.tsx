@@ -1,8 +1,11 @@
 import { ImageResponse } from 'next/og'
+import type { NextRequest } from 'next/server'
 
 export const runtime = 'edge'
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const isJapanese = request.nextUrl.searchParams.get('locale') === 'ja'
+
   return new ImageResponse(
     (
       <div
@@ -68,12 +71,20 @@ export async function GET() {
                 lineHeight: 1.02,
               }}
             >
-              AI that gets
-              <br />
-              business done.
+              {isJapanese ? (
+                <>AIが、業務を実行する時代へ。</>
+              ) : (
+                <>
+                  AI that gets
+                  <br />
+                  business done.
+                </>
+              )}
             </div>
             <div style={{ display: 'flex', fontSize: 25, marginTop: 28 }}>
-              AI Workforce for Business Operations · Starting with travel
+              {isJapanese
+                ? '業務を実行するAI Workforce · まず旅行業界から'
+                : 'AI Workforce for Business Operations · Starting with travel'}
             </div>
           </div>
         </div>
