@@ -30,13 +30,13 @@ export default function ContactPage({ locale }: { locale: Locale }) {
 
             return (
               <article key={title} className="flex min-h-72 flex-col border-b border-r border-navy-900/20 bg-white p-7 md:p-10">
-                <span className="font-mono text-[10px] text-gold-700">
+                <span className="font-mono text-[12px] text-gold-700">
                   {String(index + 1).padStart(2, '0')}
                 </span>
-                <h2 className="mt-14 text-2xl font-medium leading-[1.3] tracking-[-0.025em] text-navy-900">
+                <h2 className="subsection-title mt-14 text-navy-900">
                   {title}
                 </h2>
-                <p className="mt-5 max-w-xl text-sm leading-7 text-ink-500">{body}</p>
+                <p className="mt-5 max-w-xl text-base leading-7 text-ink-500">{body}</p>
                 <a
                   href={href}
                   target={isSchedulingLink ? '_blank' : undefined}
@@ -55,7 +55,7 @@ export default function ContactPage({ locale }: { locale: Locale }) {
         <div className="container-luxe grid gap-12 lg:grid-cols-[1fr_0.8fr] lg:items-end">
           <div>
             <p className="eyebrow text-gold-300">{page.conversation.eyebrow}</p>
-            <h2 className="mt-6 max-w-4xl text-[clamp(2.5rem,5.5vw,4.8rem)] font-medium leading-[1.12] tracking-[-0.035em]">
+            <h2 className="section-title mt-6 max-w-4xl !text-white">
               {page.conversation.title}
             </h2>
           </div>

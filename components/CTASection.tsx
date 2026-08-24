@@ -7,11 +7,12 @@ type CTASectionProps = { locale?: Locale; title?: string; body?: string; seconda
 export default function CTASection({ locale = 'en', title, body, secondaryHref = '/travel', secondaryLabel }: CTASectionProps) {
   const copy = getContent(locale).common
   return (
-    <section className="border-y border-navy-900 bg-gold-500 py-20 text-navy-950 md:py-28">
+    <section className="view-react relative overflow-hidden border-y border-navy-900 bg-gold-500 py-20 text-navy-950 md:py-28">
+      <span className="axis-signal absolute left-[7%] top-0 h-12 w-1 bg-navy-950" aria-hidden="true" />
       <div className="container-luxe grid gap-12 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
         <div>
           <p className="eyebrow">{copy.ctaEyebrow}</p>
-          <h2 className="mt-6 max-w-5xl text-[clamp(3rem,8vw,7.8rem)] font-medium leading-[0.82] tracking-[-0.075em]">{title ?? copy.ctaTitle}</h2>
+          <h2 className="section-title mt-6 max-w-[18ch] !text-navy-950">{title ?? copy.ctaTitle}</h2>
         </div>
         <div>
           <p className="max-w-xl text-base leading-8 text-navy-950/70">{body ?? copy.ctaBody}</p>
