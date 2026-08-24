@@ -34,7 +34,7 @@ The new system expresses the movement from trigger to verified completion throug
 - Connecting axis: movement across fragmented systems
 - Sparse pulse nodes: bounded events and handoffs
 
-The axis is an independent visual motif adjacent to the Gappy wordmark. It does not redraw or claim to replace the corporate wordmark geometry.
+The official supplied Gappy logo is the source of truth for the wordmark and integrated axis geometry. The production asset preserves its original Gappy Green color, proportions, and transparent background; only unused transparent canvas around the artwork is trimmed for efficient responsive display. Page-level axis motifs abstract the same directional relationship without redrawing the logo.
 
 ## 5. Design System
 
