@@ -1,201 +1,319 @@
 import Link from 'next/link'
-import HeroSection from '@/components/sections/HeroSection'
+import CTASection from '@/components/CTASection'
+import OperatingLoop from '@/components/OperatingLoop'
+import OperationalGraph from '@/components/OperationalGraph'
+import { GOODTIME_URL } from '@/lib/config'
 
-const GOODTIME_URL = 'https://meet.goodtime.io/w/gappyjp/mitsuki/30-min-video'
-
-const operatingSteps = [
-  'Trigger',
-  'Understand',
-  'Decide',
-  'Operate systems',
-  'Communicate',
-  'Verify completion',
-  'Escalate exceptions',
+const travelWorkflows = [
+  [
+    'Supplier Operations',
+    'Confirmation, reconfirmation, chasing, and exception handling across supplier channels.',
+  ],
+  [
+    'Booking Operations',
+    'Move booking work forward across inboxes, reservation systems, and internal queues.',
+  ],
+  [
+    'Reconciliation',
+    'Support supplier and payment reconciliation with traceable decisions and handoffs.',
+  ],
+  [
+    'QA & Fulfillment',
+    'Check bookings and fulfillment milestones, then surface what needs human attention.',
+  ],
+  [
+    'Schedule Changes',
+    'Coordinate downstream work when schedules, services, or plans change.',
+  ],
+  [
+    'Customer Communication',
+    'Deliver context-aware communication as part of the operating workflow — not as a disconnected chatbot.',
+  ],
 ]
 
-const workflows = [
-  {
-    title: 'Supplier Operations',
-    description: 'Confirmation, reconfirmation, chasing, and exception handling across supplier channels.',
-  },
-  {
-    title: 'Booking Operations',
-    description: 'Move booking work forward across inboxes, reservation systems, and internal queues.',
-  },
-  {
-    title: 'Reconciliation',
-    description: 'Support supplier and payment reconciliation with traceable decisions and handoffs.',
-  },
-  {
-    title: 'QA & Fulfillment',
-    description: 'Check bookings and fulfillment milestones, then surface what needs human attention.',
-  },
-  {
-    title: 'Schedule Changes',
-    description: 'Coordinate downstream operational work when schedules, services, or plans change.',
-  },
-  {
-    title: 'Customer Communication',
-    description: 'Prepare and deliver context-aware communication as part of the operating workflow.',
-  },
-]
-
-const systemSurfaces = [
-  'Email',
-  'CRM',
-  'GDS',
-  'Spreadsheets',
-  'Supplier portals',
-  'Booking systems',
-  'Internal systems',
+const technologyCapabilities = [
+  'System Access',
+  'Context & Policy',
+  'Execution',
+  'Communication',
+  'Verification',
+  'Human Control',
 ]
 
 export default function Home() {
   return (
     <div className="overflow-hidden bg-ivory-50 text-ink-900">
-      <HeroSection />
-
-      <section className="border-y border-navy-900/10 bg-white" aria-label="Who Gappy is built for">
-        <div className="container-luxe py-7">
-          <p className="text-center text-[11px] font-medium uppercase tracking-[0.24em] text-ink-400">
-            Built with enterprise travel operators — TMCs · DMCs · OTAs · Tour operators · Travel groups
-          </p>
-        </div>
-      </section>
-
-      <section id="approach" className="py-24 md:py-32">
-        <div className="container-luxe">
-          <div className="grid gap-14 lg:grid-cols-[0.82fr_1.18fr] lg:gap-24">
-            <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-gold-700">The product thesis</p>
-              <h2 className="mt-5 text-[clamp(36px,5vw,64px)] font-medium leading-[1.04] tracking-[-0.045em] text-navy-900">
-                The work is the product.
-              </h2>
+      <section className="relative pb-20 pt-32 md:pb-28 md:pt-40">
+        <div
+          className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_75%_20%,rgba(201,169,97,0.16),transparent_32%),linear-gradient(180deg,#fdfcf8_0%,#f4f0e4_100%)]"
+          aria-hidden="true"
+        />
+        <div className="container-luxe grid items-center gap-14 lg:grid-cols-[1.02fr_0.98fr] lg:gap-16">
+          <div>
+            <p className="eyebrow text-gold-700">Gappy / Applied AI</p>
+            <h1 className="display-title mt-7 max-w-4xl">
+              AI that gets business done.
+            </h1>
+            <p className="body-lead mt-8 max-w-2xl">
+              Gappy builds AI systems that understand operational context, make
+              bounded decisions, and execute work across the software businesses
+              already use.
+            </p>
+            <p className="mt-5 text-lg font-medium text-navy-900">
+              We are starting with travel.
+            </p>
+            <div className="mt-9 flex flex-wrap gap-3">
+              <Link href="/travel" className="btn-primary">
+                Explore Travel
+              </Link>
+              <a
+                href={GOODTIME_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary"
+              >
+                Talk to Gappy
+              </a>
             </div>
-            <div className="space-y-6 text-[17px] leading-[1.9] text-ink-500 md:text-[19px]">
-              <p>
-                Travel companies already run on deeply embedded systems. Gappy is not building another core system to replace them.
-              </p>
-              <p className="text-navy-900">
-                We are building an AI Workforce that can understand operational context, act across existing tools, verify completion, and escalate exceptions with a clear audit trail.
-              </p>
-            </div>
-          </div>
-
-          <ol className="mt-16 grid gap-px overflow-hidden rounded-2xl border border-navy-900/10 bg-navy-900/10 sm:grid-cols-2 lg:grid-cols-7">
-            {operatingSteps.map((step, index) => (
-              <li key={step} className="min-h-36 bg-white p-5">
-                <span className="font-mono text-[10px] text-gold-700">{String(index + 1).padStart(2, '0')}</span>
-                <p className="mt-10 text-sm font-medium leading-snug text-navy-900">{step}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section id="workflows" className="bg-navy-900 py-24 text-white md:py-32">
-        <div className="container-luxe">
-          <div className="max-w-3xl">
-            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-gold-300">Workflow by workflow</p>
-            <h2 className="mt-5 text-[clamp(36px,5vw,64px)] font-medium leading-[1.04] tracking-[-0.045em]">
-              AI operators for the work behind every trip.
-            </h2>
-            <p className="mt-7 max-w-2xl text-base leading-8 text-white/60">
-              Gappy is developed around bounded, measurable workflows. Each deployment starts with the operational reality of the travel company — not a generic chatbot.
+            <p className="eyebrow mt-10 text-ink-400">
+              AI Workforce for Business Operations
             </p>
           </div>
+          <OperationalGraph />
+        </div>
+      </section>
 
-          <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 md:grid-cols-2 lg:grid-cols-3">
-            {workflows.map((workflow, index) => (
-              <article key={workflow.title} className="group min-h-64 bg-navy-900 p-7 transition-colors hover:bg-navy-800 md:p-9">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[10px] tracking-[0.16em] text-gold-300">WF-{String(index + 1).padStart(2, '0')}</span>
-                  <span className="h-2 w-2 rounded-full border border-gold-300/50 transition-colors group-hover:bg-gold-300" aria-hidden="true" />
-                </div>
-                <h3 className="mt-16 text-xl font-medium tracking-[-0.02em]">{workflow.title}</h3>
-                <p className="mt-4 text-sm leading-7 text-white/55">{workflow.description}</p>
+      <section className="section-shell border-y border-navy-900/10 bg-white">
+        <div className="container-luxe grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-24">
+          <div>
+            <p className="eyebrow text-gold-700">What we build</p>
+            <h2 className="section-title mt-6">
+              From software that stores work to AI that moves it forward.
+            </h2>
+          </div>
+          <div className="space-y-6 self-end text-[clamp(1.05rem,1.6vw,1.3rem)] leading-[1.8] text-ink-500">
+            <p>Most business operations do not live inside a single system.</p>
+            <p>
+              They happen between inboxes, databases, portals, spreadsheets,
+              internal software, and human judgment.
+            </p>
+            <p className="text-navy-900">
+              Gappy builds AI Workforce that can carry context across those
+              boundaries and move operational work toward a verified outcome.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-shell bg-navy-900 text-white">
+        <div className="container-luxe">
+          <div className="grid gap-10 lg:grid-cols-[1fr_0.72fr] lg:items-end">
+            <div>
+              <p className="eyebrow text-gold-300">Gappy AI Workforce</p>
+              <h2 className="mt-6 max-w-4xl text-[clamp(2.5rem,6vw,5rem)] font-medium leading-[1] tracking-[-0.052em]">
+                From trigger to verified outcome.
+              </h2>
+            </div>
+            <p className="text-base leading-8 text-white/55">
+              Useful AI for operations has to do more than generate an answer. It
+              needs to understand what happened, take authorized action, check the
+              result, and know when a person should take over.
+            </p>
+          </div>
+          <div className="mt-14">
+            <OperatingLoop />
+          </div>
+          <Link
+            href="/technology"
+            className="mt-9 inline-flex min-h-11 items-center text-sm font-medium text-gold-300 underline decoration-white/25 underline-offset-8 hover:text-white"
+          >
+            Explore the Technology
+          </Link>
+        </div>
+      </section>
+
+      <section className="section-shell">
+        <div className="container-luxe grid items-start gap-14 lg:grid-cols-2 lg:gap-24">
+          <div>
+            <p className="eyebrow text-gold-700">Primary vertical / Travel</p>
+            <h2 className="section-title mt-6">Starting with travel.</h2>
+            <div className="body-lead mt-8 max-w-xl space-y-5">
+              <p>
+                Travel is global, fragmented, time-sensitive, and operationally
+                intensive.
+              </p>
+              <p>
+                A single trip can move through booking systems, supplier portals,
+                email, CRM, spreadsheets, internal queues, and repeated human
+                coordination.
+              </p>
+              <p>
+                That makes travel a natural proving ground for AI that has to
+                operate across real-world complexity.
+              </p>
+            </div>
+            <Link href="/travel" className="btn-primary mt-9">
+              Explore Travel
+            </Link>
+          </div>
+          <div className="rounded-[30px] border border-navy-900/10 bg-white p-7 shadow-[0_28px_80px_rgba(11,22,50,0.08)] md:p-11">
+            <p className="eyebrow text-gold-700">Current flagship</p>
+            <p className="mt-24 text-[clamp(2.3rem,5vw,4.5rem)] font-medium leading-[1.02] tracking-[-0.05em] text-navy-900">
+              AI Workforce for Travel Operations
+            </p>
+            <p className="mt-8 border-t border-navy-900/10 pt-6 text-sm leading-7 text-ink-500">
+              A focused application of Gappy&apos;s operating capability to the
+              work behind every trip.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="travel-workflows" className="section-shell border-y border-navy-900/10 bg-white">
+        <div className="container-luxe">
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="eyebrow text-gold-700">Travel workflows</p>
+              <h2 className="section-title mt-6 max-w-4xl">
+                Operational work behind every trip.
+              </h2>
+            </div>
+            <Link href="/travel#workflows" className="btn-secondary">
+              See Travel Operations
+            </Link>
+          </div>
+          <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-navy-900/10 bg-navy-900/10 md:grid-cols-2 lg:grid-cols-3">
+            {travelWorkflows.map(([title, description], index) => (
+              <article key={title} className="min-h-64 bg-white p-7 md:p-9">
+                <span className="font-mono text-[10px] text-gold-700">
+                  WF-{String(index + 1).padStart(2, '0')}
+                </span>
+                <h3 className="mt-14 text-xl font-medium tracking-[-0.025em] text-navy-900">
+                  {title}
+                </h3>
+                <p className="mt-4 text-sm leading-7 text-ink-500">{description}</p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-24 md:py-32">
-        <div className="container-luxe">
-          <div className="grid items-start gap-16 lg:grid-cols-2 lg:gap-24">
-            <div className="lg:sticky lg:top-32">
-              <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-gold-700">Operate across the stack</p>
-              <h2 className="mt-5 text-[clamp(36px,5vw,64px)] font-medium leading-[1.04] tracking-[-0.045em] text-navy-900">
-                Your systems stay.<br />The manual work disappears.
-              </h2>
-              <p className="mt-7 max-w-xl text-base leading-8 text-ink-500">
-                The AI Workforce works across the tools teams already use, carries context between them, and keeps people in control of exceptions.
-              </p>
-            </div>
-
-            <div className="rounded-[28px] border border-navy-900/10 bg-white p-6 shadow-[0_24px_70px_rgba(11,22,50,0.08)] md:p-9">
-              <div className="flex items-center justify-between border-b border-navy-900/10 pb-6">
-                <div>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-gold-700">Execution environment</p>
-                  <p className="mt-2 text-sm text-ink-400">Existing travel infrastructure</p>
-                </div>
-                <span className="rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-medium tracking-[0.12em] text-emerald-700">CONNECTED</span>
-              </div>
-              <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-                {systemSurfaces.map((surface, index) => (
-                  <li key={surface} className="flex min-h-20 items-center gap-4 rounded-xl border border-navy-900/10 bg-ivory-50 px-4">
-                    <span className="grid h-8 w-8 place-items-center rounded-lg bg-navy-900 font-mono text-[9px] text-gold-300">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <span className="text-sm font-medium text-navy-900">{surface}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-6 border-t border-navy-900/10 pt-6">
-                <p className="text-sm leading-7 text-ink-500">
-                  Human review remains available where policy, ambiguity, or risk requires it.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="border-y border-navy-900/10 bg-white py-24 md:py-32">
-        <div className="container-luxe">
-          <div className="grid gap-12 lg:grid-cols-[1fr_0.9fr] lg:items-end">
-            <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-gold-700">Design partnerships</p>
-              <h2 className="mt-5 max-w-4xl text-[clamp(36px,5vw,64px)] font-medium leading-[1.04] tracking-[-0.045em] text-navy-900">
-                Start with one workflow. Build the operating layer together.
-              </h2>
-            </div>
-            <div>
-              <p className="text-base leading-8 text-ink-500">
-                We work with travel companies that want to redesign a real operational workflow, define its guardrails, and measure what changed.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <a href={GOODTIME_URL} target="_blank" rel="noopener noreferrer" className="btn-navy">
-                  Become a Design Partner
-                </a>
-                <Link href="/cases" className="btn-outline">See our approach</Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 md:py-24">
-        <div className="container-luxe flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+      <section className="section-shell">
+        <div className="container-luxe grid gap-14 lg:grid-cols-[0.88fr_1.12fr] lg:gap-24">
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-gold-700">Gappy / 株式会社Gappy</p>
-            <h2 className="mt-3 text-3xl font-medium tracking-[-0.035em] text-navy-900">Building the AI operating layer for travel.</h2>
+            <p className="eyebrow text-gold-700">Operate across the stack</p>
+            <h2 className="section-title mt-6">
+              Built around the systems businesses already use.
+            </h2>
+            <div className="body-lead mt-8 max-w-xl space-y-5">
+              <p>Core business software contains years of operating logic.</p>
+              <p>
+                Gappy is not built on the assumption that companies will replace
+                it.
+              </p>
+              <p>
+                We design AI Workforce to operate across existing infrastructure
+                while keeping authority, verification, and human escalation
+                explicit.
+              </p>
+            </div>
+            <Link href="/technology" className="btn-primary mt-9">
+              Explore Technology
+            </Link>
           </div>
-          <Link href="/about" className="text-sm font-medium text-navy-900 underline decoration-gold-500 underline-offset-8">
-            About Gappy
-          </Link>
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {technologyCapabilities.map((capability, index) => (
+              <li
+                key={capability}
+                className="flex min-h-32 items-center gap-5 rounded-xl border border-navy-900/10 bg-white px-6"
+              >
+                <span className="font-mono text-[10px] text-gold-700">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <span className="font-medium text-navy-900">{capability}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
+
+      <section className="section-shell bg-navy-900 text-white">
+        <div className="container-luxe grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-end lg:gap-24">
+          <div>
+            <p className="eyebrow text-gold-300">Projects</p>
+            <h2 className="mt-6 text-[clamp(2.5rem,5vw,4.5rem)] font-medium leading-[1.02] tracking-[-0.05em]">
+              Build around the operation, not the demo.
+            </h2>
+            <p className="mt-8 max-w-xl text-base leading-8 text-white/55">
+              Every deployment begins with a real workflow. We map its trigger,
+              systems, decisions, actions, exceptions, and definition of done
+              before deciding how much responsibility the AI should carry.
+            </p>
+            <Link href="/cases" className="btn-light mt-9">
+              View Projects
+            </Link>
+          </div>
+          <article className="rounded-[28px] border border-white/10 bg-white/[0.04] p-7 md:p-10">
+            <p className="eyebrow text-gold-300">Travel / Active</p>
+            <h3 className="mt-20 text-[clamp(2rem,4vw,3.6rem)] font-medium leading-[1.04] tracking-[-0.045em]">
+              AI Workforce for Travel Operations
+            </h3>
+            <p className="mt-6 text-sm leading-7 text-white/55">
+              AI operators for the operational work behind bookings, suppliers,
+              fulfillment, reconciliation, changes, and customer communication.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section className="section-shell border-b border-navy-900/10 bg-white">
+        <div className="container-luxe grid gap-12 lg:grid-cols-[1fr_0.9fr] lg:items-end">
+          <div>
+            <p className="eyebrow text-gold-700">Insights</p>
+            <h2 className="section-title mt-6">Notes from the operating layer.</h2>
+          </div>
+          <div>
+            <p className="body-lead">
+              Practical thinking on AI Workforce, operational systems, and how
+              autonomous work should be designed.
+            </p>
+            <Link href="/resources" className="btn-secondary mt-8">
+              Read Insights
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-shell">
+        <div className="container-luxe grid gap-16 lg:grid-cols-2 lg:gap-24">
+          <div>
+            <p className="eyebrow text-gold-700">About Gappy</p>
+            <h2 className="section-title mt-6">Make complex operations autonomous.</h2>
+            <p className="body-lead mt-8 max-w-xl">
+              We believe AI will change business software from something people
+              operate into something that can increasingly operate the business
+              itself. Gappy is building that future one bounded workflow at a time.
+            </p>
+            <Link href="/about" className="btn-primary mt-9">
+              About Gappy
+            </Link>
+          </div>
+          <div className="border-t border-navy-900/10 pt-8 lg:border-l lg:border-t-0 lg:pl-16 lg:pt-0">
+            <p className="eyebrow text-gold-700">Careers</p>
+            <h2 className="section-title mt-6">Build AI that works in the real world.</h2>
+            <p className="body-lead mt-8 max-w-xl">
+              We are building a team across AI, software, product, and operations
+              for people who want to turn frontier technology into systems that
+              carry real responsibility.
+            </p>
+            <Link href="/careers" className="btn-secondary mt-9">
+              Join Gappy
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <CTASection />
     </div>
   )
 }

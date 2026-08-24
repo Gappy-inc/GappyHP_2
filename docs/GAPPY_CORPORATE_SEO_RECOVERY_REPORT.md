@@ -6,7 +6,7 @@
 
 The production site initially presented Gappy primarily as the previous product “Gappy Stay.” The recovery replaces that positioning with “Gappy — AI Workforce for Travel Operations,” restructures the main corporate pages, removes obsolete product routes and assets, and aligns canonical, Open Graph, X/Twitter, sitemap, robots, and structured data.
 
-The corporate site is now deployed and externally verified. Legacy-domain migration, the `www` redirect, Search Console, and Google Business Profile changes are blocked by external account access and are documented with exact next actions.
+The corporate site is now deployed and externally verified. The follow-up external-access closure verified Search Console ownership, submitted the canonical sitemap, and requested priority recrawls for the three primary identity pages. The `www` redirect, legacy Vercel deployment, and Google Business Profile remain blocked by the owning accounts and are documented with exact evidence and next actions.
 
 ## 2. Initial State
 
@@ -32,6 +32,8 @@ Repository: `Gappy-inc/GappyHP_2`
 Branch: `main`
 
 Commit: `5558fbecb8bcaad3a4282a4cdd3151b14e638d22` at initial audit
+
+Current production merge commit at the external-closure baseline: `6128cc3cc6f35837b61a36022739f7bd3556967b`
 
 Deployment method: merge/push to `main` → Vercel GitHub integration → Production deployment
 
@@ -86,9 +88,21 @@ Legacy URL: `https://gappy-homepage.vercel.app/`
 
 Initial status: HTTP 200; publicly indexable legacy content.
 
-Ownership evidence: Vercel-generated domain. The authenticated Vercel account can access the `gappy-inc` and `gappyinc` teams, but neither team has access to this domain/project. GitHub organization and authenticated-user repository searches did not identify a repository tied to the deployment.
+Ownership evidence: Vercel-generated domain. The authenticated Vercel identity is `mitsuki-6964` and can access the `gappy-inc` and `gappyinc` teams, but neither team contains or can inspect a `gappy-homepage` project. The accessible `gappy-inc` project inventory contains 13 unrelated projects and `gappyinc` contains only `gappy-stay`. GitHub organization, authenticated-user repository, deployment, exact-domain, exact-title, build-ID, and unique-copy searches did not identify a repository tied to this deployment. Candidate repositories `gappymitsuki/corporatesite` and `gappymitsuki/New-Corporate-Site` contain only `README.md`.
 
-Action: **BLOCKED_BY_AUTH**. The authenticated Vercel identity cannot access the owning project in its personal scope or either available Gappy team. The legacy homepage still returns HTTP 200; `/about` returns HTTP 404.
+Project: **NOT IDENTIFIED**
+
+Project ID: **NOT IDENTIFIED**
+
+Vercel team/org ID: **NOT IDENTIFIED**
+
+Repository: **NOT IDENTIFIED**
+
+Owner: **NOT IDENTIFIED**; the two authenticated Gappy team scopes are excluded by direct project and deployment inspection.
+
+Confidence: **HIGH** that the target is outside the currently authenticated Vercel scopes; **LOW** for any specific owner because the public response does not expose project ownership metadata.
+
+Action: **BLOCKED_BY_VERCEL_AUTH**. The authenticated Vercel identity cannot access the owning project in its personal scope or either available Gappy team. No project, domain, repository, or deployment was deleted or marked unavailable. The legacy homepage still returns HTTP 200; `/about` returns HTTP 404.
 
 Desired destination: `https://gappy.jp/` with a one-hop permanent path-preserving redirect where the destination path exists; otherwise the homepage.
 
@@ -140,37 +154,50 @@ Production verification: PASS. `/`, `/about`, `/cases`, `/resources`, `/contact`
 
 ## 11. Search Console
 
-Status: `BLOCKED_BY_AUTH`
+Status: `VERIFIED`
 
-Actions completed: production SEO source and canonical sitemap deployed and externally verified. The authenticated browser account was `mitsuki@gappy.jp`.
+Property: Domain Property `sc-domain:gappy.jp`
 
-Blocked actions: the authenticated account has no accessible Search Console properties and does not have access to `sc-domain:gappy.jp`. The UI explicitly reports that the property belongs to another account or requires ownership verification.
+Authenticated account: `mitsuki@gappy.jp`
 
-Exact next action: an existing property owner should open **Search Console → Settings → Users and permissions**, add `mitsuki@gappy.jp` with Full access (or Owner where appropriate), then submit/resubmit `https://gappy.jp/sitemap.xml`. Run URL Inspection → Test live URL → Request Indexing for `/`, `/about`, and `/cases`.
+DNS verification: an existing `google-site-verification` TXT record was already publicly served for `gappy.jp`. Search Console automatically confirmed ownership on 2026-08-24; no DNS record was added, edited, or removed.
+
+Sitemap: `https://gappy.jp/sitemap.xml` submitted on 2026-08-24. Search Console fetched it successfully and detected 5 pages.
+
+URL Inspection:
+
+- `https://gappy.jp/`: already indexed; live test passed as indexable; priority crawl requested.
+- `https://gappy.jp/about`: already indexed; live test passed as indexable; priority crawl requested.
+- `https://gappy.jp/cases`: already indexed; live test passed as indexable; priority crawl requested.
+
+The general-purpose Indexing API was not used.
 
 ## 12. Google Business Profile
 
-Status: `BLOCKED_BY_AUTH`
+Status: `ELIGIBILITY_REVIEW_REQUIRED`
 
-Current category: reported publicly as `観光案内所`; authenticated dashboard confirmation unavailable.
+Current public profile:
 
-Recommended / changed category: confirm the current primary category and available local category list; if accurate for the business model, prefer the official Google category equivalent of `Software company`. Do not mark the profile closed or delete it automatically.
+- Business name: `株式会社Gappy`
+- Primary category: `観光案内所`
+- Hours: `24時間営業`
+- Website: `https://official.gappy.jp/` (currently one permanent redirect to `https://gappy.jp/`)
+- Public phone: `070-1185-3131`
+- Public address: not displayed in the observed Google Maps profile
+- Public description: not displayed in the observed Google Maps profile
 
-Website: desired `https://gappy.jp`
+Ownership: the authenticated Business Profile Manager account `mitsuki@gappy.jp` shows `0 件のビジネス` and no managed locations. Local files, accessible GitHub repositories, and Workspace-adjacent documentation contained no evidence identifying the managing Google account. No credentials were searched or extracted.
 
-Description: desired company description aligned to AI Workforce for travel operations without keyword stuffing.
+Eligibility: the current corporate operation presents itself online as a B2B AI/software company. Google states that a Business Profile normally requires in-person customer contact during stated hours and that online-only businesses are ineligible. The observed profile may instead represent a historical customer-facing or service-area tourism operation. Gappy must confirm whether that operation still legitimately meets customers in person before requesting changes. No duplicate profile was created, and no category, website, description, hours, or ownership fields were changed.
 
-Access evidence: the authenticated Business Profile Manager account `mitsuki@gappy.jp` shows `0 件のビジネス` and no managed locations.
-
-Exact next action: an existing profile owner should open the Business Profile → Business Profile settings → People and access, invite `mitsuki@gappy.jp` as Manager or Owner, and then confirm the live fields. If `観光案内所` is the registered primary category and no longer accurate, select the locally available official category corresponding to `Software company` only after confirming it in Google's category picker. Set the website to `https://gappy.jp` and update the description to the current company positioning. Do not mark the profile closed or delete it.
+Recommended action: the business owner should first confirm whether the represented tourism operation still makes in-person customer contact. If yes, request ownership of the existing profile and update only factually current fields. If no, do not repurpose the profile as `Software company` solely for SEO; use Google's ownership/support flow to resolve the obsolete or ineligible profile. Reference: [Google Business Profile eligibility and ownership guidelines](https://support.google.com/business/answer/13763036).
 
 ## 13. Remaining Manual Actions
 
-- Obtain the owning Vercel account/team for `gappy-homepage.vercel.app`, add the authenticated user as a project member, and configure a permanent path-preserving redirect to `https://gappy.jp`.
-- Sign in to the Cloudflare account that owns the `gappy.jp` zone. Remove the self-redirect rule for `www.gappy.jp`, then create a one-hop permanent redirect from `https://www.gappy.jp/*` to `https://gappy.jp/${1}` with query-string preservation enabled. Verify with `curl -IL`.
-- Grant `mitsuki@gappy.jp` access to the existing `gappy.jp` Search Console property, then resubmit the sitemap and request indexing for the primary pages.
-- Grant `mitsuki@gappy.jp` Owner/Manager access to the existing Business Profile, then confirm/update category, website, and description.
-- Allow time for Google to recrawl and refresh search-result titles, site name, and the Knowledge Panel.
+- An owner of the Cloudflare account containing the `gappy.jp` zone must sign in or invite `mitsuki@gappy.jp` with permission to edit Redirect Rules. The authenticated `Mitsuki@gappy.jp's Account` contains only `gappyops.com` and `japanamplified.com`; creating another zone is prohibited.
+- An owner of the Vercel project serving `gappy-homepage.vercel.app` must identify the owning scope and invite the authenticated user or apply the documented permanent redirect.
+- The business owner must confirm whether the existing Google Business Profile represents a currently eligible in-person/service-area tourism operation and, if appropriate, approve or complete the existing-profile ownership claim.
+- Allow time for Google to process the submitted sitemap and priority crawl requests and refresh search-result titles, site name, and the Knowledge Panel.
 
 ## 14. Rollback
 
@@ -182,4 +209,87 @@ Rollback trigger: homepage or critical-route 5xx, broken application assets, red
 
 ## 15. Final Status
 
-**PARTIAL SUCCESS — production website recovery complete and verified. Legacy redirect, `www` redirect, Search Console, and Business Profile changes are BLOCKED_BY_AUTH.**
+**PARTIAL SUCCESS — production website and Search Console closure are complete and verified. The `www` redirect is `BLOCKED_BY_CLOUDFLARE_AUTH`; the legacy deployment is `BLOCKED_BY_VERCEL_AUTH`; the Business Profile is `ELIGIBILITY_REVIEW_REQUIRED`.**
+
+## External Access Closure
+
+Closure run: `2026-08-24` (Asia/Tokyo)
+
+### WWW Redirect
+
+Initial: `https://www.gappy.jp/` and `https://www.gappy.jp/about?source=closure` return Cloudflare-served HTTP 308 responses whose `Location` values are the identical input URLs. `curl` reaches its redirect limit without leaving `www`.
+
+Cause: an active Cloudflare edge redirect is self-targeting `www.gappy.jp`. The repository rule is not the cause: `next.config.js` sends `www.gappy.jp/:path*` to `https://gappy.jp/:path*`, but the Cloudflare response occurs before the Vercel origin. The exact Cloudflare rule name/ID cannot be read because the authenticated account does not contain the `gappy.jp` zone.
+
+Change: none; status is `BLOCKED_BY_CLOUDFLARE_AUTH`. After the owning account grants access, disable the active Redirect Rule, Bulk Redirect, or Page Rule whose match includes `www.gappy.jp` and whose output retains the same `www.gappy.jp` URL. Create one Single Redirect with:
+
+```text
+Rule name: www.gappy.jp to apex
+Match expression: (http.host eq "www.gappy.jp")
+Target URL expression: concat("https://gappy.jp", http.request.uri.path)
+HTTP status: 308
+Preserve query string: Enabled
+```
+
+Equivalent wildcard UI values:
+
+```text
+Request URL: https://www.gappy.jp/*
+Target URL: https://gappy.jp/${1}
+HTTP status: 308
+Preserve query string: Enabled
+```
+
+Reference: [Cloudflare Single Redirect settings](https://developers.cloudflare.com/rules/url-forwarding/single-redirects/settings/).
+
+Verification: still blocked. `/` and `/about?source=closure` remain 308 self-loops as of the final external check.
+
+### Legacy Vercel
+
+Project: **NOT IDENTIFIED**
+
+Team: **NOT IDENTIFIED**; confirmed absent from authenticated `gappy-inc` and `gappyinc` scopes.
+
+Project ID: **NOT IDENTIFIED**
+
+Repository: **NOT IDENTIFIED**
+
+Owner: **NOT IDENTIFIED**
+
+Action: no destructive action taken. Required target state is a permanent redirect from `gappy-homepage.vercel.app/*` to `gappy.jp/*` when the destination route exists, with other legacy paths falling back to `https://gappy.jp/`.
+
+Verification: `https://gappy-homepage.vercel.app/` remains HTTP 200 with the legacy title; `/about` remains HTTP 404. Status is `BLOCKED_BY_VERCEL_AUTH`.
+
+### Search Console
+
+Property: Domain Property `gappy.jp`
+
+DNS verification: existing public TXT record automatically verified ownership for `mitsuki@gappy.jp`; no DNS mutation was required.
+
+Sitemap: `https://gappy.jp/sitemap.xml` submitted successfully on 2026-08-24; 5 pages detected.
+
+Index requests: `/`, `/about`, and `/cases` were already indexed, passed live URL tests, and were added successfully to Google's priority crawl queue.
+
+Status: `VERIFIED`
+
+### Google Business Profile
+
+Current profile: `株式会社Gappy`; category `観光案内所`; 24-hour hours; website `official.gappy.jp`; public phone `070-1185-3131`; no public address or description observed.
+
+Ownership: `mitsuki@gappy.jp` manages 0 profiles; owning account not identified.
+
+Eligibility: current corporate positioning is online B2B AI/software, while the profile appears tied to a prior tourism operation. In-person or service-area activity must be confirmed by the business owner.
+
+Recommended action: do not create a duplicate and do not convert the category to `Software company` for SEO. Confirm eligibility first, then claim and update the existing profile only if it still represents a legitimate customer-facing operation.
+
+Status: `ELIGIBILITY_REVIEW_REQUIRED`
+
+### Search Engine Identity Audit
+
+| URL | Live HTTP state | Live title / identity | Closure state |
+| --- | --- | --- | --- |
+| `https://gappy.jp/` | 200, Vercel | `Gappy | AI Workforce for Travel Operations`; self-canonical | Canonical corporate source, verified |
+| `https://www.gappy.jp/` | Cloudflare 308 self-loop | Not fetchable through the loop | `BLOCKED_BY_CLOUDFLARE_AUTH` |
+| `https://gappy-homepage.vercel.app/` | 200, Vercel | `株式会社Gappy - タビナカの隙間時間を本物の日本体験で満たす` | `BLOCKED_BY_VERCEL_AUTH` |
+
+Desired architecture remains one canonical 200 source at `gappy.jp`, with one-hop permanent redirects from both `www.gappy.jp` and the legacy Vercel domain.
