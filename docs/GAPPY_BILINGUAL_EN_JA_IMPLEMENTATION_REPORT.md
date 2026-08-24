@@ -8,8 +8,9 @@ The implementation uses shared page templates and locale content dictionaries. N
 
 ## 2. Initial State
 
-- Production source: `codex/gappy-corporate-v2`
-- Pre-deploy SHA: `6dafb26`
+- Production source: `main` (Corporate Website v2 merged in PR #15)
+- Pre-deploy main SHA: `99fd14bc966693ea702908367b6d82395238f4fc`
+- Corporate Website v2 implementation SHA: `6dafb2662438819474c152840b79c7ea4df8de31`
 - Framework: Next.js 15 App Router, React 18, TypeScript
 - Package manager: npm (`package-lock.json`)
 - Existing indexable English URLs: 8
@@ -140,9 +141,10 @@ Browser rendering was checked at 1440px, 1280px, 768px, and 390px. Japanese head
 
 ## 14. Production Deployment
 
-- Pre-deploy SHA: `6dafb26`
+- Pre-deploy main SHA: `99fd14bc966693ea702908367b6d82395238f4fc`
+- Bilingual implementation SHA: `df532bb`
 - Post-deploy SHA: Pending deployment
-- Rollback: redeploy `6dafb26` or revert the bilingual implementation commit through the normal GitHub/Vercel deployment path
+- Rollback: redeploy `99fd14bc966693ea702908367b6d82395238f4fc` or revert the bilingual implementation commit through the normal GitHub/Vercel deployment path
 
 ## 15. Search Console
 
