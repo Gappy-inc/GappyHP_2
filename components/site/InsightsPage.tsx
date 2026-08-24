@@ -18,11 +18,11 @@ export default function InsightsPage({ locale }: { locale: Locale }) {
 
       <section className="section-shell">
         <div className="container-luxe">
-          <div className="grid gap-px overflow-hidden rounded-2xl border border-navy-900/10 bg-navy-900/10 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid border-l border-t border-navy-900/20 md:grid-cols-2 lg:grid-cols-3">
             {page.topics.map((topic, index) => (
               <article
                 key={topic.title}
-                className={`flex min-h-[340px] flex-col bg-white p-7 md:p-9 ${
+                className={`flex min-h-[340px] flex-col border-b border-r border-navy-900/20 bg-white p-7 md:p-9 ${
                   index === page.topics.length - 1 ? 'lg:col-span-2' : ''
                 }`}
               >
@@ -42,7 +42,7 @@ export default function InsightsPage({ locale }: { locale: Locale }) {
                   {topic.tags.map((tag) => (
                     <li
                       key={tag}
-                      className="rounded-full border border-navy-900/10 px-3 py-1 font-mono text-[9px] uppercase tracking-[0.1em] text-ink-400"
+                      className="border-b border-navy-900/20 px-1 py-1 font-mono text-[9px] uppercase tracking-[0.1em] text-ink-400"
                     >
                       {tag}
                     </li>
@@ -65,11 +65,11 @@ export default function InsightsPage({ locale }: { locale: Locale }) {
               {page.brief.title}
             </h2>
           </div>
-          <ol className="grid gap-3 sm:grid-cols-2">
+          <ol className="border-t border-white/20 sm:grid sm:grid-cols-2">
             {page.brief.questions.map((question, index) => (
               <li
                 key={question}
-                className="flex min-h-24 items-center gap-4 rounded-xl border border-white/10 bg-white/[0.04] px-5"
+                className="flex min-h-24 items-center gap-4 border-b border-white/20 px-5 sm:border-r"
               >
                 <span className="font-mono text-[9px] text-gold-300">
                   {String(index + 1).padStart(2, '0')}

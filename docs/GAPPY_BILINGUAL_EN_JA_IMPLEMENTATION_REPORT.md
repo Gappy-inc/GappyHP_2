@@ -143,13 +143,71 @@ Browser rendering was checked at 1440px, 1280px, 768px, and 390px. Japanese head
 
 - Pre-deploy main SHA: `99fd14bc966693ea702908367b6d82395238f4fc`
 - Bilingual implementation SHA: `df532bb`
-- Post-deploy SHA: Pending deployment
+- Post-deploy SHA: `3758fe99634118a7eb60b5475490ab109892c781`
+- Production URL: `https://gappy.jp`
+- Production verification: 16 of 16 English/Japanese URLs live
 - Rollback: redeploy `99fd14bc966693ea702908367b6d82395238f4fc` or revert the bilingual implementation commit through the normal GitHub/Vercel deployment path
 
-## 15. Search Console
+## 15. Search Console Finalization
 
-- Sitemap: Pending production deployment and resubmission
-- Japanese URLs requested: Pending production live tests
+- Property: `gappy.jp`
+- Sitemap: `https://gappy.jp/sitemap.xml`
+- Sitemap status: Success
+- Discovered URLs: 16
+- Sitemap errors: 0
+
+### Japanese Priority Index Requests
+
+#### `/ja/`
+
+- Current indexing status: Discovered — currently not indexed
+- Live Test: PASS
+- Indexable: YES
+- User canonical: `https://gappy.jp/ja/`
+- Google canonical: NOT_YET_DETERMINED
+- Request: ALREADY_REQUESTED
+
+#### `/ja/travel`
+
+- Current indexing status: Discovered — currently not indexed
+- Live Test: PASS
+- Indexable: YES
+- User canonical: `https://gappy.jp/ja/travel`
+- Google canonical: NOT_YET_DETERMINED
+- Request: REQUEST_ACCEPTED
+
+#### `/ja/technology`
+
+- Current indexing status: Discovered — currently not indexed
+- Live Test: PASS
+- Indexable: YES
+- User canonical: `https://gappy.jp/ja/technology`
+- Google canonical: NOT_YET_DETERMINED
+- Request: REQUEST_ACCEPTED
+
+#### `/ja/about`
+
+- Current indexing status: URL not yet known to Google
+- Live Test: PASS
+- Indexable: YES
+- User canonical: `https://gappy.jp/ja/about`
+- Google canonical: NOT_YET_DETERMINED
+- Request: REQUEST_ACCEPTED
+
+#### `/ja/cases`
+
+- Current indexing status: Discovered — currently not indexed
+- Live Test: PASS
+- Indexable: YES
+- User canonical: `https://gappy.jp/ja/cases`
+- Google canonical: NOT_YET_DETERMINED
+- Request: REQUEST_ACCEPTED
+
+### Final Search Status
+
+- English: Production and sitemap complete
+- Japanese: Production, sitemap, and priority indexing requests complete
+- Google status: AWAITING_RECRAWL
 
 ## 16. Known External Blockers
 
@@ -159,8 +217,8 @@ Browser rendering was checked at 1440px, 1280px, 768px, and 390px. Japanese head
 
 ## 17. Remaining Manual Actions
 
-None unless GitHub/Vercel/Search Console presents MFA, CAPTCHA, or reauthentication.
+None. Google crawling and indexing now proceed asynchronously.
 
 ## 18. Final Status
 
-Implementation and local QA are complete. Production, PR, deployment, and Search Console fields will be updated after the authorized release workflow finishes.
+Mission complete. English and Japanese production pages, international SEO, sitemap discovery, and the five Japanese priority indexing requests are complete. Search result inclusion remains subject to Google's crawl and indexing systems.

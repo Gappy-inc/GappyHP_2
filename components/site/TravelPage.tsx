@@ -49,11 +49,11 @@ export default function TravelPage({ locale }: { locale: Locale }) {
           <h2 className="mt-5 max-w-4xl text-[clamp(2rem,4.5vw,3.8rem)] font-medium leading-[1.14] tracking-[-0.035em] text-navy-900">
             {page.target.title}
           </h2>
-          <ul className="mt-10 grid gap-px overflow-hidden rounded-xl border border-navy-900/10 bg-navy-900/10 sm:grid-cols-2 lg:grid-cols-6">
+          <ul className="mt-10 grid border-l border-t border-navy-900/20 sm:grid-cols-2 lg:grid-cols-6">
             {page.target.items.map((type) => (
               <li
                 key={type}
-                className="flex min-h-24 items-center justify-center bg-white px-4 text-center text-xs font-medium text-navy-900"
+                className="flex min-h-24 items-center justify-center border-b border-r border-navy-900/20 bg-white px-4 text-center text-xs font-medium text-navy-900"
               >
                 {type}
               </li>
@@ -77,9 +77,9 @@ export default function TravelPage({ locale }: { locale: Locale }) {
             {page.example.steps.map((step, index) => (
               <li
                 key={step}
-                className="relative flex min-h-16 items-center gap-5 rounded-xl border border-white/10 bg-navy-950/50 px-4 py-3"
+                className="relative flex min-h-16 items-center gap-5 border-b border-white/20 px-4 py-3"
               >
-                <span className="z-10 grid h-9 w-9 flex-none place-items-center rounded-full border border-gold-300/40 bg-navy-900 font-mono text-[9px] text-gold-300">
+                <span className="z-10 grid h-9 w-9 flex-none place-items-center border border-gold-300/40 bg-navy-900 font-mono text-[9px] text-gold-300">
                   {String(index + 1).padStart(2, '0')}
                 </span>
                 <span className="text-sm leading-6 text-white/75">{step}</span>
@@ -93,9 +93,9 @@ export default function TravelPage({ locale }: { locale: Locale }) {
         <div className="container-luxe">
           <p className="eyebrow text-gold-700">{page.workflows.eyebrow}</p>
           <h2 className="section-title mt-6 max-w-4xl">{page.workflows.title}</h2>
-          <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-navy-900/10 bg-navy-900/10 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-14 grid border-l border-t border-navy-900/20 md:grid-cols-2 lg:grid-cols-3">
             {page.workflows.items.map(([title, body], index) => (
-              <article key={title} className="min-h-64 bg-white p-7 md:p-9">
+              <article key={title} className="min-h-64 border-b border-r border-navy-900/20 bg-white p-7 md:p-9">
                 <span className="font-mono text-[10px] text-gold-700">
                   WF-{String(index + 1).padStart(2, '0')}
                 </span>
@@ -118,11 +118,11 @@ export default function TravelPage({ locale }: { locale: Locale }) {
               {page.systems.statement}
             </p>
           </div>
-          <ul className="grid gap-3 sm:grid-cols-2">
+          <ul className="border-t border-navy-900/20 sm:grid sm:grid-cols-2">
             {page.systems.items.map((system, index) => (
               <li
                 key={system}
-                className="flex min-h-20 items-center gap-4 rounded-xl border border-navy-900/10 bg-ivory-50 px-5"
+                className="flex min-h-20 items-center gap-4 border-b border-navy-900/20 bg-transparent px-5 sm:border-r"
               >
                 <span className="font-mono text-[9px] text-gold-700">
                   {String(index + 1).padStart(2, '0')}
@@ -138,9 +138,9 @@ export default function TravelPage({ locale }: { locale: Locale }) {
         <div className="container-luxe">
           <p className="eyebrow text-gold-700">{page.deployment.eyebrow}</p>
           <h2 className="section-title mt-6">{page.deployment.title}</h2>
-          <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-navy-900/10 bg-navy-900/10 md:grid-cols-4">
+          <div className="mt-14 grid border-l border-t border-navy-900/20 md:grid-cols-4">
             {page.deployment.steps.map(([title, body], index) => (
-              <article key={title} className="min-h-64 bg-white p-7">
+              <article key={title} className="min-h-64 border-b border-r border-navy-900/20 bg-white p-7">
                 <span className="font-mono text-[10px] text-gold-700">
                   {String(index + 1).padStart(2, '0')}
                 </span>
@@ -163,11 +163,11 @@ export default function TravelPage({ locale }: { locale: Locale }) {
             </h2>
             <p className="mt-7 text-sm leading-7 text-white/50">{page.measurement.body}</p>
           </div>
-          <ul className="grid gap-3 sm:grid-cols-2">
+          <ul className="border-t border-white/20 sm:grid sm:grid-cols-2">
             {page.measurement.items.map((concept) => (
               <li
                 key={concept}
-                className="flex min-h-20 items-center rounded-xl border border-white/10 bg-white/[0.04] px-5 text-sm text-white/75"
+                className="flex min-h-20 items-center border-b border-white/20 px-5 text-sm text-white/75 sm:border-r"
               >
                 {concept}
               </li>

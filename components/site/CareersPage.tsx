@@ -23,9 +23,9 @@ export default function CareersPage({ locale }: { locale: Locale }) {
       />
 
       <section className="section-shell">
-        <div className="container-luxe grid gap-px overflow-hidden rounded-2xl border border-navy-900/10 bg-navy-900/10 md:grid-cols-2">
+        <div className="container-luxe grid border-l border-t border-navy-900/20 md:grid-cols-2">
           {page.principles.map(([title, body], index) => (
-            <article key={title} className="min-h-72 bg-white p-7 md:p-10">
+            <article key={title} className="min-h-72 border-b border-r border-navy-900/20 bg-white p-7 md:p-10">
               <span className="font-mono text-[10px] text-gold-700">
                 {String(index + 1).padStart(2, '0')}
               </span>
@@ -47,11 +47,11 @@ export default function CareersPage({ locale }: { locale: Locale }) {
             </h2>
             <p className="mt-7 text-sm leading-7 text-white/50">{page.disciplines.body}</p>
           </div>
-          <ul className="grid gap-3 sm:grid-cols-2">
+          <ul className="border-t border-white/20 sm:grid sm:grid-cols-2">
             {page.disciplines.items.map((discipline, index) => (
               <li
                 key={discipline}
-                className="flex min-h-24 items-center gap-4 rounded-xl border border-white/10 bg-white/[0.04] px-5"
+                className="flex min-h-24 items-center gap-4 border-b border-white/20 px-5 sm:border-r"
               >
                 <span className="font-mono text-[9px] text-gold-300">
                   {String(index + 1).padStart(2, '0')}
