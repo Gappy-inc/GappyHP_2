@@ -1,33 +1,21 @@
 import type { Metadata } from 'next'
-import { Cormorant_Garamond, DM_Serif_Display, Space_Grotesk, Noto_Serif_JP, Noto_Sans_JP, DM_Mono } from 'next/font/google'
+import { DM_Mono, Noto_Sans_JP, Space_Grotesk } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import { SITE_URL, SITE_NAME, LEGAL_NAME } from '@/lib/config'
-
-const cormorantGaramond = Cormorant_Garamond({
-  variable: '--font-cormorant',
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  style: ['normal', 'italic'],
-})
-
-const dmSerifDisplay = DM_Serif_Display({
-  variable: '--font-dm-serif',
-  subsets: ['latin'],
-  weight: ['400'],
-})
+import {
+  COMPANY_ADDRESS,
+  CONTACT_EMAIL,
+  LEGAL_NAME,
+  OG_IMAGE_URL,
+  SITE_NAME,
+  SITE_URL,
+} from '@/lib/config'
 
 const spaceGrotesk = Space_Grotesk({
   variable: '--font-space-grotesk',
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
-})
-
-const notoSerifJP = Noto_Serif_JP({
-  variable: '--font-noto-serif-jp',
-  subsets: ['latin'],
-  weight: ['400', '600', '700', '900'],
 })
 
 const notoSansJP = Noto_Sans_JP({
@@ -45,40 +33,39 @@ const dmMono = DM_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   applicationName: SITE_NAME,
-  title: 'Gappy | AI Workforce for Travel Operations',
+  title: 'Gappy | AI Workforce for Business Operations',
   description:
-    'Gappy builds AI Workforce for travel companies, automating booking operations, supplier communications, reconciliation, and other workflows across existing systems.',
+    'Gappy builds AI systems that execute complex operational work across the software businesses already use. Starting with travel.',
   keywords: [
     'AI Workforce',
+    'Business Operations',
+    'Applied AI',
     'Travel Operations',
-    'Booking Operations',
-    'Supplier Operations',
-    'Travel Automation',
     '株式会社Gappy',
   ],
   openGraph: {
-    title: 'Gappy | AI Workforce for Travel Operations',
+    title: 'Gappy | AI Workforce for Business Operations',
     description:
-      'Gappy builds AI Workforce that executes travel operations end to end across existing systems.',
+      'Gappy builds AI systems that execute complex operational work across the software businesses already use. Starting with travel.',
     url: `${SITE_URL}/`,
     siteName: SITE_NAME,
     locale: 'en_US',
     type: 'website',
     images: [
       {
-        url: `${SITE_URL}/og.png`,
-        width: 1730,
-        height: 909,
-        alt: 'Gappy — AI Workforce for Travel Operations',
+        url: OG_IMAGE_URL,
+        width: 1200,
+        height: 630,
+        alt: 'Gappy — AI Workforce for Business Operations',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Gappy | AI Workforce for Travel Operations',
+    title: 'Gappy | AI Workforce for Business Operations',
     description:
-      'Gappy builds AI Workforce that executes travel operations end to end across existing systems.',
-    images: [`${SITE_URL}/og.png`],
+      'Gappy builds AI systems that execute complex operational work across existing software. Starting with travel.',
+    images: [OG_IMAGE_URL],
   },
   alternates: {
     canonical: `${SITE_URL}/`,
@@ -97,7 +84,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorantGaramond.variable} ${dmSerifDisplay.variable} ${spaceGrotesk.variable} ${notoSerifJP.variable} ${notoSansJP.variable} ${dmMono.variable} scroll-smooth`}
+      className={`${spaceGrotesk.variable} ${notoSansJP.variable} ${dmMono.variable} scroll-smooth`}
     >
       <head>
         <script
@@ -118,11 +105,11 @@ export default function RootLayout({
                     url: `${SITE_URL}/gappy_icon.png`,
                   },
                   description:
-                    'Gappy builds AI Workforce for travel companies, automating operational workflows across existing systems.',
-                  email: 'mitsuki@gappy.jp',
+                    'Gappy is an applied AI company building AI Workforce for complex business operations, starting with travel.',
+                  email: CONTACT_EMAIL,
                   address: {
                     '@type': 'PostalAddress',
-                    streetAddress: '道玄坂1丁目10番8号 渋谷道玄坂東急ビル2F',
+                    streetAddress: COMPANY_ADDRESS,
                     addressLocality: '渋谷区',
                     addressRegion: '東京都',
                     postalCode: '150-0043',
@@ -143,9 +130,15 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen bg-[#FAFAF8] text-[#1C1C1E] antialiased">
+      <body className="min-h-screen bg-ivory-50 text-ink-900 antialiased">
+        <a
+          href="#main-content"
+          className="fixed left-4 top-4 z-[100] -translate-y-24 rounded bg-white px-4 py-3 text-sm font-semibold text-navy-900 shadow-lg transition-transform focus:translate-y-0"
+        >
+          Skip to content
+        </a>
         <Header />
-        <main className="min-h-screen">
+        <main id="main-content" className="min-h-screen">
           {children}
         </main>
         <Footer />

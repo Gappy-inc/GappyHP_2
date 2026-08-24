@@ -1,117 +1,228 @@
 'use client'
 
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react'
+import BrandMark from '@/components/BrandMark'
+import { GOODTIME_URL } from '@/lib/config'
 
-const GOODTIME_URL = 'https://meet.goodtime.io/w/gappyjp/mitsuki/30-min-video'
+const primaryLinks = [
+  { label: 'Technology', href: '/technology' },
+  { label: 'Travel', href: '/travel' },
+  { label: 'Projects', href: '/cases' },
+  { label: 'Insights', href: '/resources' },
+]
 
-const NAV_LINKS = [
-  { label: 'Workflows', href: '/#workflows' },
-  { label: 'Cases', href: '/cases' },
-  { label: 'Resources', href: '/resources' },
+const companyLinks = [
   { label: 'About', href: '/about' },
+  { label: 'Careers', href: '/careers' },
+  { label: 'Contact', href: '/contact' },
 ]
 
 export default function Header() {
+  const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isCompanyOpen, setIsCompanyOpen] = useState(false)
+  const [isMobileCompanyOpen, setIsMobileCompanyOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const companyRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60)
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  useEffect(() => {
+    setIsMenuOpen(false)
+    setIsCompanyOpen(false)
+    setIsMobileCompanyOpen(false)
+  }, [pathname])
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsCompanyOpen(false)
+        setIsMenuOpen(false)
+      }
+    }
+    const onPointerDown = (event: PointerEvent) => {
+      if (
+        companyRef.current &&
+        !companyRef.current.contains(event.target as Node)
+      ) {
+        setIsCompanyOpen(false)
+      }
+    }
+    document.addEventListener('keydown', onKeyDown)
+    document.addEventListener('pointerdown', onPointerDown)
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      document.removeEventListener('pointerdown', onPointerDown)
+    }
+  }, [])
+
+  const isActive = (href: string) => pathname === href
+  const isCompanyActive = companyLinks.some(({ href }) => pathname === href)
+
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? 'bg-ivory-50/95 backdrop-blur-md border-b border-gold-500/20 shadow-sm'
-          : 'bg-transparent'
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ${
+        scrolled || isMenuOpen
+          ? 'border-navy-900/10 bg-ivory-50/95 shadow-sm backdrop-blur-xl'
+          : 'border-transparent bg-ivory-50/80 backdrop-blur-sm'
       }`}
     >
-      <div className="container-luxe flex items-center justify-between h-[80px] md:h-[90px]">
+      <div className="container-luxe flex h-[76px] items-center justify-between lg:h-[84px]">
+        <BrandMark />
 
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 flex-shrink-0 hover:opacity-80 transition-opacity" aria-label="Gappy home">
-          <span className="grid h-7 w-7 place-items-center rounded-full bg-navy-900 text-[11px] font-semibold text-white" aria-hidden="true">G</span>
-          <span
-            className="text-navy-900 font-semibold text-[16px] tracking-[-0.01em]"
-            style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}
-          >
-            Gappy
-          </span>
-        </Link>
-
-        {/* Desktop nav */}
-        <nav className="hidden lg:flex items-center gap-7">
-          {NAV_LINKS.map(({ label, href }) => (
+        <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
+          {primaryLinks.map(({ label, href }) => (
             <Link
               key={href}
               href={href}
-              className="relative text-[11px] font-medium tracking-[0.1em] text-navy-900 hover:text-gold-600 transition-colors group"
+              aria-current={isActive(href) ? 'page' : undefined}
+              className={`flex min-h-11 items-center border-b text-[11px] font-medium tracking-[0.08em] transition-colors ${
+                isActive(href)
+                  ? 'border-gold-500 text-navy-900'
+                  : 'border-transparent text-ink-500 hover:text-navy-900'
+              }`}
             >
               {label}
-              <span className="absolute -bottom-1 left-0 right-0 h-px bg-gold-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
             </Link>
           ))}
+
+          <div ref={companyRef} className="relative">
+            <button
+              type="button"
+              className={`flex min-h-11 items-center gap-2 border-b text-[11px] font-medium tracking-[0.08em] transition-colors ${
+                isCompanyActive
+                  ? 'border-gold-500 text-navy-900'
+                  : 'border-transparent text-ink-500 hover:text-navy-900'
+              }`}
+              aria-expanded={isCompanyOpen}
+              aria-haspopup="true"
+              aria-controls="company-navigation"
+              onClick={() => setIsCompanyOpen((open) => !open)}
+            >
+              Company
+              <span
+                className={`text-[10px] transition-transform ${isCompanyOpen ? 'rotate-180' : ''}`}
+                aria-hidden="true"
+              >
+                ↓
+              </span>
+            </button>
+            {isCompanyOpen ? (
+              <div
+                id="company-navigation"
+                className="absolute right-0 top-[calc(100%+10px)] w-52 rounded-xl border border-navy-900/10 bg-white p-2 shadow-[0_24px_60px_rgba(7,14,34,0.14)]"
+              >
+                {companyLinks.map(({ label, href }) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    className="flex min-h-11 items-center rounded-lg px-4 text-sm text-ink-500 transition-colors hover:bg-ivory-100 hover:text-navy-900"
+                  >
+                    {label}
+                  </Link>
+                ))}
+              </div>
+            ) : null}
+          </div>
         </nav>
 
-        {/* Desktop CTAs */}
-        <div className="hidden lg:flex items-center gap-3">
-          <Link
+        <div className="hidden lg:block">
+          <a
             href={GOODTIME_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-navy"
+            className="btn-primary"
           >
             Talk to Gappy
-          </Link>
+          </a>
         </div>
 
-        {/* Mobile hamburger */}
         <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="lg:hidden flex flex-col gap-1.5 w-10 h-10 items-center justify-center"
+          type="button"
+          className="grid h-11 w-11 place-items-center rounded-md lg:hidden"
+          onClick={() => setIsMenuOpen((open) => !open)}
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={isMenuOpen}
           aria-controls="mobile-navigation"
         >
-          <span className={`block w-5 h-px bg-navy-900 transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-[3px]' : ''}`} />
-          <span className={`block w-5 h-px bg-navy-900 transition-all duration-300 ${isMenuOpen ? 'opacity-0' : ''}`} />
-          <span className={`block w-5 h-px bg-navy-900 transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-[3px]' : ''}`} />
+          <span className="relative block h-4 w-5" aria-hidden="true">
+            <span
+              className={`absolute left-0 top-0 h-px w-5 bg-navy-900 transition-transform ${
+                isMenuOpen ? 'translate-y-[7px] rotate-45' : ''
+              }`}
+            />
+            <span
+              className={`absolute left-0 top-[7px] h-px w-5 bg-navy-900 transition-opacity ${
+                isMenuOpen ? 'opacity-0' : ''
+              }`}
+            />
+            <span
+              className={`absolute left-0 top-[14px] h-px w-5 bg-navy-900 transition-transform ${
+                isMenuOpen ? '-translate-y-[7px] -rotate-45' : ''
+              }`}
+            />
+          </span>
         </button>
       </div>
 
-      {/* Mobile drawer */}
       <div
         id="mobile-navigation"
-        className={`lg:hidden overflow-hidden transition-[max-height,opacity] duration-500 bg-ivory-50 border-b border-gold-500/20 ${
-          isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        className={`overflow-hidden border-t border-navy-900/10 bg-ivory-50 transition-[max-height,opacity] duration-300 lg:hidden ${
+          isMenuOpen ? 'max-h-[calc(100vh-76px)] opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
-        <div className="container-luxe py-6 flex flex-col gap-5">
-          {NAV_LINKS.map(({ label, href }) => (
+        <nav
+          className="container-luxe max-h-[calc(100vh-76px)] overflow-y-auto py-5"
+          aria-label="Mobile navigation"
+        >
+          {primaryLinks.map(({ label, href }) => (
             <Link
               key={href}
               href={href}
-              onClick={() => setIsMenuOpen(false)}
-              className="text-[15px] font-medium tracking-[0.08em] text-navy-900 hover:text-gold-600 transition-colors"
+              className="flex min-h-12 items-center border-b border-navy-900/10 text-base font-medium text-navy-900"
             >
               {label}
             </Link>
           ))}
-          <div className="pt-2 flex flex-col gap-3">
-            <Link
-              href={GOODTIME_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-navy text-center"
-            >
-              Talk to Gappy
-            </Link>
-          </div>
-        </div>
+          <button
+            type="button"
+            className="flex min-h-12 w-full items-center justify-between border-b border-navy-900/10 text-left text-base font-medium text-navy-900"
+            aria-expanded={isMobileCompanyOpen}
+            aria-controls="mobile-company-navigation"
+            onClick={() => setIsMobileCompanyOpen((open) => !open)}
+          >
+            Company
+            <span aria-hidden="true">{isMobileCompanyOpen ? '−' : '+'}</span>
+          </button>
+          {isMobileCompanyOpen ? (
+            <div id="mobile-company-navigation" className="border-b border-navy-900/10 py-2">
+              {companyLinks.map(({ label, href }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="flex min-h-11 items-center pl-5 text-sm text-ink-500"
+                >
+                  {label}
+                </Link>
+              ))}
+            </div>
+          ) : null}
+          <a
+            href={GOODTIME_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary mt-5 w-full"
+          >
+            Talk to Gappy
+          </a>
+        </nav>
       </div>
     </header>
   )

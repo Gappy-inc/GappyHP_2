@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  outputFileTracingRoot: __dirname,
 
   async redirects() {
     return [
@@ -28,12 +29,12 @@ const nextConfig = {
       },
       {
         source: '/solutions',
-        destination: 'https://gappy.jp/#workflows',
+        destination: '/travel#workflows',
         permanent: true,
       },
       {
         source: '/solutions/platform',
-        destination: 'https://gappy.jp/#workflows',
+        destination: '/technology',
         permanent: true,
       },
       {
@@ -49,6 +50,11 @@ const nextConfig = {
       {
         source: '/news',
         destination: '/resources',
+        permanent: true,
+      },
+      {
+        source: '/workflows',
+        destination: '/travel#workflows',
         permanent: true,
       },
     ]
