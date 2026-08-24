@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd'
+import CaseVisual, { type CaseVisualVariant } from '@/components/CaseVisual'
 import CTASection from '@/components/CTASection'
 import PageHero from '@/components/PageHero'
 import { getContent, localizedPath, type Locale } from '@/content'
@@ -8,6 +9,7 @@ import { GOODTIME_URL } from '@/lib/config'
 export default function TravelPage({ locale }: { locale: Locale }) {
   const page = getContent(locale).travel
   const path = localizedPath('/travel', locale)
+  const visualVariants: CaseVisualVariant[] = ['supplier', 'booking', 'reconciliation', 'fulfillment', 'schedule', 'communication']
 
   return (
     <div className="bg-ivory-50 text-ink-900">
@@ -46,7 +48,7 @@ export default function TravelPage({ locale }: { locale: Locale }) {
       <section className="border-y border-navy-900/10 bg-white py-16 md:py-20">
         <div className="container-luxe">
           <p className="eyebrow text-gold-700">{page.target.eyebrow}</p>
-          <h2 className="mt-5 max-w-4xl text-[clamp(2rem,4.5vw,3.8rem)] font-medium leading-[1.14] tracking-[-0.035em] text-navy-900">
+          <h2 className="section-title mt-5 max-w-4xl">
             {page.target.title}
           </h2>
           <ul className="mt-10 grid border-l border-t border-navy-900/20 sm:grid-cols-2 lg:grid-cols-6">
@@ -66,7 +68,7 @@ export default function TravelPage({ locale }: { locale: Locale }) {
         <div className="container-luxe grid gap-14 lg:grid-cols-[0.75fr_1.25fr] lg:gap-24">
           <div>
             <p className="eyebrow text-gold-300">{page.example.eyebrow}</p>
-            <h2 className="mt-6 text-[clamp(2.5rem,5vw,4.5rem)] font-medium leading-[1.12] tracking-[-0.035em]">
+            <h2 className="section-title mt-6 !text-white">
               {page.example.title}
             </h2>
             <p className="mt-7 max-w-lg text-base leading-8 text-white/55">
@@ -79,7 +81,7 @@ export default function TravelPage({ locale }: { locale: Locale }) {
                 key={step}
                 className="relative flex min-h-16 items-center gap-5 border-b border-white/20 px-4 py-3"
               >
-                <span className="z-10 grid h-9 w-9 flex-none place-items-center border border-gold-300/40 bg-navy-900 font-mono text-[9px] text-gold-300">
+                <span className="z-10 grid h-9 w-9 flex-none place-items-center border border-gold-300/40 bg-navy-900 font-mono text-[12px] text-gold-300">
                   {String(index + 1).padStart(2, '0')}
                 </span>
                 <span className="text-sm leading-6 text-white/75">{step}</span>
@@ -93,16 +95,17 @@ export default function TravelPage({ locale }: { locale: Locale }) {
         <div className="container-luxe">
           <p className="eyebrow text-gold-700">{page.workflows.eyebrow}</p>
           <h2 className="section-title mt-6 max-w-4xl">{page.workflows.title}</h2>
-          <div className="mt-14 grid border-l border-t border-navy-900/20 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-14 grid border-l border-t border-navy-900/20 lg:grid-cols-2">
             {page.workflows.items.map(([title, body], index) => (
-              <article key={title} className="min-h-64 border-b border-r border-navy-900/20 bg-white p-7 md:p-9">
-                <span className="font-mono text-[10px] text-gold-700">
+              <article key={title} className="case-row view-react border-b border-r border-navy-900/20 bg-white p-5 md:p-7">
+                <span className="font-mono text-[12px] text-gold-700">
                   WF-{String(index + 1).padStart(2, '0')}
                 </span>
-                <h3 className="mt-14 text-xl font-medium tracking-[-0.025em] text-navy-900">
+                <CaseVisual variant={visualVariants[index]} locale={locale} className="mt-5" />
+                <h3 className="subsection-title mt-7 text-navy-900">
                   {title}
                 </h3>
-                <p className="mt-4 text-sm leading-7 text-ink-500">{body}</p>
+                <p className="case-copy mt-4 text-base leading-7 text-ink-500">{body}</p>
               </article>
             ))}
           </div>
@@ -114,7 +117,7 @@ export default function TravelPage({ locale }: { locale: Locale }) {
           <div>
             <p className="eyebrow text-gold-700">{page.systems.eyebrow}</p>
             <h2 className="section-title mt-6">{page.systems.title}</h2>
-            <p className="mt-8 text-[clamp(1.75rem,3.8vw,3.2rem)] font-medium leading-[1.18] tracking-[-0.03em] text-gold-700">
+            <p className="subsection-title mt-8 text-gold-700">
               {page.systems.statement}
             </p>
           </div>
@@ -124,7 +127,7 @@ export default function TravelPage({ locale }: { locale: Locale }) {
                 key={system}
                 className="flex min-h-20 items-center gap-4 border-b border-navy-900/20 bg-transparent px-5 sm:border-r"
               >
-                <span className="font-mono text-[9px] text-gold-700">
+                <span className="font-mono text-[12px] text-gold-700">
                   {String(index + 1).padStart(2, '0')}
                 </span>
                 <span className="text-sm font-medium text-navy-900">{system}</span>
@@ -141,10 +144,10 @@ export default function TravelPage({ locale }: { locale: Locale }) {
           <div className="mt-14 grid border-l border-t border-navy-900/20 md:grid-cols-4">
             {page.deployment.steps.map(([title, body], index) => (
               <article key={title} className="min-h-64 border-b border-r border-navy-900/20 bg-white p-7">
-                <span className="font-mono text-[10px] text-gold-700">
+                <span className="font-mono text-[12px] text-gold-700">
                   {String(index + 1).padStart(2, '0')}
                 </span>
-                <h3 className="mt-14 text-xl font-medium leading-8 text-navy-900">
+                <h3 className="subsection-title mt-14 text-navy-900">
                   {title}
                 </h3>
                 <p className="mt-4 text-sm leading-7 text-ink-500">{body}</p>
@@ -158,7 +161,7 @@ export default function TravelPage({ locale }: { locale: Locale }) {
         <div className="container-luxe grid gap-14 lg:grid-cols-[0.75fr_1.25fr] lg:gap-24">
           <div>
             <p className="eyebrow text-gold-300">{page.measurement.eyebrow}</p>
-            <h2 className="mt-6 text-[clamp(2.5rem,5vw,4.5rem)] font-medium leading-[1.12] tracking-[-0.035em]">
+            <h2 className="section-title mt-6 !text-white">
               {page.measurement.title}
             </h2>
             <p className="mt-7 text-sm leading-7 text-white/50">{page.measurement.body}</p>

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd'
+import CaseVisual from '@/components/CaseVisual'
 import CTASection from '@/components/CTASection'
 import PageHero from '@/components/PageHero'
 import { getContent, localizedPath, type Locale } from '@/content'
@@ -35,6 +36,7 @@ export default function ProjectsPage({ locale }: { locale: Locale }) {
             <div>
               <h2 className="section-title">{page.flagship.title}</h2>
               <p className="body-lead mt-8 max-w-2xl">{page.flagship.body}</p>
+              <CaseVisual variant="schedule" locale={locale} className="mt-9 max-w-3xl" />
               <Link href={localizedPath('/travel', locale)} className="btn-primary mt-9">
                 {page.flagship.cta}
               </Link>
@@ -48,7 +50,7 @@ export default function ProjectsPage({ locale }: { locale: Locale }) {
           <div className="grid gap-10 lg:grid-cols-[1fr_0.7fr] lg:items-end">
             <div>
               <p className="eyebrow text-gold-300">{page.partnership.eyebrow}</p>
-              <h2 className="mt-6 max-w-4xl text-[clamp(2.5rem,5.5vw,4.8rem)] font-medium leading-[1.12] tracking-[-0.035em]">
+              <h2 className="section-title mt-6 max-w-4xl !text-white">
                 {page.partnership.title}
               </h2>
             </div>
@@ -57,10 +59,10 @@ export default function ProjectsPage({ locale }: { locale: Locale }) {
           <ol className="mt-14 grid border-l border-t border-white/20 sm:grid-cols-2 lg:grid-cols-8">
             {page.partnership.steps.map((step, index) => (
               <li key={step} className="min-h-32 border-b border-r border-white/20 bg-navy-900 p-5">
-                <span className="font-mono text-[9px] text-gold-300">
+                <span className="font-mono text-[12px] text-gold-300">
                   {String(index + 1).padStart(2, '0')}
                 </span>
-                <p className="mt-10 text-sm font-medium leading-6">{step}</p>
+                <p className="mt-10 text-[15px] font-medium leading-7">{step}</p>
               </li>
             ))}
           </ol>

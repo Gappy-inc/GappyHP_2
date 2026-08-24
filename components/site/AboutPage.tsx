@@ -54,7 +54,7 @@ export default function AboutPage({ locale }: { locale: Locale }) {
         <div className="container-luxe grid gap-14 lg:grid-cols-[0.75fr_1.25fr] lg:gap-24">
           <p className="eyebrow text-gold-300">{page.why.eyebrow}</p>
           <div>
-            <h2 className="max-w-4xl text-[clamp(2.5rem,5.5vw,4.8rem)] font-medium leading-[1.12] tracking-[-0.035em]">
+            <h2 className="section-title max-w-4xl !text-white">
               {page.why.title}
             </h2>
             <div className="mt-9 grid gap-7 text-base leading-8 text-white/55 md:grid-cols-2">
@@ -78,13 +78,13 @@ export default function AboutPage({ locale }: { locale: Locale }) {
           <div className="mt-14 grid border-l border-t border-navy-900/20 sm:grid-cols-2 lg:grid-cols-5">
             {page.principles.items.map(([title, body], index) => (
               <article key={title} className="min-h-64 border-b border-r border-navy-900/20 bg-white p-6">
-                <span className="font-mono text-[9px] text-gold-700">
+                <span className="font-mono text-[12px] text-gold-700">
                   {String(index + 1).padStart(2, '0')}
                 </span>
-                <h3 className="mt-12 text-base font-medium leading-7 text-navy-900">
+                <h3 className="subsection-title mt-12 text-navy-900">
                   {title}
                 </h3>
-                <p className="mt-4 text-xs leading-6 text-ink-500">{body}</p>
+                <p className="mt-4 text-[15px] leading-7 text-ink-500">{body}</p>
               </article>
             ))}
           </div>
@@ -105,7 +105,7 @@ export default function AboutPage({ locale }: { locale: Locale }) {
           </div>
           <div className="self-center">
             <p className="eyebrow text-gold-700">{page.founder.eyebrow}</p>
-            <h2 className="mt-6 text-[clamp(2.1rem,4vw,3.5rem)] font-medium leading-[1.16] tracking-[-0.035em] text-navy-900">
+            <h2 className="section-title mt-6">
               {page.founder.title}
             </h2>
             <div className="body-lead mt-7 max-w-3xl space-y-5">

@@ -2,6 +2,7 @@ import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd'
 import CTASection from '@/components/CTASection'
 import OperatingLoop from '@/components/OperatingLoop'
 import PageHero from '@/components/PageHero'
+import VerificationPath from '@/components/VerificationPath'
 import { getContent, localizedPath, type Locale } from '@/content'
 
 export default function TechnologyPage({ locale }: { locale: Locale }) {
@@ -31,13 +32,16 @@ export default function TechnologyPage({ locale }: { locale: Locale }) {
         <div className="container-luxe">
           <p className="eyebrow text-gold-300">{page.loop.eyebrow}</p>
           <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_0.68fr] lg:items-end">
-            <h2 className="max-w-4xl text-[clamp(2.5rem,6vw,5rem)] font-medium leading-[1.08] tracking-[-0.045em]">
+            <h2 className="section-title max-w-4xl !text-white">
               {page.loop.title}
             </h2>
             <p className="text-base leading-8 text-white/55">{page.loop.body}</p>
           </div>
           <div className="mt-14">
             <OperatingLoop items={copy.operatingLoop} />
+          </div>
+          <div className="mt-10 max-w-4xl">
+            <VerificationPath locale={locale} />
           </div>
         </div>
       </section>
@@ -52,18 +56,18 @@ export default function TechnologyPage({ locale }: { locale: Locale }) {
               }`}
             >
               <div>
-                <p className="font-mono text-[10px] text-gold-700">
+                <p className="font-mono text-[12px] text-gold-700">
                   {String(index + 1).padStart(2, '0')}
                 </p>
                 <p className="eyebrow mt-8 text-gold-700">{layer.eyebrow}</p>
-                <h2 className="mt-5 text-[clamp(2rem,4vw,3.5rem)] font-medium leading-[1.12] tracking-[-0.035em] text-navy-900">
+                <h2 className="section-title mt-5">
                   {layer.title}
                 </h2>
               </div>
               <div className="self-end">
                 <p className="body-lead max-w-2xl">{layer.body}</p>
                 {layer.statement ? (
-                  <p className="mt-8 text-[clamp(2rem,5vw,4.25rem)] font-medium tracking-[-0.05em] text-navy-900">
+                  <p className="subsection-title mt-8 text-navy-900">
                     {layer.statement}
                   </p>
                 ) : null}
@@ -71,7 +75,7 @@ export default function TechnologyPage({ locale }: { locale: Locale }) {
                   {layer.detail.map((item) => (
                     <li
                       key={item}
-                      className="flex min-h-16 items-center border-b border-navy-900/20 bg-transparent px-4 text-xs font-medium leading-6 text-navy-900 sm:border-r"
+                      className="flex min-h-16 items-center border-b border-navy-900/20 bg-transparent px-4 text-[13px] font-medium leading-6 text-navy-900 sm:border-r"
                     >
                       {item}
                     </li>
@@ -90,13 +94,13 @@ export default function TechnologyPage({ locale }: { locale: Locale }) {
           <div className="mt-14 grid border-l border-t border-navy-900/20 sm:grid-cols-2 lg:grid-cols-5">
             {page.principles.items.map(([title, body], index) => (
               <article key={title} className="min-h-64 border-b border-r border-navy-900/20 bg-white p-6">
-                <span className="font-mono text-[9px] text-gold-700">
+                <span className="font-mono text-[12px] text-gold-700">
                   {String(index + 1).padStart(2, '0')}
                 </span>
-                <h3 className="mt-12 text-base font-medium leading-7 text-navy-900">
+                <h3 className="subsection-title mt-12 text-navy-900">
                   {title}
                 </h3>
-                <p className="mt-4 text-xs leading-6 text-ink-500">{body}</p>
+                <p className="mt-4 text-[15px] leading-7 text-ink-500">{body}</p>
               </article>
             ))}
           </div>

@@ -26,13 +26,13 @@ export default function CareersPage({ locale }: { locale: Locale }) {
         <div className="container-luxe grid border-l border-t border-navy-900/20 md:grid-cols-2">
           {page.principles.map(([title, body], index) => (
             <article key={title} className="min-h-72 border-b border-r border-navy-900/20 bg-white p-7 md:p-10">
-              <span className="font-mono text-[10px] text-gold-700">
+              <span className="font-mono text-[12px] text-gold-700">
                 {String(index + 1).padStart(2, '0')}
               </span>
-              <h2 className="mt-16 text-2xl font-medium leading-[1.3] tracking-[-0.025em] text-navy-900">
+              <h2 className="subsection-title mt-16 text-navy-900">
                 {title}
               </h2>
-              <p className="mt-5 max-w-xl text-sm leading-7 text-ink-500">{body}</p>
+              <p className="mt-5 max-w-xl text-base leading-7 text-ink-500">{body}</p>
             </article>
           ))}
         </div>
@@ -42,7 +42,7 @@ export default function CareersPage({ locale }: { locale: Locale }) {
         <div className="container-luxe grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
           <div>
             <p className="eyebrow text-gold-300">{page.disciplines.eyebrow}</p>
-            <h2 className="mt-6 text-[clamp(2.4rem,5vw,4.5rem)] font-medium leading-[1.12] tracking-[-0.035em]">
+            <h2 className="section-title mt-6 !text-white">
               {page.disciplines.title}
             </h2>
             <p className="mt-7 text-sm leading-7 text-white/50">{page.disciplines.body}</p>
@@ -53,7 +53,7 @@ export default function CareersPage({ locale }: { locale: Locale }) {
                 key={discipline}
                 className="flex min-h-24 items-center gap-4 border-b border-white/20 px-5 sm:border-r"
               >
-                <span className="font-mono text-[9px] text-gold-300">
+                <span className="font-mono text-[12px] text-gold-300">
                   {String(index + 1).padStart(2, '0')}
                 </span>
                 <span className="text-sm text-white/75">{discipline}</span>

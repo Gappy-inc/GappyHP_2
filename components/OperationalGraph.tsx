@@ -13,14 +13,14 @@ export default function OperationalGraph({ locale = 'en' }: { locale?: 'en' | 'j
         <path d="M292 100L310 74L328 100Z" fill="#00ff7d" />
         <path d="M292 400L310 426L328 400Z" fill="white" />
       </svg>
-      <div className="relative z-10 flex justify-between font-mono text-[9px] uppercase tracking-[0.18em] text-white/45">
+      <div className="relative z-10 flex justify-between font-mono text-[11px] uppercase tracking-[0.14em] text-white/45">
         <span>Operational Axis</span><span>Human Control</span>
       </div>
       <ol className="absolute inset-x-6 bottom-7 z-10 grid border-t border-white/20 sm:grid-cols-5">
         {stages.map((stage, index) => (
           <li key={stage} className="flex min-h-14 items-center gap-3 border-b border-white/15 py-3 sm:min-h-24 sm:block sm:border-b-0 sm:border-r sm:px-3 sm:pt-5 sm:last:border-r-0">
-            <span className="font-mono text-[9px] text-gold-300">{String(index + 1).padStart(2, '0')}</span>
-            <p className="text-xs font-medium sm:mt-6">{stage}</p>
+            <span className="font-mono text-[11px] text-gold-300">{String(index + 1).padStart(2, '0')}</span>
+            <p className="text-[13px] font-medium sm:mt-6">{stage}</p>
           </li>
         ))}
       </ol>
