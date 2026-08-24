@@ -24,7 +24,7 @@ export default function ProjectsPage({ locale }: { locale: Locale }) {
 
       <section className="section-shell">
         <div className="container-luxe">
-          <article className="grid gap-12 rounded-[30px] border border-navy-900/10 bg-white p-7 shadow-[0_28px_80px_rgba(11,22,50,0.08)] md:p-12 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
+          <article className="grid gap-12 border-y border-navy-900/20 bg-white py-10 md:py-14 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
             <div>
               <p className="eyebrow text-gold-700">{page.flagship.eyebrow}</p>
               <div className="mt-20 flex items-center gap-3 text-xs font-medium text-navy-900">
@@ -54,9 +54,9 @@ export default function ProjectsPage({ locale }: { locale: Locale }) {
             </div>
             <p className="text-base leading-8 text-white/55">{page.partnership.body}</p>
           </div>
-          <ol className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-8">
+          <ol className="mt-14 grid border-l border-t border-white/20 sm:grid-cols-2 lg:grid-cols-8">
             {page.partnership.steps.map((step, index) => (
-              <li key={step} className="min-h-32 bg-navy-900 p-5">
+              <li key={step} className="min-h-32 border-b border-r border-white/20 bg-navy-900 p-5">
                 <span className="font-mono text-[9px] text-gold-300">
                   {String(index + 1).padStart(2, '0')}
                 </span>

@@ -23,13 +23,13 @@ export default function ContactPage({ locale }: { locale: Locale }) {
       />
 
       <section className="section-shell">
-        <div className="container-luxe grid gap-px overflow-hidden rounded-2xl border border-navy-900/10 bg-navy-900/10 md:grid-cols-2">
+        <div className="container-luxe grid border-l border-t border-navy-900/20 md:grid-cols-2">
           {page.paths.map(([title, body, label], index) => {
             const href = links[index]
             const isSchedulingLink = href === GOODTIME_URL
 
             return (
-              <article key={title} className="flex min-h-72 flex-col bg-white p-7 md:p-10">
+              <article key={title} className="flex min-h-72 flex-col border-b border-r border-navy-900/20 bg-white p-7 md:p-10">
                 <span className="font-mono text-[10px] text-gold-700">
                   {String(index + 1).padStart(2, '0')}
                 </span>

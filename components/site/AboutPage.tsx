@@ -75,9 +75,9 @@ export default function AboutPage({ locale }: { locale: Locale }) {
         <div className="container-luxe">
           <p className="eyebrow text-gold-700">{page.principles.eyebrow}</p>
           <h2 className="section-title mt-6 max-w-4xl">{page.principles.title}</h2>
-          <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-navy-900/10 bg-navy-900/10 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="mt-14 grid border-l border-t border-navy-900/20 sm:grid-cols-2 lg:grid-cols-5">
             {page.principles.items.map(([title, body], index) => (
-              <article key={title} className="min-h-64 bg-white p-6">
+              <article key={title} className="min-h-64 border-b border-r border-navy-900/20 bg-white p-6">
                 <span className="font-mono text-[9px] text-gold-700">
                   {String(index + 1).padStart(2, '0')}
                 </span>
@@ -92,8 +92,8 @@ export default function AboutPage({ locale }: { locale: Locale }) {
       </section>
 
       <section className="section-shell">
-        <div className="container-luxe grid gap-12 rounded-[30px] border border-navy-900/10 bg-white p-7 shadow-[0_28px_80px_rgba(11,22,50,0.08)] md:p-12 lg:grid-cols-[240px_1fr] lg:gap-16">
-          <div className="overflow-hidden rounded-2xl bg-navy-900">
+        <div className="container-luxe grid gap-12 border-y border-navy-900/20 bg-white py-10 md:py-14 lg:grid-cols-[280px_1fr] lg:gap-20">
+          <div className="overflow-hidden bg-navy-900">
             <Image
               src="/CEO.jpg"
               alt={page.founder.imageAlt}

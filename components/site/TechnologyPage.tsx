@@ -47,7 +47,7 @@ export default function TechnologyPage({ locale }: { locale: Locale }) {
           {page.layers.map((layer, index) => (
             <article
               key={layer.title}
-              className={`grid gap-8 rounded-[26px] border border-navy-900/10 p-7 md:p-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20 ${
+              className={`grid gap-8 border-t border-navy-900/20 px-0 py-10 md:py-14 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20 ${
                 index % 2 ? 'bg-ivory-100' : 'bg-white'
               }`}
             >
@@ -67,11 +67,11 @@ export default function TechnologyPage({ locale }: { locale: Locale }) {
                     {layer.statement}
                   </p>
                 ) : null}
-                <ul className="mt-8 grid gap-2 sm:grid-cols-3">
+                <ul className="mt-8 border-t border-navy-900/20 sm:grid sm:grid-cols-3">
                   {layer.detail.map((item) => (
                     <li
                       key={item}
-                      className="flex min-h-16 items-center rounded-lg border border-navy-900/10 bg-white px-4 text-xs font-medium leading-6 text-navy-900"
+                      className="flex min-h-16 items-center border-b border-navy-900/20 bg-transparent px-4 text-xs font-medium leading-6 text-navy-900 sm:border-r"
                     >
                       {item}
                     </li>
@@ -87,9 +87,9 @@ export default function TechnologyPage({ locale }: { locale: Locale }) {
         <div className="container-luxe">
           <p className="eyebrow text-gold-700">{page.principles.eyebrow}</p>
           <h2 className="section-title mt-6 max-w-4xl">{page.principles.title}</h2>
-          <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-navy-900/10 bg-navy-900/10 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="mt-14 grid border-l border-t border-navy-900/20 sm:grid-cols-2 lg:grid-cols-5">
             {page.principles.items.map(([title, body], index) => (
-              <article key={title} className="min-h-64 bg-white p-6">
+              <article key={title} className="min-h-64 border-b border-r border-navy-900/20 bg-white p-6">
                 <span className="font-mono text-[9px] text-gold-700">
                   {String(index + 1).padStart(2, '0')}
                 </span>
