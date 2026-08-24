@@ -1,25 +1,23 @@
 import Link from 'next/link'
 import BrandMark from '@/components/BrandMark'
+import { getContent, localizedPath, type Locale } from '@/content'
 import {
   COMPANY_ADDRESS,
   CONTACT_EMAIL,
   GOODTIME_URL,
 } from '@/lib/config'
 
-const exploreLinks = [
-  { label: 'Technology', href: '/technology' },
-  { label: 'Travel', href: '/travel' },
-  { label: 'Projects', href: '/cases' },
-  { label: 'Insights', href: '/resources' },
-]
+export default function Footer({ locale = 'en' }: { locale?: Locale }) {
+  const copy = getContent(locale)
+  const exploreLinks = copy.navigation.primary.map(({ label, path }) => ({
+    label,
+    href: localizedPath(path, locale),
+  }))
+  const companyLinks = copy.navigation.company.map(({ label, path }) => ({
+    label,
+    href: localizedPath(path, locale),
+  }))
 
-const companyLinks = [
-  { label: 'About', href: '/about' },
-  { label: 'Careers', href: '/careers' },
-  { label: 'Contact', href: '/contact' },
-]
-
-export default function Footer() {
   return (
     <footer className="relative overflow-hidden bg-navy-950 pb-8 pt-16 text-white/65">
       <div
@@ -29,22 +27,22 @@ export default function Footer() {
       <div className="container-luxe relative">
         <div className="grid gap-14 border-b border-white/10 pb-14 lg:grid-cols-[1.2fr_0.8fr]">
           <div>
-            <BrandMark inverse />
+            <BrandMark inverse href={localizedPath('/', locale)} />
             <p className="mt-7 max-w-lg text-[clamp(1.8rem,3.6vw,3.2rem)] font-medium leading-[1.08] tracking-[-0.045em] text-white">
-              AI Workforce for Business Operations.
+              {copy.footer.statement}
               <br />
-              <span className="text-gold-300">Starting with travel.</span>
+              <span className="text-gold-300">{copy.footer.accent}</span>
             </p>
           </div>
           <div className="grid grid-cols-2 gap-10">
-            <FooterColumn title="Explore" links={exploreLinks} />
-            <FooterColumn title="Company" links={companyLinks} />
+            <FooterColumn title={copy.footer.explore} links={exploreLinks} />
+            <FooterColumn title={copy.footer.company} links={companyLinks} />
           </div>
         </div>
 
         <div className="grid gap-8 border-b border-white/10 py-8 text-sm md:grid-cols-2">
           <div>
-            <p className="eyebrow text-gold-300">Connect</p>
+            <p className="eyebrow text-gold-300">{copy.footer.connect}</p>
             <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:gap-6">
               <a
                 href={GOODTIME_URL}
@@ -52,7 +50,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="min-h-11 content-center hover:text-white"
               >
-                Talk to Gappy
+                {copy.footer.talk}
               </a>
               <a
                 href={`mailto:${CONTACT_EMAIL}`}

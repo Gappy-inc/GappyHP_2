@@ -1,8 +1,8 @@
 import InsightsPage from '@/components/site/InsightsPage'
 import { localizedPageMetadata } from '@/lib/metadata'
 
-export const metadata = localizedPageMetadata('en', 'insights')
+export const metadata = localizedPageMetadata('ja', 'insights')
 
 export default function Page() {
-  return <InsightsPage locale="en" />
+  return <InsightsPage locale="ja" />
 }
