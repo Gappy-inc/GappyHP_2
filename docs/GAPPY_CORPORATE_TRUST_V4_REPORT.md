@@ -78,6 +78,7 @@ Runtime and browser checks:
 - Contrast: key text/focus/signal combinations range from 4.86:1 to 19.86:1.
 - Reduced motion: all animations and transitions are disabled by the reduced-motion media query; no infinite animation remains in application code.
 - Tests: the repository has no dedicated test script; no test framework was added solely for this change.
+- Vercel Git Preview: deployment check completed successfully for the implementation commit.
 
 ## 7. Required screenshots
 
@@ -99,17 +100,20 @@ Runtime and browser checks:
 - Corporate routes remain dynamically rendered because the root layout uses request headers for locale. Converting this to static route groups is a separate architecture change.
 - `npm audit --omit=dev` reports four high-severity dependency findings in the current Next.js dependency tree. The suggested complete remediation is a semver-major Next.js upgrade and should be handled as a separately scoped framework migration.
 - Browserslist and baseline-browser-mapping datasets are stale; build output reports the advisory but completes successfully.
+- The Preview uses Vercel Deployment Protection. The deployment completed, but route-level post-deploy inspection requires access to the owning Vercel team; protection was not weakened for QA.
 
 ## 9. Git
 
 - Repository: `https://github.com/Gappy-inc/GappyHP_2`
 - Branch: `codex/gappy-corporate-trust-v4`
+- Implementation SHA: `8d10f782c0643de85875271cb84f986221e0a090`
 - Base / rollback SHA: `e5a0761ae2eca841af685fed85560ee05a3d654b`
-- Pull request: pending at the time of the implementation commit
+- Pull request: `https://github.com/Gappy-inc/GappyHP_2/pull/20`
 
 ## 10. Deployment
 
 - Production: unchanged (`https://gappy.jp`)
 - Target: Vercel Preview only
-- Preview URL: pending at the time of the implementation commit
-
+- Preview status: READY / Vercel check passed
+- Preview URL: `https://gappy-hp-2-git-codex-gappy-corpo-ebb9d7-yutas-projects-f8eebdcf.vercel.app`
+- Access: protected by Vercel login; verification is supported by the successful Vercel check plus the full local production-build and browser evidence above.
