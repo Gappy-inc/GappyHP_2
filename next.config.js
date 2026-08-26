@@ -3,6 +3,9 @@ const nextConfig = {
   reactStrictMode: true,
   outputFileTracingRoot: __dirname,
   skipTrailingSlashRedirect: true,
+  images: {
+    formats: ['image/avif', 'image/webp'],
+  },
 
   async redirects() {
     return [

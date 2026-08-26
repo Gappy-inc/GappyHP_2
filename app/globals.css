@@ -6,9 +6,18 @@
   --paper: #fafaf7;
   --paper-deep: #f1f2ee;
   --black: #101210;
-  --muted: #777d78;
+  --muted: #5f655f;
   --green: #00ff7d;
   --line: #d9ddd7;
+  --color-brand-signal: #00ff7d;
+  --color-focus: #005fcc;
+  --color-success: #007f48;
+  --color-link: #005aa8;
+  --color-text-primary: #101210;
+  --color-text-secondary: #5f655f;
+  --color-border: #c9cec8;
+  --color-surface: #fafaf7;
+  --color-surface-inverse: #080a08;
   --type-hero: clamp(4.5rem, 7vw, 5.5rem);
   --type-page: clamp(3.25rem, 5.2vw, 4rem);
   --type-section: clamp(2.125rem, 3.6vw, 2.75rem);
@@ -35,6 +44,8 @@ body[data-locale="ja"] {
   font-family: var(--font-noto-sans-jp), var(--font-space-grotesk), -apple-system,
     BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-break: strict;
+  word-break: normal;
+  overflow-wrap: anywhere;
 }
 
 body[data-locale="ja"] {
@@ -46,6 +57,7 @@ body[data-locale="ja"] {
 }
 
 body[data-locale="ja"] .hero-title { letter-spacing: -0.045em; line-height: 1.2; }
+body[data-locale="ja"] .hero-title--home { font-size: clamp(3rem, 4.8vw, 4.25rem); }
 body[data-locale="ja"] .page-title { letter-spacing: -0.04em; line-height: 1.22; }
 body[data-locale="ja"] .section-title { letter-spacing: -0.035em; line-height: 1.28; }
 body[data-locale="ja"] .body-lead { line-height: 1.9; }
@@ -82,7 +94,7 @@ a { color: inherit; }
 .section-title {
   color: var(--black);
   font-size: var(--type-section);
-  font-weight: 650;
+  font-weight: 700;
   letter-spacing: -0.045em;
   line-height: 1.15;
   text-wrap: balance;
@@ -90,7 +102,7 @@ a { color: inherit; }
 
 .subsection-title {
   font-size: var(--type-subsection);
-  font-weight: 650;
+  font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.25;
 }
@@ -98,7 +110,7 @@ a { color: inherit; }
 .body-lead {
   color: var(--muted);
   font-size: var(--type-body);
-  font-weight: 450;
+  font-weight: 400;
   line-height: 1.72;
 }
 
@@ -116,15 +128,15 @@ a { color: inherit; }
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
 }
 
 .btn-primary { background: var(--black); color: white; }
-.btn-primary:hover { background: var(--green); color: var(--black); transform: translate(3px, -3px); }
+.btn-primary:hover { border-color: var(--color-success); background: var(--green); color: var(--black); }
 .btn-secondary { background: transparent; color: var(--black); }
-.btn-secondary:hover { background: var(--green); }
+.btn-secondary:hover { border-color: var(--color-success); background: var(--green); }
 .btn-light { border-color: white; background: white; color: var(--black); }
-.btn-light:hover { border-color: var(--green); background: var(--green); transform: translate(3px, -3px); }
+.btn-light:hover { border-color: var(--green); background: var(--green); }
 
 .hairline-grid {
   background-image: linear-gradient(rgba(11, 12, 12, 0.055) 1px, transparent 1px),
@@ -132,18 +144,19 @@ a { color: inherit; }
   background-size: 64px 64px;
 }
 
-.axis-signal { animation: axis-signal 3.8s cubic-bezier(.55, 0, .25, 1) infinite; }
-.axis-pulse { animation: axis-pulse 3.2s ease-in-out infinite; }
-.network-path { stroke-dasharray: 3 12; animation: network-flow 9s linear infinite; }
-.workflow-line { transform-origin: center top; animation: workflow-line-mobile 9.8s linear infinite; }
-.workflow-node { animation: workflow-node 9.8s ease-in-out infinite; animation-delay: calc(var(--step) * 1.25s); }
+.axis-signal { animation: axis-signal 1.8s cubic-bezier(.55, 0, .25, 1) both; }
+.axis-pulse { animation: axis-pulse 1.4s ease-out both; }
+.network-path { stroke-dasharray: 3 12; animation: network-flow 2.4s ease-out both; }
+.workflow-line { transform-origin: center top; animation: workflow-line-mobile 2.4s ease-out both; }
+.workflow-node { animation: workflow-node 2.4s ease-out both; animation-delay: calc(var(--step) * .18s); }
 .workflow-node--verify { animation-name: workflow-verify; }
-.signal-path { stroke-dasharray: 8 10; animation: signal-flow 4.8s linear infinite; }
-.signal-node { animation: signal-node 4.8s ease-in-out infinite; animation-delay: calc(var(--step) * .55s); }
-.verify-path { stroke-dasharray: 10 10; animation: verify-flow 4.2s linear infinite; }
-.verify-node { transform-box: fill-box; transform-origin: center; animation: verify-pulse 4.2s ease-in-out infinite; }
-.case-visual { transition: border-color 220ms ease, transform 220ms ease; }
-.case-visual:hover { border-color: rgba(16, 18, 16, .45); transform: translateY(-2px); }
+.signal-path { stroke-dasharray: 8 10; animation: signal-flow 2.2s ease-out both; }
+.signal-node { animation: signal-node 2.2s ease-out both; animation-delay: calc(var(--step) * .16s); }
+.verify-path { stroke-dasharray: 10 10; animation: verify-flow 2.2s ease-out both; }
+.verify-node { transform-box: fill-box; transform-origin: center; animation: verify-pulse 2.2s ease-out both; }
+.trace-step { animation: trace-enter 420ms ease-out both; animation-delay: calc(var(--trace-step) * 90ms); }
+.case-visual { transition: border-color 220ms ease; }
+.case-visual:hover { border-color: rgba(16, 18, 16, .45); }
 .case-visual:hover .case-arrow { transform: translateX(6px); }
 .case-arrow { transition: transform 200ms ease; }
 .capability-row { position: relative; overflow: hidden; }
@@ -151,8 +164,8 @@ a { color: inherit; }
 .capability-row:hover::after { width: 100%; }
 .capability-row:hover .capability-arrow { transform: translateX(6px); }
 .capability-arrow { transition: transform 200ms ease; }
-.case-copy { opacity: .76; transition: opacity 200ms ease, transform 200ms ease; }
-.case-row:hover .case-copy { opacity: 1; transform: translateX(4px); }
+.case-copy { opacity: .82; transition: opacity 200ms ease; }
+.case-row:hover .case-copy { opacity: 1; }
 .view-react { animation: section-react 1ms linear both; }
 
 @supports (animation-timeline: view()) {
@@ -184,10 +197,11 @@ a { color: inherit; }
 @keyframes verify-flow { to { stroke-dashoffset: -80; } }
 @keyframes verify-pulse { 0%, 55%, 100% { transform: scale(1); } 65% { transform: scale(1.08); } }
 @keyframes section-react { from { opacity: .72; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes trace-enter { from { opacity: .45; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
 a:focus-visible,
 button:focus-visible,
-summary:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
+summary:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; }
 
 @media (min-width: 1024px) {
   .workflow-line { transform-origin: left center; animation-name: workflow-line; }
@@ -204,7 +218,7 @@ summary:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
     --type-hero: clamp(2.125rem, 10.2vw, 2.5rem);
     --type-page: clamp(1.875rem, 8.8vw, 2.25rem);
     --type-section: clamp(1.5rem, 6.7vw, 1.75rem);
-    --type-body: clamp(.9375rem, 4vw, 1.0625rem);
+    --type-body: clamp(1rem, 4vw, 1.0625rem);
   }
 
   body[data-locale="ja"] .hero-title { font-size: var(--type-hero); line-height: 1.25; }
@@ -215,9 +229,8 @@ summary:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
+    animation: none !important;
     scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
+    transition: none !important;
   }
 }

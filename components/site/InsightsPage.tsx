@@ -1,5 +1,4 @@
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd'
-import CTASection from '@/components/CTASection'
 import PageHero from '@/components/PageHero'
 import { getContent, localizedPath, type Locale } from '@/content'
 
@@ -8,80 +7,9 @@ export default function InsightsPage({ locale }: { locale: Locale }) {
   const path = localizedPath('/resources', locale)
 
   return (
-    <div className="bg-ivory-50 text-ink-900">
-      <BreadcrumbJsonLd name="Insights" path={path} locale={locale} />
-      <PageHero
-        eyebrow={page.hero.eyebrow}
-        title={page.hero.title}
-        body={<p>{page.hero.body}</p>}
-      />
-
-      <section className="section-shell">
-        <div className="container-luxe">
-          <div className="grid border-l border-t border-navy-900/20 md:grid-cols-2 lg:grid-cols-3">
-            {page.topics.map((topic, index) => (
-              <article
-                key={topic.title}
-                className={`flex min-h-[340px] flex-col border-b border-r border-navy-900/20 bg-white p-7 md:p-9 ${
-                  index === page.topics.length - 1 ? 'lg:col-span-2' : ''
-                }`}
-              >
-                <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-gold-700">
-                  {page.noteLabel} / {String(index + 1).padStart(2, '0')}
-                </p>
-                <h2 className="subsection-title mt-16 max-w-lg text-navy-900">
-                  {topic.title}
-                </h2>
-                <p className="mt-5 max-w-xl text-base leading-7 text-ink-500">
-                  {topic.body}
-                </p>
-                <ul
-                  className="mt-auto flex flex-wrap gap-2 pt-8"
-                  aria-label={page.topicsLabel}
-                >
-                  {topic.tags.map((tag) => (
-                    <li
-                      key={tag}
-                      className="border-b border-navy-900/20 px-1 py-1 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-400"
-                    >
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
-          <p className="mt-8 max-w-2xl text-sm leading-7 text-ink-400">
-            {page.disclaimer}
-          </p>
-        </div>
-      </section>
-
-      <section className="section-shell bg-navy-900 text-white">
-        <div className="container-luxe grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
-          <div>
-            <p className="eyebrow text-gold-300">{page.brief.eyebrow}</p>
-            <h2 className="section-title mt-6 !text-white">
-              {page.brief.title}
-            </h2>
-          </div>
-          <ol className="border-t border-white/20 sm:grid sm:grid-cols-2">
-            {page.brief.questions.map((question, index) => (
-              <li
-                key={question}
-                className="flex min-h-24 items-center gap-4 border-b border-white/20 px-5 sm:border-r"
-              >
-                <span className="font-mono text-[12px] text-gold-300">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <span className="text-sm leading-6 text-white/75">{question}</span>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <CTASection locale={locale} />
+    <div className="min-h-[70svh] bg-ivory-50 text-ink-900">
+      <BreadcrumbJsonLd name="Gappy Research Notes" path={path} locale={locale} />
+      <PageHero variant="utility" eyebrow={page.hero.eyebrow} title={page.hero.title} body={<><p>{page.hero.body}</p><p className="mt-6 font-medium text-navy-900">{page.note}</p></>} />
     </div>
   )
 }

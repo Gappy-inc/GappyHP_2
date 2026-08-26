@@ -13,6 +13,7 @@ type PageMetadataInput = {
   description: string
   path: string
   locale?: Locale
+  index?: boolean
 }
 
 export function pageMetadata({
@@ -20,6 +21,7 @@ export function pageMetadata({
   description,
   path,
   locale = 'en',
+  index = true,
 }: PageMetadataInput): Metadata {
   const canonicalPath = localizedPath(path, locale)
   const url = `${SITE_URL}${canonicalPath}`
@@ -53,8 +55,8 @@ export function pageMetadata({
           width: 1200,
           height: 630,
           alt: isJapanese
-            ? 'Gappy — 業務を実行するAI Workforce'
-            : 'Gappy — AI Workforce for Business Operations',
+            ? 'Gappy — 旅行業務を実行するAI Workforce'
+            : 'Gappy — AI Workforce for Travel Operations',
         },
       ],
     },
@@ -65,7 +67,7 @@ export function pageMetadata({
       images: [imageUrl],
     },
     robots: {
-      index: true,
+      index,
       follow: true,
     },
   }
@@ -82,5 +84,6 @@ export function localizedPageMetadata(
     description: pageContent.seo.description,
     path: pagePaths[page],
     locale,
+    index: page !== 'insights',
   })
 }

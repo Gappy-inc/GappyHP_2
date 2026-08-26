@@ -4,11 +4,11 @@ import { GOODTIME_URL } from '@/lib/config'
 
 type CTASectionProps = { locale?: Locale; title?: string; body?: string; secondaryHref?: string; secondaryLabel?: string }
 
-export default function CTASection({ locale = 'en', title, body, secondaryHref = '/travel', secondaryLabel }: CTASectionProps) {
+export default function CTASection({ locale = 'en', title, body, secondaryHref = '/about', secondaryLabel }: CTASectionProps) {
   const copy = getContent(locale).common
   return (
-    <section className="view-react relative overflow-hidden border-y border-navy-900 bg-gold-500 py-20 text-navy-950 md:py-28">
-      <span className="axis-signal absolute left-[7%] top-0 h-12 w-1 bg-navy-950" aria-hidden="true" />
+    <section className="relative overflow-hidden border-y border-navy-900 bg-signal-500 py-16 text-navy-950 md:py-20">
+      <span className="absolute left-[7%] top-0 h-10 w-1 bg-navy-950" aria-hidden="true" />
       <div className="container-luxe grid gap-12 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
         <div>
           <p className="eyebrow">{copy.ctaEyebrow}</p>
