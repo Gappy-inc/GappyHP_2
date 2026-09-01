@@ -1,42 +1,59 @@
+export type JobOpening = {
+  slug: string
+  title: string
+  location: string
+  workStyle: string
+  employmentType: string
+  language: string
+  summary: string
+  status: 'open' | 'closed' | 'draft'
+}
+
+const enOpenings: JobOpening[] = []
+
 export const enContent = {
   locale: 'en',
   htmlLang: 'en',
   ogLocale: 'en_US',
   navigation: {
     primary: [
-      { label: 'Technology', path: '/technology' },
       { label: 'Travel', path: '/travel' },
-      { label: 'Projects', path: '/cases' },
-      { label: 'Insights', path: '/resources' },
-    ],
-    company: [
-      { label: 'About', path: '/about' },
+      { label: 'Technology', path: '/technology' },
+      { label: 'Work', path: '/cases' },
+      { label: 'Company', path: '/about' },
       { label: 'Careers', path: '/careers' },
-      { label: 'Contact', path: '/contact' },
     ],
-    companyLabel: 'Company',
     primaryLabel: 'Primary navigation',
     mobileLabel: 'Mobile navigation',
-    talk: 'Talk to Gappy',
+    talk: 'Discuss a workflow',
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
+    menuText: 'Menu',
+    closeText: 'Close',
     skip: 'Skip to content',
   },
   footer: {
-    statement: 'AI Workforce for Business Operations.',
-    accent: 'Starting with travel.',
-    explore: 'Explore',
-    company: 'Company',
-    connect: 'Connect',
-    talk: 'Talk to Gappy',
+    legalName: 'Gappy, Inc.',
+    links: [
+      { label: 'Travel', path: '/travel' },
+      { label: 'Technology', path: '/technology' },
+      { label: 'Work', path: '/cases' },
+      { label: 'About', path: '/about' },
+      { label: 'Careers', path: '/careers' },
+      { label: 'Contact', path: '/contact' },
+      { label: 'Privacy', path: '/privacy' },
+      { label: 'Security', path: '/security' },
+    ],
+    contact: 'Contact',
+    language: 'Language',
   },
   common: {
     ctaEyebrow: 'Work with Gappy',
-    ctaTitle: 'Bring us the operation.',
+    ctaTitle: 'Show us the operation.',
     ctaBody:
-      'If important work still moves manually across systems, teams, and repeated judgment, we want to understand it.',
-    ctaPrimary: 'Talk to Gappy',
-    ctaSecondary: 'Explore Travel',
+      'If critical work still moves manually across systems, human judgment, and exceptions, we would like to understand it.',
+    ctaPrimary: 'Discuss a workflow',
+    ctaSecondary: 'Company information',
   },
   operatingLoop: [
     ['Trigger', 'Detect the event'],
@@ -49,227 +66,177 @@ export const enContent = {
   ],
   home: {
     seo: {
-      title: 'Gappy | AI Workforce for Business Operations',
+      title: 'Gappy | AI Workforce for Travel Operations',
       description:
-        'Gappy builds AI systems that execute complex operational work across the software businesses already use. Starting with travel.',
+        'Gappy builds AI systems that execute complex travel operations across existing software—from trigger to verified completion.',
     },
     hero: {
       eyebrow: 'Gappy / Applied AI',
       title: 'AI that gets business done.',
       body:
-        'Gappy builds AI systems that understand operational context, make bounded decisions, and execute work across the software businesses already use.',
-      emphasis: 'We are starting with travel.',
-      primary: 'Explore Travel',
-      secondary: 'Talk to Gappy',
-      label: 'AI Workforce for Business Operations',
+        'Gappy builds AI systems that execute complex travel operations across the software teams already use—from trigger to verified completion.',
+      emphasis: 'Starting with travel.',
+      primary: 'Explore travel operations',
+      secondary: 'Discuss a workflow',
     },
-    shift: {
+    trust: [
+      'Works with existing systems',
+      'Human approval',
+      'Traceable execution',
+      'Verified outcomes',
+    ],
+    what: {
       eyebrow: 'What we build',
-      title: 'From software that stores work to AI that moves it forward.',
-      body: [
-        'Most business operations do not live inside a single system.',
-        'They happen between inboxes, databases, portals, spreadsheets, internal software, and human judgment.',
-        'Gappy builds AI Workforce that can carry context across those boundaries and move operational work toward a verified outcome.',
+      title: 'From AI that suggests to AI that completes.',
+      items: [
+        ['Operate across systems', 'Work across email, booking systems, external portals, CRM, spreadsheets, and the real software environment.'],
+        ['Verify the outcome', 'Do not treat an action as completion. Compare expected and actual state, then preserve evidence of the result.'],
+        ['Escalate with context', 'Hand ambiguity, out-of-scope authority, and high-risk judgment to a person with the operating history intact.'],
       ],
-    },
-    workforce: {
-      eyebrow: 'Gappy AI Workforce',
-      title: 'From trigger to verified outcome.',
-      body:
-        'Useful AI for operations has to do more than generate an answer. It needs to understand what happened, take authorized action, check the result, and know when a person should take over.',
-      cta: 'Explore the Technology',
     },
     travel: {
-      eyebrow: 'Primary vertical / Travel',
-      title: 'Starting with travel.',
+      eyebrow: 'Starting with travel',
+      title: 'A proving ground for operational AI.',
       body: [
-        'Travel is global, fragmented, time-sensitive, and operationally intensive.',
-        'A single trip can move through booking systems, supplier portals, email, CRM, spreadsheets, internal queues, and repeated human coordination.',
-        'That makes travel a natural proving ground for AI that has to operate across real-world complexity.',
+        'Travel operations are fragmented across systems and depend on coordination between suppliers, customers, guides, drivers, and internal teams.',
+        'Time constraints and exceptions make travel a rigorous environment for proving whether an AI Workforce can execute responsibly.',
       ],
-      cta: 'Explore Travel',
-      cardEyebrow: 'Current flagship',
-      cardTitle: 'AI Workforce for Travel Operations',
-      cardBody:
-        "A focused application of Gappy's operating capability to the work behind every trip.",
+      workflows: [
+        ['Supplier Confirmation', 'Reconfirmation, follow-up, and exception handling across supplier channels.'],
+        ['Booking Operations', 'Move booking work across inboxes, reservation systems, and internal queues.'],
+        ['Changes & Exceptions', 'Coordinate downstream work when schedules, services, or plans change.'],
+        ['Fulfillment Verification', 'Check delivery milestones and surface unresolved exceptions.'],
+      ],
+      cta: 'Explore travel operations',
     },
-    workflows: {
-      eyebrow: 'Travel workflows',
-      title: 'Operational work behind every trip.',
-      cta: 'See Travel Operations',
+    work: {
+      eyebrow: 'Current work',
+      title: 'Built from real operations.',
       items: [
-        ['Supplier Operations', 'Confirmation, reconfirmation, chasing, and exception handling across supplier channels.'],
-        ['Booking Operations', 'Move booking work forward across inboxes, reservation systems, and internal queues.'],
-        ['Reconciliation', 'Support supplier and payment reconciliation with traceable decisions and handoffs.'],
-        ['QA & Fulfillment', 'Check bookings and fulfillment milestones, then surface what needs human attention.'],
-        ['Schedule Changes', 'Coordinate downstream work when schedules, services, or plans change.'],
-        ['Customer Communication', 'Deliver context-aware communication as part of the operating workflow — not as a disconnected chatbot.'],
+        {
+          title: 'Gappy Tour Operations',
+          subtitle: 'Internal Deployment',
+          status: 'INTERNAL / ACTIVE',
+          body: 'We are structuring Gappy’s own travel operations—bookings, guide coordination, customer communication, departure checks, and completion checks—as one operating workflow.',
+        },
+        {
+          title: 'Founding Design Partner Program',
+          subtitle: 'Workflow Co-design',
+          status: 'OPEN FOR CONVERSATIONS',
+          body: 'We are speaking with companies willing to share a real workflow and co-design an initial scope through offline evaluation, shadowing, and human-approved execution.',
+        },
       ],
+      cta: 'View current work',
     },
     technology: {
-      eyebrow: 'Operate across the stack',
-      title: 'Built around the systems businesses already use.',
-      body: [
-        'Core business software contains years of operating logic.',
-        'Gappy is not built on the assumption that companies will replace it.',
-        'We design AI Workforce to operate across existing infrastructure while keeping authority, verification, and human escalation explicit.',
+      eyebrow: 'Technology & accountability',
+      title: 'Authority and completion criteria are part of the system.',
+      body: 'Operational responsibility requires more than a capable model. It requires explicit limits, human control, an execution trace, and a verified definition of done.',
+      items: [
+        ['Permission Boundaries', 'Define what the system may access, decide, and change.'],
+        ['Human Approval', 'Keep consequential or ambiguous decisions under human control.'],
+        ['Execution Trace', 'Preserve context, actions, handoffs, and observed state.'],
+        ['Verified Completion', 'Compare expected and actual state before marking work complete.'],
       ],
-      cta: 'Explore Technology',
-      capabilities: [
-        'System Access',
-        'Context & Policy',
-        'Execution',
-        'Communication',
-        'Verification',
-        'Human Control',
-      ],
-    },
-    projects: {
-      eyebrow: 'Projects',
-      title: 'Build around the operation, not the demo.',
-      body:
-        'Every deployment begins with a real workflow. We map its trigger, systems, decisions, actions, exceptions, and definition of done before deciding how much responsibility the AI should carry.',
-      cta: 'View Projects',
-      cardEyebrow: 'Travel / Active',
-      cardTitle: 'AI Workforce for Travel Operations',
-      cardBody:
-        'AI operators for the operational work behind bookings, suppliers, fulfillment, reconciliation, changes, and customer communication.',
-    },
-    insights: {
-      eyebrow: 'Insights',
-      title: 'Notes from the operating layer.',
-      body:
-        'Practical thinking on AI Workforce, operational systems, and how autonomous work should be designed.',
-      cta: 'Read Insights',
+      cta: 'Explore the technical design',
     },
     company: {
-      aboutEyebrow: 'About Gappy',
-      aboutTitle: 'Make complex operations autonomous.',
-      aboutBody:
-        'We believe AI will change business software from something people operate into something that can increasingly operate the business itself. Gappy is building that future one bounded workflow at a time.',
-      aboutCta: 'About Gappy',
-      careersEyebrow: 'Careers',
-      careersTitle: 'Build AI that works in the real world.',
-      careersBody:
-        'We are building a team across AI, software, product, and operations for people who want to turn frontier technology into systems that carry real responsibility.',
-      careersCta: 'Join Gappy',
+      eyebrow: 'Company',
+      title: 'Built across AI, software, product, and travel operations.',
+      body: 'Gappy develops AI systems that can carry responsibility in real operations by working across AI, software, product, and travel operations.',
+      name: 'Mitsuki Asano',
+      role: 'Founder & Representative Director, Gappy, Inc.',
+      cta: 'About Gappy',
+    },
+    careers: {
+      eyebrow: 'Careers',
+      title: 'Open application',
+      status: 'There are no publicly listed roles at this time.',
+      body: 'We remain open to hearing from exceptional people who strongly align with Gappy’s mission.',
+      cta: 'Careers at Gappy',
     },
   },
   technology: {
     seo: {
       title: 'Technology | Gappy AI Workforce',
       description:
-        'Explore how Gappy AI Workforce understands operational context, works across existing systems, verifies outcomes, and escalates uncertainty.',
+        'How Gappy scopes authority, operates across existing systems, records execution, verifies completion, and escalates uncertainty.',
     },
     hero: {
       eyebrow: 'Technology',
-      title: 'AI systems for bounded operational responsibility.',
+      title: 'Operational AI with explicit control.',
       body: [
-        'Gappy is designed around a simple idea:',
-        'AI becomes operationally useful when it can understand context, act within authority, verify what happened, and escalate what it should not decide alone.',
+        'Gappy designs the authority, access, evidence, and completion conditions around each workflow.',
+        'Human escalation crosses every layer of the system.',
       ],
     },
     loop: {
       eyebrow: 'Operating loop',
       title: 'From an event to a verified outcome.',
-      body:
-        'Each stage creates the evidence and constraints required for the next. Escalation is part of the operating model, not a fallback hidden at the edge.',
+      body: 'Each stage carries the context and constraints needed for the next. Escalation is part of the operating model, not a hidden fallback.',
     },
     layers: [
-      {
-        eyebrow: 'Context',
-        title: 'Context before action.',
-        body: 'Operational work depends on records, messages, policies, history, and exceptions. Gappy assembles the context required for a bounded decision before an action is taken.',
-        detail: ['Records & messages', 'Policy & constraints', 'Workflow state'],
-      },
-      {
-        eyebrow: 'System interaction',
-        title: 'Work across existing software.',
-        body: 'Important operations span inboxes, browsers, internal tools, databases, and third-party systems. The operating layer is designed around that reality.',
-        detail: ['Interfaces & APIs', 'Existing systems', 'Authorized actions'],
-      },
-      {
-        eyebrow: 'Verification',
-        title: 'Verification closes the loop.',
-        body: 'Sending a message or updating a record is an action. The workflow is complete only when the intended operational outcome has been checked.',
-        detail: ['Expected outcome', 'Observed result', 'Completion evidence'],
-        statement: 'Action ≠ Completion',
-      },
-      {
-        eyebrow: 'Human control',
-        title: 'Humans remain in control of uncertainty.',
-        body: 'Authority is scoped. Ambiguity, policy exceptions, or risk are escalated to the right person with the operational context and action history intact.',
-        detail: ['Scoped authority', 'Contextual handoff', 'Exception ownership'],
-      },
+      { eyebrow: 'Context', title: 'Know the policy and operating state.', body: 'Records, messages, policy, history, and exceptions are assembled before an action is considered.', detail: ['Policy and context', 'Workflow state', 'Records and messages'] },
+      { eyebrow: 'Authority', title: 'Bound what the system may do.', body: 'Permissions, approval requirements, and risk boundaries define where the system can act and where a person must decide.', detail: ['Permission boundary', 'Human approval', 'Risk limits'] },
+      { eyebrow: 'Execution', title: 'Operate through authorized access.', body: 'The workflow uses approved system access and preserves an execution history across each action and handoff.', detail: ['System access', 'Execution history', 'Contextual handoff'] },
+      { eyebrow: 'Verification', title: 'Close the loop with evidence.', body: 'Expected and actual state are compared. The workflow completes only when the evidence supports the outcome.', detail: ['Expected state', 'Actual state', 'Evidence'], statement: 'Action ≠ Completion' },
     ],
+    humanEscalation: {
+      eyebrow: 'Across every layer',
+      title: 'Human escalation preserves context.',
+      body: 'Ambiguity, policy exceptions, insufficient authority, and high-risk decisions move to the right person with the workflow state and execution history intact.',
+    },
     principles: {
-      eyebrow: 'Design principles',
-      title: 'Responsibility is designed, measured, and expanded.',
+      eyebrow: 'Control model',
+      title: 'Responsibility expands only with operating evidence.',
       items: [
-        ['Scoped Authority', 'Define what the system may decide and which actions it may take.'],
-        ['Traceability', 'Preserve the context, decisions, actions, and observed result.'],
+        ['Scoped Authority', 'Define allowed decisions and actions before execution.'],
+        ['Traceability', 'Preserve context, actions, approvals, and observed outcomes.'],
         ['Human Escalation', 'Route uncertainty to a person with enough context to act.'],
-        ['Progressive Autonomy', 'Expand responsibility only where operating evidence supports it.'],
-        ['Existing Infrastructure', 'Work with the systems and business logic already in place.'],
+        ['Progressive Autonomy', 'Expand responsibility only where evidence supports it.'],
       ],
     },
-    cta: {
-      body: 'Bring us a workflow with real systems, constraints, exceptions, and a clear outcome. We will start by making the operating truth visible.',
-    },
+    cta: { body: 'Bring us a workflow with real systems, constraints, exceptions, and a clear outcome. We begin by making its operating truth visible.' },
   },
   travel: {
     seo: {
       title: 'AI Workforce for Travel Operations | Gappy',
-      description:
-        'Gappy builds AI Workforce for travel companies across booking operations, supplier coordination, reconciliation, fulfillment, changes, and customer communication.',
+      description: 'Gappy executes supplier confirmation, booking operations, changes, fulfillment checks, and customer communication across existing travel systems.',
     },
     hero: {
       eyebrow: 'Gappy / Travel',
       title: 'AI Workforce for Travel Operations',
-      body:
-        'Gappy automates the operational work behind every trip — across booking systems, email, supplier portals, CRM, spreadsheets, and existing travel infrastructure.',
-      primary: 'Become a Design Partner',
-      secondary: 'Talk to Gappy',
+      body: 'Operational AI for work that moves across booking systems, email, supplier portals, CRM, spreadsheets, and human decisions.',
+      primary: 'Discuss a travel workflow',
+      secondary: 'View current work',
     },
     why: {
       eyebrow: 'Why travel',
       title: 'Travel still runs between systems.',
       body: [
-        'Booking platforms record the reservation. But the work required to deliver the trip often continues across supplier communication, schedule changes, fulfillment checks, internal queues, reconciliation, and customer support.',
-        'Humans remain the coordination layer between those systems. Gappy is built for that layer.',
+        'A booking may be recorded in one system, while delivery depends on supplier communication, schedule changes, fulfillment checks, internal queues, and customer support.',
+        'Gappy is building for this coordination layer.',
       ],
     },
     target: {
-      eyebrow: 'Built for',
-      title: 'Travel operators with real operational complexity.',
-      items: ['TMCs', 'DMCs', 'OTAs', 'Tour Operators', 'Travel Groups', 'Enterprise Travel Companies'],
-    },
-    example: {
-      eyebrow: 'Travel operating example',
-      title: 'Supplier Reconfirmation',
-      body:
-        'A bounded workflow that begins with a real operational event and ends only when the result is verified or an exception has been handed over.',
-      steps: [
-        'Booking enters reconfirmation window',
-        'Retrieve reservation and supplier context',
-        'Determine required confirmation path',
-        'Contact or operate supplier channel',
-        'Interpret response',
-        'Update internal state',
-        'Verify confirmed outcome',
-        'Escalate exception if unresolved',
-      ],
+      eyebrow: 'Who we are building with',
+      title: 'A clear current focus, with broader applicability.',
+      currentLabel: 'Current focus',
+      current: ['Inbound Tour Operators', 'DMCs', 'Travel Operations Teams'],
+      longerTermLabel: 'Longer-term applicability',
+      longerTerm: ['TMCs', 'OTAs', 'Large Travel Groups'],
     },
     workflows: {
       eyebrow: 'Travel workflows',
       title: 'Start with the work your team still has to carry.',
+      labels: ['Trigger', 'Systems', 'Human control', 'Complete when'],
       items: [
-        ['Supplier Operations', 'Confirmation, reconfirmation, chasing, and exception handling across supplier channels.'],
-        ['Booking Operations', 'Move booking work across inboxes, reservation systems, and internal queues.'],
-        ['Supplier & Payment Reconciliation', 'Support reconciliation with traceable decisions, checks, and handoffs.'],
-        ['Booking QA & Fulfillment', 'Check booking records and fulfillment milestones, then surface exceptions.'],
-        ['Schedule Change & Disruption', 'Coordinate downstream work when schedules, services, or plans change.'],
-        ['Customer Communication', 'Deliver context-aware communication as part of the operating workflow.'],
+        { title: 'Supplier Operations', body: 'Confirmation, reconfirmation, follow-up, and exceptions across supplier channels.', trigger: 'Departure or service date approaching', systems: 'Booking system / Email / Supplier portal', humanControl: 'Exception approval', completeWhen: 'Supplier status is verified and recorded' },
+        { title: 'Booking Operations', body: 'Move booking work across inboxes, reservation systems, and internal queues.', trigger: 'New or changed booking request', systems: 'Inbox / Booking system / Internal queue', humanControl: 'Commercial or policy exception', completeWhen: 'Required booking state is confirmed' },
+        { title: 'Supplier & Payment Reconciliation', body: 'Support reconciliation with traceable checks and handoffs.', trigger: 'Invoice or payment record received', systems: 'Spreadsheet / Booking record / Accounting tool', humanControl: 'Material discrepancy approval', completeWhen: 'Difference is resolved or assigned' },
+        { title: 'Booking QA & Fulfillment', body: 'Check booking records and fulfillment milestones, then surface exceptions.', trigger: 'Pre-departure or delivery checkpoint', systems: 'Booking system / Operations tracker / Email', humanControl: 'Unresolved fulfillment risk', completeWhen: 'Delivery evidence is present' },
+        { title: 'Schedule Change & Disruption', body: 'Coordinate downstream work when schedules, services, or plans change.', trigger: 'Schedule or service change detected', systems: 'Supplier channel / CRM / Booking system', humanControl: 'Alternative selection and approval', completeWhen: 'Affected records and people are aligned' },
+        { title: 'Customer Communication', body: 'Deliver context-aware communication as part of the operating workflow.', trigger: 'Verified update requires communication', systems: 'CRM / Email / Messaging channel', humanControl: 'Sensitive or exceptional message', completeWhen: 'Approved message and delivery state are recorded' },
       ],
     },
     systems: {
@@ -282,194 +249,131 @@ export const enContent = {
       eyebrow: 'Start bounded',
       title: 'One workflow first.',
       steps: [
-        ['Map', 'Define the trigger, systems, decisions, actions, exceptions, and completion criteria.'],
-        ['Observe', 'Evaluate against historical or live operational cases.'],
-        ['Assist', 'Use human approval while measuring performance.'],
-        ['Expand', 'Increase autonomy only where evidence justifies it.'],
+        ['Map', 'Define the trigger, systems, decisions, exceptions, and completion criteria.'],
+        ['Offline evaluation', 'Test the workflow against representative historical cases.'],
+        ['Shadow', 'Observe live work without taking operational authority.'],
+        ['Human-approved', 'Execute approved actions while measuring evidence and exceptions.'],
       ],
     },
     measurement: {
       eyebrow: 'Measurement',
       title: 'Measure completion, not activity.',
-      body: 'Exact baselines and success criteria are defined with each design partner. No public performance claim is implied here.',
-      items: ['Verified Completion', 'Human Intervention', 'Rework', 'Cycle Time', 'Critical Errors', 'Exception Rate', 'Human Minutes', 'Cost per Workflow'],
+      body: 'Baselines and success criteria are defined for each workflow. No public performance claim is implied here.',
+      items: ['Verified Completion', 'Human Intervention', 'Rework', 'Cycle Time', 'Critical Errors', 'Exception Rate'],
     },
     cta: {
       title: 'Start with one travel workflow.',
-      body: 'Bring the trigger, systems, exceptions, and definition of done. We will begin with the operating reality and define what a useful first deployment needs to prove.',
-      secondary: 'View Projects',
+      body: 'Bring the trigger, systems, exceptions, and definition of done. We will define what a useful first validation needs to prove.',
+      secondary: 'View current work',
     },
   },
   projects: {
-    seo: {
-      title: 'Projects | Gappy',
-      description:
-        'Gappy projects begin with bounded operational workflows, measurable outcomes, and explicit limits on what AI is allowed to do.',
-    },
+    seo: { title: 'Current Work and Validation | Gappy', description: 'How Gappy validates AI Workforce through internal travel operations and a bounded design partner path.' },
     hero: {
-      eyebrow: 'Projects',
-      title: 'Projects built around real operations.',
-      body: [
-        'We work from operational reality backward.',
-        'Each project starts with a bounded workflow, a measurable outcome, and explicit limits on what the AI is allowed to do.',
-      ],
+      eyebrow: 'Current work and validation',
+      title: 'Built from real operations.',
+      body: 'Gappy designs AI Workforce from work that already happens: the systems, decisions, exceptions, people, and conditions that define completion.',
     },
-    flagship: {
-      eyebrow: 'Primary vertical / Travel',
-      status: 'Active project area',
-      title: 'AI Workforce for Travel Operations',
-      body: 'Operational AI for supplier coordination, bookings, reconciliation, fulfillment, schedule changes, and customer communication.',
-      cta: 'Explore Travel',
-    },
-    partnership: {
-      eyebrow: 'Design partnership',
-      title: 'Build one operating workflow with us.',
-      body: 'Responsibility expands only after the workflow and its evidence are visible. The process is designed to make limits and learning explicit.',
-      steps: ['Discover', 'Map', 'Baseline', 'Prototype', 'Shadow', 'Deploy', 'Measure', 'Expand'],
-    },
-    evidence: {
-      eyebrow: 'Confidential work',
-      title: 'Evidence without invented proof.',
-      body: [
-        'Some of our work is carried out with design partners or under confidentiality.',
-        'We publish customer names, metrics, and implementation details only when disclosure is approved.',
-      ],
-    },
-    cta: {
-      title: 'Build one operating workflow with us.',
-      body: 'Start with a workflow that matters, make its operating truth visible, and define what the first deployment needs to prove.',
-      secondary: 'Explore Travel',
-    },
+    works: [
+      {
+        title: 'Gappy Tour Operations', subtitle: 'Internal Deployment', status: 'INTERNAL / ACTIVE',
+        body: 'Gappy’s own travel operations are the first environment for structuring bookings, guide coordination, customer communication, departure checks, and completion checks as one workflow.',
+        details: [
+          ['Scope', 'Bookings, guide coordination, customer communication, departure and completion checks'],
+          ['Current validation', 'Workflow definition, operating state, handoffs, and completion evidence'],
+          ['Human judgment', 'Exceptions, policy decisions, and consequential communication'],
+          ['Complete when', 'Required travel state and supporting evidence are recorded'],
+        ],
+      },
+      {
+        title: 'Founding Design Partner Program', subtitle: 'Workflow Co-design', status: 'OPEN FOR CONVERSATIONS',
+        body: 'A bounded path for companies willing to share a real workflow and define an initial validation scope with Gappy.',
+        details: [
+          ['Shared input', 'The current workflow, systems, decisions, exceptions, and completion condition'],
+          ['First definition', 'One bounded workflow with explicit authority and evidence'],
+          ['Validation', 'Offline evaluation, shadowing, and human-approved execution'],
+          ['Expansion', 'Limited autonomy only where operating evidence supports it'],
+        ],
+      },
+    ],
+    evaluation: { eyebrow: 'Evaluation path', title: 'Autonomy follows evidence.', steps: ['Offline Evaluation', 'Shadow', 'Human-approved Execution', 'Limited Autonomy'] },
+    evidence: { eyebrow: 'Evidence policy', title: 'Publish only verifiable proof.', body: 'Customer names, processing volumes, reduction rates, and outcome metrics are published only when disclosure is approved and the evidence can be verified.' },
+    cta: { title: 'Define one workflow with us.', body: 'Start with the operating reality and define what the first validation needs to prove.', secondary: 'Explore travel operations' },
   },
   insights: {
-    seo: {
-      title: 'Insights | Gappy',
-      description:
-        'Practical ideas from Gappy on AI Workforce, workflow design, autonomy, verification, and the systems behind real-world operations.',
-    },
-    hero: {
-      eyebrow: 'Insights',
-      title: 'Notes from the operating layer.',
-      body: 'Practical ideas on AI Workforce, workflow design, autonomy, verification, and the systems behind real-world operations.',
-    },
-    noteLabel: 'Operating note',
-    topicsLabel: 'Topics',
-    topics: [
-      { title: 'What makes a workflow automation-ready?', body: 'A useful first workflow has an observable trigger, accessible context, bounded decisions, and a clear definition of done.', tags: ['Workflow design', 'Readiness'] },
-      { title: 'From action to verified completion', body: 'Sending a message or updating a field is not the outcome. The operating loop closes only when the result has been checked.', tags: ['Verification', 'Outcomes'] },
-      { title: 'Designing human escalation', body: 'AI should know when confidence, authority, policy, or risk requires a person — and hand over the full operational context.', tags: ['Human control', 'Exceptions'] },
-      { title: 'Why start with travel?', body: 'Travel is a proving ground for AI that must work across fragmented systems, time pressure, supplier networks, and real exceptions.', tags: ['Travel', 'Applied AI'] },
-      { title: 'Existing systems are part of the product', body: 'The operating layer has to respect the software, policies, permissions, and business logic already carrying the operation.', tags: ['Infrastructure', 'Systems'] },
-    ],
-    disclaimer: 'These are working topics, not dated publications. Gappy will add authored articles only when the underlying material is ready to publish.',
-    brief: {
-      eyebrow: 'Workflow brief',
-      title: 'Bring the operation, not a feature list.',
-      questions: [
-        'What triggers the work?',
-        'Which systems hold the context?',
-        'What decisions move it forward?',
-        'Which actions require authority?',
-        'How is completion verified?',
-        'What must escalate to a person?',
-      ],
-    },
+    seo: { title: 'Gappy Research Notes', description: 'Future research notes from Gappy on AI Workforce, travel operations, human control, and verified completion.' },
+    hero: { eyebrow: 'Research notes', title: 'Gappy Research Notes', body: 'We will publish practical notes on AI Workforce, travel operations, human control, and verified completion as the underlying work becomes ready to share.' },
+    note: 'No articles are publicly listed at this time.',
   },
   about: {
-    seo: {
-      title: 'About Gappy | AI Workforce for Business Operations',
-      description: 'Gappy is an applied AI company building AI Workforce for complex business operations. We are starting with travel.',
-    },
-    hero: {
-      eyebrow: 'About Gappy',
-      title: 'Building AI that can carry operational responsibility.',
-      body: ['Gappy is an applied AI company building AI Workforce for complex business operations.', 'We are starting with travel.'],
-    },
-    mission: {
-      eyebrow: 'Mission',
-      title: 'Make complex operations autonomous.',
-      body: ['Businesses have spent decades digitizing information.', 'The next shift is digitizing execution.', 'We are building systems that can increasingly carry bounded responsibility for operational work while people retain control of policy, ambiguity, and risk.'],
-    },
-    why: {
-      eyebrow: 'Why now',
-      title: 'AI changes what software can be responsible for.',
-      body: ['Traditional software waits for a person to operate it.', 'Modern AI can understand unstructured context, work across interfaces, communicate, and make constrained decisions.', 'The opportunity is not to add another assistant to every screen.', 'It is to redesign the work itself.'],
-    },
+    seo: { title: 'About Gappy | AI Workforce for Travel Operations', description: 'Gappy is a Japanese applied AI company building AI Workforce for real travel operations.' },
+    hero: { eyebrow: 'About Gappy', title: 'Building AI that can carry operational responsibility.', body: ['Gappy builds AI systems for real operations across software and people.', 'Our current focus is travel operations.'] },
+    mission: { eyebrow: 'Mission', title: 'Make complex operations autonomous.', body: ['Businesses have spent decades digitizing information.', 'The next shift is digitizing execution.', 'Gappy builds systems that can carry bounded operational responsibility while people retain control of policy, ambiguity, and risk.'] },
+    why: { eyebrow: 'Why now', title: 'AI changes what software can be responsible for.', body: ['Traditional software waits for a person to operate it.', 'Modern AI can understand unstructured context, work across interfaces, communicate, and make constrained decisions.', 'The opportunity is not another assistant on every screen.', 'It is to redesign how the work itself moves.'] },
     principles: {
-      eyebrow: 'Principles',
-      title: 'Build from the operation outward.',
+      eyebrow: 'Principles', title: 'Build from the operation outward.',
       items: [
-        ['Start with operational truth', 'Map how the work actually moves before deciding what to automate.'],
-        ['Own the outcome', 'Design for verified completion, not an isolated action or generated answer.'],
-        ['Work around reality', 'Respect existing systems, policies, authority, and business constraints.'],
-        ['Expand autonomy with evidence', 'Increase responsibility only where operating results justify it.'],
-        ['Keep humans in control of the hard edges', 'Escalate ambiguity, policy exceptions, and risk with context.'],
+        ['Start with operational truth', 'Map how work actually moves before deciding what to automate.'],
+        ['Own the outcome', 'Design for verified completion, not an isolated action.'],
+        ['Work around reality', 'Respect existing systems, policies, authority, and constraints.'],
+        ['Expand with evidence', 'Increase responsibility only where operating results justify it.'],
       ],
     },
     founder: {
-      eyebrow: 'From the founder',
-      title: 'Operations are where software meets reality.',
-      body: ['The most consequential business work rarely happens inside one clean interface.', 'It moves between people, systems, messages, decisions, and exceptions.', 'Gappy exists to build AI that can operate inside that reality — not just talk about it.'],
-      role: 'Representative Director, Gappy',
-      imageAlt: 'Gappy representative director Mitsuki Asano',
+      eyebrow: 'Founder', title: 'Operations are where software meets reality.',
+      body: ['The most consequential work rarely happens inside one clean interface.', 'It moves between people, systems, messages, decisions, and exceptions.', 'Gappy exists to build AI that can operate inside that reality.'],
+      name: 'Mitsuki Asano', role: 'Founder & Representative Director, Gappy, Inc.', imageAlt: 'Mitsuki Asano, founder and representative director of Gappy',
     },
-    company: {
-      eyebrow: 'Company information',
-      labels: ['Company name', 'Representative', 'Established', 'Location', 'Contact'],
-    },
+    timeline: { eyebrow: 'Company timeline', title: 'A focused operating history.', items: [['2025', 'Gappy, Inc. established'], ['2026', 'Development focused on AI Workforce for Travel Operations']] },
+    team: { eyebrow: 'Team', title: 'A founder-led company.', body: 'Gappy is currently a small, founder-led company. Additional team members will be listed only with confirmed names, roles, and approval for publication.' },
+    company: { eyebrow: 'Company information', labels: ['Company name', 'Representative', 'Established', 'Location', 'Contact'] },
   },
   careers: {
-    seo: {
-      title: 'Careers | Gappy',
-      description: 'Build applied AI systems at Gappy that understand operational context, work across real software, and carry bounded responsibility.',
-    },
-    hero: {
-      eyebrow: 'Careers',
-      title: 'Build AI that works in the real world.',
-      body: ['We are building systems that do not stop at generating text.', 'They have to understand messy operational context, work across real software, make constrained decisions, and be accountable for what happened next.'],
-    },
+    seo: { title: 'Careers | Gappy', description: 'Careers and open applications at Gappy, building accountable AI systems for real operations.' },
+    hero: { eyebrow: 'Careers', title: 'Build AI that works in the real world.', body: ['We build systems that move beyond generating text.', 'The work connects AI capability to real permissions, actions, exceptions, and outcomes.'] },
+    currentOpenings: { eyebrow: 'Current openings', title: 'Open application', empty: 'There are no publicly listed roles at this time.', body: 'We remain open to hearing from exceptional people who strongly align with Gappy’s mission.' },
+    openings: enOpenings,
+    disciplines: { eyebrow: 'Disciplines we work across', title: 'The capabilities behind operational AI.', body: 'These are working disciplines at Gappy, not current job listings.', items: ['AI / Agent Engineering', 'Full-stack Engineering', 'Product', 'Design', 'Travel Operations', 'Business Development'] },
     principles: [
-      ['Frontier technology, operational consequences', 'The work connects rapidly changing AI capability to systems where actions, permissions, and outcomes matter.'],
-      ['Close to the problem', 'We learn from the operation itself: the people, systems, exceptions, and decisions that keep it moving.'],
-      ['High ownership', 'Small teams own the path from problem definition through implementation and operating evidence.'],
-      ['Global from the beginning', 'Travel crosses languages, markets, suppliers, policies, and time zones. Our systems and team are built with that scope in mind.'],
+      ['Frontier technology, operational consequences', 'AI capability is connected to systems where actions, permissions, and outcomes matter.'],
+      ['Close to the operation', 'We learn from the people, systems, exceptions, and decisions that keep work moving.'],
+      ['High ownership', 'A small team owns the path from problem definition through operating evidence.'],
     ],
-    disciplines: {
-      eyebrow: 'Disciplines',
-      title: 'The capabilities behind operational AI.',
-      body: 'These are areas of work at Gappy, not a claim that every category has a current open role.',
-      items: ['AI / Agent Engineering', 'Full-stack Engineering', 'Product', 'Design', 'Travel Operations', 'Business Development'],
-    },
-    application: {
-      eyebrow: 'Open application',
-      title: "Don't see the right role?",
-      body: 'If the mission fits how you want to work, tell us what you are unusually good at and what you want to build.',
-      primary: 'Contact Gappy',
-      secondary: 'About Gappy',
-    },
+    application: { primary: 'Send an open application', secondary: 'About Gappy' },
   },
   contact: {
-    seo: {
-      title: 'Contact | Gappy',
-      description: 'Talk to Gappy about an AI Workforce deployment, strategic collaboration, careers, or company and industry inquiries.',
-    },
-    hero: {
-      eyebrow: 'Contact',
-      title: 'Bring us the operation.',
-      body: 'If important work still moves manually across systems, teams, and repeated judgment, we want to understand it.',
-    },
+    seo: { title: 'Contact | Gappy', description: 'Discuss a travel operations workflow or contact Gappy about careers, investment, media, partnerships, or company inquiries.' },
+    hero: { eyebrow: 'Contact', title: 'Show us the operation.', body: 'If important work still moves manually across systems, people, and exceptions, we would like to understand it.' },
     paths: [
-      ['Enterprise / Design Partner', 'Explore an AI Workforce deployment around a real operational workflow.', 'Schedule a conversation'],
-      ['Strategic Partner / Investor', 'Discuss Gappy, our technology, market, or strategic collaboration.', 'Email Gappy'],
-      ['Engineering / Careers', 'Interested in building applied AI systems with us?', 'Introduce yourself'],
-      ['Media / Industry', 'Company, technology, or travel-industry inquiries.', 'Contact Gappy'],
+      { title: 'Workflow / Design Partner', body: 'We will map the current workflow, systems in use, exceptions, human handoffs, and the first completion condition worth validating.', note: 'Opens an external scheduling service.', cta: 'Schedule a workflow discussion' },
+      { title: 'General Contact', body: 'For careers, investment, media, partnerships, and other company inquiries, contact Gappy by email.', note: 'Email is the direct contact method for this website.', cta: 'Contact by email' },
     ],
-    conversation: {
-      eyebrow: 'Design partner conversation',
-      title: 'Start with the workflow as it exists today.',
-      body: 'We will discuss the trigger, systems involved, human handoffs, exceptions, and what a useful first deployment needs to prove.',
-      cta: 'Schedule a conversation',
-    },
+  },
+  privacy: {
+    seo: { title: 'Privacy | Gappy', description: 'How Gappy handles information submitted through this corporate website and its external contact links.' },
+    hero: { eyebrow: 'Privacy', title: 'Privacy notice', body: 'This notice describes the limited information flows currently present on the Gappy corporate website.' },
+    updated: 'Last updated: August 26, 2026',
+    sections: [
+      ['Information you provide', ['This website offers contact by email and a link to an external scheduling service. Information you send through those services is provided by you directly.']],
+      ['How information is used', ['Contact information may be used to respond to inquiries, arrange conversations, evaluate potential collaboration, and maintain necessary business records.']],
+      ['Analytics and cookies', ['The current website code does not configure an analytics or advertising tracker. Hosting providers and external services may process technical data or use their own cookies under their respective policies.']],
+      ['Third-party services', ['The scheduling link opens a third-party service. Email delivery and website hosting also involve service providers. Review the policies shown by those services before providing information.']],
+      ['Sharing and retention', ['Gappy does not state a fixed retention period on this website. Information is retained only as reasonably needed for the inquiry, legal obligations, security, and business records. It may be shared with service providers or where required by law.']],
+      ['Contact', ['Questions about this notice can be sent to the contact email listed below.']],
+    ],
+  },
+  security: {
+    seo: { title: 'Security Approach | Gappy', description: 'Gappy’s design approach to bounded permissions, human approval, execution logging, verification, and staged pilots.' },
+    hero: { eyebrow: 'Security', title: 'Control before autonomy.', body: 'Gappy treats permission, approval, evidence, and escalation as part of the workflow design—not as a badge.' },
+    notice: 'This page describes design principles and pilot methods. It does not claim a security certification.',
+    sections: [
+      ['Limited permission scope', 'Access and actions are bounded to the systems and workflow required for the agreed validation.'],
+      ['Human approval', 'Consequential, ambiguous, or policy-sensitive actions remain subject to human review.'],
+      ['Execution logging', 'Relevant context, actions, approvals, and handoffs are designed to remain traceable.'],
+      ['Completion verification', 'Expected state is compared with observed state before a workflow is treated as complete.'],
+      ['Escalation', 'Insufficient authority, ambiguity, policy exceptions, and risk are escalated with context.'],
+      ['Staged pilot method', 'Validation progresses from offline evaluation to shadowing, human-approved execution, and only then limited autonomy where evidence supports it.'],
+    ],
   },
 }
 

@@ -1,33 +1,31 @@
 import Link from 'next/link'
 import BrandMark from '@/components/BrandMark'
-import { AxisMark } from '@/components/GappyAxis'
 import { getContent, localizedPath, type Locale } from '@/content'
-import { COMPANY_ADDRESS, CONTACT_EMAIL, GOODTIME_URL } from '@/lib/config'
+import { COMPANY_ADDRESS, CONTACT_EMAIL } from '@/lib/config'
 
 export default function Footer({ locale = 'en' }: { locale?: Locale }) {
   const copy = getContent(locale)
-  const links = [...copy.navigation.primary, ...copy.navigation.company].map(({ label, path }) => ({ label, href: localizedPath(path, locale) }))
+  const links = copy.footer.links.map(({ label, path }) => ({ label, href: localizedPath(path, locale) }))
   return (
-    <footer className="relative overflow-hidden bg-navy-950 pb-8 pt-16 text-white/60">
+    <footer className="bg-navy-950 py-10 text-white/80 md:py-12">
       <div className="container-luxe">
-        <div className="grid gap-14 border-b border-white/20 pb-16 lg:grid-cols-[1.25fr_0.75fr]">
+        <div className="grid gap-10 border-b border-white/20 pb-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
           <div>
-            <BrandMark inverse href={localizedPath('/', locale)} />
-            <p className="mt-10 max-w-5xl text-[clamp(2.5rem,5.5vw,4.5rem)] font-bold leading-[1.08] tracking-[-0.05em] text-white">{copy.footer.statement}</p>
-            <p className="mt-5 text-[clamp(1.5rem,3vw,2.5rem)] font-semibold tracking-[-0.035em] text-gold-300">{copy.footer.accent}</p>
+            <BrandMark inverse href={localizedPath('/', locale)} priority={false} />
+            <p className="mt-6 text-base font-semibold text-white">{copy.footer.legalName}</p>
+            <address className="mt-4 max-w-sm not-italic text-[13px] leading-6 text-white/70">{COMPANY_ADDRESS}</address>
+            <a href={`mailto:${CONTACT_EMAIL}`} className="mt-3 inline-flex min-h-11 items-center text-sm text-white underline decoration-signal-400 underline-offset-4 hover:text-signal-300">{CONTACT_EMAIL}</a>
           </div>
-          <div className="self-end border-t border-white/20">
-            {links.map(({ label, href }, index) => (
-              <Link key={href} href={href} className="grid min-h-14 grid-cols-[2rem_1fr_auto] items-center border-b border-white/20 text-sm text-white transition-colors hover:text-gold-300"><span className="font-mono text-[12px] text-white/35">{String(index + 1).padStart(2, '0')}</span><span>{label}</span><span aria-hidden="true">↗</span></Link>
+          <nav aria-label={locale === 'ja' ? 'フッターナビゲーション' : 'Footer navigation'} className="grid grid-cols-2 gap-x-8 border-t border-white/20 sm:grid-cols-4">
+            {links.map(({ label, href }) => (
+              <Link key={href} href={href} className="flex min-h-12 items-center border-b border-white/20 text-[13px] font-medium text-white transition-colors hover:text-signal-300">{label}</Link>
             ))}
-          </div>
+          </nav>
         </div>
-        <div className="grid gap-8 border-b border-white/20 py-8 md:grid-cols-3 md:items-end">
-          <div><p className="eyebrow text-gold-300">{copy.footer.connect}</p><a href={GOODTIME_URL} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex min-h-11 items-center text-sm text-white hover:text-gold-300">{copy.footer.talk} ↗</a></div>
-          <div><a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex min-h-11 items-center text-sm text-white hover:text-gold-300">{CONTACT_EMAIL}</a><p className="mt-2 text-[13px] leading-6 text-white/45">{COMPANY_ADDRESS}</p></div>
-          <div className="flex items-center gap-3 md:justify-end"><AxisMark inverse /><Link href={localizedPath('/', locale === 'en' ? 'ja' : 'en')} className="font-mono text-[12px] uppercase tracking-[0.1em] text-white hover:text-gold-300">{locale === 'en' ? '日本語 / JP' : 'English / EN'}</Link></div>
+        <div className="flex flex-col gap-4 pt-6 text-[12px] leading-5 text-white/65 sm:flex-row sm:items-center sm:justify-between">
+          <p>© 2026 Gappy, Inc.</p>
+          <Link href={localizedPath('/', locale === 'en' ? 'ja' : 'en')} hrefLang={locale === 'en' ? 'ja' : 'en'} className="inline-flex min-h-11 items-center font-mono font-medium uppercase tracking-[0.08em] text-white hover:text-signal-300">{locale === 'en' ? '日本語 / JP' : 'English / EN'}</Link>
         </div>
-        <div className="flex flex-col gap-3 pt-8 font-mono text-[12px] uppercase tracking-[0.1em] text-white/35 sm:flex-row sm:justify-between"><p>© 2026 Gappy, Inc.</p><p>AI Workforce for Business Operations</p></div>
       </div>
     </footer>
   )

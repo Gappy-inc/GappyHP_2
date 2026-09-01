@@ -6,70 +6,29 @@ import { CONTACT_EMAIL, GOODTIME_URL } from '@/lib/config'
 export default function ContactPage({ locale }: { locale: Locale }) {
   const page = getContent(locale).contact
   const path = localizedPath('/contact', locale)
-  const links = [
-    GOODTIME_URL,
-    `mailto:${CONTACT_EMAIL}?subject=Strategic%20inquiry`,
-    `mailto:${CONTACT_EMAIL}?subject=Careers%20inquiry`,
-    `mailto:${CONTACT_EMAIL}?subject=Media%20or%20industry%20inquiry`,
-  ]
+  const links = [GOODTIME_URL, `mailto:${CONTACT_EMAIL}`]
+  const heroTitle = locale === 'ja' ? <><span className="whitespace-nowrap">その業務を、</span><br /><span className="whitespace-nowrap">見せてください。</span></> : page.hero.title
 
   return (
     <div className="bg-ivory-50 text-ink-900">
-      <BreadcrumbJsonLd name="Contact" path={path} locale={locale} />
-      <PageHero
-        eyebrow={page.hero.eyebrow}
-        title={page.hero.title}
-        body={<p>{page.hero.body}</p>}
-      />
+      <BreadcrumbJsonLd name={locale === 'ja' ? 'お問い合わせ' : 'Contact'} path={path} locale={locale} />
+      <PageHero variant="utility" eyebrow={page.hero.eyebrow} title={heroTitle} body={<p>{page.hero.body}</p>} />
 
       <section className="section-shell">
-        <div className="container-luxe grid border-l border-t border-navy-900/20 md:grid-cols-2">
-          {page.paths.map(([title, body, label], index) => {
-            const href = links[index]
-            const isSchedulingLink = href === GOODTIME_URL
-
+        <div className="container-luxe grid gap-6 lg:grid-cols-2">
+          {page.paths.map((contactPath, index) => {
+            const isExternal = index === 0
             return (
-              <article key={title} className="flex min-h-72 flex-col border-b border-r border-navy-900/20 bg-white p-7 md:p-10">
-                <span className="font-mono text-[12px] text-gold-700">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <h2 className="subsection-title mt-14 text-navy-900">
-                  {title}
-                </h2>
-                <p className="mt-5 max-w-xl text-base leading-7 text-ink-500">{body}</p>
-                <a
-                  href={href}
-                  target={isSchedulingLink ? '_blank' : undefined}
-                  rel={isSchedulingLink ? 'noopener noreferrer' : undefined}
-                  className="mt-auto inline-flex min-h-11 items-center pt-8 text-sm font-medium text-navy-900 underline decoration-gold-500 underline-offset-8"
-                >
-                  {label}
-                </a>
+              <article key={contactPath.title} className="flex min-h-[340px] flex-col border border-navy-900/20 bg-white p-6 md:p-9">
+                <span className="font-mono text-[12px] font-medium text-signal-700">0{index + 1}</span>
+                <h2 className="section-title mt-12 max-w-[18ch]">{contactPath.title}</h2>
+                <p className="mt-6 max-w-2xl text-base leading-8 text-ink-700">{contactPath.body}</p>
+                {!isExternal ? <p className="mt-4 text-base font-semibold text-navy-900">{CONTACT_EMAIL}</p> : null}
+                <p className="mt-4 text-[13px] leading-6 text-ink-700">{contactPath.note}</p>
+                <a href={links[index]} target={isExternal ? '_blank' : undefined} rel={isExternal ? 'noopener noreferrer' : undefined} className={`${index === 0 ? 'btn-primary' : 'btn-secondary'} mt-auto self-start`}>{contactPath.cta}</a>
               </article>
             )
           })}
-        </div>
-      </section>
-
-      <section className="section-shell bg-navy-900 text-white">
-        <div className="container-luxe grid gap-12 lg:grid-cols-[1fr_0.8fr] lg:items-end">
-          <div>
-            <p className="eyebrow text-gold-300">{page.conversation.eyebrow}</p>
-            <h2 className="section-title mt-6 max-w-4xl !text-white">
-              {page.conversation.title}
-            </h2>
-          </div>
-          <div>
-            <p className="text-base leading-8 text-white/55">{page.conversation.body}</p>
-            <a
-              href={GOODTIME_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-light mt-8"
-            >
-              {page.conversation.cta}
-            </a>
-          </div>
         </div>
       </section>
     </div>

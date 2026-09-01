@@ -11,6 +11,8 @@ export type PageKey =
   | 'about'
   | 'careers'
   | 'contact'
+  | 'privacy'
+  | 'security'
 
 export const pagePaths: Record<PageKey, string> = {
   home: '/',
@@ -21,6 +23,8 @@ export const pagePaths: Record<PageKey, string> = {
   about: '/about',
   careers: '/careers',
   contact: '/contact',
+  privacy: '/privacy',
+  security: '/security',
 }
 
 export function getContent(locale: Locale): SiteContent {

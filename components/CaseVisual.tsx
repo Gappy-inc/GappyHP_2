@@ -187,7 +187,7 @@ export default function CaseVisual({ variant, locale = 'en', className = '' }: {
     <figure className={`case-visual relative overflow-hidden border border-navy-900/20 bg-white ${className}`}>
       <figcaption className="absolute inset-x-5 top-4 z-10 flex items-center justify-between font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-ink-500">
         <span>{meta.code}</span>
-        <span className="case-arrow text-gold-700" aria-hidden="true">→</span>
+        <span className="case-arrow text-signal-700" aria-hidden="true">→</span>
       </figcaption>
       <svg viewBox="0 0 520 300" className="block h-auto w-full" role="img" aria-label={meta[locale]}>
         <Visual />

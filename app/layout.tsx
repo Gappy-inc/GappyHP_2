@@ -35,9 +35,9 @@ const dmMono = DM_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   applicationName: SITE_NAME,
-  title: 'Gappy | AI Workforce for Business Operations',
+  title: 'Gappy | AI Workforce for Travel Operations',
   description:
-    'Gappy builds AI systems that execute complex operational work across the software businesses already use. Starting with travel.',
+    'Gappy builds AI systems that execute complex travel operations across existing software—from trigger to verified completion.',
   keywords: [
     'AI Workforce',
     'Business Operations',
@@ -46,9 +46,9 @@ export const metadata: Metadata = {
     '株式会社Gappy',
   ],
   openGraph: {
-    title: 'Gappy | AI Workforce for Business Operations',
+    title: 'Gappy | AI Workforce for Travel Operations',
     description:
-      'Gappy builds AI systems that execute complex operational work across the software businesses already use. Starting with travel.',
+      'Gappy builds AI systems that execute complex travel operations across existing software—from trigger to verified completion.',
     url: `${SITE_URL}/`,
     siteName: SITE_NAME,
     locale: 'en_US',
@@ -59,15 +59,15 @@ export const metadata: Metadata = {
         url: OG_IMAGE_URL,
         width: 1200,
         height: 630,
-        alt: 'Gappy — AI Workforce for Business Operations',
+        alt: 'Gappy — AI Workforce for Travel Operations',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Gappy | AI Workforce for Business Operations',
+    title: 'Gappy | AI Workforce for Travel Operations',
     description:
-      'Gappy builds AI systems that execute complex operational work across existing software. Starting with travel.',
+      'Gappy builds AI systems that execute complex travel operations across existing software—from trigger to verified completion.',
     images: [OG_IMAGE_URL],
   },
   alternates: {
@@ -110,12 +110,12 @@ export default async function RootLayout({
                   url: `${SITE_URL}/`,
                   logo: {
                     '@type': 'ImageObject',
-                    url: `${SITE_URL}/gappy_icon.png`,
+                    url: `${SITE_URL}/gappy-logo-official.png`,
                   },
                   description:
                     locale === 'ja'
-                      ? 'Gappyは、複雑な業務を実行するAI Workforceを開発するApplied AI Companyです。まず旅行業界から取り組んでいます。'
-                      : 'Gappy is an applied AI company building AI Workforce for complex business operations, starting with travel.',
+                      ? 'Gappyは、旅行会社の複雑な業務を既存システム横断で完了まで実行するAI Workforceを開発しています。'
+                      : 'Gappy builds AI Workforce that executes complex travel operations across existing software through verified completion.',
                   inLanguage: copy.htmlLang,
                   email: CONTACT_EMAIL,
                   address: {
