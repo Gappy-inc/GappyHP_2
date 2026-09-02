@@ -53,7 +53,7 @@ const ja: SiteCopy = {
   },
   hero: {
     eyebrow: 'AI WORKFORCE FOR TRAVEL OPERATIONS',
-    title: '旅行業務を、\n人を増やさずに完了まで。',
+    title: '旅行業務を、\n人を増やさずに\n完了まで。',
     body: 'Gappyは、予約確認、サプライヤーへの催促、ガイド・ドライバー連携、変更対応、予約QA、照合・精算などを、既存システムを横断して実行するAI Workforceです。',
     primary: '30分の業務診断を予約', secondary: '実際のWorkflowを見る',
     notes: ['オンライン30分', 'システムアクセス不要', '秘密保持対応'],

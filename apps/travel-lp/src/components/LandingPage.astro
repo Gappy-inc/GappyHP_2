@@ -24,7 +24,12 @@ const { page } = Astro.props
           </div>
           <ul class="hero-notes">{page.hero.notes.map((note) => <li>{note}</li>)}</ul>
         </div>
-        <div class="hero-visual"><ProductConsole /></div>
+        <div class="hero-visual">
+          <div class="hero-visual-kicker"><i></i><span>LIVE OPERATION CONTROL</span><b>TRAVEL / APAC</b></div>
+          <ProductConsole large />
+          <div class="hero-float hero-float-top" aria-hidden="true"><span>ACTIVE WORKFLOW</span><strong>Supplier confirmation</strong><small>Context loaded · action in progress</small></div>
+          <div class="hero-float hero-float-bottom" aria-hidden="true"><span>VERIFIED COMPLETION</span><strong>Evidence retained</strong><small>Booking record updated</small></div>
+        </div>
       </div>
     </section>
 
@@ -42,7 +47,7 @@ const { page } = Astro.props
     <section class="section section-muted" id="problems">
       <div class="page-shell">
         <header class="section-heading split-heading"><div><p class="eyebrow">{page.problems.eyebrow}</p><h2 class="preserve-lines">{page.problems.title}</h2></div><p>{page.lang === 'ja' ? '予約情報を記録するシステムはあっても、システム間をつなぐ確認・連絡・判断は人に残っています。' : 'Systems may hold booking records, but the checking, coordination, and judgment between them still falls to people.'}</p></header>
-        <div class="problem-grid">{page.problems.items.map((item, index) => <article class="problem-card"><div class="card-index">GAP-{String(index + 1).padStart(2, '0')}</div><ObjectIcon kind={index} /><h3>{item}</h3></article>)}</div>
+        <div class="problem-grid">{page.problems.items.map((item, index) => <article class="problem-card"><div class="card-index">GAP-{String(index + 1).padStart(2, '0')}</div><ObjectIcon kind={index} /><div class="problem-card-copy"><span>MANUAL COORDINATION</span><h3>{item}</h3></div></article>)}</div>
       </div>
     </section>
 
@@ -67,6 +72,14 @@ const { page } = Astro.props
         <div class="capability-grid">{page.capabilities.items.map((item, index) => <article class="capability-card"><div class="capability-visual"><ObjectIcon kind={index} /><span>{String(index + 1).padStart(2, '0')}</span></div><h3>{item.title}</h3><p>{item.body}</p></article>)}</div>
       </div>
     </section>
+
+    <aside class="workflow-audit-banner">
+      <div class="page-shell">
+        <div class="audit-mark" aria-hidden="true"><span>01</span><i></i><b>WORKFLOW</b></div>
+        <div class="audit-copy"><p class="eyebrow">START SMALL / PROVE VALUE</p><h2>{page.lang === 'ja' ? 'まず、一つの旅行業務を棚卸し。' : 'Start by mapping one travel workflow.'}</h2><p>{page.lang === 'ja' ? '現在の手順、利用システム、判断、例外、完了条件を30分で整理します。' : 'In 30 minutes, map the current steps, systems, decisions, exceptions, and definition of done.'}</p></div>
+        <a class="button button-dark" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">{page.hero.primary}<span aria-hidden="true">↗</span></a>
+      </div>
+    </aside>
 
     <section class="section section-muted workflows-section" id="workflows">
       <div class="page-shell">
