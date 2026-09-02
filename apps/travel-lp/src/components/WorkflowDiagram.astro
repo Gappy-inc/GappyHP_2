@@ -1,0 +1,10 @@
+---
+interface Props { code: string }
+const { code } = Astro.props
+const nodes = ['INPUT', 'ACTION', 'VERIFICATION', 'ESCALATION']
+---
+<div class="workflow-diagram" aria-label={`${code} workflow structure`}>
+  <div class="diagram-head"><span>{code}</span><span>BOUNDED EXECUTION</span></div>
+  <div class="diagram-track">{nodes.map((node, index) => <div class:list={['diagram-node', { muted: index === 3 }]}><span>{String(index + 1).padStart(2, '0')}</span><i></i><b>{node}</b></div>)}</div>
+  <div class="diagram-note"><span>CONTEXT + POLICY</span><span>EVIDENCE RETAINED</span></div>
+</div>

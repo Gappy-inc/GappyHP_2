@@ -1,0 +1,127 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Header from './Header.astro'
+import Footer from './Footer.astro'
+import ObjectIcon from './ObjectIcon.astro'
+import ProductConsole from './ProductConsole.astro'
+import WorkflowDiagram from './WorkflowDiagram.astro'
+import { BOOKING_URL, CONTACT_URL, type SiteCopy } from '../data/site'
+interface Props { page: SiteCopy }
+const { page } = Astro.props
+---
+<BaseLayout page={page}>
+  <Header page={page} />
+  <main id="main">
+    <section class="hero">
+      <div class="hero-grid page-shell">
+        <div class="hero-copy">
+          <p class="eyebrow">{page.hero.eyebrow}</p>
+          <h1>{page.hero.title}</h1>
+          <p class="hero-body">{page.hero.body}</p>
+          <div class="hero-actions">
+            <a class="button" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">{page.hero.primary}<span aria-hidden="true">↗</span></a>
+            <a class="text-link" href="#workflows">{page.hero.secondary}<span aria-hidden="true">↓</span></a>
+          </div>
+          <ul class="hero-notes">{page.hero.notes.map((note) => <li>{note}</li>)}</ul>
+        </div>
+        <div class="hero-visual"><ProductConsole /></div>
+      </div>
+    </section>
+
+    <section class="proof-strip" aria-label={page.lang === 'ja' ? '導入方針' : 'Operating principles'}>
+      <ul class="page-shell">{page.proof.map((item, index) => <li><span>{String(index + 1).padStart(2, '0')}</span>{item}</li>)}</ul>
+    </section>
+
+    <section class="definition-section section-dark">
+      <div class="page-shell">
+        <div class="definition-copy"><p class="eyebrow eyebrow-light">DEFINITION / GAPPY</p><h2>{page.definition.title}</h2><p>{page.definition.body}</p></div>
+        <ol class="definition-flow">{page.definition.flow.map(([label, body], index) => <li style={`--i:${index}`}><span>{String(index + 1).padStart(2, '0')}</span><i></i><strong>{label}</strong><small>{body}</small></li>)}</ol>
+      </div>
+    </section>
+
+    <section class="section section-muted" id="problems">
+      <div class="page-shell">
+        <header class="section-heading split-heading"><div><p class="eyebrow">{page.problems.eyebrow}</p><h2 class="preserve-lines">{page.problems.title}</h2></div><p>{page.lang === 'ja' ? '予約情報を記録するシステムはあっても、システム間をつなぐ確認・連絡・判断は人に残っています。' : 'Systems may hold booking records, but the checking, coordination, and judgment between them still falls to people.'}</p></header>
+        <div class="problem-grid">{page.problems.items.map((item, index) => <article class="problem-card"><div class="card-index">GAP-{String(index + 1).padStart(2, '0')}</div><ObjectIcon kind={index} /><h3>{item}</h3></article>)}</div>
+      </div>
+    </section>
+
+    <section class="section layers-section">
+      <div class="page-shell">
+        <header class="section-heading center-heading"><p class="eyebrow">OPERATING LAYERS</p><h2>{page.layers.title}</h2></header>
+        <div class="layer-grid">{page.layers.items.map((layer, index) => <article class="layer-card"><div class="layer-top"><span>{layer.code}</span><ObjectIcon kind={index + 1} /></div><h3>{layer.title}</h3><ul>{layer.bullets.map((item) => <li>{item}</li>)}</ul></article>)}</div>
+        <div class="completion-statement"><strong>{page.layers.statement}</strong><span>{page.layers.body}</span></div>
+      </div>
+    </section>
+
+    <section class="section product-section section-dark" id="product">
+      <div class="page-shell">
+        <header class="section-heading product-heading"><div><p class="eyebrow eyebrow-light">{page.product.eyebrow}</p><h2 class="preserve-lines">{page.product.title}</h2></div><div><p>{page.product.body}</p><a class="inline-cta" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">{page.hero.primary}<span aria-hidden="true">↗</span></a></div></header>
+        <ProductConsole large />
+      </div>
+    </section>
+
+    <section class="section capabilities-section">
+      <div class="page-shell">
+        <header class="section-heading"><p class="eyebrow">CAPABILITIES</p><h2>{page.capabilities.title}</h2></header>
+        <div class="capability-grid">{page.capabilities.items.map((item, index) => <article class="capability-card"><div class="capability-visual"><ObjectIcon kind={index} /><span>{String(index + 1).padStart(2, '0')}</span></div><h3>{item.title}</h3><p>{item.body}</p></article>)}</div>
+      </div>
+    </section>
+
+    <section class="section section-muted workflows-section" id="workflows">
+      <div class="page-shell">
+        <header class="section-heading split-heading"><div><p class="eyebrow">{page.workflows.eyebrow}</p><h2>{page.workflows.title}</h2></div><p>{page.lang === 'ja' ? 'Input、Action、Verification、Escalationを一つの責任範囲として設計します。' : 'Input, action, verification, and escalation are designed as one operating responsibility.'}</p></header>
+        <div class="workflow-list">{page.workflows.items.map((workflow, index) => <article class:list={['workflow-case', { reverse: index % 2 === 1 }]}><div class="workflow-copy"><span>{workflow.code} / {workflow.label}</span><h3>{workflow.title}</h3><p>{workflow.intro}</p><ol>{workflow.steps.map((step, stepIndex) => <li><span>{String(stepIndex + 1).padStart(2, '0')}</span>{step}</li>)}</ol></div><WorkflowDiagram code={workflow.code} /></article>)}</div>
+      </div>
+    </section>
+
+    <section class="built-for-section">
+      <div class="page-shell"><p class="eyebrow">BUILT FOR</p><h2>{page.builtFor.title}</h2><ul>{page.builtFor.items.map((item, index) => <li><span>{String(index + 1).padStart(2, '0')}</span>{item}</li>)}</ul></div>
+    </section>
+
+    <section class="section integrations-section section-dark">
+      <div class="page-shell">
+        <header class="section-heading split-heading"><div><p class="eyebrow eyebrow-light">INTEGRATIONS</p><h2 class="preserve-lines">{page.integrations.title}</h2></div><p>{page.integrations.body}</p></header>
+        <div class="integration-map"><div class="system-ring">{page.integrations.systems.map((system, index) => <span style={`--i:${index}`}>{system}</span>)}</div><div class="gappy-core"><img src="/gappy-logo-official.png" alt="Gappy" width="401" height="184" /><small>COORDINATION LAYER</small></div><div class="signal-flow" aria-hidden="true"><span>DETECT</span><span>READ</span><span>ACT</span><span>VERIFY</span></div></div>
+      </div>
+    </section>
+
+    <section class="section measurement-section">
+      <div class="page-shell measurement-grid">
+        <div class="measurement-copy"><p class="eyebrow">{page.measurement.eyebrow}</p><h2 class="preserve-lines">{page.measurement.title}</h2><p>{page.measurement.body}</p></div>
+        <div class="metrics-board"><div class="metrics-head"><span>OPERATING METRICS</span><span>DEMO DATA / VALUES HIDDEN</span></div><div class="metric-grid">{page.measurement.metrics.map((metric, index) => <div><span>{metric}</span><b>—</b><i class:list={[`line-${index % 3}`]}></i></div>)}</div></div>
+      </div>
+    </section>
+
+    <section class="section section-muted partner-section">
+      <div class="page-shell">
+        <header class="section-heading split-heading"><div><p class="eyebrow">{page.partner.eyebrow}</p><h2>{page.partner.title}</h2></div><p>{page.partner.body}</p></header>
+        <div class="partner-grid">{page.partner.cards.map((card, index) => <article><span>0{index + 1}</span><h3>{card.title}</h3><p>{card.body}</p></article>)}</div>
+        <div class="center-action"><a class="button" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">{page.partner.cta}<span aria-hidden="true">↗</span></a></div>
+      </div>
+    </section>
+
+    <section class="section deployment-section" id="deployment">
+      <div class="page-shell">
+        <header class="section-heading"><p class="eyebrow">{page.deployment.eyebrow}</p><h2 class="preserve-lines">{page.deployment.title}</h2></header>
+        <ol class="deployment-flow">{page.deployment.steps.map((step, index) => <li><span>{String(index + 1).padStart(2, '0')}</span><div><small>{index === 0 ? 'DISCOVER' : index < 3 ? 'VALIDATE' : 'EXECUTE'}</small><h3>{step.title}</h3><p>{step.body}</p></div></li>)}</ol>
+      </div>
+    </section>
+
+    <section class="section safety-section section-dark" id="safety">
+      <div class="page-shell">
+        <header class="section-heading split-heading"><div><p class="eyebrow eyebrow-light">{page.safety.eyebrow}</p><h2 class="preserve-lines">{page.safety.title}</h2></div><p>{page.lang === 'ja' ? '自律化は一度に切り替えるものではありません。業務価値と安全性を確認できた範囲から、段階的に責任を広げます。' : 'Autonomy is not a single switch. Responsibility expands only where operating value and safety have been demonstrated.'}</p></header>
+        <div class="safety-grid">{page.safety.cards.map((card, index) => <article><span>CONTROL-0{index + 1}</span><ObjectIcon kind={index + 3} /><h3>{card.title}</h3><p>{card.body}</p></article>)}</div>
+      </div>
+    </section>
+
+    <section class="section faq-section" id="faq">
+      <div class="page-shell faq-grid"><header class="section-heading"><p class="eyebrow">FAQ</p><h2>{page.faq.title}</h2><p>{page.lang === 'ja' ? '導入前に確認されることの多いポイントをまとめています。' : 'Common questions teams ask before evaluating a deployment.'}</p></header><div class="faq-list">{page.faq.items.map(([question, answer], index) => <details><summary><span>{String(index + 1).padStart(2, '0')}</span>{question}<i aria-hidden="true"></i></summary><div><p>{answer}</p></div></details>)}</div></div>
+    </section>
+
+    <section class="final-cta">
+      <div class="page-shell"><p class="eyebrow">{page.final.eyebrow}</p><h2>{page.final.title}</h2><p>{page.final.body}</p><div class="final-actions"><a class="button button-dark" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">{page.final.primary}<span aria-hidden="true">↗</span></a><a class="button button-outline" href={CONTACT_URL} target="_blank" rel="noopener noreferrer">{page.final.secondary}<span aria-hidden="true">↗</span></a></div><ul>{page.hero.notes.map((note) => <li>{note}</li>)}</ul></div>
+    </section>
+  </main>
+  <Footer page={page} />
+</BaseLayout>
