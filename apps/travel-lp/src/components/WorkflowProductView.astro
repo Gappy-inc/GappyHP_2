@@ -1,0 +1,88 @@
+---
+interface WorkflowView {
+  id: string
+  code: string
+  label: string
+  title: string
+  state: string
+  stateTone: 'active' | 'review' | 'verified'
+  sla: string
+  trigger: string
+  sources: readonly string[]
+  rule: string
+  prepared: string
+  executed: string
+  verification: string
+  evidence: readonly string[]
+  escalation: string
+  recommendation: string
+  field: string
+  before: string
+  after: string
+  trace: readonly string[]
+}
+
+interface Props { workflow: WorkflowView; lang: 'ja' | 'en' }
+const { workflow, lang } = Astro.props
+const labels = lang === 'ja' ? {
+  workspace: '業務実行ワークスペース', current: '現在の状態', deadline: '期限 / SLA',
+  trigger: '発生条件', context: '参照コンテキスト', rule: '確認したルール', trace: '実行トレース',
+  update: '更新内容', before: '更新前', after: '更新後', outcome: '完了条件', evidence: '保存した根拠',
+  escalation: '人へ渡す条件', next: '推奨アクション', approval: '承認が必要', approve: '承認する', review: '根拠を確認',
+} : {
+  workspace: 'Operations workspace', current: 'Current state', deadline: 'Deadline / SLA',
+  trigger: 'Trigger', context: 'Context sources', rule: 'Policy checked', trace: 'Execution trace',
+  update: 'Record update', before: 'Before', after: 'After', outcome: 'Completion criteria', evidence: 'Evidence retained',
+  escalation: 'Escalation condition', next: 'Recommended action', approval: 'Approval required', approve: 'Approve', review: 'Review context',
+}
+---
+<div class="workflow-product" data-product-view>
+  <div class="workflow-product-bar">
+    <div class="workflow-product-brand"><span class="workflow-window-dots" aria-hidden="true"><i></i><i></i><i></i></span><strong>GAPPY</strong><small>OPERATIONS</small></div>
+    <span class="workflow-demo-badge">ILLUSTRATIVE UI / DEMO DATA</span>
+    <span class:list={['workflow-state', `is-${workflow.stateTone}`]}><i></i>{workflow.state}</span>
+  </div>
+
+  <div class="workflow-product-heading">
+    <div><span>{workflow.code} / {workflow.label}</span><h3>{workflow.title}</h3></div>
+    <dl><div><dt>{labels.current}</dt><dd>{workflow.state}</dd></div><div><dt>{labels.deadline}</dt><dd>{workflow.sla}</dd></div></dl>
+  </div>
+
+  <div class="workflow-product-grid">
+    <aside class="workflow-context" id={`context-${workflow.id}`}>
+      <span class="product-panel-label">INPUT / CONTEXT</span>
+      <h4>{labels.trigger}</h4>
+      <p class="workflow-trigger">{workflow.trigger}</p>
+      <h4>{labels.context}</h4>
+      <ul class="source-list">{workflow.sources.map((source) => <li>{source}</li>)}</ul>
+      <div class="rule-card"><span>POLICY / RULE</span><strong>{labels.rule}</strong><p>{workflow.rule}</p></div>
+    </aside>
+
+    <section class="workflow-execution" id={`execution-${workflow.id}`} aria-label={labels.trace}>
+      <div class="execution-title"><span class="product-panel-label">ACTION / EXECUTION</span><small>{labels.trace}</small></div>
+      <ol class="execution-trace">{workflow.trace.map((step, index) => <li class={index === workflow.trace.length - 1 ? 'is-current' : ''}><span>{String(index + 1).padStart(2, '0')}</span><i></i><b>{step}</b></li>)}</ol>
+      <div class="action-record">
+        <div><span>{lang === 'ja' ? '準備した操作' : 'Action prepared'}</span><p>{workflow.prepared}</p></div>
+        <div><span>{lang === 'ja' ? '実行した操作' : 'Action executed'}</span><p>{workflow.executed}</p></div>
+      </div>
+      <div class="field-update">
+        <div class="field-update-head"><span>{labels.update}</span><b>{workflow.field}</b></div>
+        <div><small>{labels.before}</small><code>{workflow.before}</code><span aria-hidden="true">→</span><small>{labels.after}</small><code>{workflow.after}</code></div>
+      </div>
+    </section>
+
+    <aside class="workflow-outcome" id={`evidence-${workflow.id}`}>
+      <span class="product-panel-label">VERIFICATION / EVIDENCE</span>
+      <div class="verification-card"><i aria-hidden="true">✓</i><div><small>{labels.outcome}</small><strong>{workflow.verification}</strong></div></div>
+      <h4>{labels.evidence}</h4>
+      <ul class="evidence-list">{workflow.evidence.map((item) => <li><i aria-hidden="true"></i>{item}</li>)}</ul>
+      <div class="approval-card" id={`escalation-${workflow.id}`}>
+        <div><span>{labels.approval}</span><em>HUMAN REVIEW</em></div>
+        <strong>{workflow.escalation}</strong>
+        <small>{labels.next}</small>
+        <p>{workflow.recommendation}</p>
+        <div><button type="button">{labels.approve}</button><button type="button">{labels.review}</button></div>
+      </div>
+    </aside>
+  </div>
+</div>
