@@ -1,0 +1,135 @@
+---
+import WorkflowProductView from './WorkflowProductView.astro'
+import type { SiteCopy } from '../data/site'
+
+interface Props { page: SiteCopy }
+const { page } = Astro.props
+const ja = page.lang === 'ja'
+
+const workflows = ja ? [
+  {
+    id: 'supplier', code: 'WF-01', label: 'SUPPLIER CONFIRMATION', title: '予約確認・催促', state: '承認待ち', stateTone: 'review' as const, sla: '本日 18:40 JST',
+    trigger: '出発48時間前、予約ステータスが未確定', sources: ['Booking ID: BK-2048', '商品・日時・人数', 'Supplier contact', '過去の返信履歴'],
+    rule: '未返信は24時間後に再通知。金額・取消条件の変更は実行前に承認。', prepared: '確認メールを生成し、宛先・予約情報・回答期限を照合', executed: '確認メール送信。返信内容をBooking recordへ構造化',
+    verification: '確認IDと確定内容がBooking recordへ反映', evidence: ['送信メッセージ', '受信返信', '更新前後の値', '実行時刻'], escalation: '金額変更を検知', recommendation: '変更金額と取消条件を確認してから、予約更新を承認してください。',
+    field: 'booking.status', before: 'pending_supplier', after: 'confirmed / SC-4812', trace: ['未確定予約を検知', '予約・連絡先を読込', '確認メールを送信', 'Supplier返信を解析', '更新内容を準備', '人の承認を待機'],
+  },
+  {
+    id: 'departure', code: 'WF-02', label: 'PRE-DEPARTURE CHECK', title: '出発前確認', state: '確認中', stateTone: 'active' as const, sla: '出発24時間前',
+    trigger: 'ツアー開始24時間前', sources: ['Guide assignment', 'Driver assignment', 'Meeting point', 'Traveler count / special request'],
+    rule: '全担当者の既読・返信と集合情報の一致を完了条件とする。', prepared: 'ガイド・ドライバー別に確認事項と集合情報を生成', executed: '関係者へ送信し、既読・返信を追跡。未確認情報を再送',
+    verification: '必要な全担当者が確認済み、集合情報が一致', evidence: ['送信・既読記録', 'ガイド返信', 'ドライバー返信', '集合情報の照合'], escalation: 'ドライバーが未回答', recommendation: '代替担当者候補を確認し、配車担当へ引き継いでください。',
+    field: 'departure.readiness', before: '2 of 3 confirmed', after: 'guide ✓ / driver pending', trace: ['開始24時間前を検知', '担当・集合情報を読込', '関係者へ確認を送信', '既読と返信を追跡', '集合情報を照合', '未回答を分類'],
+  },
+  {
+    id: 'assignment', code: 'WF-03', label: 'FIELD CREW COORDINATION', title: 'ガイド・ドライバー連携', state: '例外確認', stateTone: 'review' as const, sla: '配車確定まで 02:15',
+    trigger: '予約確定後、ガイドまたはドライバーが未アサイン', sources: ['Service itinerary', '稼働可能スタッフ', '言語・車種要件', '過去の担当履歴'],
+    rule: '言語、資格、稼働時間、移動可能範囲が全て一致する候補のみ提示。', prepared: '条件に合う候補を抽出し、依頼順と返信期限を設定', executed: '候補者へ打診。承諾済み担当者を行程へ仮登録',
+    verification: '担当者・連絡先・集合情報が行程表と一致', evidence: ['候補条件', '打診メッセージ', '承諾返信', '行程表の更新差分'], escalation: '言語条件を満たす候補が不足', recommendation: '条件緩和は行わず、運行責任者へ追加候補の確認を依頼してください。',
+    field: 'service.guide_id', before: 'unassigned', after: 'candidate / approval pending', trace: ['未アサインを検知', '行程と要件を読込', '候補条件を検証', '候補者へ打診', '承諾を受信', '例外条件を確認'],
+  },
+  {
+    id: 'change', code: 'WF-04', label: 'CHANGE & EXCEPTION', title: '予約変更・例外対応', state: '承認が必要', stateTone: 'review' as const, sla: '顧客回答まで 00:45',
+    trigger: '顧客から日程変更依頼を受信', sources: ['Original booking', 'Supplier policy', 'Inventory response', 'Customer message'],
+    rule: '取消料、差額、履行影響が発生する変更は顧客提示前に人が承認。', prepared: '影響範囲、空き状況、差額、変更条件を整理', executed: '在庫を照会し、関連システムの更新案と顧客返信案を作成',
+    verification: '承認済み条件が全システムと顧客案内へ一致して反映', evidence: ['顧客依頼', '在庫照会結果', '料金差額', '更新対象一覧'], escalation: '取消料と料金差額が発生', recommendation: '提示条件を確認し、顧客への変更案内送信を承認してください。',
+    field: 'booking.travel_date', before: '2026-09-18', after: '2026-09-20 / proposed', trace: ['変更依頼を受信', '原予約と条件を読込', '影響範囲を特定', '在庫・差額を照会', '更新案を作成', '承認条件に到達'],
+  },
+  {
+    id: 'reconciliation', code: 'WF-05', label: 'RECONCILIATION', title: '照合・精算', state: '完了を検証済み', stateTone: 'verified' as const, sla: '締め処理まで 1営業日',
+    trigger: 'Supplier invoiceを受領', sources: ['Booking record', 'Supplier invoice', 'Payment ledger', 'Contracted rate'],
+    rule: '予約、請求、支払いの金額・通貨・税区分が一致した案件のみ完了。', prepared: '明細を予約単位へ分解し、契約単価と差分を照合', executed: '一致明細を精算対象へ登録し、差分理由を記録',
+    verification: '全明細がBooking IDと紐づき、金額・通貨・税区分が一致', evidence: ['請求書原本', '照合結果', '登録前後の値', '完了時刻'], escalation: '例外条件なし', recommendation: '追加操作は不要です。Evidenceを保持して締め処理へ進めます。',
+    field: 'invoice.match_status', before: 'unreviewed', after: 'verified / 12 lines', trace: ['請求書を受領', '明細を構造化', '予約情報を読込', '金額・通貨を照合', '精算対象へ登録', '完了条件を検証'],
+  },
+] : [
+  {
+    id: 'supplier', code: 'WF-01', label: 'SUPPLIER CONFIRMATION', title: 'Supplier confirmation', state: 'AWAITING APPROVAL', stateTone: 'review' as const, sla: 'Today · 18:40 JST', trigger: '48 hours before departure; booking remains unconfirmed', sources: ['Booking ID: BK-2048', 'Product, time and party size', 'Supplier contact', 'Reply history'], rule: 'Follow up after 24 hours. Price or cancellation-policy changes require approval.', prepared: 'Generated confirmation email and checked recipient, booking details and reply deadline', executed: 'Sent request and structured the supplier reply into the booking record', verification: 'Confirmation ID and final terms are reflected in the booking record', evidence: ['Outbound message', 'Supplier reply', 'Before / after values', 'Execution timestamp'], escalation: 'Price change detected', recommendation: 'Review the new price and cancellation terms before approving the booking update.', field: 'booking.status', before: 'pending_supplier', after: 'confirmed / SC-4812', trace: ['Detected unconfirmed booking', 'Loaded booking context', 'Sent confirmation request', 'Parsed supplier reply', 'Prepared record update', 'Awaiting human approval'],
+  },
+  {
+    id: 'departure', code: 'WF-02', label: 'PRE-DEPARTURE CHECK', title: 'Pre-departure check', state: 'MONITORING', stateTone: 'active' as const, sla: '24h before departure', trigger: '24 hours before the tour begins', sources: ['Guide assignment', 'Driver assignment', 'Meeting point', 'Traveler count / special request'], rule: 'Completion requires every operator to confirm and all meeting details to match.', prepared: 'Prepared role-specific checks and meeting details for guide and driver', executed: 'Sent checks, tracked reads and replies, and resent missing information', verification: 'Every required operator has confirmed and meeting details match', evidence: ['Send and read log', 'Guide reply', 'Driver reply', 'Meeting-point comparison'], escalation: 'Driver has not replied', recommendation: 'Review alternate drivers and hand off to the dispatch lead.', field: 'departure.readiness', before: '2 of 3 confirmed', after: 'guide ✓ / driver pending', trace: ['Detected 24h threshold', 'Loaded crew and meeting data', 'Sent confirmation checks', 'Tracked reads and replies', 'Compared meeting details', 'Classified non-response'],
+  },
+  {
+    id: 'assignment', code: 'WF-03', label: 'FIELD CREW COORDINATION', title: 'Guide and driver coordination', state: 'EXCEPTION REVIEW', stateTone: 'review' as const, sla: '02:15 to assignment', trigger: 'Booking confirmed with guide or driver unassigned', sources: ['Service itinerary', 'Available field crew', 'Language / vehicle requirements', 'Assignment history'], rule: 'Only candidates matching language, credential, availability and service radius are proposed.', prepared: 'Ranked matching candidates and set contact order and response deadline', executed: 'Contacted candidates and staged the accepted operator on the itinerary', verification: 'Operator, contact and meeting details match the service itinerary', evidence: ['Candidate criteria', 'Outreach messages', 'Acceptance reply', 'Itinerary diff'], escalation: 'No candidate meets the language requirement', recommendation: 'Keep requirements unchanged and ask the operations lead for additional candidates.', field: 'service.guide_id', before: 'unassigned', after: 'candidate / approval pending', trace: ['Detected unassigned service', 'Loaded itinerary and constraints', 'Validated candidate rules', 'Contacted candidates', 'Received acceptance', 'Reached exception condition'],
+  },
+  {
+    id: 'change', code: 'WF-04', label: 'CHANGE & EXCEPTION', title: 'Booking change and exception', state: 'APPROVAL REQUIRED', stateTone: 'review' as const, sla: '00:45 to customer reply', trigger: 'Customer requests a travel-date change', sources: ['Original booking', 'Supplier policy', 'Inventory response', 'Customer message'], rule: 'Changes affecting fees, price or delivery require approval before customer communication.', prepared: 'Mapped impact, availability, price difference and change terms', executed: 'Checked inventory and prepared system updates and a customer response', verification: 'Approved terms match across systems and customer communication', evidence: ['Customer request', 'Inventory result', 'Price difference', 'Update target list'], escalation: 'Cancellation fee and price difference detected', recommendation: 'Review the terms and approve sending the change proposal to the customer.', field: 'booking.travel_date', before: '2026-09-18', after: '2026-09-20 / proposed', trace: ['Received change request', 'Loaded booking and policy', 'Mapped downstream impact', 'Checked inventory and price', 'Prepared update plan', 'Reached approval boundary'],
+  },
+  {
+    id: 'reconciliation', code: 'WF-05', label: 'RECONCILIATION', title: 'Reconciliation and settlement', state: 'VERIFIED COMPLETE', stateTone: 'verified' as const, sla: '1 business day to close', trigger: 'Supplier invoice received', sources: ['Booking record', 'Supplier invoice', 'Payment ledger', 'Contracted rate'], rule: 'Only cases with matching booking, invoice and payment amount, currency and tax status are complete.', prepared: 'Split invoice lines by booking and compared them with contracted rates', executed: 'Registered matched items for settlement and recorded variance rationale', verification: 'Every line is linked to a Booking ID and amount, currency and tax status match', evidence: ['Original invoice', 'Comparison result', 'Before / after values', 'Completion timestamp'], escalation: 'No exception condition', recommendation: 'No further action. Retain evidence and continue to period close.', field: 'invoice.match_status', before: 'unreviewed', after: 'verified / 12 lines', trace: ['Received supplier invoice', 'Structured line items', 'Loaded booking records', 'Matched amount and currency', 'Registered settlement items', 'Verified completion criteria'],
+  },
+]
+
+const capabilities = ja ? [
+  ['Workflow Queue', '状態・期限・優先度で、次に動かす案件を整理。', 'context'],
+  ['Context & Policy', '予約情報と社内ルールを、判断前に照合。', 'context'],
+  ['Action Execution', '準備した操作を、定めた権限内で実行。', 'execution'],
+  ['Communication', '関係者への連絡と返信を一つの履歴へ。', 'execution'],
+  ['Evidence & Audit Log', '参照・判断・操作・結果を後から追跡可能に。', 'evidence'],
+  ['Human Escalation', '例外だけを理由と推奨アクション付きで人へ。', 'escalation'],
+] : [
+  ['Workflow Queue', 'Organize the next case by state, deadline and priority.', 'context'],
+  ['Context & Policy', 'Check booking context and operating policy before deciding.', 'context'],
+  ['Action Execution', 'Execute prepared actions within bounded authority.', 'execution'],
+  ['Communication', 'Keep outreach and replies in one operating record.', 'execution'],
+  ['Evidence & Audit Log', 'Make context, decisions, actions and results reviewable.', 'evidence'],
+  ['Human Escalation', 'Route only exceptions with rationale and a next action.', 'escalation'],
+]
+const primaryWorkflowId = 'supplier'
+---
+<section class="section operational-section section-dark" id="product" data-workflow-tabs>
+  <script is:inline>document.currentScript?.closest('[data-workflow-tabs]')?.classList.add('is-enhanced');</script>
+  <div class="page-shell">
+    <header class="operational-heading">
+      <div><p class="eyebrow eyebrow-light">OPERATIONAL WALKTHROUGH</p><h2>{ja ? <>一つの旅行業務が、<br />発生から完了まで進む。</> : <>One travel operation,<br />from trigger to verified completion.</>}</h2></div>
+      <div class="operational-intro">{ja ? <><p>Gappyは依頼を記録するだけではありません。</p><p>必要な情報を読み、次の操作を判断し、既存システムを更新し、完了を検証します。</p><p>判断できない例外だけを、根拠と推奨アクション付きで人に渡します。</p></> : <><p>Gappy does more than record a request.</p><p>It reads the required context, decides the next bounded action, updates existing systems, and verifies completion.</p><p>Only unresolved exceptions are handed to people—with evidence and a recommended next action.</p></>}</div>
+    </header>
+
+    <div class="workflow-tabs" role="tablist" aria-label={ja ? '業務を選択' : 'Select a workflow'}>
+      {workflows.map((workflow, index) => <button type="button" role="tab" id={`tab-${workflow.id}`} aria-controls={`panel-${workflow.id}`} aria-selected={index === 0 ? 'true' : 'false'} tabindex={index === 0 ? 0 : -1} data-workflow-tab={workflow.id}><span>{workflow.code}</span>{workflow.title}</button>)}
+    </div>
+
+    <div class="workflow-panels" id="workflows">
+      {workflows.map((workflow, index) => <article class="workflow-panel" id={`panel-${workflow.id}`} role="tabpanel" aria-labelledby={`tab-${workflow.id}`} data-workflow-panel={workflow.id} data-selected={index === 0 ? 'true' : 'false'}><WorkflowProductView workflow={workflow} lang={page.lang} /></article>)}
+    </div>
+
+    <div class="capability-strip" aria-label={ja ? 'Gappyの実行能力' : 'Gappy execution capabilities'}>
+      {capabilities.map(([title, body, target], index) => <a href={`#${target}-${primaryWorkflowId}`}><span>{String(index + 1).padStart(2, '0')}</span><div><strong>{title}</strong><p>{body}</p></div><i aria-hidden="true">↗</i></a>)}
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (() => {
+    const root = document.querySelector('[data-workflow-tabs]');
+    if (!(root instanceof HTMLElement)) return;
+    const tabs = Array.from(root.querySelectorAll('[data-workflow-tab]'));
+    const panels = Array.from(root.querySelectorAll('[data-workflow-panel]'));
+    root.classList.add('is-enhanced');
+    const activate = (id, focus = false) => {
+      tabs.forEach((tab) => {
+        const active = tab instanceof HTMLButtonElement && tab.dataset.workflowTab === id;
+        tab.setAttribute('aria-selected', active ? 'true' : 'false');
+        tab.setAttribute('tabindex', active ? '0' : '-1');
+        if (active && focus) tab.focus();
+      });
+      panels.forEach((panel) => {
+        const active = panel instanceof HTMLElement && panel.dataset.workflowPanel === id;
+        panel.hidden = !active;
+        panel.dataset.selected = active ? 'true' : 'false';
+      });
+    };
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => tab instanceof HTMLButtonElement && activate(tab.dataset.workflowTab || ''));
+      tab.addEventListener('keydown', (event) => {
+        if (!(event instanceof KeyboardEvent) || !['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+        let next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+        const target = tabs[next];
+        if (target instanceof HTMLButtonElement) activate(target.dataset.workflowTab || '', true);
+      });
+    });
+    const initial = tabs.find((tab) => tab.getAttribute('aria-selected') === 'true');
+    if (initial instanceof HTMLButtonElement) activate(initial.dataset.workflowTab || '');
+  })();
+</script>

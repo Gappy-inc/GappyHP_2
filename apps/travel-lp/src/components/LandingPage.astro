@@ -4,13 +4,28 @@ import Header from './Header.astro'
 import Footer from './Footer.astro'
 import ObjectIcon from './ObjectIcon.astro'
 import ProductConsole from './ProductConsole.astro'
-import WorkflowDiagram from './WorkflowDiagram.astro'
+import OperationalWalkthrough from './OperationalWalkthrough.astro'
 import { BOOKING_URL, CONTACT_URL, type SiteCopy } from '../data/site'
 interface Props { page: SiteCopy }
 const { page } = Astro.props
 const problemHighlights = page.lang === 'ja'
   ? ['返信確認と催促', '確認業務が分散', 'アサイン状況が見えない', '更新・連絡が煩雑', '担当者の経験に依存', '差分確認が手作業']
   : ['checking and follow-up', 'scattered across systems', 'hard to see', 'repeated updates', 'individual experience', 'reconcile by hand']
+const metricDefinitions = page.lang === 'ja' ? [
+  ['Verified Completion Rate', '完了条件を満たし、Evidenceが保存された案件 ÷ 対象案件'],
+  ['Human Intervention Rate', '人の判断または操作が必要だった案件 ÷ 対象案件'],
+  ['Time to Completion', 'Trigger発生からVerified Completionまでの時間'],
+  ['Rework Rate', '完了後に修正・再実行が必要になった案件 ÷ 完了案件'],
+  ['Exception Rate', '定義済みの例外条件へ到達した案件 ÷ 対象案件'],
+  ['Critical Error', '顧客影響、金銭影響、履行影響を伴う重大エラー'],
+] : [
+  ['Verified Completion Rate', 'Cases meeting completion criteria with retained evidence ÷ eligible cases'],
+  ['Human Intervention Rate', 'Cases requiring a human decision or action ÷ eligible cases'],
+  ['Time to Completion', 'Time from the trigger event to verified completion'],
+  ['Rework Rate', 'Completed cases requiring correction or re-execution ÷ completed cases'],
+  ['Exception Rate', 'Cases reaching a defined exception condition ÷ eligible cases'],
+  ['Critical Error', 'A material error affecting the customer, money, or service delivery'],
+]
 ---
 <BaseLayout page={page}>
   <Header page={page} />
@@ -29,7 +44,7 @@ const problemHighlights = page.lang === 'ja'
           <ul class="hero-notes">{page.hero.notes.map((note) => <li>{note}</li>)}</ul>
         </div>
         <div class="hero-visual">
-          <div class="hero-visual-kicker"><i></i><span>{page.lang === 'ja' ? '画面イメージ' : 'PRODUCT PREVIEW'}</span><b>DEMO</b></div>
+          <div class="hero-visual-kicker"><i></i><span>{page.lang === 'ja' ? '画面イメージ / DEMO' : 'PRODUCT PREVIEW / DEMO'}</span><b>ILLUSTRATIVE</b></div>
           <div class="hero-device-stage">
             <ProductConsole hero />
             <div class="hero-phone" aria-label={page.lang === 'ja' ? 'Gappy モバイル画面イメージ' : 'Illustrative Gappy mobile view'}>
@@ -59,40 +74,13 @@ const problemHighlights = page.lang === 'ja'
       </div>
     </section>
 
-    <section class="section layers-section">
-      <div class="page-shell">
-        <header class="section-heading center-heading"><p class="eyebrow">OPERATING LAYERS</p><h2>{page.layers.title}</h2></header>
-        <div class="layer-grid">{page.layers.items.map((layer, index) => <article class="layer-card"><div class="layer-top"><span>{layer.code}</span><ObjectIcon kind={index + 1} /></div><h3>{layer.title}</h3><ul>{layer.bullets.map((item) => <li>{item}</li>)}</ul></article>)}</div>
-        <div class="completion-statement"><strong>{page.layers.statement}</strong><span>{page.layers.body}</span></div>
-      </div>
-    </section>
+    <OperationalWalkthrough page={page} />
 
-    <section class="section product-section section-dark" id="product">
+    <section class="section measurement-section" id="outcome">
       <div class="page-shell">
-        <header class="section-heading product-heading"><div><p class="eyebrow eyebrow-light">{page.product.eyebrow}</p><h2 class="preserve-lines">{page.product.title}</h2></div><div><p>{page.product.body}</p><a class="inline-cta" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">{page.hero.primary}<span aria-hidden="true">↗</span></a></div></header>
-        <ProductConsole large />
-      </div>
-    </section>
-
-    <section class="section capabilities-section">
-      <div class="page-shell">
-        <header class="section-heading"><p class="eyebrow">CAPABILITIES</p><h2>{page.capabilities.title}</h2></header>
-        <div class="capability-grid">{page.capabilities.items.map((item, index) => <article class="capability-card"><div class="capability-visual"><ObjectIcon kind={index} /><span>{String(index + 1).padStart(2, '0')}</span></div><h3>{item.title}</h3><p>{item.body}</p></article>)}</div>
-      </div>
-    </section>
-
-    <aside class="workflow-audit-banner">
-      <div class="page-shell">
-        <div class="audit-mark" aria-hidden="true"><span>01</span><i></i><b>WORKFLOW</b></div>
-        <div class="audit-copy"><p class="eyebrow">START SMALL / PROVE VALUE</p><h2>{page.lang === 'ja' ? 'まず、一つの旅行業務を棚卸し。' : 'Start by mapping one travel workflow.'}</h2><p>{page.lang === 'ja' ? '現在の手順、利用システム、判断、例外、完了条件を30分で整理します。' : 'In 30 minutes, map the current steps, systems, decisions, exceptions, and definition of done.'}</p></div>
-        <a class="button button-dark" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">{page.hero.primary}<span aria-hidden="true">↗</span></a>
-      </div>
-    </aside>
-
-    <section class="section section-muted workflows-section" id="workflows">
-      <div class="page-shell">
-        <header class="section-heading split-heading"><div><p class="eyebrow">{page.workflows.eyebrow}</p><h2>{page.workflows.title}</h2></div><p>{page.lang === 'ja' ? 'Input、Action、Verification、Escalationを一つの責任範囲として設計します。' : 'Input, action, verification, and escalation are designed as one operating responsibility.'}</p></header>
-        <div class="workflow-list">{page.workflows.items.map((workflow, index) => <article class:list={['workflow-case', { reverse: index % 2 === 1 }]}><div class="workflow-copy"><span>{workflow.code} / {workflow.label}</span><h3>{workflow.title}</h3><p>{workflow.intro}</p><ol>{workflow.steps.map((step, stepIndex) => <li><span>{String(stepIndex + 1).padStart(2, '0')}</span>{step}</li>)}</ol></div><WorkflowDiagram code={workflow.code} /></article>)}</div>
+        <header class="measurement-heading"><div><p class="eyebrow">OUTCOME MEASUREMENT</p><h2>{page.lang === 'ja' ? <>作業したかではなく、<br />完了したかを測る。</> : <>Measure whether work completed,<br />not whether an action ran.</>}</h2></div><p>{page.lang === 'ja' ? 'Workflowごとの完了条件を先に定義し、Evidenceと例外を同じ基準で評価します。' : 'Define completion for each workflow first, then evaluate evidence and exceptions against the same operating standard.'}</p></header>
+        <div class="metric-definition-grid">{metricDefinitions.map(([title, formula], index) => <article><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{formula}</p></article>)}</div>
+        <p class="measurement-note"><strong>{page.lang === 'ja' ? '評価方法' : 'Evaluation method'}</strong>{page.lang === 'ja' ? 'Workflow Auditで基準値を定義し、Historical Replay、Shadow Mode、Human-approved Liveの各段階で比較します。' : 'Define the baseline during the Workflow Audit, then compare it across Historical Replay, Shadow Mode, and Human-approved Live.'}</p>
       </div>
     </section>
 
@@ -100,23 +88,16 @@ const problemHighlights = page.lang === 'ja'
       <div class="page-shell"><p class="eyebrow">BUILT FOR</p><h2>{page.builtFor.title}</h2><ul>{page.builtFor.items.map((item, index) => <li><span>{String(index + 1).padStart(2, '0')}</span>{item}</li>)}</ul></div>
     </section>
 
-    <section class="section integrations-section section-dark">
+    <section class="section integrations-section section-dark" id="integrations">
       <div class="page-shell">
         <header class="section-heading split-heading"><div><p class="eyebrow eyebrow-light">INTEGRATIONS</p><h2 class="preserve-lines">{page.integrations.title}</h2></div><p>{page.integrations.body}</p></header>
         <div class="integration-map"><div class="system-ring">{page.integrations.systems.map((system, index) => <span style={`--i:${index}`}>{system}</span>)}</div><div class="gappy-core"><img src="/gappy-logo-official.png" alt="Gappy" width="401" height="184" /><small>COORDINATION LAYER</small></div><div class="signal-flow" aria-hidden="true"><span>DETECT</span><span>READ</span><span>ACT</span><span>VERIFY</span></div></div>
       </div>
     </section>
 
-    <section class="section measurement-section">
-      <div class="page-shell measurement-grid">
-        <div class="measurement-copy"><p class="eyebrow">{page.measurement.eyebrow}</p><h2 class="preserve-lines">{page.measurement.title}</h2><p>{page.measurement.body}</p></div>
-        <div class="metrics-board"><div class="metrics-head"><span>OPERATING METRICS</span><span>DEMO DATA / VALUES HIDDEN</span></div><div class="metric-grid">{page.measurement.metrics.map((metric, index) => <div><span>{metric}</span><b>—</b><i class:list={[`line-${index % 3}`]}></i></div>)}</div></div>
-      </div>
-    </section>
-
-    <section class="section section-muted partner-section">
+    <section class="section section-muted partner-section" id="how-to-start">
       <div class="page-shell">
-        <header class="section-heading split-heading"><div><p class="eyebrow">{page.partner.eyebrow}</p><h2>{page.partner.title}</h2></div><p>{page.partner.body}</p></header>
+        <header class="section-heading split-heading"><div><p class="eyebrow">HOW TO START</p><h2>{page.partner.title}</h2></div><p>{page.partner.body}</p></header>
         <div class="partner-grid">{page.partner.cards.map((card, index) => <article><span>0{index + 1}</span><h3>{card.title}</h3><p>{card.body}</p></article>)}</div>
         <div class="center-action"><a class="button" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">{page.partner.cta}<span aria-hidden="true">↗</span></a></div>
       </div>
@@ -133,6 +114,16 @@ const problemHighlights = page.lang === 'ja'
       <div class="page-shell">
         <header class="section-heading split-heading"><div><p class="eyebrow eyebrow-light">{page.safety.eyebrow}</p><h2 class="preserve-lines">{page.safety.title}</h2></div><p>{page.lang === 'ja' ? '自律化は一度に切り替えるものではありません。業務価値と安全性を確認できた範囲から、段階的に責任を広げます。' : 'Autonomy is not a single switch. Responsibility expands only where operating value and safety have been demonstrated.'}</p></header>
         <div class="safety-grid">{page.safety.cards.map((card, index) => <article><span>CONTROL-0{index + 1}</span><ObjectIcon kind={index + 3} /><h3>{card.title}</h3><p>{card.body}</p></article>)}</div>
+        <div class="safety-evidence">
+          <div class="safety-evidence-head"><span>ILLUSTRATIVE UI / DEMO DATA</span><em>{page.lang === 'ja' ? '承認が必要' : 'APPROVAL REQUIRED'}</em></div>
+          <div class="safety-evidence-grid">
+            <div><small>ACTION</small><strong>Update booking status</strong></div>
+            <div><small>CHANGED FIELDS</small><strong>status, confirmation_id</strong></div>
+            <div><small>REASON</small><strong>Supplier response received</strong></div>
+            <div><small>EVIDENCE</small><strong>3 records</strong></div>
+          </div>
+          <div class="safety-evidence-actions"><button type="button">{page.lang === 'ja' ? '承認する' : 'Approve'}</button><button type="button">{page.lang === 'ja' ? '根拠を確認' : 'Review context'}</button></div>
+        </div>
       </div>
     </section>
 

@@ -98,7 +98,7 @@ const ja: SiteCopy = {
     ],
   },
   builtFor: { title: '旅行オペレーションを担うチームのために。', items: ['TMC', 'DMC', 'OTA', 'Tour Operator', 'Inbound Operator', 'Travel Group', '大手旅行会社', 'Corporate Travel'] },
-  integrations: { title: '既存システムは、そのまま。\n変えるのは、人が担っている調整レイヤー。', body: 'APIや画面操作など、対象業務とシステムに合う連携方法を個別に評価します。', systems: ['EMAIL', 'BOOKING SYSTEM', 'SUPPLIER PORTAL', 'CRM', 'GDS', 'SPREADSHEET', 'MESSAGING', 'INTERNAL SYSTEM'] },
+  integrations: { title: '既存システムは、そのまま。\n変えるのは、人が担っている調整レイヤー。', body: '対象Workflowと利用システムを確認し、API、画面操作、ファイル連携など、実行可能な方法を個別に評価します。', systems: ['EMAIL', 'BOOKING SYSTEM', 'SUPPLIER PORTAL', 'CRM', 'GDS', 'SPREADSHEET', 'MESSAGING', 'INTERNAL SYSTEM'] },
   measurement: { eyebrow: 'MEASUREMENT', title: '操作回数ではなく、\n業務完了を測る。', body: 'Workflowごとの完了条件とEvidenceを定義し、人の介入や例外も同じ基準で可視化します。', metrics: ['業務完了率', '人による介入率', '平均処理時間', '手戻り率', '例外率', '重大エラー', 'Human Minutes', 'Workflowあたりコスト'] },
   partner: {
     eyebrow: 'DESIGN PARTNER', title: '一つのWorkflowから始めます。', body: '対象業務、月間件数、連携システム、実行権限、必要な承認範囲を確認し、導入・検証プランをご提案します。',
@@ -170,7 +170,7 @@ const en: SiteCopy = {
     { code: 'WF-03', label: 'CHANGE & BOOKING QA', title: 'Keep related operations moving when plans change.', intro: 'Identify downstream impact and carry updates, notifications, and re-verification through one workflow.', steps: ['Detect the change', 'Map downstream impact', 'Update relevant systems', 'Notify stakeholders', 'Re-verify the booking', 'Record completion'] },
   ] },
   builtFor: { title: 'For teams that carry travel operations.', items: ['TMC', 'DMC', 'OTA', 'Tour Operator', 'Inbound Operator', 'Travel Group', 'Enterprise Travel', 'Corporate Travel'] },
-  integrations: { title: 'Keep the systems.\nChange the manual coordination layer.', body: 'We evaluate the right connection method for each workflow and system—from APIs to bounded interface operations.', systems: ja.integrations.systems },
+  integrations: { title: 'Keep the systems.\nChange the manual coordination layer.', body: 'We review the workflow and systems in scope, then evaluate feasible methods individually—including APIs, bounded interface operations, and file exchange.', systems: ja.integrations.systems },
   measurement: { eyebrow: 'MEASUREMENT', title: 'Measure completed work,\nnot action volume.', body: 'Define completion and evidence for every workflow, then evaluate human intervention and exceptions against the same operating truth.', metrics: ['Completion rate', 'Human intervention rate', 'Average handling time', 'Rework rate', 'Exception rate', 'Critical errors', 'Human Minutes', 'Cost per workflow'] },
   partner: { eyebrow: 'DESIGN PARTNER', title: 'Start with one workflow.', body: 'We review the work, monthly volume, connected systems, execution authority, and required approvals, then propose a deployment and validation plan.', cards: [{ title: 'Workflow Audit', body: '30 minutes · no system access required' }, { title: 'Design Partner Pilot', body: 'Scope the workflow and success criteria together' }, { title: 'Enterprise Deployment', body: 'Tailored to volume, integration scope, and authority' }], cta: 'Discuss the deployment scope' },
   deployment: { eyebrow: 'PROGRESSIVE DEPLOYMENT', title: 'Expand execution authority\nas safety is demonstrated.', steps: [
