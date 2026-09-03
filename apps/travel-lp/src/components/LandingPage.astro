@@ -8,6 +8,8 @@ import OperationalWalkthrough from './OperationalWalkthrough.astro'
 import { BOOKING_URL, CONTACT_URL, type SiteCopy } from '../data/site'
 interface Props { page: SiteCopy }
 const { page } = Astro.props
+const primaryCtaBadge = page.lang === 'ja' ? '30分' : '30 MIN'
+const primaryCtaLabel = page.lang === 'ja' ? '業務診断を予約' : 'Book a workflow audit'
 const problemHighlights = page.lang === 'ja'
   ? ['返信確認と催促', '確認業務が分散', 'アサイン状況が見えない', '更新・連絡が煩雑', '担当者の経験に依存', '差分確認が手作業']
   : ['checking and follow-up', 'scattered across systems', 'hard to see', 'repeated updates', 'individual experience', 'reconcile by hand']
@@ -38,7 +40,11 @@ const metricDefinitions = page.lang === 'ja' ? [
             : <h1>{page.hero.title}</h1>}
           <p class="hero-body">{page.hero.body}</p>
           <div class="hero-actions">
-            <a class="button" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">{page.hero.primary}<span aria-hidden="true">↗</span></a>
+            <a class="button button-featured" href={BOOKING_URL} target="_blank" rel="noopener noreferrer" aria-label={page.hero.primary}>
+              <span class="button-featured-badge">{primaryCtaBadge}</span>
+              <span class="button-featured-label">{primaryCtaLabel}</span>
+              <span class="button-featured-arrow" aria-hidden="true"></span>
+            </a>
             <a class="text-link" href="#workflows">{page.hero.secondary}<span aria-hidden="true">↓</span></a>
           </div>
           <ul class="hero-notes">{page.hero.notes.map((note) => <li>{note}</li>)}</ul>
@@ -132,7 +138,7 @@ const metricDefinitions = page.lang === 'ja' ? [
     </section>
 
     <section class="final-cta">
-      <div class="page-shell"><p class="eyebrow">{page.final.eyebrow}</p><h2>{page.final.title}</h2><p>{page.final.body}</p><div class="final-actions"><a class="button button-dark" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">{page.final.primary}<span aria-hidden="true">↗</span></a><a class="button button-outline" href={CONTACT_URL} target="_blank" rel="noopener noreferrer">{page.final.secondary}<span aria-hidden="true">↗</span></a></div><ul>{page.hero.notes.map((note) => <li>{note}</li>)}</ul></div>
+      <div class="page-shell"><p class="eyebrow">{page.final.eyebrow}</p><h2>{page.final.title}</h2><p>{page.final.body}</p><div class="final-actions"><a class="button button-featured button-featured-dark" href={BOOKING_URL} target="_blank" rel="noopener noreferrer" aria-label={page.final.primary}><span class="button-featured-badge">{primaryCtaBadge}</span><span class="button-featured-label">{primaryCtaLabel}</span><span class="button-featured-arrow" aria-hidden="true"></span></a><a class="button button-outline" href={CONTACT_URL} target="_blank" rel="noopener noreferrer">{page.final.secondary}<span aria-hidden="true">↗</span></a></div><ul>{page.hero.notes.map((note) => <li>{note}</li>)}</ul></div>
     </section>
   </main>
   <Footer page={page} />
