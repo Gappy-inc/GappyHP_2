@@ -1,8 +1,8 @@
 ---
-interface Props { large?: boolean }
-const { large = false } = Astro.props
+interface Props { large?: boolean; hero?: boolean }
+const { large = false, hero = false } = Astro.props
 ---
-<div class:list={['product-console', { 'product-console-large': large }]} aria-label="Illustrative Gappy operations control interface">
+<div class:list={['product-console', { 'product-console-large': large, 'product-console-hero': hero }]} aria-label="Illustrative Gappy operations control interface">
   <div class="console-topbar">
     <div class="console-brand"><span class="window-dots"><i></i><i></i><i></i></span><strong>GAPPY</strong><small>OPERATIONS</small></div><span class="demo-badge">ILLUSTRATIVE UI</span><span class="live-status"><i></i> SYSTEMS CONNECTED</span>
   </div>

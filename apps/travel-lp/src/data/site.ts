@@ -53,10 +53,10 @@ const ja: SiteCopy = {
   },
   hero: {
     eyebrow: 'AI WORKFORCE FOR TRAVEL OPERATIONS',
-    title: '旅行業務を、\n人を増やさずに\n完了まで。',
-    body: 'Gappyは、予約確認、サプライヤーへの催促、ガイド・ドライバー連携、変更対応、予約QA、照合・精算などを、既存システムを横断して実行するAI Workforceです。',
+    title: '旅行業務を、\nAIで完了まで。',
+    body: 'Gappyは、予約確認、サプライヤーへの催促、変更対応、予約QA、照合・精算まで、既存システムを横断して実行する旅行事業者向けAI Workforceです。',
     primary: '30分の業務診断を予約', secondary: '実際のWorkflowを見る',
-    notes: ['オンライン30分', 'システムアクセス不要', '秘密保持対応'],
+    notes: ['既存システムを活用', '承認から開始', '一つの業務から'],
   },
   proof: ['既存システムはそのまま', 'Human-approved execution', '操作と根拠を記録', '一つのWorkflowから開始'],
   definition: {
@@ -65,8 +65,8 @@ const ja: SiteCopy = {
     flow: [['TRIGGER', '発生を検知'], ['UNDERSTAND', '状況を理解'], ['DECIDE', '次の操作を判断'], ['OPERATE', 'システムを操作'], ['COMMUNICATE', '関係者へ連絡'], ['VERIFY', '完了を確認'], ['ESCALATE', '例外を人へ引き継ぐ']],
   },
   problems: {
-    eyebrow: 'OPERATIONAL GAP', title: '旅行業務は、\nシステムとシステムの間に残っている。',
-    items: ['サプライヤーの返信確認と催促に、毎日時間を取られる', '出発前確認が、メール・Excel・予約システムに分散している', 'ガイド・ドライバーのアサイン状況が、リアルタイムで分からない', '変更が起きるたび、複数のシステムと関係者を更新する必要がある', '予約QAと履行確認が、担当者の経験に依存している', '請求・支払い・予約情報の差分確認を、人が行っている'],
+    eyebrow: 'OPERATIONAL GAP', title: 'Gappyは、こんな旅行業務の課題を解決します',
+    items: ['サプライヤーの返信確認と催促に、毎日時間を取られる', '出発前の確認業務が分散し、進捗を追いにくい', 'ガイド・ドライバーのアサイン状況が見えない', '変更のたびに、複数システムの更新・連絡が煩雑', '予約QAと履行確認が、担当者の経験に依存', '請求・支払い・予約情報の差分確認が手作業'],
   },
   layers: {
     title: 'Gappyが、理解・実行・確認までをつなぐ。',
@@ -146,10 +146,10 @@ const en: SiteCopy = {
   lang: 'en', ogLocale: 'en_US', path: '/en/', alternatePath: '/',
   meta: { title: 'Gappy | AI Workforce for Travel Operations', description: 'Gappy executes complex travel operations across the systems teams already use, from supplier confirmation and coordination to booking changes, quality checks, reconciliation, and verified completion.' },
   nav: { label: 'Primary navigation', items: [['Product', '#product'], ['Problems', '#problems'], ['Workflows', '#workflows'], ['Deployment', '#deployment'], ['Safety', '#safety'], ['FAQ', '#faq']], company: 'Company', cta: '30-minute workflow audit', menu: 'Menu', close: 'Close', language: 'JP' },
-  hero: { eyebrow: 'AI WORKFORCE FOR TRAVEL OPERATIONS', title: 'Complete travel operations\nwithout adding headcount.', body: 'Gappy is an AI Workforce for travel operations. It works across the systems teams already use to handle supplier confirmation, follow-ups, guide and driver coordination, booking changes, quality checks, reconciliation, and verified completion.', primary: 'Book a 30-minute workflow audit', secondary: 'See a real workflow', notes: ['30 minutes online', 'No system access required', 'NDA-ready'] },
+  hero: { eyebrow: 'AI WORKFORCE FOR TRAVEL OPERATIONS', title: 'Travel operations,\ncompleted by AI.', body: 'Gappy is an AI Workforce for travel operators. It works across existing systems to handle supplier follow-up, booking changes, quality checks, reconciliation, and verified completion.', primary: 'Book a 30-minute workflow audit', secondary: 'See a real workflow', notes: ['Keep existing systems', 'Start with approval', 'Begin with one workflow'] },
   proof: ['Keep your existing systems', 'Human-approved execution', 'Every action and rationale logged', 'Start with one workflow'],
   definition: { title: 'Gappy is an AI Workforce built for travel operators.', body: 'It works across booking systems, email, supplier portals, CRM, spreadsheets, and messaging—from detecting an operational event to making a bounded decision, taking action, coordinating people, and verifying completion.', flow: [['TRIGGER', 'Detect the event'], ['UNDERSTAND', 'Assemble context'], ['DECIDE', 'Choose the next step'], ['OPERATE', 'Act across systems'], ['COMMUNICATE', 'Coordinate people'], ['VERIFY', 'Check completion'], ['ESCALATE', 'Hand off exceptions']] },
-  problems: { eyebrow: 'OPERATIONAL GAP', title: 'Travel work still lives\nbetween systems.', items: ['Teams spend every day checking supplier replies and chasing confirmations', 'Pre-departure checks are scattered across email, spreadsheets, and booking systems', 'Guide and driver assignment status is hard to see in real time', 'Every change requires updates across multiple systems and stakeholders', 'Booking QA and fulfillment checks depend on individual experience', 'People still reconcile booking, invoice, and payment differences by hand'] },
+  problems: { eyebrow: 'OPERATIONAL GAP', title: 'Gappy solves the work that falls between systems.', items: ['Supplier checking and follow-up takes time every day', 'Pre-departure checks are scattered across systems', 'Guide and driver assignments are hard to see', 'Every change creates repeated updates and coordination', 'Booking QA still depends on individual experience', 'Teams reconcile booking, invoice, and payment differences by hand'] },
   layers: { title: 'Connect understanding, execution, and verification.', items: [
     { code: '01 / UNDERSTAND', title: 'Detect the work and understand its context', bullets: ['Detect the target booking', 'Load customer and supplier context', 'Understand messages', 'Reference operating policy', 'Set priority and deadline'] },
     { code: '02 / OPERATE', title: 'Execute across the systems already in use', bullets: ['Send email', 'Monitor replies', 'Operate supplier portals', 'Update booking systems', 'Coordinate stakeholders'] },

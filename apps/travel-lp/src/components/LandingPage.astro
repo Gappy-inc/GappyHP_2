@@ -8,6 +8,9 @@ import WorkflowDiagram from './WorkflowDiagram.astro'
 import { BOOKING_URL, CONTACT_URL, type SiteCopy } from '../data/site'
 interface Props { page: SiteCopy }
 const { page } = Astro.props
+const problemHighlights = page.lang === 'ja'
+  ? ['返信確認と催促', '確認業務が分散', 'アサイン状況が見えない', '更新・連絡が煩雑', '担当者の経験に依存', '差分確認が手作業']
+  : ['checking and follow-up', 'scattered across systems', 'hard to see', 'repeated updates', 'individual experience', 'reconcile by hand']
 ---
 <BaseLayout page={page}>
   <Header page={page} />
@@ -15,8 +18,9 @@ const { page } = Astro.props
     <section class="hero">
       <div class="hero-grid page-shell">
         <div class="hero-copy">
-          <p class="eyebrow">{page.hero.eyebrow}</p>
-          <h1>{page.hero.title}</h1>
+          {page.lang === 'ja'
+            ? <h1><span>旅行業務を、</span><span><em>AIで</em>完了まで。</span></h1>
+            : <h1>{page.hero.title}</h1>}
           <p class="hero-body">{page.hero.body}</p>
           <div class="hero-actions">
             <a class="button" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">{page.hero.primary}<span aria-hidden="true">↗</span></a>
@@ -25,29 +29,33 @@ const { page } = Astro.props
           <ul class="hero-notes">{page.hero.notes.map((note) => <li>{note}</li>)}</ul>
         </div>
         <div class="hero-visual">
-          <div class="hero-visual-kicker"><i></i><span>LIVE OPERATION CONTROL</span><b>TRAVEL / APAC</b></div>
-          <ProductConsole large />
-          <div class="hero-float hero-float-top" aria-hidden="true"><span>ACTIVE WORKFLOW</span><strong>Supplier confirmation</strong><small>Context loaded · action in progress</small></div>
-          <div class="hero-float hero-float-bottom" aria-hidden="true"><span>VERIFIED COMPLETION</span><strong>Evidence retained</strong><small>Booking record updated</small></div>
+          <div class="hero-visual-kicker"><i></i><span>{page.lang === 'ja' ? '画面イメージ' : 'PRODUCT PREVIEW'}</span><b>DEMO</b></div>
+          <div class="hero-device-stage">
+            <ProductConsole hero />
+            <div class="hero-phone" aria-label={page.lang === 'ja' ? 'Gappy モバイル画面イメージ' : 'Illustrative Gappy mobile view'}>
+              <div class="phone-bar"><strong>G</strong><span>MY TASKS</span><i></i></div>
+              <div class="phone-summary"><small>TODAY</small><b>4</b><span>open tasks</span></div>
+              <ol><li><i></i><span><b>Supplier reply</b><small>Received · verify</small></span></li><li><i></i><span><b>Booking change</b><small>Approval needed</small></span></li><li><i></i><span><b>Guide readiness</b><small>Completed</small></span></li></ol>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="proof-strip" aria-label={page.lang === 'ja' ? '導入方針' : 'Operating principles'}>
-      <ul class="page-shell">{page.proof.map((item, index) => <li><span>{String(index + 1).padStart(2, '0')}</span>{item}</li>)}</ul>
-    </section>
-
-    <section class="definition-section section-dark">
+    <section class="definition-section">
       <div class="page-shell">
-        <div class="definition-copy"><p class="eyebrow eyebrow-light">DEFINITION / GAPPY</p><h2>{page.definition.title}</h2><p>{page.definition.body}</p></div>
-        <ol class="definition-flow">{page.definition.flow.map(([label, body], index) => <li style={`--i:${index}`}><span>{String(index + 1).padStart(2, '0')}</span><i></i><strong>{label}</strong><small>{body}</small></li>)}</ol>
+        <div class="definition-copy"><h2>{page.definition.title}</h2><p>{page.definition.body}</p></div>
       </div>
     </section>
 
-    <section class="section section-muted" id="problems">
+    <section class="section problem-section" id="problems">
       <div class="page-shell">
-        <header class="section-heading split-heading"><div><p class="eyebrow">{page.problems.eyebrow}</p><h2 class="preserve-lines">{page.problems.title}</h2></div><p>{page.lang === 'ja' ? '予約情報を記録するシステムはあっても、システム間をつなぐ確認・連絡・判断は人に残っています。' : 'Systems may hold booking records, but the checking, coordination, and judgment between them still falls to people.'}</p></header>
-        <div class="problem-grid">{page.problems.items.map((item, index) => <article class="problem-card"><div class="card-index">GAP-{String(index + 1).padStart(2, '0')}</div><ObjectIcon kind={index} /><div class="problem-card-copy"><span>MANUAL COORDINATION</span><h3>{item}</h3></div></article>)}</div>
+        <header class="problem-heading"><h2>{page.problems.title}</h2></header>
+        <div class="problem-grid">{page.problems.items.map((item, index) => {
+          const highlight = problemHighlights[index] ?? ''
+          const start = highlight ? item.indexOf(highlight) : -1
+          return <article class="problem-card"><ObjectIcon kind={index} /><h3>{start >= 0 ? <>{item.slice(0, start)}<strong>{highlight}</strong>{item.slice(start + highlight.length)}</> : item}</h3></article>
+        })}</div>
       </div>
     </section>
 
