@@ -25,6 +25,7 @@ type AcquisitionContextValue = {
   status: LeadStatus
   message: string
   availability: Availability
+  privacyNoticeUrl: string | null
   submit: (entryLocation: EntryLocation) => Promise<void>
   openGate: (entryLocation: EntryLocation, trigger?: HTMLElement | null) => void
   openVideo: (trigger?: HTMLElement | null) => void
@@ -64,14 +65,15 @@ export function BookDemoLink({
 }
 
 function AccessPurpose() {
+  const { privacyNoticeUrl } = useAcquisition()
   return (
     <p className="text-xs leading-5 text-ink-500">
       We use your email only to provide this requested demo access. Marketing updates are not included.{' '}
       <a
-        href="mailto:mitsuki@gappy.jp?subject=Privacy%20question"
+        href={privacyNoticeUrl || 'mailto:mitsuki@gappy.jp?subject=Privacy%20question'}
         className="underline decoration-gold-500 underline-offset-4"
       >
-        Privacy questions
+        {privacyNoticeUrl ? 'Privacy notice' : 'Privacy questions'}
       </a>
     </p>
   )
@@ -201,7 +203,7 @@ export function VideoWalkthrough() {
         aria-label={canOpen ? 'Play the prototype walkthrough' : 'Request access to the prototype walkthrough'}
       >
         <Image
-          src="/travel-demo-poster.svg"
+          src="/travel-demo-poster-v4.jpg"
           alt="Prototype workflow showing a guide confirmation moving from response received to verified"
           width={1600}
           height={900}
@@ -346,7 +348,7 @@ function VideoDialog({
         ref={videoRef}
         controls
         preload="metadata"
-        poster="/travel-demo-poster.svg"
+        poster="/travel-demo-poster-v4.jpg"
         className="aspect-video w-full bg-black"
         onPlay={() => trackTravelEvent('video_play')}
         onTimeUpdate={onTimeUpdate}
@@ -360,11 +362,11 @@ function VideoDialog({
         <details>
           <summary className="cursor-pointer text-sm font-semibold">Read transcript</summary>
           <div className="mt-4 space-y-3 text-sm leading-7 text-white/65">
-            <p>Tomorrow&apos;s tours are booked. But are the assigned guides confirmed?</p>
-            <p>Gappy loads twelve sample bookings and surfaces confirmations that need approval, a reply, or updated details.</p>
-            <p>The operations team reviews a prepared request, while the guide confirms on a simple operator-branded page.</p>
-            <p>A response is received, then checked against the current booking. Only the current confirmation is verified.</p>
-            <p>The workflow closes only when the response and latest booking agree. Operations and guides then see the same booking truth.</p>
+            <p>Tomorrow&apos;s tours are booked. But is the assigned guide confirmed for the current booking?</p>
+            <p>The sample instruction surfaces booking #2871 and prepares a request for 09:00, version 3.</p>
+            <p>The operations team explicitly approves the simulated request. The guide confirms 09:00 on a simple operator-branded page.</p>
+            <p>Response received does not mean verified. Gappy compares the reply with the current booking before verifying version 3.</p>
+            <p>The booking then changes from 09:00 to 10:30. Version 3 is invalidated, version 4 requires a new guide reply, and work stays open until the current confirmation is verified.</p>
           </div>
         </details>
         <BookDemoLink entryLocation="video" className="btn-light">Book a demo</BookDemoLink>
@@ -390,6 +392,7 @@ function StickyDock({
     <>
       <div data-mobile-dock className="fixed inset-x-0 bottom-0 z-40 px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] lg:hidden">
         <div className="travel-mobile-dock grid grid-cols-2 gap-2 border border-navy-900 bg-white p-2 shadow-[0_-8px_30px_rgba(16,18,16,0.12)]">
+          <button type="button" className="travel-mobile-dock__dismiss" onClick={onDismiss} aria-label="Dismiss conversion bar">×</button>
           <BookDemoLink entryLocation="sticky" className="btn-primary min-h-12 px-3">Book a demo</BookDemoLink>
           <button
             type="button"
@@ -434,6 +437,7 @@ export function TravelAcquisitionProvider({ children }: { children: ReactNode })
   const [gateOpen, setGateOpen] = useState(false)
   const [gateEntryLocation, setGateEntryLocation] = useState<EntryLocation>('sticky')
   const [videoOpen, setVideoOpen] = useState(false)
+  const [privacyNoticeUrl, setPrivacyNoticeUrl] = useState<string | null>(null)
   const returnFocusRef = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
@@ -441,9 +445,10 @@ export function TravelAcquisitionProvider({ children }: { children: ReactNode })
     let active = true
     fetch('/api/travel/demo-access', { cache: 'no-store' })
       .then((response) => response.json())
-      .then((result: { available?: boolean }) => {
+      .then((result: { available?: boolean; privacyNoticeUrl?: string | null }) => {
         if (!active) return
         setAvailability(result.available ? 'available' : 'unavailable')
+        setPrivacyNoticeUrl(result.available ? result.privacyNoticeUrl || null : null)
         if (!result.available) setStatus('unavailable')
       })
       .catch(() => {
@@ -455,20 +460,28 @@ export function TravelAcquisitionProvider({ children }: { children: ReactNode })
   }, [])
 
   useEffect(() => {
-    if (!heroNode) return
-    const observer = new IntersectionObserver(([entry]) => {
-      setHeroPassed(!entry.isIntersecting && entry.boundingClientRect.bottom < 0)
-    }, { threshold: 0.05 })
-    observer.observe(heroNode)
-    return () => observer.disconnect()
-  }, [heroNode])
+    if (!heroNode || !finalNode) return
 
-  useEffect(() => {
-    if (!finalNode) return
-    const observer = new IntersectionObserver(([entry]) => setFinalVisible(entry.isIntersecting), { threshold: 0.15 })
-    observer.observe(finalNode)
-    return () => observer.disconnect()
-  }, [finalNode])
+    let frame = 0
+    const updateDockVisibility = () => {
+      window.cancelAnimationFrame(frame)
+      frame = window.requestAnimationFrame(() => {
+        const heroRect = heroNode.getBoundingClientRect()
+        const finalRect = finalNode.getBoundingClientRect()
+        setHeroPassed(heroRect.bottom < 0)
+        setFinalVisible(finalRect.top < window.innerHeight * 0.85 && finalRect.bottom > 0)
+      })
+    }
+
+    updateDockVisibility()
+    window.addEventListener('scroll', updateDockVisibility, { passive: true })
+    window.addEventListener('resize', updateDockVisibility)
+    return () => {
+      window.cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', updateDockVisibility)
+      window.removeEventListener('resize', updateDockVisibility)
+    }
+  }, [heroNode, finalNode])
 
   const restoreFocus = useCallback(() => {
     const element = returnFocusRef.current
@@ -562,12 +575,13 @@ export function TravelAcquisitionProvider({ children }: { children: ReactNode })
     status,
     message,
     availability,
+    privacyNoticeUrl,
     submit,
     openGate,
     openVideo,
     setHeroNode,
     setFinalNode,
-  }), [email, setEmail, status, message, availability, submit, openGate, openVideo])
+  }), [email, setEmail, status, message, availability, privacyNoticeUrl, submit, openGate, openVideo])
 
   const dockVisible = heroPassed
     && !dismissed
@@ -577,24 +591,26 @@ export function TravelAcquisitionProvider({ children }: { children: ReactNode })
 
   return (
     <AcquisitionContext.Provider value={value}>
-      {children}
-      {dockVisible ? <div className="h-24 lg:h-0" aria-hidden="true" /> : null}
-      <StickyDock visible={dockVisible} onDismiss={() => setDismissed(true)} onFocusChange={setDockFocused} />
-      <GateDialog
-        open={gateOpen}
-        entryLocation={gateEntryLocation}
-        onClose={() => {
-          setGateOpen(false)
-          restoreFocus()
-        }}
-      />
-      <VideoDialog
-        open={videoOpen}
-        onClose={() => {
-          setVideoOpen(false)
-          restoreFocus()
-        }}
-      />
+      <div className="travel-theme">
+        {children}
+        {dockVisible ? <div className="h-24 lg:h-0" aria-hidden="true" /> : null}
+        <StickyDock visible={dockVisible} onDismiss={() => setDismissed(true)} onFocusChange={setDockFocused} />
+        <GateDialog
+          open={gateOpen}
+          entryLocation={gateEntryLocation}
+          onClose={() => {
+            setGateOpen(false)
+            restoreFocus()
+          }}
+        />
+        <VideoDialog
+          open={videoOpen}
+          onClose={() => {
+            setVideoOpen(false)
+            restoreFocus()
+          }}
+        />
+      </div>
     </AcquisitionContext.Provider>
   )
 }

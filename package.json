@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:travel-demo": "node --experimental-strip-types scripts/test-travel-demo-machine.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.38.0",

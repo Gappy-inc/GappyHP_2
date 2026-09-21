@@ -13,29 +13,45 @@ const ALLOWED_ENTRY_LOCATIONS = new Set([
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-function destination() {
-  const value = process.env.TRAVEL_DEMO_LEAD_WEBHOOK_URL?.trim()
-  if (!value) return null
+function parseApprovedUrl(value: string | undefined) {
+  const candidate = value?.trim()
+  if (!candidate) return null
 
   try {
-    const url = new URL(value)
-    if (url.protocol !== 'https:' && url.hostname !== 'localhost') return null
+    const url = new URL(candidate)
+    if (url.protocol !== 'https:' && url.hostname !== 'localhost' && url.hostname !== '127.0.0.1') return null
     return url
   } catch {
     return null
   }
 }
 
+function captureConfiguration() {
+  if (process.env.TRAVEL_DEMO_LEAD_CAPTURE_ENABLED !== 'true') return null
+  const value = process.env.TRAVEL_DEMO_LEAD_WEBHOOK_URL?.trim()
+  if (!value) return null
+
+  const destination = parseApprovedUrl(value)
+  const privacyNotice = parseApprovedUrl(process.env.TRAVEL_DEMO_PRIVACY_NOTICE_URL)
+  if (!destination || !privacyNotice) return null
+
+  return { destination, privacyNotice }
+}
+
 export async function GET() {
+  const configuration = captureConfiguration()
   return NextResponse.json(
-    { available: destination() !== null },
+    {
+      available: configuration !== null,
+      privacyNoticeUrl: configuration?.privacyNotice.toString() || null,
+    },
     { headers: { 'Cache-Control': 'no-store' } },
   )
 }
 
 export async function POST(request: Request) {
-  const configuredDestination = destination()
-  if (!configuredDestination) {
+  const configuration = captureConfiguration()
+  if (!configuration) {
     return NextResponse.json(
       {
         status: 'unavailable',
@@ -114,7 +130,7 @@ export async function POST(request: Request) {
   if (token) headers.Authorization = `Bearer ${token}`
 
   try {
-    const upstream = await fetch(configuredDestination, {
+    const upstream = await fetch(configuration.destination, {
       method: 'POST',
       headers,
       body: JSON.stringify({

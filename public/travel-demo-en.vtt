@@ -4,19 +4,19 @@ WEBVTT
 Tomorrow's tours are booked. But are the assigned guides confirmed?
 
 00:08.000 --> 00:18.000
-Gappy loads twelve sample bookings and surfaces confirmations that still need attention.
+The sample instruction becomes actionable work: booking 2871 needs a current guide confirmation.
 
 00:18.000 --> 00:28.000
-The operations team reviews the current booking and approves a simulated request.
+The operations team reviews the 09:00 version 3 booking and explicitly approves a simulated request.
 
 00:28.000 --> 00:37.000
-The guide replies on a simple operator-branded page. A reply is evidence, not completion.
+The guide confirms 09:00 on an operator-branded page. Response received does not mean verified.
 
-00:37.000 --> 00:46.000
-Gappy checks the latest booking details before marking the current confirmation verified.
+00:37.000 --> 00:45.000
+Gappy compares the reply with the current booking and verifies the version 3 confirmation.
 
-00:46.000 --> 00:55.000
-The workflow closes only when the guide response and the latest booking details agree.
+00:45.000 --> 00:55.000
+The booking changes from 09:00 to 10:30. Version 3 is invalidated and version 4 requires reconfirmation.
 
 00:55.000 --> 01:00.000
-Operations and guides see the same booking truth. See how this fits your operation. Book a demo.
+From a material change to a current verified outcome. See how this fits your operation. Book a demo.

@@ -16,8 +16,8 @@ function HeroProductOverlay() {
   return (
     <div className="travel-hero-product" aria-label="Sample confirmation workflow status">
       <div className="travel-hero-product__bar">
-        <span>LIVE WORK / 07:42 JST</span>
-        <span className="travel-live-dot">RUNNING</span>
+        <span>SAMPLE WORKFLOW / BOOKING #2871</span>
+        <span className="travel-live-dot">INTERACTIVE PROTOTYPE</span>
       </div>
       <div className="travel-hero-product__body">
         <p className="travel-micro-label">Tomorrow&apos;s departures</p>
@@ -194,8 +194,8 @@ export default function TravelGlobalPage() {
       <div className="travel-studio">
         <section className="travel-hero">
           <Image
-            src="/travel-demo-poster.svg"
-            alt=""
+            src="/travel-hero-operations.webp"
+            alt="A travel operations team coordinating upcoming tours in a modern office"
             fill
             priority
             sizes="100vw"
