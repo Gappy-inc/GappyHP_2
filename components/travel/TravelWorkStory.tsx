@@ -129,9 +129,9 @@ export function TravelWorkStory({ between }: { between?: ReactNode }) {
 
   return (
     <>
-      <section id="work-demo" className="scroll-mt-24 bg-navy-950 py-20 text-white md:py-28">
+      <section id="work-demo" className="travel-work-section scroll-mt-24 text-white">
         <div className="container-luxe">
-          <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
+          <div className="travel-work-intro grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
             <div>
               <SectionLabel index="01" inverse>Concrete work demo</SectionLabel>
               <h2 className="section-title mt-7 !text-white">Instruction → workflow → verification.</h2>
@@ -142,8 +142,8 @@ export function TravelWorkStory({ between }: { between?: ReactNode }) {
             </div>
           </div>
 
-          <div className="mt-10 overflow-hidden border border-white/20 bg-[#0c0f0d]">
-            <div className="grid border-b border-white/15 lg:grid-cols-[1fr_auto] lg:items-center">
+          <div className="travel-work-shell mt-10 overflow-hidden border border-white/20 bg-[#0c0f0d]">
+            <div className="travel-work-command grid border-b border-white/15 lg:grid-cols-[1fr_auto] lg:items-center">
               <div className="p-5 md:p-7">
                 <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-white/40">Fixed sample instruction</p>
                 <p className="mt-3 text-xl font-semibold">Check tomorrow&apos;s departures and follow up on unconfirmed guides.</p>
@@ -252,27 +252,27 @@ export function TravelWorkStory({ between }: { between?: ReactNode }) {
 
       {between}
 
-      <section className="section-shell bg-white">
+      <section className="travel-role-section">
         <div className="container-luxe">
           <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
-            <div><SectionLabel index="03">Two views · one booking</SectionLabel><h2 className="section-title mt-7">The operations team and the guide see the same job.</h2></div>
-            <p className="body-lead max-w-xl lg:justify-self-end">The operator keeps approval, latest-booking context, exceptions, and evidence. The guide receives a simple operator-branded confirmation experience.</p>
+            <div><SectionLabel index="03" inverse>Two views · one booking</SectionLabel><h2 className="section-title mt-7 !text-white">The operations team and the guide see the same job.</h2></div>
+            <p className="body-lead max-w-xl !text-white/55 lg:justify-self-end">The operator keeps approval, latest-booking context, exceptions, and evidence. The guide receives a simple operator-branded confirmation experience.</p>
           </div>
 
-          <div className="mt-10 overflow-hidden border border-navy-900/20 bg-navy-950 text-white">
-            <div className="grid grid-cols-2 border-b border-white/15" role="tablist" aria-label="Booking role views">
+          <div className="travel-role-stage mt-10 overflow-hidden border border-navy-900/20 bg-navy-950 text-white">
+            <div className="travel-role-tabs grid grid-cols-2 border-b border-white/15" role="tablist" aria-label="Booking role views">
               <button id="operations-tab" type="button" role="tab" aria-selected={role === 'operations'} aria-controls="operations-panel" onClick={() => setRole('operations')} className={`min-h-14 px-4 text-sm font-semibold ${role === 'operations' ? 'bg-gold-500 text-navy-950' : 'text-white/55'}`}>For operations teams</button>
               <button id="guide-tab" type="button" role="tab" aria-selected={role === 'guide'} aria-controls="guide-panel" onClick={() => setRole('guide')} className={`min-h-14 px-4 text-sm font-semibold ${role === 'guide' ? 'bg-gold-500 text-navy-950' : 'text-white/55'}`}>For guides &amp; suppliers</button>
             </div>
 
             {role === 'operations' ? (
               <div id="operations-panel" role="tabpanel" aria-labelledby="operations-tab" className="grid gap-6 p-5 md:grid-cols-[0.75fr_1.25fr] md:p-8">
-                <div className="border border-white/15 p-5"><p className="font-mono text-[10px] uppercase tracking-[0.12em] text-gold-300">Queue reason</p><p className="mt-4 text-lg font-semibold">{statusLabel[state]}</p><p className="mt-3 text-sm leading-7 text-white/55">No valid confirmation exists for the latest booking version.</p></div>
-                <div className="border border-white/15 p-5"><div className="flex flex-wrap items-center justify-between gap-3"><div><p className="text-lg font-semibold">Mt. Fuji Day Tour</p><p className="mt-1 text-sm text-white/50">Booking #2871 · Version {state === 'reconfirmation' ? '4' : '3'}</p></div><span className="font-mono text-[10px] text-gold-300">{state === 'reconfirmation' ? '10:30 JST' : '09:00 JST'}</span></div><ol className="mt-5 border-t border-white/15 pt-4 text-sm text-white/55"><li className="py-2">Assigned guide: Tanaka</li><li className="py-2">Meeting point: Shinjuku West Exit</li><li className="py-2">Latest evidence: {activity.at(-1)}</li></ol></div>
+                <div className="travel-role-card border border-white/15 p-5"><p className="font-mono text-[10px] uppercase tracking-[0.12em] text-gold-300">Queue reason</p><p className="mt-4 text-lg font-semibold">{statusLabel[state]}</p><p className="mt-3 text-sm leading-7 text-white/55">No valid confirmation exists for the latest booking version.</p></div>
+                <div className="travel-role-card border border-white/15 p-5"><div className="flex flex-wrap items-center justify-between gap-3"><div><p className="text-lg font-semibold">Mt. Fuji Day Tour</p><p className="mt-1 text-sm text-white/50">Booking #2871 · Version {state === 'reconfirmation' ? '4' : '3'}</p></div><span className="font-mono text-[10px] text-gold-300">{state === 'reconfirmation' ? '10:30 JST' : '09:00 JST'}</span></div><ol className="mt-5 border-t border-white/15 pt-4 text-sm text-white/55"><li className="py-2">Assigned guide: Tanaka</li><li className="py-2">Meeting point: Shinjuku West Exit</li><li className="py-2">Latest evidence: {activity.at(-1)}</li></ol></div>
               </div>
             ) : (
               <div id="guide-panel" role="tabpanel" aria-labelledby="guide-tab" className="p-5 md:p-8">
-                <div className="mx-auto max-w-sm border border-white bg-white p-5 text-navy-950 shadow-[10px_10px_0_#00ff7d]">
+                <div className="travel-guide-card mx-auto max-w-sm border border-white bg-white p-5 text-navy-950">
                   <div className="border-b border-navy-900/15 pb-4"><p className="text-lg font-semibold">Atlas Experiences</p><p className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-400">Prototype · configured during pilot</p></div>
                   <p className="mt-5 font-semibold">Mt. Fuji Day Tour</p>
                   <dl className="mt-4 grid grid-cols-2 gap-4 text-sm"><div><dt className="text-ink-400">Date</dt><dd className="mt-1 font-medium">Tomorrow</dd></div><div><dt className="text-ink-400">Time</dt><dd className="mt-1 font-medium">{state === 'reconfirmation' ? '10:30 JST' : '09:00 JST'}</dd></div><div className="col-span-2"><dt className="text-ink-400">Meeting point</dt><dd className="mt-1 font-medium">Shinjuku West Exit</dd></div></dl>
@@ -301,9 +301,9 @@ export function TravelScenarioCards() {
   ]
 
   return (
-    <div className="grid gap-px bg-navy-900/20 lg:grid-cols-3">
+    <div className="travel-scenario-grid grid lg:grid-cols-3">
       {scenarios.map((scenario) => (
-        <article key={scenario.id} className="group flex min-h-80 flex-col bg-navy-950 p-6 text-white md:p-8">
+        <article key={scenario.id} className={`travel-scenario-card travel-scenario-card--${scenario.id} group flex min-h-80 flex-col p-6 text-white md:p-8`}>
           <div className="flex items-center justify-between"><span className="font-mono text-[11px] text-gold-300">{scenario.number}</span><span className="h-2 w-2 bg-gold-500" aria-hidden="true" /></div>
           <h3 className="mt-14 text-2xl font-semibold">{scenario.title}</h3>
           <p className="mt-4 text-sm leading-7 text-white/55">{scenario.body}</p>

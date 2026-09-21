@@ -172,14 +172,14 @@ export function HeroConversion() {
   const { setHeroNode } = useAcquisition()
 
   return (
-    <div ref={setHeroNode} className="mt-8 grid gap-5 border-t border-navy-900/20 pt-7" data-acquisition-form="hero">
+    <div ref={setHeroNode} className="travel-hero-conversion mt-8 grid gap-5 pt-7" data-acquisition-form="hero">
       <div className="flex flex-wrap items-center gap-3">
-        <BookDemoLink entryLocation="hero" className="btn-primary">Book a demo</BookDemoLink>
-        <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-400">No registration required</span>
+        <BookDemoLink entryLocation="hero" className="btn-primary">Book a demo <span aria-hidden="true">↗</span></BookDemoLink>
+        <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-white/45">No registration required</span>
       </div>
-      <div className="border border-navy-900/20 bg-white p-4 sm:p-5">
-        <p className="mb-4 text-sm font-semibold text-navy-900">Watch the 60-second prototype walkthrough</p>
-        <LeadAccessForm entryLocation="hero" inputId="travel-demo-email-hero" />
+      <div className="travel-hero-access border border-white/15 bg-white/5 p-4 sm:p-5">
+        <p className="mb-4 text-sm font-semibold text-white">Watch the 60-second prototype walkthrough</p>
+        <LeadAccessForm entryLocation="hero" inputId="travel-demo-email-hero" dark />
       </div>
     </div>
   )
@@ -190,7 +190,7 @@ export function VideoWalkthrough() {
   const canOpen = status === 'accepted' || availability === 'unavailable'
 
   return (
-    <div className="overflow-hidden border border-navy-900 bg-navy-950 text-white">
+    <div className="travel-video-card overflow-hidden border border-navy-900 bg-navy-950 text-white">
       <button
         type="button"
         className="group relative block aspect-video w-full overflow-hidden text-left"
@@ -216,7 +216,7 @@ export function VideoWalkthrough() {
           <span className="grid h-14 w-14 place-items-center border border-white bg-white text-xl text-navy-900 transition group-hover:bg-gold-500" aria-hidden="true">▶</span>
         </span>
       </button>
-      <div className="grid gap-5 border-t border-white/15 p-5 md:grid-cols-[1fr_auto] md:items-center md:p-7">
+      <div className="travel-video-card__footer grid gap-5 border-t border-white/15 p-5 md:grid-cols-[1fr_auto] md:items-center md:p-7">
         <div>
           <p className="text-sm leading-7 text-white/65">See the operations view, guide response, current-booking verification, and shared role views for the same booking.</p>
           <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.1em] text-white/40">Interactive prototype · No real bookings or messages</p>
@@ -240,14 +240,14 @@ export function FinalConversion() {
   const { setFinalNode } = useAcquisition()
 
   return (
-    <div ref={setFinalNode} className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center" data-acquisition-form="final">
+    <div ref={setFinalNode} className="travel-final-grid grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center" data-acquisition-form="final">
       <div>
         <p className="eyebrow text-gold-700">Two ways to continue</p>
         <h2 className="section-title mt-6">See how this fits your operation.</h2>
         <p className="body-lead mt-6">Book a working session directly, or watch the prototype walkthrough first.</p>
         <BookDemoLink entryLocation="final" className="btn-primary mt-8">Book a demo</BookDemoLink>
       </div>
-      <div className="border border-navy-900/20 bg-white p-5 md:p-8">
+      <div className="travel-final-form border border-navy-900/20 bg-white p-5 md:p-8">
         <p className="mb-5 text-lg font-semibold">Get access to the full walkthrough</p>
         <LeadAccessForm entryLocation="final" inputId="travel-demo-email-final" />
       </div>
@@ -277,7 +277,7 @@ function GateDialog({
     <dialog
       ref={dialogRef}
       onClose={onClose}
-      className="m-0 mt-auto max-h-[88dvh] w-full max-w-none border-0 bg-white p-0 text-navy-900 backdrop:bg-black/65 lg:m-auto lg:max-w-xl lg:border lg:border-navy-900"
+      className="travel-gate-dialog m-0 mt-auto max-h-[88dvh] w-full max-w-none border-0 bg-white p-0 text-navy-900 backdrop:bg-black/65 lg:m-auto lg:max-w-xl lg:border lg:border-navy-900"
       aria-labelledby="travel-access-dialog-title"
     >
       <div className="p-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] sm:p-7">
@@ -332,7 +332,7 @@ function VideoDialog({
         videoRef.current?.pause()
         onClose()
       }}
-      className="m-auto max-h-[92dvh] w-[min(96vw,72rem)] overflow-y-auto border border-navy-900 bg-navy-950 p-0 text-white backdrop:bg-black/75"
+      className="travel-video-dialog m-auto max-h-[92dvh] w-[min(96vw,72rem)] overflow-y-auto border border-navy-900 bg-navy-950 p-0 text-white backdrop:bg-black/75"
       aria-labelledby="travel-video-dialog-title"
     >
       <div className="flex items-start justify-between gap-5 border-b border-white/15 p-4 sm:p-6">
@@ -389,7 +389,7 @@ function StickyDock({
   return (
     <>
       <div data-mobile-dock className="fixed inset-x-0 bottom-0 z-40 px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] lg:hidden">
-        <div className="grid grid-cols-2 gap-2 border border-navy-900 bg-white p-2 shadow-[0_-8px_30px_rgba(16,18,16,0.12)]">
+        <div className="travel-mobile-dock grid grid-cols-2 gap-2 border border-navy-900 bg-white p-2 shadow-[0_-8px_30px_rgba(16,18,16,0.12)]">
           <BookDemoLink entryLocation="sticky" className="btn-primary min-h-12 px-3">Book a demo</BookDemoLink>
           <button
             type="button"
@@ -403,7 +403,7 @@ function StickyDock({
 
       <div data-desktop-dock className="fixed inset-x-0 bottom-5 z-40 hidden px-5 lg:block">
         <div
-          className="mx-auto flex max-w-[82rem] items-end gap-4 border border-navy-900 bg-navy-950 p-3 pl-5 text-white shadow-[10px_10px_0_rgba(0,255,125,0.28)]"
+          className="travel-desktop-dock mx-auto flex max-w-[82rem] items-end gap-4 border border-navy-900 bg-navy-950 p-3 pl-5 text-white"
           onFocusCapture={() => onFocusChange(true)}
           onBlurCapture={(event) => {
             if (!event.currentTarget.contains(event.relatedTarget as Node | null)) onFocusChange(false)

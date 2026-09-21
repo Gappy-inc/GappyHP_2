@@ -1,4 +1,4 @@
-import { SectionLabel } from '@/components/GappyAxis'
+import Image from 'next/image'
 import {
   BookDemoLink,
   FinalConversion,
@@ -12,44 +12,39 @@ import {
 } from '@/components/travel/TravelWorkStory'
 import { globalTravelContent as copy } from '@/content/travel-global'
 
-function HeroWorkItem() {
+function HeroProductOverlay() {
   return (
-    <div className="border border-navy-900 bg-white shadow-[10px_10px_0_#101210]">
-      <div className="flex flex-wrap items-start justify-between gap-4 border-b border-navy-900/20 p-5">
-        <div>
-          <p className="font-semibold text-navy-900">Atlas Experiences</p>
-          <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-400">Tomorrow&apos;s confirmation queue</p>
-        </div>
-        <span className="border border-navy-900/20 bg-ivory-100 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.1em]">12 bookings · Sample data</span>
+    <div className="travel-hero-product" aria-label="Sample confirmation workflow status">
+      <div className="travel-hero-product__bar">
+        <span>LIVE WORK / 07:42 JST</span>
+        <span className="travel-live-dot">RUNNING</span>
       </div>
-      <dl className="grid grid-cols-2 gap-px bg-navy-900/15 sm:grid-cols-4">
-        {[
-          ['8', 'Verified'],
-          ['2', 'Waiting'],
-          ['1', 'Needs approval'],
-          ['1', 'Blocked'],
-        ].map(([value, label]) => (
-          <div key={label} className="bg-white p-4">
-            <dd className="text-2xl font-semibold tracking-[-0.04em] text-navy-900">{value}</dd>
-            <dt className="mt-1 text-xs text-ink-500">{label}</dt>
-          </div>
-        ))}
-      </dl>
-      <div className="p-5">
-        <div className="flex flex-wrap items-start justify-between gap-3">
-          <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-gold-700">Current work item</p>
-            <h2 className="mt-3 text-xl font-semibold tracking-[-0.03em]">Mt. Fuji Day Tour</h2>
-            <p className="mt-1 text-sm text-ink-500">Tomorrow · 09:00 JST · Guide Tanaka</p>
-          </div>
-          <span className="border border-navy-900 bg-gold-500 px-3 py-2 font-mono text-[10px] font-medium">CONFIRMATION REQUIRED</span>
+      <div className="travel-hero-product__body">
+        <p className="travel-micro-label">Tomorrow&apos;s departures</p>
+        <h2>Guide confirmation</h2>
+        <div className="travel-hero-task is-done">
+          <span>01</span>
+          <div><strong>Booking context loaded</strong><small>12 departures · sample data</small></div>
+          <b>DONE</b>
         </div>
-        <div className="mt-5 grid gap-4 border-t border-navy-900/15 pt-5 sm:grid-cols-2">
-          <div><p className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-400">Instruction</p><p className="mt-2 text-sm font-medium">Follow up on unconfirmed guides</p></div>
-          <div><p className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-400">Next control</p><p className="mt-2 text-sm font-medium">Review prepared request</p></div>
+        <div className="travel-hero-task is-live">
+          <span>02</span>
+          <div><strong>Follow up on missing replies</strong><small>Operator approval retained</small></div>
+          <b>ACTIVE</b>
         </div>
-        <a href="#work-demo" className="btn-primary mt-5 w-full">Open interactive prototype</a>
-        <p className="mt-3 text-center font-mono text-[9px] uppercase tracking-[0.1em] text-ink-400">No real bookings or messages</p>
+        <div className="travel-hero-task">
+          <span>03</span>
+          <div><strong>Verify current booking</strong><small>Close only with current evidence</small></div>
+          <b>NEXT</b>
+        </div>
+      </div>
+      <div className="travel-hero-float travel-hero-float--top">
+        <span className="travel-pulse" />
+        <div><small>Guide reply received</small><strong>Awaiting verification</strong></div>
+      </div>
+      <div className="travel-hero-float travel-hero-float--bottom">
+        <span>8</span>
+        <div><small>VERIFIED</small><strong>of 12 sample bookings</strong></div>
       </div>
     </div>
   )
@@ -57,14 +52,14 @@ function HeroWorkItem() {
 
 function VideoSection() {
   return (
-    <section id="video-walkthrough" className="section-shell scroll-mt-24">
+    <section id="video-walkthrough" className="travel-video-section scroll-mt-24">
       <div className="container-luxe">
-        <div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
+        <div className="travel-section-intro travel-section-intro--light">
           <div>
-            <SectionLabel index="02">60-second walkthrough</SectionLabel>
-            <h2 className="section-title mt-7">Watch the whole confirmation loop.</h2>
+            <p className="travel-kicker">02 / Product walkthrough</p>
+            <h2>Watch the whole loop.<br />Not just the action.</h2>
           </div>
-          <p className="body-lead max-w-xl lg:justify-self-end">The short preview is visible now. Full playback opens after a saved access request when lead infrastructure is configured.</p>
+          <p>The short film follows one sample booking from instruction and approval through a guide response and current-booking verification.</p>
         </div>
         <div className="mt-10"><VideoWalkthrough /></div>
       </div>
@@ -72,59 +67,71 @@ function VideoSection() {
   )
 }
 
-function SystemAndControl() {
+function PlatformStory() {
   const path = [
-    ['01', 'Booking context'],
-    ['02', 'Confirmation workflow'],
-    ['03', 'Guide / supplier view'],
-    ['04', 'Verification evidence'],
-    ['05', 'Human control'],
+    ['01', 'Booking context', 'Your existing source'],
+    ['02', 'Workflow', 'Bounded operating rule'],
+    ['03', 'External view', 'Guide or supplier'],
+    ['04', 'Verification', 'Current evidence'],
   ]
 
   return (
-    <section className="section-shell">
+    <section className="travel-platform-section">
       <div className="container-luxe">
-        <div className="grid gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
-          <div>
-            <SectionLabel index="04">Keep your systems · keep control</SectionLabel>
-            <h2 className="section-title mt-7">Gappy works around the operation you already have.</h2>
-            <p className="body-lead mt-7">Pilot scope, connection method, decision boundaries, and evidence requirements are agreed with each operator. This is not a claim that every connector ships today.</p>
+        <div className="travel-platform-grid">
+          <div className="travel-platform-copy">
+            <p className="travel-kicker travel-kicker--dark">04 / The operating layer</p>
+            <h2>Keep your systems.<br />Add completion.</h2>
+            <p>Gappy works around the operation already in place. Pilot scope, connection method, decision boundaries, and evidence requirements are agreed with each operator.</p>
+            <BookDemoLink entryLocation="final" className="travel-text-link">Map one workflow <span aria-hidden="true">↗</span></BookDemoLink>
           </div>
-          <div>
-            <ol className="grid gap-px bg-navy-900/20 sm:grid-cols-5">
-              {path.map(([number, label], index) => (
-                <li key={label} className="relative min-h-36 bg-white p-5">
-                  <span className="font-mono text-[10px] text-gold-700">{number}</span>
-                  <p className="mt-8 text-sm font-semibold leading-6">{label}</p>
-                  {index < path.length - 1 ? <span className="absolute -right-2 top-1/2 z-10 hidden h-4 w-4 place-items-center bg-gold-500 text-[10px] sm:grid" aria-hidden="true">→</span> : null}
-                </li>
-              ))}
-            </ol>
-            <div className="mt-5 grid gap-px bg-navy-900/20 sm:grid-cols-2">
-              {[
-                ['Approval boundaries', 'Humans approve external action until the pilot evidence supports a narrower delegated boundary.'],
-                ['Fail-closed verification', 'Unknown, stale, conflicting, or missing evidence stays open or moves to a person.'],
-                ['Current-booking check', 'A reply is compared with the latest booking snapshot before confirmation is marked complete.'],
-                ['Traceable work', 'Instruction, decision, response, current context, and observed result remain attached to the work item.'],
-              ].map(([title, body]) => (
-                <article key={title} className="min-h-48 bg-ivory-100 p-6">
-                  <h3 className="text-lg font-semibold">{title}</h3>
-                  <p className="mt-4 text-sm leading-7 text-ink-500">{body}</p>
-                </article>
-              ))}
+
+          <div className="travel-platform-map" aria-label="Platform operating flow">
+            <div className="travel-platform-core">
+              <span>G</span>
+              <strong>AI Workforce</strong>
+              <small>ONE RUNTIME</small>
             </div>
+            {path.map(([number, title, body], index) => (
+              <div key={title} className={`travel-platform-node travel-platform-node--${index + 1}`}>
+                <span>{number}</span><strong>{title}</strong><small>{body}</small>
+              </div>
+            ))}
+            <span className="travel-platform-axis travel-platform-axis--x" aria-hidden="true" />
+            <span className="travel-platform-axis travel-platform-axis--y" aria-hidden="true" />
           </div>
         </div>
 
-        <div className="mt-16 grid gap-8 border border-navy-900 bg-navy-950 p-6 text-white md:p-9 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+        <div className="travel-control-grid">
+          {[
+            ['Approval boundaries', 'Humans approve external action until the pilot evidence supports a narrower delegated boundary.'],
+            ['Fail-closed verification', 'Unknown, stale, conflicting, or missing evidence stays open or moves to a person.'],
+            ['Current-booking check', 'A reply is compared with the latest booking snapshot before confirmation is marked complete.'],
+          ].map(([title, body], index) => (
+            <article key={title}>
+              <span>0{index + 1}</span><h3>{title}</h3><p>{body}</p>
+            </article>
+          ))}
+        </div>
+
+        <div className="travel-brand-panel">
           <div>
-            <p className="eyebrow text-gold-300">Partial / pilot-ready foundation</p>
-            <h3 className="mt-5 text-3xl font-semibold tracking-[-0.04em]">Your operation. Your brand.</h3>
-            <p className="mt-5 text-base leading-8 text-white/60">Gappy adapts to your brand, operating rules, and local context while the same AI Workforce runtime handles the work underneath.</p>
-            <p className="mt-6 inline-flex border border-gold-300 px-4 py-3 text-sm font-semibold text-gold-300">Configured with your team during pilot.</p>
+            <p className="travel-kicker">Partial / pilot-ready foundation</p>
+            <h3>Your operation.<br />Your brand.</h3>
+            <p>Gappy can be configured around each operator&apos;s brand, workflow rules, and operating context while the underlying AI Workforce runtime stays consistent.</p>
+            <strong>Configured with your team during pilot.</strong>
           </div>
-          <div className="grid gap-px bg-white/20 sm:grid-cols-2">
-            {copy.whiteLabel.map((item) => <div key={item} className="flex min-h-28 items-center justify-center bg-navy-900 p-5 text-center font-semibold">{item}</div>)}
+          <div className="travel-brand-preview">
+            <div className="travel-brand-preview__nav"><span>YOUR LOGO</span><small>BOOKING #2871</small></div>
+            <div className="travel-brand-preview__content">
+              <span className="travel-brand-preview__icon">✓</span>
+              <p>Guide confirmation</p>
+              <h4>Tomorrow · 09:00</h4>
+              <button type="button" disabled>Confirm booking</button>
+            </div>
+            <div className="travel-brand-swatches">
+              {copy.whiteLabel.slice(0, 4).map((item, index) => <span key={item} className={`is-${index + 1}`}>{item}</span>)}
+            </div>
           </div>
         </div>
       </div>
@@ -134,28 +141,20 @@ function SystemAndControl() {
 
 function PilotAndMeasurement() {
   return (
-    <section className="section-shell bg-navy-950 text-white">
-      <div className="container-luxe grid gap-12 lg:grid-cols-[0.78fr_1.22fr] lg:gap-20">
-        <div>
-          <SectionLabel index="06" inverse>Scoped pilot & measurement</SectionLabel>
-          <h2 className="section-title mt-7 !text-white">Start with one workflow. Expand from evidence.</h2>
-          <p className="mt-7 text-base leading-8 text-white/60">A workflow review can lead to offline evaluation, Shadow Mode, and human-approved execution. Scope and timing are discussed on the demo call.</p>
-          <BookDemoLink entryLocation="final" className="btn-light mt-8">Book a demo</BookDemoLink>
+    <section className="travel-pilot-section">
+      <div className="container-luxe">
+        <div className="travel-section-intro travel-section-intro--dark">
+          <div><p className="travel-kicker travel-kicker--dark">06 / Start bounded</p><h2>One workflow.<br />Evidence before expansion.</h2></div>
+          <div><p>A workflow review can lead to offline evaluation, Shadow Mode, and human-approved execution. Scope and timing are discussed on the demo call.</p><BookDemoLink entryLocation="final" className="travel-pill-link">Book a demo <span aria-hidden="true">↗</span></BookDemoLink></div>
         </div>
-        <div>
-          <ol className="border-t border-white/20">
-            {copy.pilotStages.slice(0, 4).map(([number, title, body]) => (
-              <li key={number} className="grid gap-3 border-b border-white/20 py-5 sm:grid-cols-[3rem_12rem_1fr]">
-                <span className="font-mono text-[10px] text-gold-300">{number}</span><h3 className="font-semibold">{title}</h3><p className="text-sm leading-7 text-white/50">{body}</p>
-              </li>
-            ))}
-          </ol>
-          <div className="mt-8">
-            <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-white/40">Measures to define together · no benchmark implied</p>
-            <ul className="mt-4 grid gap-px bg-white/20 sm:grid-cols-2">
-              {copy.metrics.slice(0, 6).map((metric) => <li key={metric} className="bg-navy-900 p-4 text-sm text-white/70">{metric}</li>)}
-            </ul>
-          </div>
+        <ol className="travel-stage-list">
+          {copy.pilotStages.slice(0, 4).map(([number, title, body]) => (
+            <li key={number}><span>{number}</span><h3>{title}</h3><p>{body}</p></li>
+          ))}
+        </ol>
+        <div className="travel-measurement-strip">
+          <p>MEASURES TO DEFINE TOGETHER · NO BENCHMARK IMPLIED</p>
+          <ul>{copy.metrics.slice(0, 6).map((metric) => <li key={metric}>{metric}</li>)}</ul>
         </div>
       </div>
     </section>
@@ -173,14 +172,14 @@ function FrequentlyAskedQuestions() {
   ]
 
   return (
-    <section className="section-shell bg-white">
-      <div className="container-luxe grid gap-12 lg:grid-cols-[0.65fr_1.35fr] lg:gap-20">
-        <div><SectionLabel index="07">FAQ</SectionLabel><h2 className="section-title mt-7">Before we map the first workflow.</h2></div>
-        <div className="border-t border-navy-900/20">
+    <section className="travel-faq-section">
+      <div className="container-luxe travel-faq-grid">
+        <div><p className="travel-kicker travel-kicker--dark">07 / Before we start</p><h2>Good questions.<br />Straight answers.</h2></div>
+        <div className="travel-faq-list">
           {questions.map(([question, answer]) => (
-            <details key={question} className="group border-b border-navy-900/20">
-              <summary className="flex min-h-20 cursor-pointer list-none items-center justify-between gap-4 py-5 text-lg font-semibold"><span>{question}</span><span className="text-gold-700 transition group-open:rotate-45" aria-hidden="true">＋</span></summary>
-              <p className="max-w-2xl pb-7 text-sm leading-7 text-ink-500">{answer}</p>
+            <details key={question}>
+              <summary><span>{question}</span><span aria-hidden="true">＋</span></summary>
+              <p>{answer}</p>
             </details>
           ))}
         </div>
@@ -192,30 +191,37 @@ function FrequentlyAskedQuestions() {
 export default function TravelGlobalPage() {
   return (
     <TravelAcquisitionProvider>
-      <div className="bg-ivory-50 text-ink-900">
-        <section className="relative overflow-hidden border-b border-navy-900/15 pb-20 pt-32 md:pb-28 md:pt-40">
-          <div className="container-luxe">
-            <SectionLabel index="00">AI workforce for tour operators &amp; DMCs</SectionLabel>
-            <div className="mt-8 grid gap-14 lg:grid-cols-[0.86fr_1.14fr] lg:items-center lg:gap-16">
-              <div>
-                <h1 className="page-title max-w-[12ch]">Guide confirmations.<br /><span className="text-gold-700">Followed through.</span></h1>
-                <p className="body-lead mt-7 max-w-xl">Gappy helps tour operators and DMCs coordinate guide and supplier confirmations, follow up on missing replies, and check the latest booking details before marking work complete.</p>
-                <p className="mt-5 border-l-2 border-gold-500 pl-4 text-sm font-medium leading-6">Start with a scoped pilot. Keep approvals in your team&apos;s hands.</p>
-                <HeroConversion />
-              </div>
-              <HeroWorkItem />
+      <div className="travel-studio">
+        <section className="travel-hero">
+          <Image
+            src="/travel-demo-poster.svg"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="travel-hero__background"
+          />
+          <div className="travel-hero__wash" aria-hidden="true" />
+          <div className="container-luxe travel-hero__grid">
+            <div className="travel-hero__copy">
+              <p className="travel-kicker">AI workforce / Travel operations</p>
+              <h1>Guide confirmations.<br /><em>Followed through.</em></h1>
+              <p className="travel-hero__lead">Gappy coordinates guide and supplier confirmations, follows up on missing replies, and checks the latest booking before work is called complete.</p>
+              <HeroConversion />
             </div>
+            <HeroProductOverlay />
           </div>
+          <a href="#work-demo" className="travel-hero__scroll">SCROLL TO LIVE WORK <span aria-hidden="true">↓</span></a>
         </section>
 
         <TravelWorkStory between={<VideoSection />} />
-        <SystemAndControl />
+        <PlatformStory />
 
-        <section className="section-shell bg-white">
+        <section className="travel-scenarios-section">
           <div className="container-luxe">
-            <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
-              <div><SectionLabel index="05">Workflow examples</SectionLabel><h2 className="section-title mt-7">Three states of the same operational job.</h2></div>
-              <p className="body-lead max-w-xl lg:justify-self-end">These are interactive examples using the same fictional booking—not customer stories or claims of deployed results.</p>
+            <div className="travel-section-intro travel-section-intro--light">
+              <div><p className="travel-kicker">05 / Workflow states</p><h2>Built for the moments<br />that do not go to plan.</h2></div>
+              <p>Three views of the same fictional booking. These are interactive workflow examples, not customer stories or deployed-results claims.</p>
             </div>
             <div className="mt-10"><TravelScenarioCards /></div>
           </div>
@@ -224,7 +230,7 @@ export default function TravelGlobalPage() {
         <PilotAndMeasurement />
         <FrequentlyAskedQuestions />
 
-        <section className="section-shell border-t border-navy-900/15 bg-gold-500">
+        <section className="travel-final-section">
           <div className="container-luxe"><FinalConversion /></div>
         </section>
       </div>
