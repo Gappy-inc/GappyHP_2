@@ -35,6 +35,25 @@ type AcquisitionContextValue = {
 
 const AcquisitionContext = createContext<AcquisitionContextValue | null>(null)
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const DELIVERABLE_EVENTS = new Set([
+  'travel_lp_view',
+  'sample_demo_start',
+  'video_progress_25',
+  'video_progress_50',
+  'video_progress_75',
+  'video_complete',
+  'lead_capture_success',
+  'booking_cta_click',
+])
+const TRAVEL_SESSION_KEY = 'gappy-travel-session-v1'
+
+function getTravelSessionId() {
+  const existing = window.sessionStorage.getItem(TRAVEL_SESSION_KEY)
+  if (existing) return existing
+  const created = window.crypto.randomUUID()
+  window.sessionStorage.setItem(TRAVEL_SESSION_KEY, created)
+  return created
+}
 
 function useAcquisition() {
   const value = useContext(AcquisitionContext)
@@ -439,6 +458,34 @@ export function TravelAcquisitionProvider({ children }: { children: ReactNode })
   const [videoOpen, setVideoOpen] = useState(false)
   const [privacyNoticeUrl, setPrivacyNoticeUrl] = useState<string | null>(null)
   const returnFocusRef = useRef<HTMLElement | null>(null)
+
+  useEffect(() => {
+    const deliver = (event: Event) => {
+      const detail = (event as CustomEvent<{
+        name?: string
+        entryLocation?: string
+        progress?: number
+      }>).detail
+      if (!detail?.name || !DELIVERABLE_EVENTS.has(detail.name)) return
+      const payload = {
+        eventId: window.crypto.randomUUID(),
+        eventName: detail.name,
+        sessionId: getTravelSessionId(),
+        ...(detail.entryLocation ? { entryLocation: detail.entryLocation } : {}),
+        ...(detail.progress ? { progress: detail.progress } : {}),
+      }
+      void fetch('/api/travel/events', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        keepalive: true,
+      }).catch(() => {
+        // Measurement is isolated from the conversion UI and fails closed.
+      })
+    }
+    window.addEventListener('gappy:travel-lp-event', deliver)
+    return () => window.removeEventListener('gappy:travel-lp-event', deliver)
+  }, [])
 
   useEffect(() => {
     trackTravelEvent('travel_lp_view')

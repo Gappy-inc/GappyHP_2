@@ -1,8 +1,8 @@
 # Travel landing page measurement handoff
 
-The repository does not currently send analytics to an approved destination. The Travel landing page emits a browser `CustomEvent` named `gappy:travel-lp-event` so a future site-wide adapter can be added without changing the conversion components.
+The repository does not send analytics to an approved Production destination. In isolated test mode, the Travel landing page forwards a strict subset of its browser `CustomEvent` events through the first-party `/api/travel/events` route to an authenticated private test receiver.
 
-This event bridge is instrumentation only. It is not durable measurement and must not be described as analytics implementation until an approved destination receives and validates the events.
+Outside that isolated test mode the bridge remains instrumentation only. It is not Production measurement until an approved destination receives and validates the events.
 
 The event detail is intentionally bounded:
 
@@ -30,6 +30,12 @@ Raw email, booking data, guide data, tokens, and arbitrary query parameters are 
 | `sample_demo_start` | Visitor ran the local fictional workflow fixture |
 | `sample_demo_verified` | Prototype reached current-confirmation verification |
 | `sample_demo_reconfirmation` | Prototype invalidated a confirmation after a booking change |
+
+The test receiver allowlist is intentionally narrower: `travel_lp_view`,
+`sample_demo_start`, `video_progress_25/50/75`, `video_complete`,
+`lead_capture_success`, and `booking_cta_click`. All other browser events remain
+local-only. The server rejects extra fields, including raw email, tokens,
+booking data, URLs, and query strings.
 
 `booking_cta_click` is not a confirmed meeting. A `meeting_booked` event must only be added after a verified GoodTime callback, approved integration, or separately reconciled booking record exists.
 
