@@ -9,6 +9,7 @@ import {
 const token = 'test-receiver-token-with-at-least-32-characters'
 const privacySecret = 'test-privacy-secret-with-at-least-32-characters'
 const leadConfiguration = {
+  mode: 'test',
   destination: new URL('http://127.0.0.1:3022/api/marketing/travel-leads'),
   privacyNotice: new URL('http://127.0.0.1:3011/privacy-test'),
   token,
@@ -16,6 +17,7 @@ const leadConfiguration = {
   timeoutMs: 500,
 }
 const eventConfiguration = {
+  mode: 'test',
   destination: new URL('http://127.0.0.1:3022/api/marketing/travel-events'),
   token,
   privacySecret,
@@ -173,9 +175,9 @@ function leadRequest(body = {
 }
 
 {
-  const productionEnvironment = {
+  const baseEnvironment = {
     TRAVEL_ACQUISITION_MODE: 'test',
-    VERCEL_ENV: 'production',
+    TRAVEL_ACQUISITION_COLLECTION_ENABLED: 'true',
     TRAVEL_DEMO_LEAD_CAPTURE_ENABLED: 'true',
     TRAVEL_ANALYTICS_TEST_ENABLED: 'true',
     TRAVEL_DEMO_LEAD_WEBHOOK_URL: leadConfiguration.destination.toString(),
@@ -184,8 +186,50 @@ function leadRequest(body = {
     TRAVEL_DEMO_LEAD_WEBHOOK_TOKEN: token,
     TRAVEL_DEMO_PRIVACY_SECRET: privacySecret,
   }
-  assert.equal(loadTravelLeadConfiguration(productionEnvironment), null)
-  assert.equal(loadTravelEventConfiguration(productionEnvironment), null)
+  const disabledEnvironment = {
+    ...baseEnvironment,
+    TRAVEL_ACQUISITION_COLLECTION_ENABLED: 'false',
+  }
+  assert.equal(loadTravelLeadConfiguration(disabledEnvironment), null)
+  assert.equal(loadTravelEventConfiguration(disabledEnvironment), null)
+
+  const testEnvironment = { ...baseEnvironment, VERCEL_ENV: 'preview' }
+  assert.equal(loadTravelLeadConfiguration(testEnvironment)?.mode, 'test')
+  assert.equal(loadTravelEventConfiguration(testEnvironment)?.mode, 'test')
+
+  const testOnProduction = { ...baseEnvironment, VERCEL_ENV: 'production' }
+  assert.equal(loadTravelLeadConfiguration(testOnProduction), null)
+  assert.equal(loadTravelEventConfiguration(testOnProduction), null)
+
+  const productionEnvironment = {
+    ...baseEnvironment,
+    TRAVEL_ACQUISITION_MODE: 'production',
+    VERCEL_ENV: 'production',
+    TRAVEL_ACQUISITION_PRODUCTION_ENABLED: 'true',
+    TRAVEL_ANALYTICS_ENABLED: 'true',
+    TRAVEL_ACQUISITION_RECEIVER_HOST_ALLOWLIST: 'receiver.gappy.jp',
+    TRAVEL_PRIVACY_NOTICE_HOST_ALLOWLIST: 'gappy.jp',
+    TRAVEL_DEMO_LEAD_WEBHOOK_URL: 'https://receiver.gappy.jp/api/marketing/travel-leads',
+    TRAVEL_ANALYTICS_RECEIVER_URL: 'https://receiver.gappy.jp/api/marketing/travel-events',
+    TRAVEL_DEMO_PRIVACY_NOTICE_URL: 'https://gappy.jp/privacy',
+  }
+  assert.equal(loadTravelLeadConfiguration(productionEnvironment)?.mode, 'production')
+  assert.equal(loadTravelEventConfiguration(productionEnvironment)?.mode, 'production')
+
+  const productionWithoutApproval = {
+    ...productionEnvironment,
+    TRAVEL_ACQUISITION_PRODUCTION_ENABLED: 'false',
+  }
+  assert.equal(loadTravelLeadConfiguration(productionWithoutApproval), null)
+  assert.equal(loadTravelEventConfiguration(productionWithoutApproval), null)
+
+  const productionWithUnapprovedReceiver = {
+    ...productionEnvironment,
+    TRAVEL_DEMO_LEAD_WEBHOOK_URL: 'https://unapproved.example/api/leads',
+    TRAVEL_ANALYTICS_RECEIVER_URL: 'https://unapproved.example/api/events',
+  }
+  assert.equal(loadTravelLeadConfiguration(productionWithUnapprovedReceiver), null)
+  assert.equal(loadTravelEventConfiguration(productionWithUnapprovedReceiver), null)
 }
 
-console.log('travel-acquisition: validation, auth forwarding, durable response contract, failure, timeout, event allowlist, and production lock passed')
+console.log('travel-acquisition: validation, auth forwarding, durable response contract, failure, timeout, event allowlist, and disabled/test/production configuration gates passed')

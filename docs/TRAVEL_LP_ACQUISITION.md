@@ -7,16 +7,18 @@ The UI, API contract, playable prototype video, captions, and transcript are imp
 An isolated test receiver now exists on a separate branch/PR in the private
 `gappymitsuki/gappy-tour-os` repository. It is not an approved Production
 destination. Website delivery remains fail-closed unless explicit test-mode
-configuration is present, and it refuses to activate when
-`VERCEL_ENV=production`.
+configuration is present. Test mode refuses to activate when
+`VERCEL_ENV=production`. Production remains separately disabled by default.
 
 ## Lead adapter
 
 Endpoint: `POST /api/travel/demo-access`
 
-All three release conditions are required. Setting only the webhook URL does not activate collection:
+All collection modes require the central kill switch plus the form switch.
+Setting only a webhook URL does not activate collection:
 
 ```text
+TRAVEL_ACQUISITION_COLLECTION_ENABLED=true
 TRAVEL_DEMO_LEAD_CAPTURE_ENABLED=true
 TRAVEL_DEMO_LEAD_WEBHOOK_URL=https://approved-private-destination.example/...
 TRAVEL_DEMO_PRIVACY_NOTICE_URL=https://approved-public-privacy-notice.example/...
@@ -35,13 +37,32 @@ TRAVEL_RECEIVER_TIMEOUT_MS=2000
 These values are test controls, not Production approval. The server refuses
 test mode on Vercel Production.
 
-Optional server-only authorization:
+The disabled-by-default Production path requires all of the following in the
+real Vercel Production environment:
+
+```text
+TRAVEL_ACQUISITION_MODE=production
+TRAVEL_ACQUISITION_COLLECTION_ENABLED=true
+TRAVEL_ACQUISITION_PRODUCTION_ENABLED=true
+TRAVEL_DEMO_LEAD_CAPTURE_ENABLED=true
+TRAVEL_ANALYTICS_ENABLED=true
+TRAVEL_ACQUISITION_RECEIVER_HOST_ALLOWLIST=<exact approved receiver host>
+TRAVEL_PRIVACY_NOTICE_HOST_ALLOWLIST=<exact approved notice host>
+```
+
+Test analytics uses `TRAVEL_ANALYTICS_TEST_ENABLED`; Production analytics uses
+the distinct `TRAVEL_ANALYTICS_ENABLED` switch. Production destinations and
+privacy notices must be HTTPS and their exact hostnames must be allowlisted.
+Removing or setting `TRAVEL_ACQUISITION_COLLECTION_ENABLED=false` disables
+both lead and event forwarding.
+
+Required server-only authorization:
 
 ```text
 TRAVEL_DEMO_LEAD_WEBHOOK_TOKEN=...
 ```
 
-The token is required by the isolated receiver implementation and is never
+The bearer token is required, must contain at least 32 characters, and is never
 sent to the browser. Website success requires the receiver to return the exact
 `stored` contract with the matching lead reference and a persisted record ID;
 an arbitrary HTTP 2xx is rejected.

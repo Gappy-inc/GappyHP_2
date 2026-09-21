@@ -19,8 +19,10 @@ const NO_STORE_HEADERS = { 'Cache-Control': 'no-store' }
 
 type EntryLocation = typeof ENTRY_LOCATIONS[number]
 type EventName = typeof EVENT_NAMES[number]
+type AcquisitionMode = 'test' | 'production'
 
 export type TravelLeadConfiguration = {
+  mode: AcquisitionMode
   destination: URL
   privacyNotice: URL
   token: string
@@ -29,6 +31,7 @@ export type TravelLeadConfiguration = {
 }
 
 export type TravelEventConfiguration = {
+  mode: AcquisitionMode
   destination: URL
   token: string
   privacySecret: string
@@ -37,16 +40,45 @@ export type TravelEventConfiguration = {
 
 type FetchLike = typeof fetch
 
-function parseTestUrl(value: string | undefined) {
+function configuredMode(environment: Record<string, string | undefined>): AcquisitionMode | null {
+  if (environment.TRAVEL_ACQUISITION_COLLECTION_ENABLED !== 'true') return null
+  if (environment.TRAVEL_ACQUISITION_MODE === 'test') {
+    return environment.VERCEL_ENV === 'production' ? null : 'test'
+  }
+  if (environment.TRAVEL_ACQUISITION_MODE === 'production') {
+    return environment.VERCEL_ENV === 'production'
+      && environment.TRAVEL_ACQUISITION_PRODUCTION_ENABLED === 'true'
+      ? 'production'
+      : null
+  }
+  return null
+}
+
+function hostAllowlist(value: string | undefined) {
+  return new Set(
+    (value || '')
+      .split(',')
+      .map((host) => host.trim().toLocaleLowerCase('en-US'))
+      .filter(Boolean),
+  )
+}
+
+function parseApprovedUrl(
+  value: string | undefined,
+  mode: AcquisitionMode,
+  allowedHosts: ReadonlySet<string>,
+) {
   const candidate = value?.trim()
   if (!candidate) return null
   try {
     const url = new URL(candidate)
-    if (
-      url.protocol !== 'https:'
-      && url.hostname !== 'localhost'
-      && url.hostname !== '127.0.0.1'
-    ) return null
+    const localTestUrl = mode === 'test'
+      && url.protocol === 'http:'
+      && (url.hostname === 'localhost' || url.hostname === '127.0.0.1')
+    if (!localTestUrl && url.protocol !== 'https:') return null
+    if (mode === 'production' && !allowedHosts.has(url.hostname.toLocaleLowerCase('en-US'))) {
+      return null
+    }
     return url
   } catch {
     return null
@@ -60,18 +92,22 @@ function boundedTimeout(value: string | undefined) {
     : 2000
 }
 
-function isTestEnvironment(environment: Record<string, string | undefined>) {
-  return environment.TRAVEL_ACQUISITION_MODE === 'test'
-    && environment.VERCEL_ENV !== 'production'
-}
-
 export function loadTravelLeadConfiguration(
   environment: Record<string, string | undefined> = process.env,
 ): TravelLeadConfiguration | null {
-  if (!isTestEnvironment(environment)) return null
+  const mode = configuredMode(environment)
+  if (!mode) return null
   if (environment.TRAVEL_DEMO_LEAD_CAPTURE_ENABLED !== 'true') return null
-  const destination = parseTestUrl(environment.TRAVEL_DEMO_LEAD_WEBHOOK_URL)
-  const privacyNotice = parseTestUrl(environment.TRAVEL_DEMO_PRIVACY_NOTICE_URL)
+  const destination = parseApprovedUrl(
+    environment.TRAVEL_DEMO_LEAD_WEBHOOK_URL,
+    mode,
+    hostAllowlist(environment.TRAVEL_ACQUISITION_RECEIVER_HOST_ALLOWLIST),
+  )
+  const privacyNotice = parseApprovedUrl(
+    environment.TRAVEL_DEMO_PRIVACY_NOTICE_URL,
+    mode,
+    hostAllowlist(environment.TRAVEL_PRIVACY_NOTICE_HOST_ALLOWLIST),
+  )
   const token = environment.TRAVEL_DEMO_LEAD_WEBHOOK_TOKEN?.trim() || ''
   const privacySecret = environment.TRAVEL_DEMO_PRIVACY_SECRET?.trim() || ''
   if (
@@ -81,6 +117,7 @@ export function loadTravelLeadConfiguration(
     || privacySecret.length < 32
   ) return null
   return {
+    mode,
     destination,
     privacyNotice,
     token,
@@ -92,13 +129,22 @@ export function loadTravelLeadConfiguration(
 export function loadTravelEventConfiguration(
   environment: Record<string, string | undefined> = process.env,
 ): TravelEventConfiguration | null {
-  if (!isTestEnvironment(environment)) return null
-  if (environment.TRAVEL_ANALYTICS_TEST_ENABLED !== 'true') return null
-  const destination = parseTestUrl(environment.TRAVEL_ANALYTICS_RECEIVER_URL)
+  const mode = configuredMode(environment)
+  if (!mode) return null
+  const analyticsEnabled = mode === 'test'
+    ? environment.TRAVEL_ANALYTICS_TEST_ENABLED === 'true'
+    : environment.TRAVEL_ANALYTICS_ENABLED === 'true'
+  if (!analyticsEnabled) return null
+  const destination = parseApprovedUrl(
+    environment.TRAVEL_ANALYTICS_RECEIVER_URL,
+    mode,
+    hostAllowlist(environment.TRAVEL_ACQUISITION_RECEIVER_HOST_ALLOWLIST),
+  )
   const token = environment.TRAVEL_DEMO_LEAD_WEBHOOK_TOKEN?.trim() || ''
   const privacySecret = environment.TRAVEL_DEMO_PRIVACY_SECRET?.trim() || ''
   if (!destination || token.length < 32 || privacySecret.length < 32) return null
   return {
+    mode,
     destination,
     token,
     privacySecret,
