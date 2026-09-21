@@ -92,6 +92,7 @@ export default async function RootLayout({
   return (
     <html
       lang={copy.htmlLang}
+      data-scroll-behavior="smooth"
       className={`${spaceGrotesk.variable} ${notoSansJP.variable} ${dmMono.variable} scroll-smooth`}
     >
       <head>
