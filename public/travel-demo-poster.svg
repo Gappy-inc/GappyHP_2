@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Gappy travel confirmation prototype</title>
+  <desc id="desc">A sample operations queue and guide confirmation workflow showing response received, verification, and reconfirmation.</desc>
+  <rect width="1600" height="900" fill="#080a08"/>
+  <path d="M0 0H1600V900H0z" fill="url(#grid)" opacity=".35"/>
+  <defs>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M64 0H0V64" fill="none" stroke="#d9ddd7" stroke-opacity=".12"/>
+    </pattern>
+  </defs>
+  <text x="96" y="92" fill="#00ff7d" font-family="monospace" font-size="22" letter-spacing="4">PROTOTYPE WALKTHROUGH · SAMPLE DATA</text>
+  <text x="96" y="162" fill="#ffffff" font-family="Arial, sans-serif" font-size="54" font-weight="700">Guide confirmation, followed through.</text>
+  <rect x="96" y="222" width="600" height="548" fill="#101210" stroke="#ffffff" stroke-opacity=".24"/>
+  <text x="132" y="276" fill="#ffffff" fill-opacity=".42" font-family="monospace" font-size="17" letter-spacing="2">ACTIVITY &amp; EVIDENCE</text>
+  <g font-family="Arial, sans-serif" font-size="24">
+    <circle cx="146" cy="344" r="9" fill="#00ff7d"/><text x="180" y="352" fill="#ffffff" fill-opacity=".78">12 sample bookings loaded</text>
+    <path d="M146 353V421" stroke="#00ff7d" stroke-opacity=".5"/>
+    <circle cx="146" cy="430" r="9" fill="#00ff7d"/><text x="180" y="438" fill="#ffffff" fill-opacity=".78">Unconfirmed guide identified</text>
+    <path d="M146 439V507" stroke="#00ff7d" stroke-opacity=".5"/>
+    <circle cx="146" cy="516" r="9" fill="#00ff7d"/><text x="180" y="524" fill="#ffffff" fill-opacity=".78">Guide reply received</text>
+    <path d="M146 525V593" stroke="#00ff7d" stroke-opacity=".5"/>
+    <circle cx="146" cy="602" r="9" fill="#00ff7d"/><text x="180" y="610" fill="#ffffff" fill-opacity=".78">Current booking checked</text>
+    <path d="M146 611V679" stroke="#00ff7d" stroke-opacity=".5"/>
+    <circle cx="146" cy="688" r="9" fill="#00ff7d"/><text x="180" y="696" fill="#ffffff" font-weight="700">Confirmation verified</text>
+  </g>
+  <rect x="740" y="222" width="764" height="548" fill="#fafaf7"/>
+  <text x="784" y="276" fill="#656b66" font-family="monospace" font-size="17" letter-spacing="2">BOOKING #2871 · CURRENT WORK ITEM</text>
+  <text x="784" y="344" fill="#101210" font-family="Arial, sans-serif" font-size="42" font-weight="700">Mt. Fuji Day Tour</text>
+  <text x="784" y="390" fill="#656b66" font-family="Arial, sans-serif" font-size="24">Tomorrow · 09:00 JST · Guide Tanaka</text>
+  <rect x="784" y="438" width="300" height="74" fill="#101210"/>
+  <text x="812" y="484" fill="#ffffff" font-family="monospace" font-size="19">RESPONSE RECEIVED</text>
+  <path d="M1108 475H1170" stroke="#101210" stroke-width="3"/>
+  <path d="m1154 459 16 16-16 16" fill="none" stroke="#101210" stroke-width="3"/>
+  <rect x="1194" y="438" width="260" height="74" fill="#00ff7d" stroke="#101210"/>
+  <text x="1246" y="484" fill="#101210" font-family="monospace" font-size="19" font-weight="700">VERIFIED</text>
+  <rect x="784" y="560" width="670" height="144" fill="#ffffff" stroke="#101210" stroke-opacity=".22"/>
+  <text x="816" y="606" fill="#007f48" font-family="monospace" font-size="17" letter-spacing="2">BOOKING CHANGE DETECTED</text>
+  <text x="816" y="657" fill="#101210" font-family="Arial, sans-serif" font-size="30" font-weight="700">09:00 → 10:30 · RECONFIRMATION REQUIRED</text>
+  <text x="96" y="844" fill="#ffffff" fill-opacity=".42" font-family="monospace" font-size="18" letter-spacing="3">NO REAL BOOKINGS · NO MESSAGES SENT</text>
+</svg>

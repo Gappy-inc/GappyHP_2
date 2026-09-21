@@ -5,6 +5,19 @@ import { useEffect, useState } from 'react'
 
 export type TravelEventName =
   | 'travel_lp_view'
+  | 'demo_gate_view'
+  | 'email_submit_attempt'
+  | 'lead_capture_success'
+  | 'lead_capture_error'
+  | 'video_play'
+  | 'video_progress_25'
+  | 'video_progress_50'
+  | 'video_progress_75'
+  | 'video_complete'
+  | 'booking_cta_click'
+  | 'sample_demo_start'
+  | 'sample_demo_verified'
+  | 'sample_demo_reconfirmation'
   | 'demo_start'
   | 'demo_approve'
   | 'demo_response_received'
@@ -15,14 +28,17 @@ export type TravelEventName =
 
 const oneTimeEvents = new Set<TravelEventName>()
 
-function trackTravelEvent(name: TravelEventName) {
-  if (name === 'travel_lp_view' || name === 'demo_start') {
+export function trackTravelEvent(
+  name: TravelEventName,
+  detail: { entryLocation?: string; progress?: number } = {},
+) {
+  if (name === 'travel_lp_view' || name === 'demo_start' || name === 'sample_demo_start') {
     if (oneTimeEvents.has(name)) return
     oneTimeEvents.add(name)
   }
 
   window.dispatchEvent(
-    new CustomEvent('gappy:travel-lp-event', { detail: { name } }),
+    new CustomEvent('gappy:travel-lp-event', { detail: { name, ...detail } }),
   )
 }
 

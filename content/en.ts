@@ -221,7 +221,7 @@ export const enContent = {
     seo: {
       title: 'AI Workforce for Travel Operations | Gappy',
       description:
-        'Gappy is an AI workforce for post-booking travel operations. Coordinate guides and suppliers, follow up, verify outcomes, and escalate exceptions without replacing your booking system.',
+        'Gappy helps tour operators and DMCs coordinate guide and supplier confirmations, follow up on missing replies, and verify the latest booking details before closing the work.',
     },
     hero: {
       eyebrow: 'Gappy / Travel',
