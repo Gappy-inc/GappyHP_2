@@ -11,6 +11,10 @@ import {
   TravelWorkStory,
 } from '@/components/travel/TravelWorkStory'
 import { globalTravelContent as copy } from '@/content/travel-global'
+import {
+  loadTravelEventConfiguration,
+  loadTravelLeadConfiguration,
+} from '@/lib/travel-acquisition-server'
 
 function HeroProductOverlay() {
   return (
@@ -168,7 +172,7 @@ function FrequentlyAskedQuestions() {
     ['Can a reply close the job automatically?', 'Not by itself. The current booking details and available evidence must be checked first. Unknown or conflicting state stays open or moves to a person.'],
     ['How much control does our team keep?', 'Start in offline or Shadow Mode, then use human approval. Responsibility expands only where the agreed operating evidence supports it.'],
     ['Can the external page use our brand?', 'A partial multi-tenant and white-label foundation exists. Supported brand and workflow configuration is completed with your team during pilot; it is not self-serve SaaS onboarding.'],
-    ['How do we watch the full demo?', 'When a private lead destination is configured, a saved email request unlocks the in-page video. Book a demo remains available without registration.'],
+    ['How do we watch the full demo?', 'Choose “Watch the 60-second prototype walkthrough” on this page. If prompted, enter your work email to unlock it. Book a demo remains available without registration.'],
   ]
 
   return (
@@ -189,8 +193,14 @@ function FrequentlyAskedQuestions() {
 }
 
 export default function TravelGlobalPage() {
+  const leadCaptureConfigured = loadTravelLeadConfiguration() !== null
+  const analyticsConfigured = loadTravelEventConfiguration() !== null
+
   return (
-    <TravelAcquisitionProvider>
+    <TravelAcquisitionProvider
+      leadCaptureConfigured={leadCaptureConfigured}
+      analyticsConfigured={analyticsConfigured}
+    >
       <div className="travel-studio">
         <section className="travel-hero">
           <Image

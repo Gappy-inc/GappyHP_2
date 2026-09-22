@@ -139,12 +139,9 @@ export function LeadAccessForm({
 
   if (availability === 'unavailable' || status === 'unavailable') {
     return (
-      <div className={compact ? 'flex min-w-0 flex-1 items-center gap-3' : 'space-y-3'}>
-        <p className={`${compact ? 'min-w-0 flex-1 text-xs leading-5' : 'text-sm leading-6'} ${dark ? 'text-white/65' : 'text-ink-500'}`}>
-          Email registration is not connected in this Preview. No email has been collected.
-        </p>
+      <div className={compact ? 'flex min-w-0 flex-1 items-center' : undefined}>
         <button type="button" className={`${dark ? 'btn-light' : 'btn-secondary'} shrink-0`} onClick={(event) => openVideo(event.currentTarget)}>
-          Watch prototype walkthrough
+          Watch the 60-second prototype walkthrough
         </button>
       </div>
     )
@@ -403,7 +400,7 @@ function StickyDock({
   onDismiss: () => void
   onFocusChange: (focused: boolean) => void
 }) {
-  const { status, openGate, openVideo } = useAcquisition()
+  const { status, availability, openGate, openVideo } = useAcquisition()
 
   if (!visible) return null
 
@@ -416,7 +413,7 @@ function StickyDock({
           <button
             type="button"
             className="btn-secondary min-h-12 px-3"
-            onClick={(event) => status === 'accepted' ? openVideo(event.currentTarget) : openGate('sticky', event.currentTarget)}
+            onClick={(event) => status === 'accepted' || availability === 'unavailable' ? openVideo(event.currentTarget) : openGate('sticky', event.currentTarget)}
           >
             {status === 'accepted' ? 'Continue video' : 'Watch demo'}
           </button>
@@ -442,11 +439,19 @@ function StickyDock({
   )
 }
 
-export function TravelAcquisitionProvider({ children }: { children: ReactNode }) {
+export function TravelAcquisitionProvider({
+  children,
+  leadCaptureConfigured,
+  analyticsConfigured,
+}: {
+  children: ReactNode
+  leadCaptureConfigured: boolean
+  analyticsConfigured: boolean
+}) {
   const [email, setEmailValue] = useState('')
-  const [status, setStatus] = useState<LeadStatus>('idle')
+  const [status, setStatus] = useState<LeadStatus>(leadCaptureConfigured ? 'idle' : 'unavailable')
   const [message, setMessage] = useState('')
-  const [availability, setAvailability] = useState<Availability>('checking')
+  const [availability, setAvailability] = useState<Availability>(leadCaptureConfigured ? 'checking' : 'unavailable')
   const [heroNode, setHeroNode] = useState<HTMLElement | null>(null)
   const [finalNode, setFinalNode] = useState<HTMLElement | null>(null)
   const [heroPassed, setHeroPassed] = useState(false)
@@ -460,6 +465,8 @@ export function TravelAcquisitionProvider({ children }: { children: ReactNode })
   const returnFocusRef = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
+    if (!analyticsConfigured) return
+
     const deliver = (event: Event) => {
       const detail = (event as CustomEvent<{
         name?: string
@@ -485,10 +492,12 @@ export function TravelAcquisitionProvider({ children }: { children: ReactNode })
     }
     window.addEventListener('gappy:travel-lp-event', deliver)
     return () => window.removeEventListener('gappy:travel-lp-event', deliver)
-  }, [])
+  }, [analyticsConfigured])
 
   useEffect(() => {
     trackTravelEvent('travel_lp_view')
+    if (!leadCaptureConfigured) return
+
     let active = true
     fetch('/api/travel/demo-access', { cache: 'no-store' })
       .then((response) => response.json())
@@ -504,7 +513,7 @@ export function TravelAcquisitionProvider({ children }: { children: ReactNode })
         setStatus('unavailable')
       })
     return () => { active = false }
-  }, [])
+  }, [leadCaptureConfigured])
 
   useEffect(() => {
     if (!heroNode || !finalNode) return
@@ -547,17 +556,17 @@ export function TravelAcquisitionProvider({ children }: { children: ReactNode })
     returnFocusRef.current = trigger || document.activeElement as HTMLElement | null
     setGateEntryLocation(entryLocation)
     trackTravelEvent('demo_gate_view', { entryLocation })
-    if (status === 'accepted') {
+    if (status === 'accepted' || availability === 'unavailable') {
       setVideoOpen(true)
       return
     }
     setGateOpen(true)
-  }, [status])
+  }, [availability, status])
 
   const submit = useCallback(async (entryLocation: EntryLocation) => {
     if (availability !== 'available') {
       setStatus('unavailable')
-      setMessage('Email registration is not connected in this Preview. No email was collected.')
+      setMessage('The walkthrough is available without registration.')
       return
     }
 
