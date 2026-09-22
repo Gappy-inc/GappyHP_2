@@ -50,6 +50,7 @@ export default function Header() {
 
   const isActive = (href: string) => pathname === href
   const isCompanyActive = companyLinks.some(({ href }) => pathname === href)
+  const desktopCtaLabel = pathname === '/travel' ? 'Book a demo' : copy.talk
 
   return (
     <header className={`fixed inset-x-0 top-0 z-50 border-b transition-colors ${scrolled || isMenuOpen ? 'border-navy-900/15 bg-ivory-50/95 backdrop-blur-xl' : 'border-transparent bg-ivory-50/80 backdrop-blur-sm'}`}>
@@ -70,7 +71,7 @@ export default function Header() {
         </nav>
         <div className="hidden items-center gap-4 lg:flex">
           <LanguageSwitcher />
-          <a href={GOODTIME_URL} target="_blank" rel="noopener noreferrer" className="btn-primary">{copy.talk}</a>
+          <a href={GOODTIME_URL} target="_blank" rel="noopener noreferrer" className="btn-primary">{desktopCtaLabel}</a>
         </div>
         <button type="button" className="flex h-11 items-center gap-3 font-mono text-[12px] font-medium uppercase tracking-[0.1em] lg:hidden" onClick={() => setIsMenuOpen((open) => !open)} aria-label={isMenuOpen ? copy.closeMenu : copy.openMenu} aria-expanded={isMenuOpen} aria-controls="mobile-navigation">
           <span>{isMenuOpen ? 'Close' : 'Menu'}</span>

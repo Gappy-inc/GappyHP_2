@@ -139,11 +139,11 @@ export function LeadAccessForm({
 
   if (availability === 'unavailable' || status === 'unavailable') {
     return (
-      <div className="space-y-3">
-        <p className={`text-sm leading-6 ${dark ? 'text-white/65' : 'text-ink-500'}`}>
+      <div className={compact ? 'flex min-w-0 flex-1 items-center gap-3' : 'space-y-3'}>
+        <p className={`${compact ? 'min-w-0 flex-1 text-xs leading-5' : 'text-sm leading-6'} ${dark ? 'text-white/65' : 'text-ink-500'}`}>
           Email registration is not connected in this Preview. No email has been collected.
         </p>
-        <button type="button" className={dark ? 'btn-light' : 'btn-secondary'} onClick={(event) => openVideo(event.currentTarget)}>
+        <button type="button" className={`${dark ? 'btn-light' : 'btn-secondary'} shrink-0`} onClick={(event) => openVideo(event.currentTarget)}>
           Watch prototype walkthrough
         </button>
       </div>
@@ -425,17 +425,17 @@ function StickyDock({
 
       <div data-desktop-dock className="fixed inset-x-0 bottom-5 z-40 hidden px-5 lg:block">
         <div
-          className="travel-desktop-dock mx-auto flex max-w-[82rem] items-end gap-4 border border-navy-900 bg-navy-950 p-3 pl-5 text-white"
+          className="travel-desktop-dock mx-auto flex max-w-[82rem] items-center gap-3 border border-navy-900 bg-navy-950 px-4 py-4 text-white"
           onFocusCapture={() => onFocusChange(true)}
           onBlurCapture={(event) => {
             if (!event.currentTarget.contains(event.relatedTarget as Node | null)) onFocusChange(false)
           }}
         >
-          <p className="max-w-[13rem] shrink-0 text-sm font-semibold leading-5">See Gappy handle one real-world workflow</p>
+          <p className="max-w-[12rem] shrink-0 text-xs font-semibold leading-4">See Gappy handle one real-world workflow</p>
           <LeadAccessForm entryLocation="sticky" inputId="travel-demo-email-sticky" dark compact />
           <span className="h-12 w-px shrink-0 bg-white/20" aria-hidden="true" />
           <BookDemoLink entryLocation="sticky" className="btn-light shrink-0">Book a demo</BookDemoLink>
-          <button type="button" className="grid h-12 w-12 shrink-0 place-items-center border border-white/25 text-xl" onClick={onDismiss} aria-label="Dismiss conversion bar">×</button>
+          <button type="button" className="grid h-12 w-12 shrink-0 place-items-center border border-white/25 text-lg" onClick={onDismiss} aria-label="Dismiss conversion bar">×</button>
         </div>
       </div>
     </>
