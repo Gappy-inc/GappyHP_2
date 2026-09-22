@@ -3,6 +3,7 @@ import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd'
 import CaseVisual, { type CaseVisualVariant } from '@/components/CaseVisual'
 import CTASection from '@/components/CTASection'
 import PageHero from '@/components/PageHero'
+import TravelGlobalPage from '@/components/site/TravelGlobalPage'
 import { getContent, localizedPath, type Locale } from '@/content'
 import { GOODTIME_URL } from '@/lib/config'
 
@@ -10,6 +11,15 @@ export default function TravelPage({ locale }: { locale: Locale }) {
   const page = getContent(locale).travel
   const path = localizedPath('/travel', locale)
   const visualVariants: CaseVisualVariant[] = ['supplier', 'booking', 'reconciliation', 'fulfillment', 'schedule', 'communication']
+
+  if (locale === 'en') {
+    return (
+      <>
+        <BreadcrumbJsonLd name="Travel" path={path} locale={locale} />
+        <TravelGlobalPage />
+      </>
+    )
+  }
 
   return (
     <div className="bg-ivory-50 text-ink-900">
