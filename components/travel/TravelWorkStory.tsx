@@ -13,10 +13,10 @@ import {
 } from 'react'
 import { SectionLabel } from '@/components/GappyAxis'
 import { trackTravelEvent } from '@/components/travel/TravelInteractions'
+import type { Locale } from '@/content'
+import { travelGlobalContent, type TravelGlobalCopy } from '@/content/travel-global'
 import {
   createInitialTravelDemoState,
-  getTravelDemoReason,
-  getTravelDemoStatusLabel,
   isCurrentConfirmationVerified,
   sameBooking,
   travelDemoReducer,
@@ -28,15 +28,56 @@ import {
 type Scenario = 'initial' | 'missing-reply' | 'booking-changed'
 type StepState = 'complete' | 'active' | 'pending'
 
-const workflowSteps = [
-  'Booking context',
-  'Confirmation needed',
-  'Operator approval',
-  'Simulated request',
-  'Wait / bounded follow-up',
-  'Current-booking verification',
-  'Verified / human handoff',
-]
+function demoReason(state: TravelDemoState, locale: Locale) {
+  const { currentBooking: booking, requestSnapshot: request, responseSnapshot: response } = state
+  if (locale === 'en') {
+    const reasons = {
+      idle: `No valid confirmation exists for ${booking.startTime} · v${booking.version}.`, approval: `A request for ${request?.startTime} · v${request?.version} is prepared and waiting for operator approval.`,
+      waiting: `The approved request for ${request?.startTime} · v${request?.version} is waiting for the guide.`, response: `The guide replied for ${response?.startTime} · v${response?.version}; current-booking verification is still required.`,
+      verifying: `The guide response is being compared with current booking v${booking.version}.`, verified: `The current ${booking.startTime} · v${booking.version} confirmation is verified.`,
+      reconfirmation: `The booking changed to ${booking.startTime} · v${booking.version}; the prior confirmation is invalid.`, cannot: 'The guide cannot operate this tour. Human handoff is required.', help: 'The guide requested help. Human handoff is required.',
+      noReply: `No reply has been received for ${request?.startTime} · v${request?.version}; bounded follow-up is due.`, conflict: 'The response and current booking do not agree. Verification is stopped.',
+    }
+    return reasons[state.status]
+  }
+  const reasons = {
+    idle: `${booking.startTime} · v${booking.version} に有効な確認はありません。`, approval: `${request?.startTime} · v${request?.version} の依頼を準備し、運用担当者の承認を待っています。`,
+    waiting: `承認済みの ${request?.startTime} · v${request?.version} の依頼について、ガイドの回答を待っています。`, response: `ガイドが ${response?.startTime} · v${response?.version} に回答しました。最新予約との照合が必要です。`,
+    verifying: `ガイド回答を最新予約 v${booking.version} と照合しています。`, verified: `最新の ${booking.startTime} · v${booking.version} の確認を検証しました。`,
+    reconfirmation: `予約が ${booking.startTime} · v${booking.version} に変更され、以前の確認は無効です。`, cannot: 'ガイドが対応できないため、人への引継ぎが必要です。', help: 'ガイドからサポート要請があり、人への引継ぎが必要です。',
+    noReply: `${request?.startTime} · v${request?.version} の回答がなく、制限付きフォローが必要です。`, conflict: '回答と最新予約が一致しないため、検証を停止しました。',
+  }
+  return reasons[state.status]
+}
+
+function activityLabel(item: string, locale: Locale) {
+  if (locale === 'en') return item
+  return item
+    .replace('Instruction ready', '指示を準備')
+    .replace('Sample fixture isolated from production', '本番から分離したサンプルデータ')
+    .replace('12 sample bookings loaded', '12件のサンプル予約を取得')
+    .replace(/Booking v(\d+) needs confirmation/, '予約 v$1 は確認が必要')
+    .replace(/(\d\d:\d\d) request prepared/, '$1 の依頼を準備')
+    .replace('Operator approval requested', '運用担当者の承認を依頼')
+    .replace(/Reconfirmation prepared for (.+)/, '$1 の再確認を準備')
+    .replace('Prepared request is stale — approval stopped', '準備済みの依頼が古いため、承認を停止')
+    .replace(/Approved request simulated for (.+) — no message sent/, '$1 の承認済み依頼を再現（送信なし）')
+    .replace(/Guide replied for (.+)/, 'ガイドが $1 に回答')
+    .replace('Current booking snapshot checked', '最新予約のスナップショットを照合')
+    .replace(/Confirmation verified for (.+)/, '$1 の確認を検証')
+    .replace(/Reply for v(\d+) does not match current v(\d+) — verification stopped/, '回答 v$1 と最新予約 v$2 が一致しないため、検証を停止')
+    .replace(/Booking changed to (.+)/, '予約を $1 に変更')
+    .replace(/Prior v(\d+) confirmation invalidated/, '以前の v$1 確認を無効化')
+    .replace('Reconfirmation required for current booking', '最新予約の再確認が必要')
+    .replace('09:00 · v3 confirmation previously verified', '09:00 · v3 の確認は検証済み')
+    .replace('Guide cannot operate — human handoff required', 'ガイド対応不可 — 人への引継ぎが必要')
+    .replace('Guide requested help — human handoff required', 'ガイドがサポートを要請 — 人への引継ぎが必要')
+    .replace('Source conflict detected — verification stopped', '情報不一致を検知 — 検証を停止')
+    .replace(/Request for (.+) simulated/, '$1 の依頼を再現')
+    .replace('No reply by sample follow-up time', 'サンプルのフォロー時刻まで回答なし')
+    .replace('Follow-up due at 15:00', '15:00にフォロー予定')
+    .replace('Bounded follow-up simulated', '制限付きフォローを再現')
+}
 
 function getWorkflowStepState(state: TravelDemoState, index: number): StepState {
   if (isCurrentConfirmationVerified(state)) return 'complete'
@@ -67,12 +108,16 @@ function getWorkflowStepState(state: TravelDemoState, index: number): StepState 
 function RoleSwitch({
   state,
   dispatch,
+  locale,
+  copy,
   idPrefix,
   guideConfirmRef,
   compact = false,
 }: {
   state: TravelDemoState
   dispatch: Dispatch<TravelDemoAction>
+  locale: Locale
+  copy: TravelGlobalCopy['demo']
   idPrefix: string
   guideConfirmRef?: RefObject<HTMLButtonElement>
   compact?: boolean
@@ -97,10 +142,10 @@ function RoleSwitch({
 
   return (
     <div className={compact ? 'travel-inline-role' : 'travel-role-stage'}>
-      <div className="travel-role-tabs grid grid-cols-2" role="tablist" aria-label="Booking role views">
+      <div className="travel-role-tabs grid grid-cols-2" role="tablist" aria-label={copy.roleAria}>
         {([
-          ['operations', 'For operations teams'],
-          ['guide', 'For guides & suppliers'],
+          ['operations', copy.roleTabs[0]],
+          ['guide', copy.roleTabs[1]],
         ] as const).map(([role, label]) => (
           <button
             key={role}
@@ -122,35 +167,35 @@ function RoleSwitch({
       {state.role === 'operations' ? (
         <div id={`${idPrefix}-operations-panel`} role="tabpanel" aria-labelledby={`${idPrefix}-operations-tab`} className="travel-role-panel grid gap-4 md:grid-cols-[0.8fr_1.2fr]">
           <div className="travel-role-card">
-            <p className="travel-micro-label">Current status</p>
-            <p className="mt-4 text-lg font-semibold">{getTravelDemoStatusLabel(state)}</p>
-            <p className="mt-3 text-sm leading-6 text-white/55">{getTravelDemoReason(state)}</p>
+            <p className="travel-micro-label">{copy.currentStatus}</p>
+            <p className="mt-4 text-lg font-semibold">{copy.status[state.status]}</p>
+            <p className="mt-3 text-sm leading-6 text-white/55">{demoReason(state, locale)}</p>
           </div>
           <div className="travel-role-card">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <div><p className="text-lg font-semibold">{booking.title}</p><p className="mt-1 text-sm text-white/50">Booking #{booking.id} · Version {booking.version}</p></div>
+              <div><p className="text-lg font-semibold">{booking.title}</p><p className="mt-1 text-sm text-white/50">{copy.booking} #{booking.id} · {copy.version} {booking.version}</p></div>
               <span className="travel-micro-label">{booking.startTime} JST</span>
             </div>
             <ol className="mt-5 border-t border-white/15 pt-3 text-sm text-white/55">
-              <li className="py-2">Assigned guide: {booking.guide}</li>
-              <li className="py-2">Meeting point: {booking.meetingPoint}</li>
-              <li className="py-2">Latest evidence: {state.activity.at(-1)}</li>
+              <li className="py-2">{copy.assignedGuide}: {booking.guide}</li>
+              <li className="py-2">{copy.meetingPoint}: {booking.meetingPoint}</li>
+              <li className="py-2">{copy.latestEvidence}: {activityLabel(state.activity.at(-1) || '', locale)}</li>
             </ol>
           </div>
         </div>
       ) : (
         <div id={`${idPrefix}-guide-panel`} role="tabpanel" aria-labelledby={`${idPrefix}-guide-tab`} className="travel-role-panel">
           <div className="travel-guide-card mx-auto max-w-sm bg-white p-5 text-navy-950">
-            <div className="border-b border-navy-900/15 pb-4"><p className="text-lg font-semibold">Atlas Experiences</p><p className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-400">Prototype · configured during pilot</p></div>
+            <div className="border-b border-navy-900/15 pb-4"><p className="text-lg font-semibold">Atlas Experiences</p><p className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-400">{copy.prototype}</p></div>
             <p className="mt-5 font-semibold">{booking.title}</p>
-            <dl className="mt-4 grid grid-cols-2 gap-4 text-sm"><div><dt className="text-ink-400">Date</dt><dd className="mt-1 font-medium">Tomorrow</dd></div><div><dt className="text-ink-400">Time</dt><dd className="mt-1 font-medium">{booking.startTime} JST</dd></div><div className="col-span-2"><dt className="text-ink-400">Meeting point</dt><dd className="mt-1 font-medium">{booking.meetingPoint}</dd></div></dl>
-            <p className="mt-5 text-sm font-medium">Can you operate this tour with these details?</p>
+            <dl className="mt-4 grid grid-cols-2 gap-4 text-sm"><div><dt className="text-ink-400">{copy.date}</dt><dd className="mt-1 font-medium">{copy.tomorrow}</dd></div><div><dt className="text-ink-400">{copy.time}</dt><dd className="mt-1 font-medium">{booking.startTime} JST</dd></div><div className="col-span-2"><dt className="text-ink-400">{copy.meetingPoint}</dt><dd className="mt-1 font-medium">{booking.meetingPoint}</dd></div></dl>
+            <p className="mt-5 text-sm font-medium">{copy.question}</p>
             <div className="mt-4 grid gap-2">
-              <button ref={guideConfirmRef} type="button" disabled={state.status !== 'waiting'} className="min-h-12 rounded-full bg-navy-900 px-4 text-sm font-semibold text-white disabled:opacity-35" onClick={() => dispatch({ type: 'GUIDE_CONFIRM' })}>Confirm {booking.startTime} · v{booking.version}</button>
-              <button type="button" disabled={state.status !== 'waiting'} className="min-h-12 rounded-full border border-navy-900 px-4 text-sm font-medium disabled:opacity-35" onClick={() => dispatch({ type: 'GUIDE_CANNOT_OPERATE' })}>Cannot operate</button>
-              <button type="button" disabled={state.status !== 'waiting'} className="min-h-12 rounded-full border border-navy-900/25 px-4 text-sm font-medium disabled:opacity-35" onClick={() => dispatch({ type: 'GUIDE_NEEDS_HELP' })}>Need help</button>
+              <button ref={guideConfirmRef} type="button" disabled={state.status !== 'waiting'} className="min-h-12 rounded-full bg-navy-900 px-4 text-sm font-semibold text-white disabled:opacity-35" onClick={() => dispatch({ type: 'GUIDE_CONFIRM' })}>{copy.confirm} {booking.startTime} · v{booking.version}</button>
+              <button type="button" disabled={state.status !== 'waiting'} className="min-h-12 rounded-full border border-navy-900 px-4 text-sm font-medium disabled:opacity-35" onClick={() => dispatch({ type: 'GUIDE_CANNOT_OPERATE' })}>{copy.cannot}</button>
+              <button type="button" disabled={state.status !== 'waiting'} className="min-h-12 rounded-full border border-navy-900/25 px-4 text-sm font-medium disabled:opacity-35" onClick={() => dispatch({ type: 'GUIDE_NEEDS_HELP' })}>{copy.needHelp}</button>
             </div>
-            {state.status !== 'waiting' ? <p className="mt-4 text-xs leading-5 text-ink-500">The response controls activate after the operations team approves the simulated request.</p> : null}
+            {state.status !== 'waiting' ? <p className="mt-4 text-xs leading-5 text-ink-500">{copy.controlsHelp}</p> : null}
           </div>
         </div>
       )}
@@ -158,7 +203,8 @@ function RoleSwitch({
   )
 }
 
-export function TravelWorkStory({ between }: { between?: ReactNode }) {
+export function TravelWorkStory({ locale, between }: { locale: Locale; between?: ReactNode }) {
+  const copy = travelGlobalContent[locale].demo
   const [state, dispatch] = useReducer(travelDemoReducer, undefined, createInitialTravelDemoState)
   const guideConfirmRef = useRef<HTMLButtonElement>(null)
   const focusGuideActionRef = useRef(false)
@@ -215,10 +261,10 @@ export function TravelWorkStory({ between }: { between?: ReactNode }) {
   const booking = state.currentBooking
   const responseMatches = sameBooking(state.responseSnapshot, booking)
   const verificationChecks = [
-    ['Booking active', true],
-    ['Start time', responseMatches],
-    ['Booking version', responseMatches],
-    ['Assigned guide', true],
+    [copy.checks[0], true],
+    [copy.checks[1], responseMatches],
+    [copy.checks[2], responseMatches],
+    [copy.checks[3], true],
   ] as const
 
   return (
@@ -226,87 +272,83 @@ export function TravelWorkStory({ between }: { between?: ReactNode }) {
       <section id="work-demo" className="travel-work-section scroll-mt-24 text-white">
         <div className="container-luxe">
           <div className="travel-work-intro grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
-            <div><SectionLabel index="01" inverse>Concrete work demo</SectionLabel><h2 className="section-title mt-7 !text-white">Instruction → workflow → verification.</h2></div>
-            <div className="lg:justify-self-end"><p className="max-w-xl text-base leading-8 text-white/60">One fixed, fictional workflow. Follow the same booking through approval, guide response, verification, a material change, and reconfirmation.</p><p className="mt-3 font-mono text-[10px] uppercase tracking-[0.12em] text-gold-300">Interactive prototype · Sample data · No messages sent</p></div>
+            <div><SectionLabel index="01" inverse>{copy.label}</SectionLabel><h2 className="section-title mt-7 !text-white">{copy.title}</h2></div>
+            <div className="lg:justify-self-end"><p className="max-w-xl text-base leading-8 text-white/60">{copy.body}</p><p className="mt-3 font-mono text-[10px] uppercase tracking-[0.12em] text-gold-300">{copy.disclaimer}</p></div>
           </div>
 
           <div className="travel-work-shell mt-10 overflow-hidden">
             <div className="travel-work-command grid lg:grid-cols-[1fr_auto] lg:items-center">
-              <div className="p-5 md:p-7"><p className="travel-micro-label">Fixed sample instruction</p><p className="mt-3 text-xl font-semibold">Check tomorrow&apos;s departures and follow up on unconfirmed guides.</p></div>
-              <div className="flex flex-wrap gap-3 border-t border-white/10 p-5 lg:border-l lg:border-t-0"><button type="button" className="btn-light" onClick={runSample}>Run sample</button><button type="button" className="min-h-12 rounded-full border border-white/30 px-5 text-sm font-medium" onClick={() => dispatch({ type: 'RESET' })}>Reset</button></div>
+              <div className="p-5 md:p-7"><p className="travel-micro-label">{copy.instructionLabel}</p><p className="mt-3 text-xl font-semibold">{copy.instruction}</p></div>
+              <div className="flex flex-wrap gap-3 border-t border-white/10 p-5 lg:border-l lg:border-t-0"><button type="button" className="btn-light" onClick={runSample}>{copy.run}</button><button type="button" className="min-h-12 rounded-full border border-white/30 px-5 text-sm font-medium" onClick={() => dispatch({ type: 'RESET' })}>{copy.reset}</button></div>
             </div>
 
             <div className="travel-queue-snapshot">
-              <p>Illustrative queue overview · static sample snapshot</p>
-              <dl>{[['8', 'Verified'], ['2', 'Waiting'], ['1', 'Needs approval'], ['1', 'Blocked']].map(([value, label]) => <div key={label}><dd>{value}</dd><dt>{label}</dt></div>)}</dl>
+              <p>{copy.queueLabel}</p>
+              <dl>{copy.queue.map(([value, label]) => <div key={label}><dd>{value}</dd><dt>{label}</dt></div>)}</dl>
             </div>
 
             <div className="travel-work-panes grid lg:grid-cols-[0.8fr_1.2fr]">
               <div className="travel-evidence-pane">
-                <p className="travel-micro-label">Observable activity &amp; evidence</p>
-                <ol className="mt-5" aria-live="polite">{state.activity.map((item, index) => <li key={`${index}-${item}`}><span>{String(index + 1).padStart(2, '0')}</span><span>{item}</span></li>)}</ol>
-                {state.status === 'idle' ? <p className="travel-empty-state">Run the sample to inspect tomorrow&apos;s queue.</p> : null}
+                <p className="travel-micro-label">{copy.evidence}</p>
+                <ol className="mt-5" aria-live="polite">{state.activity.map((item, index) => <li key={`${index}-${item}`}><span>{String(index + 1).padStart(2, '0')}</span><span>{activityLabel(item, locale)}</span></li>)}</ol>
+                {state.status === 'idle' ? <p className="travel-empty-state">{copy.empty}</p> : null}
               </div>
 
               <div className="travel-workflow-pane">
                 <div className="travel-workflow-header">
-                  <div><p className="travel-micro-label">Current work item · Booking #{booking.id}</p><h3>{booking.title}</h3><p>Tomorrow · {booking.startTime} JST · Version {booking.version} · Guide {booking.guide}</p></div>
-                  <span>{getTravelDemoStatusLabel(state)}</span>
+                  <div><p className="travel-micro-label">{copy.currentWork} · {copy.booking} #{booking.id}</p><h3>{booking.title}</h3><p>{copy.tomorrow} · {booking.startTime} JST · {copy.version} {booking.version} · {copy.guide} {booking.guide}</p></div>
+                  <span>{copy.status[state.status]}</span>
                 </div>
 
-                <ol className="travel-workflow-steps" aria-label="Connected confirmation workflow">
-                  {workflowSteps.map((step, index) => {
+                <ol className="travel-workflow-steps" aria-label={copy.workflowAria}>
+                  {copy.steps.map((step, index) => {
                     const stepState = getWorkflowStepState(state, index)
-                    return <li key={step} className={`is-${stepState}`}><span>{String(index + 1).padStart(2, '0')}</span><strong>{step}</strong><b>{stepState}</b></li>
+                    return <li key={step} className={`is-${stepState}`}><span>{String(index + 1).padStart(2, '0')}</span><strong>{step}</strong><b>{copy.stepStates[stepState]}</b></li>
                   })}
                 </ol>
 
                 <div className="travel-workflow-action" aria-live="polite">
-                  {state.status === 'idle' ? <button type="button" className="btn-light" onClick={runSample}>Start with booking v{booking.version}</button> : null}
-                  {state.status === 'approval' ? <div><p>Prepared request: confirm guide assignment, {state.requestSnapshot?.startTime} start time, and meeting point for v{state.requestSnapshot?.version}.</p><button type="button" className="btn-light mt-4" onClick={approve}>Approve simulated request</button></div> : null}
-                  {state.status === 'waiting' ? <p>Approved request for {state.requestSnapshot?.startTime} · v{state.requestSnapshot?.version}. Continue in the guide view directly below.</p> : null}
-                  {state.status === 'response' ? <div><p><strong>RESPONSE RECEIVED ≠ VERIFIED.</strong> Compare the reply with the current booking before closing.</p><div className="mt-4 flex flex-wrap gap-3"><button type="button" className="btn-light" onClick={() => dispatch({ type: 'VERIFY_BEGIN' })}>Verify current details</button><button type="button" className="min-h-12 rounded-full border border-white/30 px-5 text-sm" onClick={() => dispatch({ type: 'SIMULATE_SOURCE_CONFLICT' })}>Simulate source conflict</button></div></div> : null}
-                  {state.status === 'verifying' || state.status === 'verified' ? <div><div className="flex items-center justify-between gap-3"><p className="font-semibold">{state.status === 'verifying' ? 'VERIFYING CURRENT BOOKING' : `VERIFIED · ${booking.startTime} · v${booking.version}`}</p><span className="font-mono text-[10px] text-white/40">CURRENT SNAPSHOT</span></div><ul className="mt-4 grid gap-2 sm:grid-cols-2">{verificationChecks.map(([check, passed]) => <li key={check} className="flex items-center gap-2 text-sm text-white/65"><span className={passed ? 'text-gold-300' : 'text-red-400'}>{passed ? '✓' : '!'}</span>{check}</li>)}</ul>{state.status === 'verified' ? <div className="mt-5 border-t border-white/15 pt-5"><p className="text-xs leading-6 text-white/45">This verifies the current guide confirmation, not that the tour was operated.</p>{booking.version === 3 ? <button type="button" className="btn-light mt-4" onClick={() => { dispatch({ type: 'CHANGE_BOOKING_TIME' }); trackTravelEvent('sample_demo_reconfirmation') }}>Change booking to 10:30</button> : <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.12em] text-gold-300">Reconfirmation loop complete</p>}</div> : null}</div> : null}
-                  {state.status === 'reconfirmation' ? <div className="travel-reconfirmation-card"><p className="travel-micro-label !text-navy-950">Booking changed</p><p className="mt-3 text-lg font-semibold"><s>09:00 · v3 confirmed</s> → 10:30 · v4</p><p className="mt-3 font-semibold">PRIOR CONFIRMATION INVALID · RECONFIRMATION REQUIRED</p><button type="button" className="btn-primary mt-4" onClick={() => dispatch({ type: 'PREPARE_RECONFIRMATION' })}>Prepare reconfirmation</button></div> : null}
-                  {state.status === 'noReply' ? <div><p>No reply yet. The v{booking.version} job stays open; one bounded follow-up is due at 15:00.</p><button type="button" className="btn-light mt-4" onClick={() => { focusGuideActionRef.current = true; dispatch({ type: 'SIMULATE_FOLLOW_UP' }) }}>Simulate follow-up</button></div> : null}
-                  {state.status === 'cannot' || state.status === 'help' || state.status === 'conflict' ? <div className="travel-handoff-card"><p className="font-semibold">HUMAN HANDOFF REQUIRED · NOT VERIFIED</p><p className="mt-3 text-sm text-white/60">{getTravelDemoReason(state)}</p></div> : null}
+                  {state.status === 'idle' ? <button type="button" className="btn-light" onClick={runSample}>{copy.start} v{booking.version}</button> : null}
+                  {state.status === 'approval' ? <div><p>{copy.prepared} {state.requestSnapshot?.startTime} · v{state.requestSnapshot?.version}</p><button type="button" className="btn-light mt-4" onClick={approve}>{copy.approve}</button></div> : null}
+                  {state.status === 'waiting' ? <p>{copy.waiting} {state.requestSnapshot?.startTime} · v{state.requestSnapshot?.version}</p> : null}
+                  {state.status === 'response' ? <div><p><strong>{copy.responseWarning}</strong></p><div className="mt-4 flex flex-wrap gap-3"><button type="button" className="btn-light" onClick={() => dispatch({ type: 'VERIFY_BEGIN' })}>{copy.verify}</button><button type="button" className="min-h-12 rounded-full border border-white/30 px-5 text-sm" onClick={() => dispatch({ type: 'SIMULATE_SOURCE_CONFLICT' })}>{copy.conflict}</button></div></div> : null}
+                  {state.status === 'verifying' || state.status === 'verified' ? <div><div className="flex items-center justify-between gap-3"><p className="font-semibold">{state.status === 'verifying' ? copy.verifying : `${copy.verified} · ${booking.startTime} · v${booking.version}`}</p><span className="font-mono text-[10px] text-white/40">{copy.snapshot}</span></div><ul className="mt-4 grid gap-2 sm:grid-cols-2">{verificationChecks.map(([check, passed]) => <li key={check} className="flex items-center gap-2 text-sm text-white/65"><span className={passed ? 'text-gold-300' : 'text-red-400'}>{passed ? '✓' : '!'}</span>{check}</li>)}</ul>{state.status === 'verified' ? <div className="mt-5 border-t border-white/15 pt-5"><p className="text-xs leading-6 text-white/45">{copy.scope}</p>{booking.version === 3 ? <button type="button" className="btn-light mt-4" onClick={() => { dispatch({ type: 'CHANGE_BOOKING_TIME' }); trackTravelEvent('sample_demo_reconfirmation') }}>{copy.changeTime}</button> : <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.12em] text-gold-300">{copy.loopComplete}</p>}</div> : null}</div> : null}
+                  {state.status === 'reconfirmation' ? <div className="travel-reconfirmation-card"><p className="travel-micro-label !text-navy-950">{copy.bookingChanged}</p><p className="mt-3 text-lg font-semibold"><s>09:00 · v3</s> → 10:30 · v4</p><p className="mt-3 font-semibold">{copy.priorInvalid}</p><button type="button" className="btn-primary mt-4" onClick={() => dispatch({ type: 'PREPARE_RECONFIRMATION' })}>{copy.prepareReconfirmation}</button></div> : null}
+                  {state.status === 'noReply' ? <div><p>{copy.noReply}</p><button type="button" className="btn-light mt-4" onClick={() => { focusGuideActionRef.current = true; dispatch({ type: 'SIMULATE_FOLLOW_UP' }) }}>{copy.followUp}</button></div> : null}
+                  {state.status === 'cannot' || state.status === 'help' || state.status === 'conflict' ? <div className="travel-handoff-card"><p className="font-semibold">{copy.handoff}</p><p className="mt-3 text-sm text-white/60">{demoReason(state, locale)}</p></div> : null}
                 </div>
 
-                <RoleSwitch state={state} dispatch={dispatch} idPrefix="demo-role" guideConfirmRef={guideConfirmRef} compact />
+                <RoleSwitch state={state} dispatch={dispatch} locale={locale} copy={copy} idPrefix="demo-role" guideConfirmRef={guideConfirmRef} compact />
               </div>
             </div>
           </div>
 
-          <div className="travel-before-after mt-7 grid gap-5 md:grid-cols-2"><div><p>Before</p><strong>Find task → contact → wait → check → chase → update → check again</strong></div><div><p>With Gappy</p><strong>Detect → prepare → approve → follow up → verify → hand off</strong></div></div>
+          <div className="travel-before-after mt-7 grid gap-5 md:grid-cols-2"><div><p>{copy.before[0]}</p><strong>{copy.before[1]}</strong></div><div><p>{copy.after[0]}</p><strong>{copy.after[1]}</strong></div></div>
         </div>
       </section>
 
       {between}
 
-      <section className="travel-role-section">
+      <section id="role-view" className="travel-role-section scroll-mt-24">
         <div className="container-luxe">
-          <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end"><div><SectionLabel index="03" inverse>Two views · one booking</SectionLabel><h2 className="section-title mt-7 !text-white">The operations team and the guide see the same job.</h2></div><p className="body-lead max-w-xl !text-white/55 lg:justify-self-end">This second projection stays synchronized with the interactive stage above: one booking, one lifecycle, and one current source of truth.</p></div>
-          <div className="mt-10"><RoleSwitch state={state} dispatch={dispatch} idPrefix="explainer-role" /></div>
+          <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end"><div><SectionLabel index="03" inverse>{copy.roleLabel}</SectionLabel><h2 className="section-title mt-7 !text-white">{copy.roleTitle}</h2></div><p className="body-lead max-w-xl !text-white/55 lg:justify-self-end">{copy.roleBody}</p></div>
+          <div className="mt-10"><RoleSwitch state={state} dispatch={dispatch} locale={locale} copy={copy} idPrefix="explainer-role" /></div>
         </div>
       </section>
     </>
   )
 }
 
-export function TravelScenarioCards() {
-  const scenarios: Array<{ id: Scenario; number: string; title: string; body: string; action: string; image: string; alt: string }> = [
-    { id: 'initial', number: '01', title: 'Initial confirmation', body: 'Surface the booking, prepare the request, and keep operator approval visible.', action: 'Run initial confirmation', image: '/travel-scenario-initial.webp', alt: 'A local guide checks booking details at a quiet morning meeting point' },
-    { id: 'missing-reply', number: '02', title: 'Missing reply', body: 'Keep the work open, follow up inside a bounded rule, and hand off at the deadline.', action: 'View follow-up state', image: '/travel-scenario-missing-reply.webp', alt: 'A travel operations coordinator checks a pending response near a deadline' },
-    { id: 'booking-changed', number: '03', title: 'Booking changed', body: 'Invalidate the old 09:00 confirmation when the current start time becomes 10:30.', action: 'Run change scenario', image: '/travel-scenario-booking-changed.webp', alt: 'A travel operator reviews an updated itinerary at a rainy pickup point' },
-  ]
+export function TravelScenarioCards({ locale }: { locale: Locale }) {
+  const copy = travelGlobalContent[locale].scenarios
 
   return (
     <div className="travel-scenario-grid grid lg:grid-cols-3">
-      {scenarios.map((scenario) => (
+      {copy.cards.map((scenario, index) => (
         <article key={scenario.id} className="travel-scenario-card group flex min-h-80 flex-col text-white">
           <Image src={scenario.image} alt={scenario.alt} fill sizes="(min-width: 1024px) 33vw, 100vw" className="travel-scenario-card__image" />
           <div className="travel-scenario-card__content">
-            <div className="flex items-center justify-between"><span className="font-mono text-[11px] text-gold-300">SAMPLE SCENARIO · {scenario.number}</span><span className="h-2 w-2 rounded-full bg-gold-500" aria-hidden="true" /></div>
+            <div className="flex items-center justify-between"><span className="font-mono text-[11px] text-gold-300">{copy.badge} · {String(index + 1).padStart(2, '0')}</span><span className="h-2 w-2 rounded-full bg-gold-500" aria-hidden="true" /></div>
             <h3>{scenario.title}</h3>
             <p>{scenario.body}</p>
             <button type="button" onClick={() => window.dispatchEvent(new CustomEvent('gappy:travel-scenario', { detail: { scenario: scenario.id } }))}>{scenario.action} <span aria-hidden="true">→</span></button>
