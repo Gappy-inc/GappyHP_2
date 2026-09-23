@@ -30,4 +30,5 @@ jobs:
       - run: npx tsc --noEmit
       - run: npm run test:travel-demo
       - run: npm run test:travel-acquisition
+      - run: npm run test:travel-localization
       - run: npm run build

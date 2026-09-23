@@ -12,6 +12,8 @@ import {
   useState,
 } from 'react'
 import Image from 'next/image'
+import type { Locale } from '@/content'
+import { travelGlobalContent, type TravelGlobalCopy } from '@/content/travel-global'
 import { GOODTIME_URL } from '@/lib/config'
 import { trackTravelEvent } from '@/components/travel/TravelInteractions'
 
@@ -20,6 +22,8 @@ type LeadStatus = 'idle' | 'invalid' | 'submitting' | 'accepted' | 'error' | 'un
 type Availability = 'checking' | 'available' | 'unavailable'
 
 type AcquisitionContextValue = {
+  locale: Locale
+  copy: TravelGlobalCopy
   email: string
   setEmail: (value: string) => void
   status: LeadStatus
@@ -64,12 +68,13 @@ function useAcquisition() {
 export function BookDemoLink({
   entryLocation,
   className,
-  children = 'Book a demo',
+  children,
 }: {
   entryLocation: EntryLocation
   className?: string
   children?: ReactNode
 }) {
+  const { copy } = useAcquisition()
   return (
     <a
       href={GOODTIME_URL}
@@ -78,21 +83,21 @@ export function BookDemoLink({
       className={className}
       onClick={() => trackTravelEvent('booking_cta_click', { entryLocation })}
     >
-      {children}
+      {children || copy.acquisition.book}
     </a>
   )
 }
 
 function AccessPurpose() {
-  const { privacyNoticeUrl } = useAcquisition()
+  const { privacyNoticeUrl, copy } = useAcquisition()
   return (
     <p className="text-xs leading-5 text-ink-500">
-      We use your email only to provide this requested demo access. Marketing updates are not included.{' '}
+      {copy.acquisition.purpose}{' '}
       <a
         href={privacyNoticeUrl || 'mailto:mitsuki@gappy.jp?subject=Privacy%20question'}
         className="underline decoration-gold-500 underline-offset-4"
       >
-        {privacyNoticeUrl ? 'Privacy notice' : 'Privacy questions'}
+        {privacyNoticeUrl ? copy.acquisition.privacyNotice : copy.acquisition.privacyQuestions}
       </a>
     </p>
   )
@@ -117,6 +122,7 @@ export function LeadAccessForm({
     availability,
     submit,
     openVideo,
+    copy,
   } = useAcquisition()
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -128,10 +134,10 @@ export function LeadAccessForm({
     return (
       <div className={`flex ${compact ? 'items-center gap-3' : 'flex-col items-start gap-3'}`}>
         <p className={`text-sm font-medium ${dark ? 'text-white' : 'text-navy-900'}`}>
-          Access saved for this page session.
+          {copy.acquisition.saved}
         </p>
         <button type="button" className={dark ? 'btn-light' : 'btn-primary'} onClick={(event) => openVideo(event.currentTarget)}>
-          Continue watching
+          {copy.acquisition.continueWatching}
         </button>
       </div>
     )
@@ -141,7 +147,7 @@ export function LeadAccessForm({
     return (
       <div className={compact ? 'flex min-w-0 flex-1 items-center' : undefined}>
         <button type="button" className={`${dark ? 'btn-light' : 'btn-secondary'} shrink-0`} onClick={(event) => openVideo(event.currentTarget)}>
-          Watch the 60-second prototype walkthrough
+          {copy.acquisition.directVideo}
         </button>
       </div>
     )
@@ -151,7 +157,7 @@ export function LeadAccessForm({
     <form onSubmit={onSubmit} className={compact ? 'flex min-w-0 flex-1 items-end gap-2' : 'space-y-3'} noValidate>
       <div className={compact ? 'min-w-0 flex-1' : undefined}>
         <label htmlFor={inputId} className={`mb-2 block font-mono text-[10px] uppercase tracking-[0.12em] ${dark ? 'text-white/55' : 'text-ink-500'}`}>
-          Work email
+          {copy.acquisition.workEmail}
         </label>
         <input
           id={inputId}
@@ -164,7 +170,7 @@ export function LeadAccessForm({
           onChange={(event) => setEmail(event.target.value)}
           aria-describedby={`${inputId}-message`}
           className={`min-h-12 w-full border px-4 text-base outline-none focus:border-gold-500 disabled:cursor-wait disabled:opacity-60 ${dark ? 'border-white/30 bg-white text-navy-900' : 'border-navy-900/30 bg-white text-navy-900'}`}
-          placeholder="you@company.com"
+          placeholder={copy.acquisition.placeholder}
         />
       </div>
       <button
@@ -172,7 +178,7 @@ export function LeadAccessForm({
         disabled={availability === 'checking' || status === 'submitting'}
         className={`${dark ? 'btn-light' : 'btn-primary'} shrink-0 disabled:cursor-wait disabled:opacity-60`}
       >
-        {status === 'submitting' ? 'Saving…' : availability === 'checking' ? 'Checking…' : 'Watch demo'}
+        {status === 'submitting' ? copy.acquisition.saving : availability === 'checking' ? copy.acquisition.checking : copy.acquisition.watch}
       </button>
       {!compact ? <AccessPurpose /> : null}
       <p
@@ -180,23 +186,23 @@ export function LeadAccessForm({
         aria-live="polite"
         className={`text-xs ${status === 'invalid' || status === 'error' ? 'text-red-700' : dark ? 'text-white/60' : 'text-ink-500'} ${compact && !message ? 'sr-only' : ''}`}
       >
-        {message || 'Access opens only after the request is saved.'}
+        {message || copy.acquisition.accessMessage}
       </p>
     </form>
   )
 }
 
 export function HeroConversion() {
-  const { setHeroNode } = useAcquisition()
+  const { setHeroNode, copy } = useAcquisition()
 
   return (
     <div ref={setHeroNode} className="travel-hero-conversion mt-8 grid gap-5 pt-7" data-acquisition-form="hero">
       <div className="flex flex-wrap items-center gap-3">
-        <BookDemoLink entryLocation="hero" className="btn-primary">Book a demo <span aria-hidden="true">↗</span></BookDemoLink>
-        <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-white/45">No registration required</span>
+        <BookDemoLink entryLocation="hero" className="btn-primary">{copy.acquisition.book} <span aria-hidden="true">↗</span></BookDemoLink>
+        <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-white/45">{copy.acquisition.noRegistration}</span>
       </div>
       <div className="travel-hero-access border border-white/15 bg-white/5 p-4 sm:p-5">
-        <p className="mb-4 text-sm font-semibold text-white">Watch the 60-second prototype walkthrough</p>
+        <p className="mb-4 text-sm font-semibold text-white">{copy.acquisition.heroVideo}</p>
         <LeadAccessForm entryLocation="hero" inputId="travel-demo-email-hero" dark />
       </div>
     </div>
@@ -204,7 +210,7 @@ export function HeroConversion() {
 }
 
 export function VideoWalkthrough() {
-  const { status, availability, openGate, openVideo } = useAcquisition()
+  const { status, availability, openGate, openVideo, copy } = useAcquisition()
   const canOpen = status === 'accepted' || availability === 'unavailable'
 
   return (
@@ -216,11 +222,11 @@ export function VideoWalkthrough() {
           if (canOpen) openVideo(event.currentTarget)
           else openGate('video', event.currentTarget)
         }}
-        aria-label={canOpen ? 'Play the prototype walkthrough' : 'Request access to the prototype walkthrough'}
+        aria-label={canOpen ? copy.video.playAria : copy.video.requestAria}
       >
         <Image
           src="/travel-demo-poster-v4.jpg"
-          alt="Prototype workflow showing a guide confirmation moving from response received to verified"
+          alt={copy.video.posterAlt}
           width={1600}
           height={900}
           className="h-full w-full object-cover"
@@ -228,16 +234,16 @@ export function VideoWalkthrough() {
         <span className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/10" aria-hidden="true" />
         <span className="absolute bottom-5 left-5 right-5 flex flex-wrap items-end justify-between gap-4">
           <span>
-            <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-gold-300">Prototype walkthrough · Sample data</span>
-            <span className="mt-2 block text-2xl font-semibold">From instruction to verified confirmation</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-gold-300">{copy.video.badge}</span>
+            <span className="mt-2 block text-2xl font-semibold">{copy.video.cardTitle}</span>
           </span>
           <span className="grid h-14 w-14 place-items-center border border-white bg-white text-xl text-navy-900 transition group-hover:bg-gold-500" aria-hidden="true">▶</span>
         </span>
       </button>
       <div className="travel-video-card__footer grid gap-5 border-t border-white/15 p-5 md:grid-cols-[1fr_auto] md:items-center md:p-7">
         <div>
-          <p className="text-sm leading-7 text-white/65">See the operations view, guide response, current-booking verification, and shared role views for the same booking.</p>
-          <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.1em] text-white/40">Interactive prototype · No real bookings or messages</p>
+          <p className="text-sm leading-7 text-white/65">{copy.video.cardBody}</p>
+          <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.1em] text-white/40">{copy.video.disclaimer}</p>
         </div>
         <button
           type="button"
@@ -247,7 +253,7 @@ export function VideoWalkthrough() {
             else openGate('video', event.currentTarget)
           }}
         >
-          {canOpen ? 'Watch walkthrough' : 'Get video access'}
+          {canOpen ? copy.video.watch : copy.video.access}
         </button>
       </div>
     </div>
@@ -255,18 +261,18 @@ export function VideoWalkthrough() {
 }
 
 export function FinalConversion() {
-  const { setFinalNode } = useAcquisition()
+  const { setFinalNode, copy } = useAcquisition()
 
   return (
     <div ref={setFinalNode} className="travel-final-grid grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center" data-acquisition-form="final">
       <div>
-        <p className="eyebrow text-gold-700">Two ways to continue</p>
-        <h2 className="section-title mt-6">See how this fits your operation.</h2>
-        <p className="body-lead mt-6">Book a working session directly, or watch the prototype walkthrough first.</p>
-        <BookDemoLink entryLocation="final" className="btn-primary mt-8">Book a demo</BookDemoLink>
+        <p className="eyebrow text-gold-700">{copy.final.eyebrow}</p>
+        <h2 className="section-title mt-6 whitespace-pre-line">{copy.final.title}</h2>
+        <p className="body-lead mt-6">{copy.final.body}</p>
+        <BookDemoLink entryLocation="final" className="btn-primary mt-8">{copy.acquisition.book}</BookDemoLink>
       </div>
       <div className="travel-final-form border border-navy-900/20 bg-white p-5 md:p-8">
-        <p className="mb-5 text-lg font-semibold">Get access to the full walkthrough</p>
+        <p className="mb-5 text-lg font-semibold">{copy.final.formTitle}</p>
         <LeadAccessForm entryLocation="final" inputId="travel-demo-email-final" />
       </div>
     </div>
@@ -282,6 +288,7 @@ function GateDialog({
   entryLocation: EntryLocation
   onClose: () => void
 }) {
+  const { copy } = useAcquisition()
   const dialogRef = useRef<HTMLDialogElement>(null)
 
   useEffect(() => {
@@ -301,10 +308,10 @@ function GateDialog({
       <div className="p-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] sm:p-7">
         <div className="flex items-start justify-between gap-5 border-b border-navy-900/15 pb-5">
           <div>
-            <p className="eyebrow text-gold-700">60-second walkthrough</p>
-            <h2 id="travel-access-dialog-title" className="mt-3 text-2xl font-semibold tracking-[-0.04em]">Watch the full prototype demo</h2>
+            <p className="eyebrow text-gold-700">{copy.acquisition.gateEyebrow}</p>
+            <h2 id="travel-access-dialog-title" className="mt-3 text-2xl font-semibold tracking-[-0.04em]">{copy.acquisition.gateTitle}</h2>
           </div>
-          <button type="button" className="grid h-11 w-11 shrink-0 place-items-center border border-navy-900 text-xl" onClick={() => dialogRef.current?.close()} aria-label="Close demo access form">×</button>
+          <button type="button" className="grid h-11 w-11 shrink-0 place-items-center border border-navy-900 text-xl" onClick={() => dialogRef.current?.close()} aria-label={copy.acquisition.closeGate}>×</button>
         </div>
         <div className="mt-6">
           <LeadAccessForm entryLocation={entryLocation} inputId="travel-demo-email-dialog" />
@@ -321,6 +328,7 @@ function VideoDialog({
   open: boolean
   onClose: () => void
 }) {
+  const { locale, copy } = useAcquisition()
   const dialogRef = useRef<HTMLDialogElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const progressEvents = useRef(new Set<number>())
@@ -355,10 +363,10 @@ function VideoDialog({
     >
       <div className="flex items-start justify-between gap-5 border-b border-white/15 p-4 sm:p-6">
         <div>
-          <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-gold-300">Prototype walkthrough · Sample data · No messages sent</p>
-          <h2 id="travel-video-dialog-title" className="mt-2 text-xl font-semibold">Guide confirmation, verified against the latest booking</h2>
+          <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-gold-300">{copy.video.dialogBadge}</p>
+          <h2 id="travel-video-dialog-title" className="mt-2 text-xl font-semibold">{copy.video.dialogTitle}</h2>
         </div>
-        <button type="button" className="grid h-11 w-11 shrink-0 place-items-center border border-white/40 text-xl" onClick={() => dialogRef.current?.close()} aria-label="Close video">×</button>
+        <button type="button" className="grid h-11 w-11 shrink-0 place-items-center border border-white/40 text-xl" onClick={() => dialogRef.current?.close()} aria-label={copy.video.close}>×</button>
       </div>
       <video
         ref={videoRef}
@@ -371,21 +379,17 @@ function VideoDialog({
         onEnded={() => trackTravelEvent('video_complete', { progress: 100 })}
       >
         <source src="/travel-demo-v3.mp4" type="video/mp4" />
-        <track kind="captions" src="/travel-demo-en.vtt" srcLang="en" label="English" default />
-        Your browser does not support HTML video.
+        <track kind="captions" src={locale === 'ja' ? '/travel-demo-ja.vtt' : '/travel-demo-en.vtt'} srcLang={locale} label={locale === 'ja' ? '日本語' : 'English'} default />
+        {copy.video.unsupported}
       </video>
       <div className="grid gap-6 p-5 sm:p-7 lg:grid-cols-[1fr_auto] lg:items-start">
         <details>
-          <summary className="cursor-pointer text-sm font-semibold">Read transcript</summary>
+          <summary className="cursor-pointer text-sm font-semibold">{copy.video.transcriptLabel}</summary>
           <div className="mt-4 space-y-3 text-sm leading-7 text-white/65">
-            <p>Tomorrow&apos;s tours are booked. But is the assigned guide confirmed for the current booking?</p>
-            <p>The sample instruction surfaces booking #2871 and prepares a request for 09:00, version 3.</p>
-            <p>The operations team explicitly approves the simulated request. The guide confirms 09:00 on a simple operator-branded page.</p>
-            <p>Response received does not mean verified. Gappy compares the reply with the current booking before verifying version 3.</p>
-            <p>The booking then changes from 09:00 to 10:30. Version 3 is invalidated, version 4 requires a new guide reply, and work stays open until the current confirmation is verified.</p>
+            {copy.video.transcript.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           </div>
         </details>
-        <BookDemoLink entryLocation="video" className="btn-light">Book a demo</BookDemoLink>
+        <BookDemoLink entryLocation="video" className="btn-light">{copy.acquisition.book}</BookDemoLink>
       </div>
     </dialog>
   )
@@ -400,7 +404,7 @@ function StickyDock({
   onDismiss: () => void
   onFocusChange: (focused: boolean) => void
 }) {
-  const { status, availability, openGate, openVideo } = useAcquisition()
+  const { status, availability, openGate, openVideo, copy } = useAcquisition()
 
   if (!visible) return null
 
@@ -408,14 +412,14 @@ function StickyDock({
     <>
       <div data-mobile-dock className="fixed inset-x-0 bottom-0 z-40 px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] lg:hidden">
         <div className="travel-mobile-dock grid grid-cols-2 gap-2 border border-navy-900 bg-white p-2 shadow-[0_-8px_30px_rgba(16,18,16,0.12)]">
-          <button type="button" className="travel-mobile-dock__dismiss" onClick={onDismiss} aria-label="Dismiss conversion bar">×</button>
-          <BookDemoLink entryLocation="sticky" className="btn-primary min-h-12 px-3">Book a demo</BookDemoLink>
+          <button type="button" className="travel-mobile-dock__dismiss" onClick={onDismiss} aria-label={copy.acquisition.dismissDock}>×</button>
+          <BookDemoLink entryLocation="sticky" className="btn-primary min-h-12 px-3">{copy.acquisition.book}</BookDemoLink>
           <button
             type="button"
             className="btn-secondary min-h-12 px-3"
             onClick={(event) => status === 'accepted' || availability === 'unavailable' ? openVideo(event.currentTarget) : openGate('sticky', event.currentTarget)}
           >
-            {status === 'accepted' ? 'Continue video' : 'Watch demo'}
+            {status === 'accepted' ? copy.acquisition.continueVideo : copy.acquisition.watch}
           </button>
         </div>
       </div>
@@ -428,11 +432,11 @@ function StickyDock({
             if (!event.currentTarget.contains(event.relatedTarget as Node | null)) onFocusChange(false)
           }}
         >
-          <p className="max-w-[12rem] shrink-0 text-xs font-semibold leading-4">See Gappy handle one real-world workflow</p>
+          <p className="max-w-[12rem] shrink-0 text-xs font-semibold leading-4">{copy.acquisition.dockLead}</p>
           <LeadAccessForm entryLocation="sticky" inputId="travel-demo-email-sticky" dark compact />
           <span className="h-12 w-px shrink-0 bg-white/20" aria-hidden="true" />
-          <BookDemoLink entryLocation="sticky" className="btn-light shrink-0">Book a demo</BookDemoLink>
-          <button type="button" className="grid h-12 w-12 shrink-0 place-items-center border border-white/25 text-lg" onClick={onDismiss} aria-label="Dismiss conversion bar">×</button>
+          <BookDemoLink entryLocation="sticky" className="btn-light shrink-0">{copy.acquisition.book}</BookDemoLink>
+          <button type="button" className="grid h-12 w-12 shrink-0 place-items-center border border-white/25 text-lg" onClick={onDismiss} aria-label={copy.acquisition.dismissDock}>×</button>
         </div>
       </div>
     </>
@@ -441,13 +445,16 @@ function StickyDock({
 
 export function TravelAcquisitionProvider({
   children,
+  locale,
   leadCaptureConfigured,
   analyticsConfigured,
 }: {
   children: ReactNode
+  locale: Locale
   leadCaptureConfigured: boolean
   analyticsConfigured: boolean
 }) {
+  const copy = travelGlobalContent[locale]
   const [email, setEmailValue] = useState('')
   const [status, setStatus] = useState<LeadStatus>(leadCaptureConfigured ? 'idle' : 'unavailable')
   const [message, setMessage] = useState('')
@@ -566,19 +573,19 @@ export function TravelAcquisitionProvider({
   const submit = useCallback(async (entryLocation: EntryLocation) => {
     if (availability !== 'available') {
       setStatus('unavailable')
-      setMessage('The walkthrough is available without registration.')
+      setMessage(copy.acquisition.directVideo)
       return
     }
 
     const candidate = email.trim()
     if (!candidate || candidate.length > 254 || !EMAIL_PATTERN.test(candidate)) {
       setStatus('invalid')
-      setMessage('Enter a valid email address.')
+      setMessage(copy.acquisition.invalidEmail)
       return
     }
 
     setStatus('submitting')
-    setMessage('Saving your access request…')
+    setMessage(copy.acquisition.savingRequest)
     trackTravelEvent('email_submit_attempt', { entryLocation })
 
     try {
@@ -595,7 +602,7 @@ export function TravelAcquisitionProvider({
 
       if (response.status === 202 && result.status === 'accepted') {
         setStatus('accepted')
-        setMessage('Your request was saved. This does not mean an email was verified or delivered.')
+        setMessage(copy.acquisition.accepted)
         trackTravelEvent('lead_capture_success', { entryLocation })
         setGateOpen(false)
         setVideoOpen(true)
@@ -608,14 +615,14 @@ export function TravelAcquisitionProvider({
       } else {
         setStatus(response.status === 400 ? 'invalid' : 'error')
       }
-      setMessage(result.message || 'We could not save your request. Please try again or book a demo.')
+      setMessage(copy.acquisition.saveError)
       trackTravelEvent('lead_capture_error', { entryLocation })
     } catch {
       setStatus('error')
-      setMessage('The access service is temporarily unavailable. Please try again or book a demo.')
+      setMessage(copy.acquisition.unavailable)
       trackTravelEvent('lead_capture_error', { entryLocation })
     }
-  }, [availability, email])
+  }, [availability, copy.acquisition, email])
 
   const setEmail = useCallback((value: string) => {
     setEmailValue(value)
@@ -626,6 +633,8 @@ export function TravelAcquisitionProvider({
   }, [status])
 
   const value = useMemo<AcquisitionContextValue>(() => ({
+    locale,
+    copy,
     email,
     setEmail,
     status,
@@ -637,7 +646,7 @@ export function TravelAcquisitionProvider({
     openVideo,
     setHeroNode,
     setFinalNode,
-  }), [email, setEmail, status, message, availability, privacyNoticeUrl, submit, openGate, openVideo])
+  }), [locale, copy, email, setEmail, status, message, availability, privacyNoticeUrl, submit, openGate, openVideo])
 
   const dockVisible = heroPassed
     && !dismissed

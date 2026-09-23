@@ -223,7 +223,7 @@ export const jaContent = {
     seo: {
       title: '旅行業務のAI Workforce | Gappy',
       description:
-        'Gappyは、予約、サプライヤー対応、照合、履行確認、変更対応、顧客コミュニケーションなどの旅行業務を実行するAI Workforceを開発しています。',
+        'ガイド・サプライヤー確認、未返信のフォローアップ、予約変更後の再確認、最新予約との照合まで。GappyのAI Workforceが予約後業務を完了まで進めます。',
     },
     hero: {
       eyebrow: 'Gappy / Travel',

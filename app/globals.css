@@ -326,6 +326,7 @@ summary:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
 .travel-hero__lead { max-width: 39rem; margin-top: 1.8rem; color: rgba(255,255,255,.68); font-size: clamp(1rem,1.2vw,1.18rem); line-height: 1.65; }
 .travel-hero__scroll { position: absolute; z-index: 3; right: 2rem; bottom: 1.8rem; display: flex; align-items: center; gap: .8rem; color: rgba(255,255,255,.48); font: 500 .65rem/1 var(--font-dm-mono),monospace; letter-spacing: .12em; }
 .travel-hero__scroll span { display: grid; width: 2rem; height: 2rem; place-items: center; border: 1px solid rgba(255,255,255,.3); border-radius: 50%; color: white; }
+.travel-hero__demo-link { display: inline-flex; margin-top: 1rem; color: rgba(255,255,255,.58); font-size: .72rem; font-weight: 600; text-decoration: underline; text-decoration-color: rgba(230,255,74,.45); text-underline-offset: .4rem; }
 .travel-hero-conversion { max-width: 37rem; border-top: 1px solid rgba(255,255,255,.18); }
 .travel-hero-access { border-radius: 1rem; backdrop-filter: blur(18px); }
 .travel-hero-access input { border-radius: .65rem; border-color: rgba(255,255,255,.24); }
@@ -479,6 +480,43 @@ summary:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
 .travel-scenario-card p { margin-top: .8rem; color: rgba(255,255,255,.68); font-size: .82rem; line-height: 1.65; }
 .travel-scenario-card button { min-height: 3rem; margin-top: 1.2rem; border: 1px solid rgba(255,255,255,.42); border-radius: 999px; padding: .7rem 1rem; background: rgba(0,0,0,.26); text-align: left; font-size: .75rem; font-weight: 600; backdrop-filter: blur(10px); }
 
+.travel-roi-section { padding-block: clamp(6rem,10vw,10rem); background: #d5c3ff; color: #111; }
+.travel-roi-grid { display: grid; grid-template-columns: .72fr 1.28fr; gap: clamp(3rem,7vw,8rem); align-items: start; }
+.travel-roi-copy h2 { margin-top: 1rem; font-size: clamp(3rem,5.5vw,6rem); font-weight: 600; letter-spacing: -.07em; line-height: .93; }
+.travel-roi-copy > p:not(.travel-kicker) { margin-top: 1.5rem; max-width: 36rem; line-height: 1.75; }
+.travel-roi-copy ul { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 2rem; }
+.travel-roi-copy li { padding: .55rem .75rem; border: 1px solid rgba(17,17,15,.22); border-radius: 999px; font-size: .7rem; }
+.travel-roi-copy .travel-roi-evidence { padding-top: 1.2rem; border-top: 1px solid rgba(17,17,15,.18); color: rgba(17,17,15,.58); font-size: .74rem; }
+.travel-roi-calculator { padding: clamp(1.25rem,3vw,2.2rem); border-radius: 1.2rem; background: #111114; color: white; box-shadow: 0 35px 80px rgba(39,24,75,.22); }
+.travel-roi-controls { display: grid; grid-template-columns: repeat(2,1fr); gap: .8rem; margin-top: 1.5rem; }
+.travel-roi-controls label { display: grid; gap: .45rem; color: rgba(255,255,255,.58); font-size: .67rem; line-height: 1.35; }
+.travel-roi-input { display: flex; align-items: center; min-height: 3rem; border: 1px solid rgba(255,255,255,.18); border-radius: .65rem; background: rgba(255,255,255,.05); }
+.travel-roi-input input { min-width: 0; width: 100%; min-height: 3rem; padding: .7rem .8rem; background: transparent; color: white; font-size: 1rem; outline: none; }
+.travel-roi-input b { padding-right: .75rem; color: rgba(255,255,255,.4); font-size: .65rem; font-weight: 500; }
+.travel-roi-controls select { min-height: 3rem; padding: .7rem .8rem; border: 1px solid rgba(255,255,255,.18); border-radius: .65rem; background: #1c1c20; color: white; outline: none; }
+.travel-roi-output--primary { margin-top: 1.7rem; padding: 1.5rem; border-radius: .85rem; background: var(--travel-acid); color: #111; }
+.travel-roi-output span,.travel-roi-secondary span { display: block; font-size: .68rem; line-height: 1.45; }
+.travel-roi-output strong { display: inline-block; margin-top: .5rem; font-size: clamp(3.7rem,7vw,6.5rem); letter-spacing: -.075em; line-height: .85; }
+.travel-roi-output small { margin-left: .5rem; font-size: .75rem; }
+.travel-roi-secondary { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; margin-top: 1px; background: rgba(255,255,255,.16); }
+.travel-roi-secondary div { min-width: 0; padding: 1rem; background: #18181c; }
+.travel-roi-secondary span { min-height: 2.1rem; color: rgba(255,255,255,.48); }
+.travel-roi-secondary strong { display: block; margin-top: .7rem; overflow-wrap: anywhere; font-size: clamp(1.1rem,2vw,1.65rem); letter-spacing: -.04em; }
+.travel-roi-disclaimer { margin-top: 1.2rem; color: rgba(255,255,255,.42); font-size: .68rem; line-height: 1.6; }
+
+[data-locale="ja"] .travel-theme { font-family: var(--font-noto-sans-jp), "Hiragino Sans", sans-serif; }
+[data-locale="ja"] .travel-hero__copy h1 { letter-spacing: -.035em; line-height: 1.08; }
+[data-locale="ja"] .travel-studio .section-title,
+[data-locale="ja"] .travel-section-intro h2,
+[data-locale="ja"] .travel-platform-copy h2,
+[data-locale="ja"] .travel-brand-panel h3,
+[data-locale="ja"] .travel-faq-grid h2,
+[data-locale="ja"] .travel-roi-copy h2,
+[data-locale="ja"] .travel-final-grid h2 { letter-spacing: -.035em; line-height: 1.12; }
+[data-locale="ja"] .travel-hero__lead,
+[data-locale="ja"] .travel-section-intro > p,
+[data-locale="ja"] .travel-platform-copy > p:not(.travel-kicker) { line-height: 1.9; }
+
 .travel-pilot-section { padding-block: clamp(6rem,10vw,10rem); background: #ece8de; }
 .travel-section-intro--dark { grid-template-columns: 1.1fr .9fr; }
 .travel-section-intro--light { grid-template-columns: 1.1fr .9fr; }
@@ -526,6 +564,7 @@ summary:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
   .travel-hero__wash { background: linear-gradient(90deg,rgba(7,8,10,.96),rgba(7,8,10,.68) 62%,rgba(7,8,10,.42)),linear-gradient(0deg,rgba(7,8,10,.75),transparent 52%); }
   .travel-hero-product { min-height: 31rem; }
   .travel-platform-grid,.travel-brand-panel,.travel-faq-grid { grid-template-columns: 1fr; }
+  .travel-roi-grid { grid-template-columns: 1fr; }
   .travel-section-intro--dark,.travel-section-intro--light { grid-template-columns: 1fr; }
   .travel-stage-list { grid-template-columns: repeat(2,1fr); }
   .travel-platform-map { min-height: 34rem; }
@@ -566,6 +605,8 @@ summary:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
   .travel-brand-swatches { grid-template-columns: repeat(2,1fr); }
   .travel-measurement-strip { grid-template-columns: 1fr; }
   .travel-scenario-card,.travel-scenario-card__content { min-height: 30rem; }
+  .travel-roi-controls,.travel-roi-secondary { grid-template-columns: 1fr; }
+  .travel-roi-output strong { font-size: clamp(3.2rem,18vw,5rem); }
   .travel-mobile-dock { border-radius: 1rem; }
   .travel-gate-dialog { border-radius: 1rem 1rem 0 0; }
 }
