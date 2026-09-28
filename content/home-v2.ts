@@ -65,9 +65,11 @@ export const homeCopy = {
     },
     final: {
       eyebrow: "GAPPY AI WORKFORCE",
-      title: ["Keep every tour", "ready to operate."],
+      title: ["From task automation", "to verified operations."],
       body: "Explore the workflow, then bring us the operation you want to work on.",
     },
+    finalDemo: "View interactive demo",
+    finalSales: "Talk to Gappy",
     tabs: ["Identify", "Execute", "Verify", "Recover"],
     jobs: [
       [
@@ -278,9 +280,11 @@ export const homeCopy = {
     },
     final: {
       eyebrow: "GAPPY AI WORKFORCE",
-      title: ["すべてのツアーを、", "催行可能な状態へ。"],
+      title: ["タスクの自動化から、", "検証された業務へ。"],
       body: "まずは、業務が進む流れを体験。その後、取り組みたい業務をお聞かせください。",
     },
+    finalDemo: "インタラクティブデモを見る",
+    finalSales: "Gappyに相談する",
     tabs: ["未解決業務の特定", "業務実行", "証拠の検証", "変更からの復旧"],
     jobs: [
       [

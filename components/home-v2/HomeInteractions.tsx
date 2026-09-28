@@ -154,18 +154,25 @@ function JobUI({ locale, index }: { locale: HomeLocale; index: number }) {
     <div className={`hv-dark hv-job-ui hv-job-ui-${index}`}>
       {index === 0 ? (
         <>
-          <BookingCard locale={locale} />
-          <Requirements locale={locale} pending />
+          <div className="hv-job-primary"><BookingCard locale={locale} /></div>
+          <div className="hv-job-instrument"><Readiness locale={locale} state="received" /></div>
+          <div className="hv-job-secondary"><Requirements locale={locale} pending /></div>
         </>
       ) : index === 1 ? (
         <>
-          <Readiness locale={locale} />
-          <Activity locale={locale} />
+          <div className="hv-job-primary"><Requirements locale={locale} /></div>
+          <div className="hv-job-instrument"><Readiness locale={locale} /></div>
+          <div className="hv-job-secondary"><Activity locale={locale} /></div>
         </>
       ) : index === 2 ? (
         <>
-          <EvidenceCard locale={locale} />
-          <div className="hv-principle">{c.ui.principle}</div>
+          <div className="hv-job-primary"><EvidenceCard locale={locale} /></div>
+          <div className="hv-job-instrument"><Readiness locale={locale} state="response" /></div>
+          <div className="hv-job-secondary hv-checks">
+            <p className="hv-panel-title">{c.ui.verification}</p>
+            <ol>{c.ui.checks.map((check) => <li key={check}><Circle size={15} /><span>{check}</span></li>)}</ol>
+            <div className="hv-principle">{c.ui.principle}</div>
+          </div>
           <a className="hv-text-link" href="#verification">
             {c.ui.inspect}
             <ArrowRight size={16} />
@@ -173,14 +180,15 @@ function JobUI({ locale, index }: { locale: HomeLocale; index: number }) {
         </>
       ) : (
         <>
-          <div className="hv-invalidation">
+          <div className="hv-job-primary hv-invalidation">
             <TriangleAlert size={20} />
             <div>
               <strong>{c.cancel}</strong>
               <p>{c.ui.invalidated}</p>
             </div>
           </div>
-          <Candidate locale={locale} />
+          <div className="hv-job-instrument"><Readiness locale={locale} state="candidate" /></div>
+          <div className="hv-job-secondary"><Candidate locale={locale} /></div>
           <a className="hv-text-link" href="#recovery">
             {c.ui.explore}
             <ArrowRight size={16} />
@@ -226,6 +234,10 @@ export function Workflow({ locale }: { locale: HomeLocale }) {
                 <ArrowRight size={17} />
               </a>
             ))}
+            <div className="hv-workflow-progress" aria-hidden="true">
+              <span>0{active + 1} / 04</span>
+              <div><i style={{ width: `${(active + 1) * 25}%` }} /></div>
+            </div>
           </nav>
           <div
             className="hv-workflow-canvas"
@@ -236,9 +248,12 @@ export function Workflow({ locale }: { locale: HomeLocale }) {
                 0{active + 1} / {c.tabs[active]}
               </span>
               <h3>{c.jobs[active][0]}</h3>
-              <p>{c.jobs[active][1]}</p>
             </div>
             <JobUI key={active} locale={locale} index={active} />
+            <div className="hv-workflow-support">
+              <div><strong>{c.ui.requirements}</strong><p>{c.jobs[active][1]}</p></div>
+              <div><strong>{c.ui.principle}</strong><p>{c.synthetic}</p></div>
+            </div>
           </div>
         </div>
         <div className="hv-workflow-markers" aria-hidden="true">

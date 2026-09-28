@@ -45,17 +45,17 @@ function Heading({
     </div>
   );
 }
-function Actions({ locale }: { locale: HomeLocale }) {
+function Actions({ locale, final = false }: { locale: HomeLocale; final?: boolean }) {
   const c = homeCopy[locale];
   return (
     <div className="hv-actions">
       <div>
         <a className="hv-button" href={DEMO_URL} title={c.external}>
-          {c.demo}
+          {final ? c.finalDemo : c.demo}
           <ArrowRight size={18} />
         </a>
         <a className="hv-button hv-button-secondary" href={GOODTIME_URL}>
-          {c.sales}
+          {final ? c.finalSales : c.sales}
           <ArrowRight size={18} />
         </a>
       </div>
@@ -201,7 +201,7 @@ export default function HomePageV2({ locale }: { locale: HomeLocale }) {
         <div className="hv-container">
           <ShieldCheck size={34} className="hv-final-icon" />
           <Heading copy={c.final} />
-          <Actions locale={locale} />
+          <Actions locale={locale} final />
         </div>
       </section>
     </div>

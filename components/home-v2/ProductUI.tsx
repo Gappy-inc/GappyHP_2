@@ -234,6 +234,9 @@ export function ProductWindow({ locale }: { locale: HomeLocale }) {
       <div className="hv-hero-activity hv-dark">
         <Activity locale={locale} />
       </div>
+      <div className="hv-hero-evidence hv-dark">
+        <EvidenceCard locale={locale} />
+      </div>
       <ProductCaption locale={locale} />
       <p className="hv-caption">
         {locale === "ja"

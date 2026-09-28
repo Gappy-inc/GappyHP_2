@@ -152,4 +152,20 @@ check("handoff presentation primitives and source-backed proof fragments", () =>
   assert.match(source, /data-context-visible/);
   assert.match(css, /\.hv-recovery-mobile > \.hv-recovery-rail\s*\{\s*grid-template-columns: 1fr/);
 });
+check("structural reference preserves truthful product state and final CTA", () => {
+  const css = readFileSync("components/home-v2/home-v2.css", "utf8");
+  assert.match(css, /--hv-page-width: 1392px/);
+  assert.match(css, /\.hv-job-instrument\s*\{\s*color: #142019;/);
+  assert.match(source, /hv-workflow-support/);
+  assert.match(source, /hv-workflow-progress/);
+  assert.match(source, /state="received"/);
+  assert.match(source, /state="response"/);
+  assert.match(source, /state="candidate"/);
+  assert.match(source, /hv-hero-evidence/);
+  assert.deepEqual(homeCopy.en.final.title, ["From task automation", "to verified operations."]);
+  assert.equal(homeCopy.en.finalDemo, "View interactive demo");
+  assert.equal(homeCopy.en.finalSales, "Talk to Gappy");
+  assert.equal(homeCopy.ja.final.title.length, 2);
+  assert.doesNotMatch(source, /attio\.com|\/attio[^"']*\.(png|jpg|svg)/i);
+});
 console.log(`Home V2: ${checks} test groups passed`);
