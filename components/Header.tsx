@@ -7,8 +7,17 @@ import BrandMark from '@/components/BrandMark'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { getContent, isJapanesePath, localizedPath } from '@/content'
 import { GOODTIME_URL } from '@/lib/config'
+import dynamic from 'next/dynamic'
+
+const HomeNavigation = dynamic(() => import('@/components/home-v2/HomeNavigation'))
 
 export default function Header() {
+  const pathname = usePathname()
+  if (pathname === '/' || pathname === '/ja/' || pathname === '/ja') return <HomeNavigation locale={isJapanesePath(pathname) ? 'ja' : 'en'} />
+  return <CorporateHeader />
+}
+
+function CorporateHeader() {
   const pathname = usePathname()
   const locale = isJapanesePath(pathname) ? 'ja' : 'en'
   const copy = getContent(locale).navigation
