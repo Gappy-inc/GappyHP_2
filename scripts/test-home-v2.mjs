@@ -168,4 +168,25 @@ check("structural reference preserves truthful product state and final CTA", () 
   assert.equal(homeCopy.ja.final.title.length, 2);
   assert.doesNotMatch(source, /attio\.com|\/attio[^"']*\.(png|jpg|svg)/i);
 });
+check("final P1 pass preserves dc78226 copy, IA, product and verification/recovery", () => {
+  const frozen = {
+    "content/home-v2.ts": "ee4596447d9b0490aa520ac7948b520f58c3b365150de8f6574ad04de58a5fca",
+    "components/home-v2/HomePageV2.tsx": "5f3b6c82e4be8ced058bf195aa946a3e0b0824f7c1f1da6bf7b33f983eeec97a",
+    "components/home-v2/ProductUI.tsx": "8e025cb19e825d16cea13288c50e09a83dd24c01a20818b162f2766ba907dc37",
+    "components/home-v2/HomeFooter.tsx": "5e008ca074de6e43cd7bd8dd56de77b45f7dedf8400a285fe67f5393b6ff9263",
+    "lib/home-demo.ts": "762d13fc7960b6f59e3de0fbec350625be5cf3baef35e42d44ace3e8be87ec4d",
+  };
+  for (const [file, hash] of Object.entries(frozen))
+    assert.equal(createHash("sha256").update(readFileSync(file)).digest("hex"), hash, file);
+  const interactions = readFileSync("components/home-v2/HomeInteractions.tsx", "utf8");
+  assert.equal(createHash("sha256").update(interactions.slice(interactions.indexOf("export function Verification("))).digest("hex"), "ef2bd73ef1fc2f96277d31e81bae7a427ef5702ff272c34720e89e2088bd67ca");
+  const signals = interactions.slice(interactions.indexOf("function WorkflowSignals("), interactions.indexOf("function JobUI("));
+  assert.match(signals, /homeStates\[key\]\.readiness/);
+  assert.match(signals, /"unresolved" in state/);
+  assert.match(signals, /index === 1 \? <ol/);
+  assert.doesNotMatch(signals, /onClick|useState|useEffect|fetch\(/);
+  const css = readFileSync("components/home-v2/home-v2.css", "utf8");
+  assert.match(css, /\.hv-workflow-signals \{ display: none; \}/);
+  assert.match(css, /\.home-v2\.hv-footer \{ background: #08111b;/);
+});
 console.log(`Home V2: ${checks} test groups passed`);

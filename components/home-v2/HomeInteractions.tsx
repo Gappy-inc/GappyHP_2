@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { homeCopy, workflowIds, type HomeLocale } from "@/content/home-v2";
 import {
+  homeStates,
   recoveryScene,
   verificationTransition,
   type HomeState,
@@ -148,6 +149,29 @@ export function BookingSequence({ locale }: { locale: HomeLocale }) {
   );
 }
 
+// Read-only summary of existing synthetic states; never advances verification.
+function WorkflowSignals({ locale, index }: { locale: HomeLocale; index: number }) {
+  const c = homeCopy[locale];
+  const state = homeStates[(["received", "advanced", "response", "candidate"] as const)[index]];
+  return (
+    <div className="hv-workflow-signals">
+      <div className="hv-workflow-trace">
+        <span>{c.ui.readiness}</span>
+        {index === 1 ? <ol aria-label={c.interim}>
+          {(["received", "execution57", "execution71", "advanced"] as const).map((key, i) => (
+            <li key={key}><span>{homeStates[key].readiness}</span>{i < 3 && <ArrowRight size={12} aria-hidden="true" />}</li>
+          ))}
+        </ol> : <strong>{state.readiness}%</strong>}
+      </div>
+      <div className="hv-workflow-signal-state">
+        {"unresolved" in state && <span>{c.ui.unresolved} <strong>{state.unresolved}</strong></span>}
+        {index === 2 && <span>{c.stages[3]}</span>}
+        <span><Circle size={11} aria-hidden="true" />{c.ui.waiting}</span>
+      </div>
+    </div>
+  );
+}
+
 function JobUI({ locale, index }: { locale: HomeLocale; index: number }) {
   const c = homeCopy[locale];
   return (
@@ -195,6 +219,7 @@ function JobUI({ locale, index }: { locale: HomeLocale; index: number }) {
           </a>
         </>
       )}
+      <WorkflowSignals locale={locale} index={index} />
     </div>
   );
 }

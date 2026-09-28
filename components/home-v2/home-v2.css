@@ -4141,3 +4141,67 @@
   .home-v2 .hv-workflow-fallback .hv-job-instrument { background: #f2f4ef; padding: 20px; }
   .home-v2 .hv-workflow-progress i { transition: none; }
 }
+
+/* Final human-review P1 delta. Canonical base: dc7822681b6050065dffe0fc9ec57209002768d6.
+   Only Workflow density, Context scale and homepage footer tone are in scope. */
+.home-v2 .hv-workflow-signals { display: none; }
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  .home-v2 .hv-workflow-canvas .hv-job-ui { position: relative; }
+  .home-v2 .hv-workflow-canvas .hv-workflow-signals {
+    display: block; position: absolute; left: 56px; bottom: 24px;
+    width: calc(60% - 56px); height: 76px; padding-top: 12px;
+    color: #324437; border-top: 1px solid #cbd3c9;
+  }
+  .home-v2 .hv-workflow-trace { display: flex; align-items: center; gap: 20px; font-size: 12px; }
+  .home-v2 .hv-workflow-trace ol { display: flex; gap: 8px; }
+  .home-v2 .hv-workflow-trace li { display: flex; align-items: center; gap: 8px; font-size: 17px; font-variant-numeric: tabular-nums; }
+  .home-v2 .hv-workflow-signal-state { display: flex; gap: 24px; margin-top: 10px; font-size: 12px; }
+  .home-v2 .hv-workflow-signal-state > span { display: flex; align-items: center; gap: 6px; }
+  .home-v2 .hv-workflow-signal-state strong { font-weight: 500; }
+}
+
+/* The chapter itself is the system canvas, not a boxed architecture card. */
+.home-v2 #context .hv-context-core > span { order: 1; font-family: inherit; font-size: 56px; line-height: 1.1; letter-spacing: -.045em; color: #f0f5f6; }
+.home-v2 #context .hv-context-core strong { order: 2; font-size: 27px; color: #b9c7cd; }
+.home-v2 #context .hv-context-core > svg { width: 48px; height: 48px; margin-bottom: 12px; }
+.home-v2 #context .hv-context-core { border-block: 0; gap: 22px; }
+@media (min-width: 900px) {
+  .home-v2 #context > .hv-container { padding-inline: 24px; padding-top: 180px; padding-bottom: 128px; }
+  .home-v2 #context .hv-heading { max-width: 1240px; margin-bottom: 128px; }
+  .home-v2 #context .hv-heading h2 { font-size: 104px; }
+  .home-v2.hv-ja #context .hv-heading h2 { font-size: 82px; }
+  .home-v2 #context .hv-context-inputs { gap: 0; }
+  .home-v2 #context .hv-context-inputs li { min-height: 70px; padding: 24px 28px; font-size: 16px; }
+  .home-v2 #context .hv-context-inputs li:nth-child(n+5) { position: relative; }
+  .home-v2 #context .hv-context-inputs li:nth-child(n+5):after { content: ""; position: absolute; left: 50%; bottom: -49px; width: 1px; height: 48px; background: #627568; }
+  .home-v2 #context .hv-context-inputs { position: relative; }
+  .home-v2 #context .hv-context-inputs:after { content: ""; position: absolute; left: 12.5%; right: 12.5%; bottom: -49px; height: 1px; background: #627568; }
+  .home-v2 #context .hv-context-core { margin-block: 112px; padding-block: 64px; }
+  .home-v2 #context .hv-context-core:before { height: 64px; top: -64px; }
+  .home-v2 #context .hv-context-core:after { height: 112px; bottom: -112px; }
+  .home-v2 #context .hv-context-outputs { gap: 0; border-top: 1px solid #627568; }
+  .home-v2 #context .hv-context-outputs li { flex-direction: column; padding: 36px 24px; font-size: 28px; line-height: 1.25; text-align: center; border-top: 0; }
+  .home-v2 #context .hv-context-outputs li + li { border-left: 1px solid #293b43; }
+  .home-v2 #context .hv-context-outputs svg { width: 22px; height: 22px; margin-bottom: 12px; }
+}
+@media (min-width: 900px) and (max-width: 1199px) {
+  .home-v2 .hv-workflow-canvas .hv-workflow-signals { left: 28px; width: calc(60% - 28px); }
+  .home-v2 .hv-workflow-trace { gap: 10px; }
+  .home-v2 .hv-workflow-trace ol, .home-v2 .hv-workflow-trace li { gap: 4px; }
+  .home-v2 #context .hv-heading h2 { font-size: 80px; }
+  .home-v2.hv-ja #context .hv-heading h2 { font-size: 64px; }
+}
+@media (max-width: 899px) {
+  .home-v2 #context .hv-context-core > span { font-size: 32px; }
+  .home-v2 #context .hv-context-core strong { font-size: 20px; }
+  .home-v2 #context .hv-context-core > svg { width: 36px; height: 36px; }
+}
+
+/* Same dark surface as the preceding CTA; footer IA and destinations stay intact. */
+.home-v2.hv-footer { background: #08111b; color: #eff4f5; --hv-line: #29323b; --hv-muted: #afbec7; border-top: 1px solid #29323b; }
+.home-v2.hv-footer .hv-footer-grid > div:first-child > p,
+.home-v2.hv-footer .hv-footer-contact > p,
+.home-v2.hv-footer .hv-footer-bottom { color: #afbec7; }
+.home-v2.hv-footer .hv-footer-bottom { border-top-color: #29323b; }
+.home-v2.hv-footer a:hover { color: #b6f36d; }
+.home-v2.hv-footer :focus-visible { outline-color: #b6f36d; }
