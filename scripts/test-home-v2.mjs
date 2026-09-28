@@ -132,4 +132,15 @@ check("11-block IA and no unapproved proof elements", () => {
     /Trusted by|meeting_booked|Production proven|free trial|fully self-serve/,
   );
 });
+check("editorial workflow has one changing canvas and readable fallbacks", () => {
+  const interactions = readFileSync("components/home-v2/HomeInteractions.tsx", "utf8");
+  assert.equal((interactions.match(/data-active-workflow=/g) || []).length, 1);
+  assert.match(interactions, /<JobUI locale=\{locale\} index=\{active\}/);
+  assert.match(interactions, /hv-workflow-fallback/);
+  assert.match(interactions, /observer\.disconnect\(\)/);
+  const css = readFileSync("components/home-v2/home-v2.css", "utf8");
+  assert.match(css, /prefers-reduced-motion: reduce/);
+  assert.match(css, /\.hv-workflow-fallback\s*\{\s*display: block/);
+  assert.doesNotMatch(css, /(?:linear|radial)-gradient/);
+});
 console.log(`Home V2: ${checks} test groups passed`);

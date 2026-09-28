@@ -79,7 +79,7 @@ export default function HomePageV2({ locale }: { locale: HomeLocale }) {
       <noscript>
         <style>
           {
-            ".home-v2 .hv-workflow-desktop{display:block}.home-v2 .hv-workflow-desktop>nav{position:static}.home-v2 .hv-workflow-mobile,.home-v2 .hv-recovery-desktop{display:none}.home-v2 .hv-recovery-mobile{display:block}"
+            ".home-v2 .hv-workflow-desktop{display:none}.home-v2 .hv-workflow-fallback{display:block}.home-v2 .hv-workflow-mobile,.home-v2 .hv-recovery-desktop{display:none}.home-v2 .hv-recovery-mobile{display:block}"
           }
         </style>
         <p className="hv-container hv-caption">
@@ -107,13 +107,13 @@ export default function HomePageV2({ locale }: { locale: HomeLocale }) {
           <Workflow locale={locale} />
         </div>
       </section>
-      <section id="verification" className="hv-section hv-tint">
+      <section id="verification" className="hv-section">
         <div className="hv-container">
           <Heading copy={c.verification} />
           <Verification locale={locale} />
         </div>
       </section>
-      <section id="recovery" className="hv-section">
+      <section id="recovery" className="hv-section hv-tint">
         <div className="hv-container">
           <Heading copy={c.recovery} />
           <Recovery locale={locale} />

@@ -116,7 +116,7 @@ export function BookingSequence({ locale }: { locale: HomeLocale }) {
 function JobUI({ locale, index }: { locale: HomeLocale; index: number }) {
   const c = homeCopy[locale];
   return (
-    <div className="hv-dark hv-job-ui">
+    <div className={`hv-dark hv-job-ui hv-job-ui-${index}`}>
       {index === 0 ? (
         <>
           <BookingCard locale={locale} />
@@ -178,33 +178,53 @@ export function Workflow({ locale }: { locale: HomeLocale }) {
   return (
     <>
       <div className="hv-workflow-desktop" ref={root}>
-        <nav aria-label={c.workflow.eyebrow}>
-          {c.tabs.map((label, i) => (
-            <a
-              key={label}
-              href={`#job-${workflowIds[i]}`}
-              aria-current={active === i ? "step" : undefined}
-            >
-              <span>0{i + 1}</span>
-              {label}
-              <ArrowRight size={17} />
-            </a>
-          ))}
-        </nav>
-        <div>
-          {c.jobs.map((job, i) => (
-            <article id={`job-${workflowIds[i]}`} data-job={i} key={job[0]}>
-              <div className="hv-job-heading">
-                <span className="hv-eyebrow">
-                  0{i + 1} / {c.tabs[i]}
-                </span>
-                <h3>{job[0]}</h3>
-                <p>{job[1]}</p>
-              </div>
-              <JobUI locale={locale} index={i} />
-            </article>
+        <div className="hv-workflow-pinned">
+          <nav aria-label={c.workflow.eyebrow}>
+            {c.tabs.map((label, i) => (
+              <a
+                key={label}
+                href={`#job-${workflowIds[i]}`}
+                aria-current={active === i ? "step" : undefined}
+              >
+                <span>0{i + 1}</span>
+                {label}
+                <ArrowRight size={17} />
+              </a>
+            ))}
+          </nav>
+          <div
+            className="hv-workflow-canvas"
+            data-active-workflow={workflowIds[active]}
+          >
+            <div className="hv-job-heading">
+              <span className="hv-eyebrow">
+                0{active + 1} / {c.tabs[active]}
+              </span>
+              <h3>{c.jobs[active][0]}</h3>
+              <p>{c.jobs[active][1]}</p>
+            </div>
+            <JobUI locale={locale} index={active} />
+          </div>
+        </div>
+        <div className="hv-workflow-markers" aria-hidden="true">
+          {workflowIds.map((id, i) => (
+            <div id={`job-${id}`} data-job={i} key={id} />
           ))}
         </div>
+      </div>
+      <div className="hv-workflow-fallback">
+        {c.jobs.map((job, i) => (
+          <article key={job[0]}>
+            <div className="hv-job-heading">
+              <span className="hv-eyebrow">
+                0{i + 1} / {c.tabs[i]}
+              </span>
+              <h3>{job[0]}</h3>
+              <p>{job[1]}</p>
+            </div>
+            <JobUI locale={locale} index={i} />
+          </article>
+        ))}
       </div>
       <div className="hv-workflow-mobile">
         {c.jobs.map((job, i) => (
@@ -250,7 +270,7 @@ export function Verification({ locale }: { locale: HomeLocale }) {
   const verified = state === "ready";
   return (
     <>
-      <div className="hv-verification hv-dark">
+      <div className="hv-verification" data-verification-state={state}>
         <div className="hv-verification-source">
           <EvidenceCard locale={locale} verified={verified} />
           <div className="hv-principle">{c.ui.principle}</div>
@@ -312,7 +332,7 @@ function RecoveryPanel({
 }) {
   const c = homeCopy[locale];
   return (
-    <div className="hv-recovery-panel hv-dark">
+    <div className="hv-recovery-panel" data-recovery-scene={scene}>
       <Readiness locale={locale} state={recoveryScene(scene)} />
       {scene === 0 ? (
         <div className="hv-complete">
@@ -380,7 +400,9 @@ export function Recovery({ locale }: { locale: HomeLocale }) {
     manual.current = true;
     setScene(next);
     // Keep the narrative chapter and the inspected product state together.
-    document.getElementById(`recovery-${next}`)?.scrollIntoView({ block: "center", behavior: "instant" });
+    document
+      .getElementById(`recovery-${next}`)
+      ?.scrollIntoView({ block: "center", behavior: "instant" });
   };
   const onKey = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
     const next =

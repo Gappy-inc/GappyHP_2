@@ -184,15 +184,19 @@ export function ProductWindow({ locale }: { locale: HomeLocale }) {
               {booking.time} · {ui.guests}
             </span>
           </div>
-          <Readiness locale={locale} />
           <Requirements locale={locale} />
-          <Activity locale={locale} />
           <div className="hv-window-foot">
             <ShieldCheck size={15} />
             <span>{ui.verification}</span>
             <span>{ui.waiting}</span>
           </div>
         </div>
+      </div>
+      <div className="hv-hero-readiness">
+        <Readiness locale={locale} large />
+      </div>
+      <div className="hv-hero-activity hv-dark">
+        <Activity locale={locale} />
       </div>
       <ProductCaption locale={locale} />
       <p className="hv-caption">
@@ -282,7 +286,9 @@ export function Candidate({
         <span className="hv-avatar">MS</span>
         <div>
           <strong>Mika Sato</strong>
-          <span className="hv-meta">{locale === "ja" ? "英語対応・京都" : "English · Kyoto"}</span>
+          <span className="hv-meta">
+            {locale === "ja" ? "英語対応・京都" : "English · Kyoto"}
+          </span>
         </div>
         <span className={`hv-tag ${verified ? "" : "hv-tag-neutral"}`}>
           {verified ? c.ui.verified : c.ui.received}

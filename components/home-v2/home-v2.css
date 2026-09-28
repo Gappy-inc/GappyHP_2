@@ -2530,3 +2530,1085 @@
     display: none;
   }
 }
+
+/* Homepage-only editorial composition. Product state and copy remain canonical. */
+.home-v2.hv-home {
+  --hv-paper: #fafaf9;
+  --hv-line: #dfe1dd;
+}
+.home-v2 .hv-container {
+  max-width: 1400px;
+  padding-inline: 48px;
+}
+.home-v2 .hv-heading h1,
+.home-v2 .hv-heading h2 {
+  font-weight: 500;
+  letter-spacing: -0.065em;
+}
+.home-v2 .hv-heading h2 {
+  font-size: clamp(44px, 4.7vw, 68px);
+  line-height: 1.08;
+}
+.home-v2.hv-ja .hv-heading h2 {
+  font-size: clamp(38px, 3.7vw, 54px);
+  line-height: 1.32;
+  letter-spacing: -0.055em;
+}
+.home-v2 .hv-lead {
+  font-size: 17px;
+  max-width: 480px;
+}
+.home-v2 .hv-section {
+  padding-block: 128px;
+}
+.home-v2 .hv-button {
+  border-radius: 4px;
+  font-size: 14px;
+  min-height: 44px;
+}
+.home-v2.hv-header.is-scrolled {
+  box-shadow: none;
+}
+.home-v2 .hv-tag {
+  border: 0;
+  border-radius: 0;
+  background: none;
+  padding: 2px 0;
+}
+.home-v2 .hv-tag-neutral {
+  background: none;
+}
+.home-v2 .hv-panel-title > svg {
+  display: none;
+}
+.home-v2 .hv-tint {
+  background: #f0f1ef;
+}
+
+/* Hero: headline first; product enters the lower canvas, not a 50/50 split. */
+.home-v2 .hv-hero {
+  display: block;
+  padding-block: 90px 0;
+  position: relative;
+}
+.home-v2 .hv-hero-copy {
+  padding: 0;
+  position: relative;
+  z-index: 2;
+}
+.home-v2 .hv-heading h1 {
+  font-size: clamp(64px, 6.7vw, 96px);
+  line-height: 1.02;
+  max-width: 1100px;
+}
+.home-v2.hv-ja .hv-heading h1 {
+  font-size: clamp(56px, 5.7vw, 82px);
+  line-height: 1.2;
+  letter-spacing: -0.06em;
+  font-weight: 500;
+}
+.home-v2 .hv-hero .hv-lead {
+  max-width: 330px;
+  margin-top: 42px;
+}
+.home-v2 .hv-hero .hv-actions {
+  width: 345px;
+  margin-top: 24px;
+}
+.home-v2 .hv-hero .hv-actions > div {
+  gap: 20px;
+  align-items: center;
+}
+.home-v2 .hv-hero .hv-button-secondary {
+  padding-inline: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+.home-v2 .hv-hero-product {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  position: relative;
+  margin-top: -198px;
+  padding-bottom: 56px;
+  z-index: 1;
+  column-gap: 24px;
+}
+.home-v2 .hv-hero-product .hv-window {
+  grid-column: 5 / -1;
+  grid-row: 1;
+  border-radius: 5px;
+  box-shadow: 0 12px 28px #08111b0d;
+  transform: translateX(24px);
+}
+.home-v2 .hv-app-main {
+  display: block;
+  padding: 24px 28px 0;
+}
+.home-v2 .hv-app-sidebar {
+  padding-top: 28px;
+}
+.home-v2 .hv-app-title {
+  padding-block: 24px;
+}
+.home-v2 .hv-hero .hv-app-main .hv-requirements li {
+  padding-block: 14px;
+}
+.home-v2 .hv-hero-readiness {
+  grid-column: 1 / 5;
+  grid-row: 1;
+  align-self: end;
+  padding: 48px 0 0;
+}
+.home-v2 .hv-hero-readiness .hv-readiness {
+  display: block;
+}
+.home-v2 .hv-hero-readiness .hv-ring {
+  width: 172px;
+  height: 172px;
+  margin-bottom: 16px;
+}
+.home-v2 .hv-hero-readiness .hv-ring strong {
+  font-size: 54px;
+}
+.home-v2 .hv-hero-readiness .hv-readiness > div:last-child {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0 16px;
+  max-width: 290px;
+}
+.home-v2 .hv-hero-readiness .hv-counts {
+  grid-column: 1 / -1;
+  margin-top: 18px;
+}
+.home-v2 .hv-hero-readiness :is(.hv-meta, .hv-counts dt) {
+  color: #536058;
+}
+.home-v2 .hv-hero-readiness .hv-status {
+  color: #365622;
+  margin: 0;
+}
+.home-v2 .hv-hero-readiness .hv-ring circle {
+  stroke: #dfe5d9;
+  stroke-width: 5;
+}
+.home-v2 .hv-hero-readiness .hv-ring .hv-ring-fill {
+  stroke: #669342;
+}
+.home-v2 .hv-hero-activity {
+  grid-column: 8 / -1;
+  grid-row: 2;
+  margin: -26px 0 0;
+  position: relative;
+  padding: 22px 24px;
+  border: 1px solid #35434e;
+}
+.home-v2 .hv-hero-activity .hv-activity {
+  padding: 0;
+}
+.home-v2 .hv-hero-activity .hv-activity li {
+  font-size: 14px;
+}
+.home-v2 .hv-hero-product > .hv-product-caption {
+  grid-column: 1 / 8;
+  grid-row: 2;
+  align-self: end;
+  margin: 0;
+}
+.home-v2 .hv-hero-product > .hv-caption:last-child {
+  grid-column: 1 / 8;
+}
+
+/* Product proof: a full-width instrument, articulated by rules rather than a frame. */
+.home-v2 #product-proof > .hv-container {
+  display: block;
+}
+.home-v2 #product-proof .hv-heading {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 0 64px;
+  align-items: end;
+}
+.home-v2 #product-proof .hv-eyebrow {
+  grid-column: 1 / -1;
+}
+.home-v2 #product-proof .hv-heading h2 {
+  font-size: 48px;
+}
+.home-v2.hv-ja #product-proof .hv-heading h2 {
+  font-size: 42px;
+}
+.home-v2 .hv-stage-rail {
+  background: transparent;
+  border-inline: 0;
+}
+.home-v2 .hv-stage-rail button {
+  min-height: 80px;
+}
+.home-v2 .hv-sequence-body {
+  grid-template-columns: 4fr 8fr;
+  border: 0;
+}
+.home-v2 .hv-sequence-body > .hv-booking-card {
+  border: 0;
+  border-right: 1px solid #30404f;
+  padding: 36px;
+}
+.home-v2 .hv-sequence-body > .hv-booking-card dl {
+  grid-template-columns: 1fr;
+}
+.home-v2 .hv-sequence-body > div:last-child {
+  padding: 36px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: center;
+}
+.home-v2 .hv-sequence-body .hv-readiness {
+  display: block;
+}
+.home-v2 .hv-sequence-body .hv-readiness > div:last-child {
+  margin-top: 16px;
+}
+.home-v2 .hv-sequence-body .hv-execution,
+.home-v2 .hv-sequence-body .hv-text-link {
+  grid-column: 1 / -1;
+}
+
+/* The core scroll chapter: sticky labels and ONE changing product stage. */
+.home-v2 #workflow {
+  padding-bottom: 72px;
+}
+.home-v2 #workflow > .hv-container {
+  border-inline: 1px solid var(--hv-line);
+}
+.home-v2 #workflow > .hv-container > .hv-heading {
+  max-width: 1000px;
+  margin-bottom: 72px;
+}
+.home-v2 #workflow .hv-heading .hv-lead {
+  margin-left: 25%;
+}
+.home-v2 .hv-workflow-desktop {
+  display: block;
+  position: relative;
+  height: 2800px;
+  border-top: 1px solid var(--hv-line);
+}
+.home-v2 .hv-workflow-pinned {
+  position: sticky;
+  top: 96px;
+  display: grid;
+  grid-template-columns: 3fr 9fr;
+  z-index: 2;
+  background: var(--hv-paper);
+}
+.home-v2 .hv-workflow-pinned > nav {
+  padding: 40px 24px 40px 0;
+  border-right: 1px solid var(--hv-line);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-self: stretch;
+}
+.home-v2 .hv-workflow-pinned > nav a {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  min-height: 56px;
+  font-size: 15px;
+  color: #647068;
+  border-left: 2px solid transparent;
+  padding-left: 12px;
+}
+.home-v2 .hv-workflow-pinned > nav a[aria-current] {
+  color: #17201b;
+  border-left-color: #648642;
+}
+.home-v2 .hv-workflow-pinned > nav a > span {
+  font-size: 12px;
+}
+.home-v2 .hv-workflow-pinned > nav a > svg {
+  margin-left: auto;
+  width: 14px;
+  opacity: 0;
+}
+.home-v2 .hv-workflow-pinned > nav a[aria-current] > svg {
+  opacity: 1;
+}
+.home-v2 .hv-workflow-canvas {
+  min-width: 0;
+}
+.home-v2 .hv-workflow-canvas .hv-job-heading {
+  padding: 32px 40px;
+  margin: 0;
+  min-height: 172px;
+  border-bottom: 1px solid var(--hv-line);
+}
+.home-v2 .hv-workflow-canvas .hv-job-heading h3 {
+  font-size: 30px;
+  font-weight: 500;
+  margin-top: 10px;
+}
+.home-v2 .hv-workflow-canvas .hv-job-ui {
+  min-height: 390px;
+  padding: 40px;
+  border: 0;
+  border-radius: 0;
+}
+.home-v2 .hv-workflow-markers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.home-v2 .hv-workflow-markers > div {
+  height: 25%;
+  scroll-margin-top: 116px;
+}
+.home-v2 .hv-workflow-fallback {
+  display: none;
+}
+.home-v2 .hv-workflow-canvas .hv-job-ui-0,
+.home-v2 .hv-workflow-canvas .hv-job-ui-1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+.home-v2 .hv-workflow-canvas .hv-job-ui-0 .hv-booking-card {
+  padding: 0;
+}
+.home-v2 .hv-workflow-canvas .hv-job-ui-0 .hv-booking-card dl {
+  grid-template-columns: 1fr;
+}
+.home-v2 .hv-workflow-canvas .hv-job-ui-1 .hv-readiness {
+  display: block;
+}
+.home-v2 .hv-workflow-canvas .hv-job-ui-1 .hv-ring {
+  width: 178px;
+  height: 178px;
+  margin-bottom: 24px;
+}
+.home-v2 .hv-workflow-canvas .hv-job-ui-1 .hv-activity {
+  border-left: 1px solid #30404f;
+  padding: 24px 0 24px 24px;
+}
+.home-v2 .hv-workflow-canvas .hv-job-ui-2 {
+  display: grid;
+  grid-template-columns: 6fr 5fr;
+  gap: 32px;
+  align-items: center;
+}
+.home-v2 .hv-workflow-canvas .hv-job-ui-2 .hv-principle {
+  font-size: 38px;
+  border: 0;
+  padding: 0;
+  font-weight: 500;
+}
+.home-v2 .hv-workflow-canvas .hv-job-ui-2 .hv-text-link {
+  grid-column: 2;
+  margin: 0;
+  justify-self: start;
+}
+.home-v2 .hv-workflow-canvas .hv-job-ui-3 {
+  display: grid;
+  grid-template-columns: 4fr 6fr;
+  gap: 24px;
+}
+.home-v2 .hv-workflow-canvas .hv-job-ui-3 .hv-text-link {
+  grid-column: 2;
+  margin: 0;
+  justify-self: start;
+}
+
+/* Verification: a centered statement over evidence/check/result fragments. */
+.home-v2 #verification > .hv-container {
+  display: block;
+}
+.home-v2 #verification > .hv-container > .hv-heading {
+  text-align: center;
+  margin: 0 auto 72px;
+  max-width: 1120px;
+}
+.home-v2 #verification .hv-lead {
+  margin-inline: auto;
+  max-width: 580px;
+}
+.home-v2 .hv-verification {
+  grid-template-columns: 5fr 7fr;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  border-top: 1px solid var(--hv-line);
+  border-bottom: 1px solid var(--hv-line);
+}
+.home-v2 .hv-verification-source {
+  background: transparent;
+  padding: 40px 56px 40px 0;
+  border-right: 1px solid var(--hv-line);
+}
+.home-v2 .hv-verification-source .hv-evidence {
+  background: #08111b;
+  color: #f2f6f8;
+  padding: 28px;
+}
+.home-v2 .hv-verification-source .hv-principle {
+  font-size: 28px;
+  padding-block: 24px;
+  border-color: var(--hv-line);
+}
+.home-v2 .hv-verification-source .hv-readiness :is(.hv-meta, .hv-counts dt) {
+  color: #536058;
+}
+.home-v2 .hv-verification-source .hv-status {
+  color: #365622;
+}
+.home-v2 .hv-verification-source .hv-ring circle {
+  stroke: #dfe5d9;
+}
+.home-v2 .hv-verification-source .hv-ring .hv-ring-fill {
+  stroke: #669342;
+}
+.home-v2 .hv-verification > .hv-checks {
+  padding: 40px 0 40px 56px;
+}
+.home-v2 .hv-verification .hv-checks li {
+  border-color: var(--hv-line);
+  font-size: 17px;
+  padding-block: 20px;
+}
+.home-v2 .hv-verification .hv-checked {
+  color: #416728;
+}
+.home-v2 .hv-verification-result {
+  background: none;
+  border: 0;
+  border-left: 2px solid #a6ada4;
+  padding: 12px 24px;
+  margin-block: 32px;
+}
+.home-v2 .hv-verification-result strong {
+  color: #17201b;
+  font-size: 36px;
+  font-weight: 500;
+}
+.home-v2 .hv-verification-result p {
+  color: #536058;
+}
+.home-v2
+  .hv-verification[data-verification-state="ready"]
+  .hv-verification-result {
+  border-left-color: #648642;
+  background: #edf2e8;
+}
+
+/* Recovery: numbers are the story; fragments remain on the chapter canvas. */
+.home-v2 #recovery > .hv-container {
+  display: block;
+}
+.home-v2 #recovery > .hv-container > .hv-heading {
+  position: static;
+  max-width: 920px;
+  margin-bottom: 64px;
+}
+.home-v2 #recovery .hv-lead {
+  margin-left: 18%;
+  max-width: 620px;
+}
+.home-v2 .hv-recovery-desktop {
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+  gap: 64px;
+}
+.home-v2 .hv-recovery-sticky {
+  top: 100px;
+}
+.home-v2 .hv-recovery-rail {
+  border-inline: 0;
+}
+.home-v2 .hv-recovery-controls strong {
+  font-size: 76px;
+  font-weight: 500;
+  letter-spacing: -0.07em;
+}
+.home-v2 .hv-recovery-controls button {
+  min-height: 142px;
+  padding: 16px;
+}
+.home-v2 .hv-recovery-controls button[aria-pressed="true"] {
+  box-shadow: none;
+  border-bottom: 2px solid #527735;
+  background: #e8ece4;
+}
+.home-v2 .hv-recovery-controls .is-risk button[aria-pressed="true"] {
+  border-bottom-color: #986034;
+}
+.home-v2 .hv-recovery-controls span {
+  min-height: 0;
+}
+.home-v2 .hv-recovery-panel {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 32px 0;
+  min-height: 350px;
+  display: grid;
+  grid-template-columns: 4fr 6fr;
+  gap: 24px;
+  align-items: start;
+}
+.home-v2 .hv-recovery-panel > .hv-readiness {
+  grid-column: 1;
+  display: block;
+}
+.home-v2 .hv-recovery-panel .hv-ring {
+  width: 142px;
+  height: 142px;
+  margin-bottom: 14px;
+}
+.home-v2 .hv-recovery-panel > :not(.hv-readiness) {
+  grid-column: 2;
+}
+.home-v2 .hv-recovery-panel :is(.hv-candidate, .hv-invalidation, .hv-complete) {
+  background: #08111b;
+  color: #f2f6f8;
+  padding: 24px;
+  margin: 0;
+}
+.home-v2 .hv-recovery-panel .hv-candidate {
+  grid-row: 1 / 3;
+}
+.home-v2 .hv-recovery-panel > .hv-invalidation {
+  grid-column: 1;
+  grid-row: 2;
+  background: transparent;
+  color: #783c32;
+  padding: 12px 0;
+  border-top: 1px solid #b8aca5;
+}
+.home-v2 .hv-recovery-panel > .hv-invalidation p {
+  color: #6c4f45;
+}
+.home-v2 .hv-recovery-panel > .hv-readiness :is(.hv-meta, .hv-counts dt) {
+  color: #536058;
+}
+.home-v2 .hv-recovery-panel .hv-readiness .hv-status {
+  color: #365622;
+}
+.home-v2 .hv-recovery-panel .hv-readiness.is-risk .hv-status {
+  color: #86501f;
+}
+.home-v2 .hv-recovery-panel .hv-ring circle {
+  stroke: #d9e0d3;
+}
+.home-v2 .hv-recovery-panel .hv-ring .hv-ring-fill {
+  stroke: #669342;
+}
+.home-v2 .hv-recovery-panel .is-risk .hv-ring-fill {
+  stroke: #a77439;
+}
+.home-v2 .hv-recovery-chapters article {
+  padding-top: 96px;
+  min-height: 520px;
+}
+.home-v2 .hv-recovery-chapters h3 {
+  font-size: 32px;
+  font-weight: 500;
+}
+
+/* Dark chapter and ruled control matrix, then the light proof index. */
+.home-v2 #context > .hv-container {
+  display: block;
+}
+.home-v2 #context .hv-heading {
+  max-width: 1100px;
+  margin: 0 auto 72px;
+  text-align: center;
+}
+.home-v2 #context .hv-lead {
+  max-width: 660px;
+  margin-inline: auto;
+}
+.home-v2 .hv-context-diagram {
+  max-width: 1060px;
+  margin-inline: auto;
+}
+.home-v2 .hv-context-inputs {
+  gap: 0;
+}
+.home-v2 .hv-context-inputs li {
+  border: 0;
+  border-left: 1px solid #30404f;
+  border-bottom: 1px solid #30404f;
+  background: none;
+  padding: 20px;
+}
+.home-v2 .hv-context-core {
+  background: transparent;
+  border: 1px solid #30404f;
+}
+.home-v2 .hv-architecture-grid {
+  grid-template-columns: 5fr 7fr;
+}
+.home-v2 .hv-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+.home-v2 .hv-controls > div {
+  padding: 28px;
+  border: 0;
+  border-top: 1px solid #30404f;
+  border-left: 1px solid #30404f;
+  display: block;
+}
+.home-v2 .hv-controls > div > svg {
+  display: none;
+}
+.home-v2 .hv-controls h3 {
+  margin-top: 30px;
+}
+.home-v2 .hv-controls > .hv-caption {
+  grid-column: 1 / -1;
+  padding-top: 24px;
+}
+.home-v2 #proof > .hv-container {
+  grid-template-columns: 6fr 6fr;
+  gap: 80px;
+}
+.home-v2 .hv-proof-grid article {
+  position: relative;
+  padding-left: 48px;
+}
+.home-v2 .hv-proof-grid article + article {
+  padding-left: 48px;
+}
+.home-v2 .hv-proof-number {
+  position: absolute;
+  left: 0;
+  top: 42px;
+}
+.home-v2 .hv-proof-grid h3 {
+  font-size: 26px;
+  font-weight: 500;
+}
+.home-v2 .hv-final > .hv-container {
+  max-width: 1140px;
+}
+.home-v2 .hv-final .hv-heading h2 {
+  font-size: 80px;
+}
+.home-v2.hv-ja .hv-final .hv-heading h2 {
+  font-size: 64px;
+}
+.home-v2 .hv-final-icon {
+  display: none;
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .home-v2 .hv-container {
+    padding-inline: 32px;
+  }
+  .home-v2 .hv-hero-product {
+    margin-top: 48px;
+  }
+  .home-v2 .hv-hero .hv-lead {
+    max-width: 560px;
+  }
+  .home-v2 .hv-hero .hv-actions {
+    width: auto;
+  }
+  .home-v2 .hv-hero-product .hv-window {
+    grid-column: 4 / -1;
+    transform: none;
+  }
+  .home-v2 .hv-hero-readiness {
+    grid-column: 1 / 4;
+  }
+  .home-v2 .hv-hero-readiness .hv-readiness > div:last-child {
+    display: block;
+  }
+  .home-v2 .hv-app-sidebar {
+    display: none;
+  }
+  .home-v2 .hv-window {
+    grid-template-columns: 1fr;
+  }
+  .home-v2 .hv-hero-activity {
+    grid-column: 6 / -1;
+    margin-top: 20px;
+  }
+  .home-v2 .hv-sequence-body {
+    grid-template-columns: 1fr 2fr;
+  }
+  .home-v2 .hv-sequence-body > div:last-child {
+    grid-template-columns: 1fr;
+  }
+  .home-v2 .hv-workflow-pinned {
+    grid-template-columns: 3fr 7fr;
+  }
+  .home-v2 .hv-workflow-canvas .hv-job-heading {
+    padding: 24px;
+  }
+  .home-v2 .hv-workflow-canvas .hv-job-ui {
+    padding: 24px;
+    gap: 24px;
+  }
+  .home-v2 .hv-workflow-canvas .hv-job-ui-0,
+  .home-v2 .hv-workflow-canvas .hv-job-ui-3 {
+    grid-template-columns: 1fr;
+  }
+  .home-v2 .hv-workflow-canvas .hv-job-ui-3 .hv-text-link {
+    grid-column: 1;
+  }
+  .home-v2 .hv-verification-source {
+    padding-right: 24px;
+  }
+  .home-v2 .hv-verification > .hv-checks {
+    padding-left: 24px;
+  }
+  .home-v2 .hv-architecture-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 767px) {
+  .home-v2 .hv-container {
+    padding-inline: 20px;
+  }
+  .home-v2 .hv-section {
+    padding-block: 72px;
+  }
+  .home-v2 .hv-hero {
+    padding-top: 48px;
+  }
+  .home-v2 .hv-heading h1 {
+    font-size: 52px;
+  }
+  .home-v2.hv-ja .hv-heading h1 {
+    font-size: 39px;
+    line-height: 1.3;
+  }
+  .home-v2 .hv-heading h2 {
+    font-size: 40px;
+  }
+  .home-v2.hv-ja .hv-heading h2 {
+    font-size: 34px;
+  }
+  .home-v2 .hv-hero .hv-lead {
+    max-width: none;
+    margin-top: 24px;
+  }
+  .home-v2 .hv-hero .hv-actions {
+    width: auto;
+  }
+  .home-v2 .hv-hero .hv-actions > div {
+    align-items: stretch;
+    gap: 8px;
+  }
+  .home-v2 .hv-hero .hv-button-secondary {
+    align-self: flex-start;
+  }
+  .home-v2 .hv-hero-product {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 32px;
+    padding-bottom: 36px;
+  }
+  .home-v2 .hv-hero-readiness {
+    order: -1;
+    padding: 0 0 24px;
+    align-self: stretch;
+  }
+  .home-v2 .hv-hero-readiness .hv-readiness {
+    display: flex;
+    padding: 0;
+    gap: 24px;
+  }
+  .home-v2 .hv-hero-readiness .hv-readiness > div:last-child {
+    display: block;
+  }
+  .home-v2 .hv-hero-readiness .hv-ring {
+    width: 136px;
+    height: 136px;
+    margin: 0;
+  }
+  .home-v2 .hv-hero-readiness .hv-ring strong {
+    font-size: 42px;
+  }
+  .home-v2 .hv-hero-product .hv-window {
+    transform: none;
+    border-radius: 3px;
+    box-shadow: none;
+  }
+  .home-v2 .hv-app-main {
+    padding: 20px 18px 0;
+  }
+  .home-v2 .hv-hero-activity {
+    margin: 0 0 20px 28px;
+    padding: 18px;
+    border-top: 0;
+  }
+  .home-v2 .hv-hero-activity li:not(:first-child) {
+    display: none;
+  }
+  .home-v2 #product-proof .hv-heading {
+    display: block;
+  }
+  .home-v2 #product-proof .hv-heading h2 {
+    font-size: 40px;
+  }
+  .home-v2.hv-ja #product-proof .hv-heading h2 {
+    font-size: 34px;
+  }
+  .home-v2 .hv-stage-rail {
+    grid-template-columns: 1fr 1fr;
+  }
+  .home-v2 .hv-stage-rail button {
+    font-size: 12px;
+    min-height: 60px;
+  }
+  .home-v2 .hv-stage-rail li:nth-child(even) {
+    border-left: 1px solid var(--hv-line);
+  }
+  .home-v2 .hv-sequence-body {
+    grid-template-columns: 1fr;
+  }
+  .home-v2 .hv-sequence-body > .hv-booking-card {
+    padding: 24px;
+    border-right: 0;
+    border-bottom: 1px solid #30404f;
+  }
+  .home-v2 .hv-sequence-body > div:last-child {
+    display: block;
+    padding: 24px;
+  }
+  .home-v2 .hv-sequence-body .hv-readiness {
+    display: flex;
+  }
+  .home-v2 #workflow > .hv-container {
+    border-inline: 0;
+  }
+  .home-v2 #workflow .hv-heading .hv-lead {
+    margin-left: 0;
+  }
+  .home-v2 .hv-workflow-desktop {
+    display: none;
+  }
+  .home-v2 .hv-job-ui {
+    border-radius: 0;
+    border: 0;
+  }
+  .home-v2 #verification > .hv-container > .hv-heading {
+    text-align: left;
+    margin-bottom: 40px;
+  }
+  .home-v2 .hv-verification {
+    display: block;
+  }
+  .home-v2 .hv-verification-source {
+    padding: 24px 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--hv-line);
+  }
+  .home-v2 .hv-verification-source .hv-evidence {
+    padding: 24px;
+  }
+  .home-v2 .hv-verification > .hv-checks {
+    padding: 24px 0;
+  }
+  .home-v2 .hv-verification-source .hv-principle {
+    font-size: 23px;
+  }
+  .home-v2 #recovery .hv-lead {
+    margin-left: 0;
+  }
+  .home-v2 .hv-recovery-panel {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    min-height: 0;
+  }
+  .home-v2 .hv-recovery-panel > :not(.hv-readiness),
+  .home-v2 .hv-recovery-panel .hv-candidate,
+  .home-v2 .hv-recovery-panel > .hv-invalidation {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .home-v2 .hv-recovery-panel > .hv-readiness {
+    display: flex;
+  }
+  .home-v2 .hv-recovery-panel .hv-ring {
+    width: 120px;
+    height: 120px;
+    margin: 0;
+  }
+  .home-v2 #context .hv-heading {
+    text-align: left;
+    margin-bottom: 48px;
+  }
+  .home-v2 .hv-context-inputs li {
+    padding: 14px 8px;
+  }
+  .home-v2 .hv-context-inputs li svg {
+    display: none;
+  }
+  .home-v2 .hv-architecture-grid {
+    grid-template-columns: 1fr;
+  }
+  .home-v2 .hv-controls > div {
+    padding: 20px 12px;
+  }
+  .home-v2 .hv-controls h3 {
+    font-size: 19px;
+    margin-top: 18px;
+  }
+  .home-v2 #proof > .hv-container {
+    display: block;
+  }
+  .home-v2 .hv-final .hv-heading h2 {
+    font-size: 44px;
+  }
+  .home-v2.hv-ja .hv-final .hv-heading h2 {
+    font-size: 36px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-v2 .hv-workflow-desktop {
+    display: none;
+  }
+  .home-v2 .hv-workflow-fallback {
+    display: block;
+  }
+  .home-v2 .hv-workflow-mobile {
+    display: none;
+  }
+  .home-v2 .hv-workflow-fallback article {
+    padding-block: 32px;
+    border-top: 1px solid var(--hv-line);
+  }
+}
+
+/* Final correction after the side-by-side Attio comparison. */
+.home-v2 .hv-verification-source .hv-principle {
+  color: #17201b;
+  font-weight: 500;
+}
+.home-v2 .hv-verification .hv-check-number {
+  color: #59655c;
+}
+.home-v2 .hv-recovery-panel > .hv-invalidation .hv-tag-risk {
+  color: #783c32;
+}
+.home-v2 .hv-recovery-chapters h3 {
+  text-wrap: balance;
+  word-break: auto-phrase;
+}
+.home-v2 .hv-workflow-canvas .hv-job-ui-1 {
+  background: #eff1ed;
+  color: #17201b;
+  --hv-muted: #536058;
+}
+.home-v2
+  .hv-workflow-canvas
+  .hv-job-ui-1
+  .hv-readiness
+  :is(.hv-meta, .hv-counts dt) {
+  color: #536058;
+}
+.home-v2 .hv-workflow-canvas .hv-job-ui-1 .hv-status {
+  color: #365622;
+}
+.home-v2 .hv-workflow-canvas .hv-job-ui-1 .hv-ring circle {
+  stroke: #d9e0d3;
+}
+.home-v2 .hv-workflow-canvas .hv-job-ui-1 .hv-ring .hv-ring-fill {
+  stroke: #669342;
+}
+.home-v2 .hv-workflow-canvas .hv-job-ui-1 .hv-activity {
+  background: #08111b;
+  color: #f2f6f8;
+  border: 0;
+  padding: 32px;
+  transform: translate(40px, 18px);
+}
+@media (min-width: 1200px) {
+  .home-v2 .hv-hero {
+    padding-top: 56px;
+  }
+  .home-v2 .hv-hero-product {
+    margin-top: -230px;
+  }
+  .home-v2 .hv-hero-product .hv-window {
+    grid-column: 5 / -1;
+  }
+  .home-v2 .hv-hero .hv-app-title {
+    padding-block: 14px;
+  }
+  .home-v2 .hv-hero .hv-app-main .hv-requirements li {
+    padding-block: 10px;
+  }
+  .home-v2 .hv-hero-readiness {
+    grid-column: 1 / 5;
+    grid-row: 1;
+    padding: 0 0 28px;
+  }
+  .home-v2 .hv-hero-readiness .hv-readiness {
+    display: flex;
+    padding: 0;
+  }
+  .home-v2 .hv-hero-readiness .hv-ring {
+    width: 144px;
+    height: 144px;
+    margin: 0;
+  }
+  .home-v2 .hv-hero-readiness .hv-ring strong {
+    font-size: 46px;
+  }
+  .home-v2 .hv-hero-readiness .hv-readiness > div:last-child {
+    display: block;
+  }
+  .home-v2 .hv-hero-activity {
+    grid-column: 7 / -1;
+    margin-top: -24px;
+    align-self: start;
+    padding: 20px 24px;
+  }
+  .home-v2 .hv-hero-activity ol {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .home-v2 .hv-hero-activity li {
+    align-items: flex-start;
+  }
+  .home-v2 .hv-hero-activity li + li:before,
+  .home-v2 .hv-hero-activity li > svg {
+    display: none;
+  }
+  .home-v2 .hv-hero-activity .hv-activity-dot {
+    margin-top: 7px;
+  }
+  .home-v2 .hv-hero-activity .hv-meta {
+    display: block;
+    font-size: 12px;
+  }
+  .home-v2 .hv-hero-product > .hv-product-caption {
+    grid-row: 3;
+  }
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  .home-v2 .hv-workflow-canvas .hv-job-ui-1 {
+    grid-template-columns: 1fr;
+  }
+  .home-v2 .hv-workflow-canvas .hv-job-ui-1 .hv-readiness {
+    display: flex;
+  }
+  .home-v2 .hv-workflow-canvas .hv-job-ui-1 .hv-ring {
+    width: 130px;
+    height: 130px;
+    margin: 0;
+  }
+  .home-v2 .hv-workflow-canvas .hv-job-ui-1 .hv-activity {
+    transform: none;
+    padding: 24px;
+  }
+}
