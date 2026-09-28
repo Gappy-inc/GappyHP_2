@@ -14,9 +14,10 @@ import {
 } from "lucide-react";
 import { DEMO_URL, homeCopy, type HomeLocale } from "@/content/home-v2";
 import { GOODTIME_URL } from "@/lib/config";
-import { ProductWindow } from "./ProductUI";
+import { ProductWindow, ProofMoment } from "./ProductUI";
 import {
   BookingSequence,
+  ContextFlow,
   Recovery,
   Verification,
   Workflow,
@@ -122,7 +123,7 @@ export default function HomePageV2({ locale }: { locale: HomeLocale }) {
       <section id="context" className="hv-section hv-dark hv-context">
         <div className="hv-container">
           <Heading copy={c.context} />
-          <div className="hv-context-diagram">
+          <ContextFlow>
             <ul className="hv-context-inputs">
               {c.inputs.map((label, i) => {
                 const Icon = contextIcons[i];
@@ -147,7 +148,7 @@ export default function HomePageV2({ locale }: { locale: HomeLocale }) {
                 </li>
               ))}
             </ul>
-          </div>
+          </ContextFlow>
         </div>
       </section>
       <section id="architecture" className="hv-section hv-dark hv-architecture">
@@ -185,6 +186,7 @@ export default function HomePageV2({ locale }: { locale: HomeLocale }) {
               <article key={proof[0]}>
                 <span className="hv-proof-number">0{i + 1}</span>
                 <h3>{proof[0]}</h3>
+                <ProofMoment locale={locale} index={i} />
                 <p>{proof[1]}</p>
                 <a href={DEMO_URL} className="hv-text-link" title={c.external}>
                   {c.proofLink}

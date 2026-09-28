@@ -135,12 +135,21 @@ check("11-block IA and no unapproved proof elements", () => {
 check("editorial workflow has one changing canvas and readable fallbacks", () => {
   const interactions = readFileSync("components/home-v2/HomeInteractions.tsx", "utf8");
   assert.equal((interactions.match(/data-active-workflow=/g) || []).length, 1);
-  assert.match(interactions, /<JobUI locale=\{locale\} index=\{active\}/);
+  assert.match(interactions, /<JobUI key=\{active\} locale=\{locale\} index=\{active\}/);
   assert.match(interactions, /hv-workflow-fallback/);
   assert.match(interactions, /observer\.disconnect\(\)/);
   const css = readFileSync("components/home-v2/home-v2.css", "utf8");
   assert.match(css, /prefers-reduced-motion: reduce/);
   assert.match(css, /\.hv-workflow-fallback\s*\{\s*display: block/);
   assert.doesNotMatch(css, /(?:linear|radial)-gradient/);
+});
+check("handoff presentation primitives and source-backed proof fragments", () => {
+  const css = readFileSync("components/home-v2/home-v2.css", "utf8");
+  for (const token of ["--hv-page-width", "--hv-gutter", "--hv-grid-gap", "--hv-motion-fast", "--hv-motion-state", "--hv-motion-reveal", "--hv-ease"])
+    assert.ok(css.includes(token));
+  assert.match(source, /<ProofMoment locale=\{locale\} index=\{i\}/);
+  assert.match(source, /homeStates\[state\]\.readiness/);
+  assert.match(source, /data-context-visible/);
+  assert.match(css, /\.hv-recovery-mobile > \.hv-recovery-rail\s*\{\s*grid-template-columns: 1fr/);
 });
 console.log(`Home V2: ${checks} test groups passed`);

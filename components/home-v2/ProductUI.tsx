@@ -25,6 +25,42 @@ export function ProductCaption({ locale }: { locale: HomeLocale }) {
   );
 }
 
+// Crops of the same synthetic product states used above, not customer metrics.
+export function ProofMoment({
+  locale,
+  index,
+}: {
+  locale: HomeLocale;
+  index: number;
+}) {
+  const c = homeCopy[locale];
+  return (
+    <div className={`hv-proof-moment hv-proof-moment-${index}`}>
+      {index === 0 ? (
+        <Readiness locale={locale} />
+      ) : index === 1 ? (
+        <div className="hv-proof-verification">
+          <span>{c.ui.received}</span>
+          <span aria-hidden="true">≠</span>
+          <strong>{c.ui.verified}</strong>
+          <small>{c.ui.checked}</small>
+        </div>
+      ) : (
+        <ol className="hv-proof-recovery">
+          {(["ready", "invalidated", "recovered"] as const).map((state, i) => (
+            <li key={state} className={i === 1 ? "is-risk" : ""}>
+              <strong>
+                {homeStates[state].readiness}<small>%</small>
+              </strong>
+              <span>{c.recoveryStates[i]}</span>
+            </li>
+          ))}
+        </ol>
+      )}
+    </div>
+  );
+}
+
 export function Readiness({
   locale,
   state = "advanced",

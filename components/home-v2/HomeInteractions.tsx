@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState, type KeyboardEvent } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type KeyboardEvent,
+  type ReactNode,
+} from "react";
 import {
   ArrowRight,
   Check,
@@ -26,6 +32,35 @@ import {
   Readiness,
   Requirements,
 } from "./ProductUI";
+
+// Presentation only: never implies that an integration is connected or running.
+// All content is server-rendered and readable before this one-time line reveal.
+export function ContextFlow({ children }: { children: ReactNode }) {
+  const root = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.25 },
+    );
+    if (root.current) observer.observe(root.current);
+    return () => observer.disconnect();
+  }, []);
+  return (
+    <div
+      ref={root}
+      className="hv-context-diagram"
+      data-context-visible={visible}
+    >
+      {children}
+    </div>
+  );
+}
 
 export function BookingSequence({ locale }: { locale: HomeLocale }) {
   const c = homeCopy[locale];
@@ -203,7 +238,7 @@ export function Workflow({ locale }: { locale: HomeLocale }) {
               <h3>{c.jobs[active][0]}</h3>
               <p>{c.jobs[active][1]}</p>
             </div>
-            <JobUI locale={locale} index={active} />
+            <JobUI key={active} locale={locale} index={active} />
           </div>
         </div>
         <div className="hv-workflow-markers" aria-hidden="true">
