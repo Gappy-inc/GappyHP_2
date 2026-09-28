@@ -58,23 +58,25 @@ export default function HomeNavigation({ locale }: { locale: HomeLocale }) {
     setOpen(false);
     trigger.current?.focus();
   };
+  // Reload the document so RootLayout derives lang, skip text and body locale from the request.
   const languages = (
     <div className="hv-languages">
-      <Link
+      {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- Locale switching must re-run the document-level SSR. */}
+      <a
         href="/"
         aria-label="English"
         aria-current={locale === "en" ? "page" : undefined}
       >
         EN
-      </Link>
+      </a>
       <span>/</span>
-      <Link
+      <a
         href="/ja/"
         aria-label="日本語"
         aria-current={locale === "ja" ? "page" : undefined}
       >
         JP
-      </Link>
+      </a>
     </div>
   );
   return (

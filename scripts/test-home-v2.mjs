@@ -189,4 +189,16 @@ check("final P1 pass preserves dc78226 copy, IA, product and verification/recove
   assert.match(css, /\.hv-workflow-signals \{ display: none; \}/);
   assert.match(css, /\.home-v2\.hv-footer \{ background: #08111b;/);
 });
+check("homepage locale switches reload the SSR document in desktop and mobile navigation", () => {
+  const navigation = readFileSync("components/home-v2/HomeNavigation.tsx", "utf8");
+  const languagesStart = navigation.indexOf("const languages = (");
+  const languages = navigation.slice(languagesStart, navigation.indexOf("  return (", languagesStart));
+  assert.equal((languages.match(/<a\s/g) || []).length, 2);
+  assert.match(languages, /<a\s+href="\/"\s+aria-label="English"/);
+  assert.match(languages, /<a\s+href="\/ja\/"\s+aria-label="日本語"/);
+  assert.doesNotMatch(languages, /<Link\b|onClick|preventDefault/);
+  assert.equal((navigation.match(/\{languages\}/g) || []).length, 2);
+  assert.match(navigation, /const \[open, setOpen\] = useState\(false\)/);
+  assert.doesNotMatch(navigation, /document\.documentElement|setAttribute\(["']lang/);
+});
 console.log(`Home V2: ${checks} test groups passed`);
