@@ -3,11 +3,13 @@ import BrandMark from '@/components/BrandMark'
 import { AxisMark } from '@/components/GappyAxis'
 import { getContent, localizedPath, type Locale } from '@/content'
 import { COMPANY_ADDRESS, CONTACT_EMAIL, GOODTIME_URL } from '@/lib/config'
+import FooterSelector from '@/components/home-v2/FooterSelector'
 
 export default function Footer({ locale = 'en' }: { locale?: Locale }) {
   const copy = getContent(locale)
   const links = [...copy.navigation.primary, ...copy.navigation.company].map(({ label, path }) => ({ label, href: localizedPath(path, locale) }))
   return (
+    <FooterSelector locale={locale}>
     <footer className="relative overflow-hidden bg-navy-950 pb-8 pt-16 text-white/60">
       <div className="container-luxe">
         <div className="grid gap-14 border-b border-white/20 pb-16 lg:grid-cols-[1.25fr_0.75fr]">
@@ -30,5 +32,6 @@ export default function Footer({ locale = 'en' }: { locale?: Locale }) {
         <div className="flex flex-col gap-3 pt-8 font-mono text-[12px] uppercase tracking-[0.1em] text-white/35 sm:flex-row sm:justify-between"><p>© 2026 Gappy, Inc.</p><p>{locale === 'ja' ? '事業オペレーションのためのAI Workforce' : 'AI Workforce for Business Operations'}</p></div>
       </div>
     </footer>
+    </FooterSelector>
   )
 }
