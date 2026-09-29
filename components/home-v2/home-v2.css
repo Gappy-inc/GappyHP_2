@@ -4205,3 +4205,166 @@
 .home-v2.hv-footer .hv-footer-bottom { border-top-color: #29323b; }
 .home-v2.hv-footer a:hover { color: #b6f36d; }
 .home-v2.hv-footer :focus-visible { outline-color: #b6f36d; }
+
+/* Hero composition only. Reuse the canonical Gappy product fragments and copy;
+   no scroll animation, new product state, or changes to subsequent chapters. */
+.home-v2 .hv-hero {
+  padding-top: 72px;
+  min-height: 0;
+}
+.home-v2 .hv-hero .hv-heading h1 {
+  max-width: 1000px;
+  margin-top: 24px;
+}
+.home-v2 .hv-hero .hv-lead {
+  max-width: 580px;
+  margin-top: 24px;
+}
+.home-v2 .hv-hero .hv-actions {
+  margin-top: 24px;
+}
+.home-v2 .hv-hero .hv-hero-product {
+  margin-top: 64px;
+  padding-bottom: 64px;
+  min-height: 0;
+  gap: 0;
+  isolation: isolate;
+}
+.home-v2 .hv-hero .hv-window {
+  grid-column: 2 / 12;
+  grid-row: 1;
+  min-height: 0;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 16px 40px #08111b12;
+}
+.home-v2 .hv-hero .hv-app-main {
+  grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
+  grid-template-rows: auto auto auto auto;
+  padding: 24px 32px 96px;
+  gap: 0 40px;
+}
+.home-v2 .hv-hero .hv-app-title {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  padding: 28px 0 24px;
+}
+.home-v2 .hv-hero .hv-app-title h2 {
+  font-size: 28px;
+}
+.home-v2 .hv-hero .hv-requirements {
+  grid-column: 2;
+  grid-row: 3;
+  padding-top: 0;
+}
+.home-v2 .hv-hero .hv-window-foot {
+  grid-row: 4;
+  margin-top: 24px;
+}
+/* The ring shares the main product surface; activity and evidence overlap only
+   its reserved lower margin, never the requirements or verification status. */
+.home-v2 .hv-hero .hv-hero-readiness {
+  position: absolute;
+  grid-area: auto;
+  top: 190px;
+  left: calc(100% / 12 + 32px);
+  width: calc(100% / 3 - 48px);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #f2f6f8;
+}
+.home-v2 .hv-hero .hv-hero-readiness .hv-readiness {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+.home-v2 .hv-hero .hv-hero-readiness .hv-ring {
+  width: 148px;
+  height: 148px;
+  flex: 0 0 148px;
+  margin: 0;
+}
+.home-v2 .hv-hero .hv-hero-readiness .hv-ring strong {
+  font-size: 48px;
+}
+.home-v2 .hv-hero .hv-hero-readiness :is(.hv-meta, .hv-counts dt) {
+  color: #b3c0cb;
+}
+.home-v2 .hv-hero .hv-hero-readiness .hv-status {
+  color: #b6f36d;
+}
+.home-v2 .hv-hero .hv-hero-readiness .hv-ring circle {
+  stroke: #283744;
+  stroke-width: 8;
+}
+.home-v2 .hv-hero .hv-hero-readiness .hv-ring .hv-ring-fill {
+  stroke: #b6f36d;
+}
+.home-v2 .hv-hero .hv-hero-readiness .hv-counts {
+  margin-top: 12px;
+}
+.home-v2 .hv-hero .hv-hero-activity {
+  grid-column: 1 / 5;
+  grid-row: 2;
+  margin: -56px 24px 28px 0;
+  padding: 24px;
+  border-radius: 6px;
+  box-shadow: 0 10px 28px #08111b0d;
+}
+.home-v2 .hv-hero .hv-hero-evidence {
+  grid-column: 9 / -1;
+  grid-row: 2;
+  margin: -80px 0 28px;
+  padding: 24px;
+  border-radius: 6px;
+  box-shadow: 0 10px 28px #08111b0d;
+}
+.home-v2 .hv-hero .hv-hero-product > .hv-product-caption {
+  margin: 8px 0 0;
+}
+.home-v2 .hv-hero .hv-hero-product > .hv-caption:last-child {
+  margin-top: 4px;
+  font-size: 12px;
+}
+@media (min-width: 1200px) {
+  .home-v2.hv-en .hv-hero .hv-heading h1 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: .22em;
+    max-width: 1190px;
+    font-size: 68px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  .home-v2 .hv-hero .hv-window { grid-column: 1 / -1; }
+  .home-v2 .hv-hero .hv-hero-readiness { left: 32px; width: calc(40% - 48px); }
+  .home-v2 .hv-hero .hv-hero-readiness .hv-ring { width: 124px; height: 124px; flex-basis: 124px; }
+  .home-v2 .hv-hero .hv-hero-activity { grid-column: 1 / 7; margin-left: 20px; }
+  .home-v2 .hv-hero .hv-hero-evidence { grid-column: 7 / -1; margin-right: 20px; }
+}
+@media (max-width: 767px) {
+  .home-v2 .hv-hero { padding-top: 48px; }
+  .home-v2 .hv-hero .hv-heading h1 { margin-top: 24px; }
+  .home-v2 .hv-hero .hv-lead { max-width: 360px; margin-top: 20px; }
+  .home-v2 .hv-hero .hv-hero-product { margin-top: 40px; padding-bottom: 40px; overflow: visible; }
+  .home-v2 .hv-hero .hv-window { width: 100%; min-height: 0; border-radius: 6px 6px 0 0; }
+  .home-v2 .hv-hero .hv-app-main { display: block; padding: 18px; }
+  .home-v2 .hv-hero .hv-app-top { gap: 8px; font-size: 12px; }
+  .home-v2 .hv-hero .hv-app-title { padding: 24px 0; }
+  .home-v2 .hv-hero .hv-app-title h2 { font-size: 23px; }
+  .home-v2 .hv-hero .hv-app-title .hv-meta { flex-wrap: wrap; font-size: 12px; }
+  .home-v2 .hv-hero .hv-app-main .hv-requirements li { display: grid; grid-template-columns: 16px minmax(0, 1fr); gap: 4px 8px; padding-block: 12px; }
+  .home-v2 .hv-hero .hv-requirements .hv-tag { grid-column: 2; justify-self: start; white-space: normal; }
+  .home-v2 .hv-hero .hv-window-foot { gap: 6px; margin-top: 20px; font-size: 12px; }
+  .home-v2 .hv-hero .hv-hero-readiness { position: relative; inset: auto; width: 100%; padding: 24px 18px; background: #08111b; border: 1px solid #30404f; border-top: 0; border-radius: 0 0 6px 6px; }
+  .home-v2 .hv-hero .hv-hero-readiness .hv-readiness { flex-wrap: nowrap; gap: 20px; }
+  .home-v2 .hv-hero .hv-hero-readiness .hv-ring { width: 112px; height: 112px; flex-basis: 112px; }
+  .home-v2 .hv-hero .hv-hero-readiness .hv-ring strong { font-size: 40px; }
+  .home-v2 .hv-hero .hv-hero-readiness .hv-counts { gap: 18px; }
+  .home-v2 .hv-hero .hv-hero-activity,
+  .home-v2 .hv-hero .hv-hero-evidence { display: none; }
+  .home-v2 .hv-hero .hv-hero-product > .hv-product-caption { margin-top: 20px; justify-content: center; font-size: 12px; }
+}
