@@ -24,3 +24,6 @@ Destinations: Demo = `https://gappy-workforce-lab-0925.mitsuki222581.chatgpt.sit
 `cta_click`: cta_id, cta_location, locale, destination_type. No label, raw URL, booking data or email. Shared page parameters are sanitized. `language_switch`: from_locale, to_locale. No meeting inference; booking remains a link click only. Optional section_view deliberately omitted to minimize collection.
 
 Header/mobile locale switching keeps the existing hard navigation. Footer markup is unchanged. Internal navigation/brand links are not conversion events; permitted destination pages have page views after consent.
+# Consent activation extension
+
+CTA IDs and destinations below remain unchanged. `section_view` now observes the six chapter headings (product_proof, workflow, verification, recovery, context, final_cta), at 50% visibility, at most once per document after explicit consent. This is chapter reach, not workflow completion or scroll depth. See GA4_PRODUCTION_SETUP.md for consent-dependent dashboard interpretation and the separate activation gates.

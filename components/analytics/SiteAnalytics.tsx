@@ -25,6 +25,7 @@ export default function SiteAnalytics({ enabled, measurementId }: { enabled: boo
   const initialized = useRef(false)
   const lastPage = useRef('')
   const originalReferrer = useRef('')
+  const seenSections = useRef(new Set<string>())
 
   useEffect(() => {
     if (!enabled) return
@@ -39,7 +40,6 @@ export default function SiteAnalytics({ enabled, measurementId }: { enabled: boo
       // Revocation must stop the already-loaded library, not merely unmount React.
       if (!allowed) {
         try { window.gtag?.('consent', 'update', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' }) } catch { /* navigation unaffected */ }
-        lastPage.current = ''
       }
       setConsented(allowed)
     }
@@ -102,6 +102,33 @@ export default function SiteAnalytics({ enabled, measurementId }: { enabled: boo
       document.removeEventListener('auxclick', click, true)
     }
   }, [loaded, measurementId, permitted])
+
+  useEffect(() => {
+    if (!loaded || !consented || !permitted() || typeof IntersectionObserver === 'undefined') return
+    // Observe chapter headings, not tall sticky sections that can never be 50% visible.
+    const targets = new Map<Element, string>()
+    for (const [selector, id] of [
+      ['#product-proof h2', 'product_proof'], ['#workflow h2', 'workflow'],
+      ['#verification h2', 'verification'], ['#recovery h2', 'recovery'],
+      ['#context h2', 'context'], ['.hv-final h2', 'final_cta'],
+    ]) {
+      const element = document.querySelector(selector)
+      if (element) targets.set(element, id)
+    }
+    const observer = new IntersectionObserver(entries => {
+      if (!permitted()) return
+      const parameters = pageParameters(window.location.href, originalReferrer.current)
+      if (!parameters) return
+      for (const entry of entries) {
+        const id = targets.get(entry.target)
+        if (!id || !entry.isIntersecting || entry.intersectionRatio < 0.5 || seenSections.current.has(id)) continue
+        seenSections.current.add(id)
+        try { window.gtag?.('event', 'section_view', { ...parameters, section_id: id, send_to: measurementId }) } catch { /* non-blocking */ }
+      }
+    }, { threshold: 0.5 })
+    targets.forEach((_, target) => observer.observe(target))
+    return () => observer.disconnect()
+  }, [loaded, consented, pathname, permitted, measurementId])
 
   if (!enabled || !loaded || !consented || !permitted()) return null
   return <Script id="gappy-ga4" src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`} strategy="afterInteractive" onError={() => setLoaded(false)} />
