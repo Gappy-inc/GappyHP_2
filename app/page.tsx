@@ -5,7 +5,7 @@ import { homeCopy } from "@/content/home-v2";
 export const metadata = pageMetadata({
   locale: "en",
   path: "/",
-  title: "Gappy — Keep every tour ready to operate.",
+  title: "Gappy | AI Workforce for Travel Operations",
   description: homeCopy.en.hero.body,
 });
 
