@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test:home-v2": "node --experimental-strip-types scripts/test-home-v2.mjs",
-    "test:site-analytics": "node --experimental-strip-types scripts/test-site-analytics.mjs && node --experimental-strip-types scripts/test-site-analytics-runtime.mjs",
+    "test:site-analytics": "node --experimental-strip-types scripts/test-site-analytics.mjs && node --experimental-strip-types scripts/test-site-analytics-runtime.mjs && node --experimental-strip-types scripts/test-analytics-consent.mjs",
     "test:travel-demo": "node --experimental-strip-types scripts/test-travel-demo-machine.mjs",
     "test:travel-acquisition": "node --experimental-strip-types scripts/test-travel-acquisition.mjs",
     "test:travel-localization": "node --experimental-strip-types scripts/test-travel-localization.mjs"

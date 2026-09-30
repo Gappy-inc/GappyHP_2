@@ -9,6 +9,7 @@ import {
   LEGAL_NAME,
 } from "@/lib/config";
 import "./home-v2.css";
+import { PrivacySettings } from '@/components/analytics/AnalyticsConsent';
 
 export default function HomeFooter({ locale }: { locale: HomeLocale }) {
   const c = homeCopy[locale];
@@ -51,6 +52,7 @@ export default function HomeFooter({ locale }: { locale: HomeLocale }) {
         </div>
         <div className="hv-footer-bottom">
           <span>© 2026 Gappy, Inc.</span>
+          <PrivacySettings locale={locale} />
           <div className="hv-languages">
             <Link href="/" aria-current={locale === "en" ? "page" : undefined}>
               EN

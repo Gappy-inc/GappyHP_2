@@ -4,6 +4,7 @@ import { AxisMark } from '@/components/GappyAxis'
 import { getContent, localizedPath, type Locale } from '@/content'
 import { COMPANY_ADDRESS, CONTACT_EMAIL, GOODTIME_URL } from '@/lib/config'
 import FooterSelector from '@/components/home-v2/FooterSelector'
+import { PrivacySettings } from '@/components/analytics/AnalyticsConsent'
 
 export default function Footer({ locale = 'en' }: { locale?: Locale }) {
   const copy = getContent(locale)
@@ -29,6 +30,7 @@ export default function Footer({ locale = 'en' }: { locale?: Locale }) {
           <div><a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex min-h-11 items-center text-sm text-white hover:text-gold-300">{CONTACT_EMAIL}</a><p className="mt-2 text-[13px] leading-6 text-white/45">{COMPANY_ADDRESS}</p></div>
           <div className="flex items-center gap-3 md:justify-end"><AxisMark inverse /><Link href={localizedPath('/', locale === 'en' ? 'ja' : 'en')} className="font-mono text-[12px] uppercase tracking-[0.1em] text-white hover:text-gold-300">{locale === 'en' ? '日本語 / JP' : 'English / EN'}</Link></div>
         </div>
+        <PrivacySettings locale={locale} />
         <div className="flex flex-col gap-3 pt-8 font-mono text-[12px] uppercase tracking-[0.1em] text-white/35 sm:flex-row sm:justify-between"><p>© 2026 Gappy, Inc.</p><p>{locale === 'ja' ? '事業オペレーションのためのAI Workforce' : 'AI Workforce for Business Operations'}</p></div>
       </div>
     </footer>
