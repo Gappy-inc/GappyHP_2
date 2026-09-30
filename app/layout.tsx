@@ -4,6 +4,8 @@ import { headers } from 'next/headers'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import SiteAnalytics from '@/components/analytics/SiteAnalytics'
+import { analyticsEnabled } from '@/lib/site-analytics'
 import { getContent, type Locale } from '@/content'
 import {
   COMPANY_ADDRESS,
@@ -157,6 +159,10 @@ export default async function RootLayout({
           {children}
         </main>
         <Footer locale={locale} />
+        <SiteAnalytics
+          enabled={analyticsEnabled(process.env.VERCEL_ENV, process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID, process.env.GA_CONFIGURATION_REVIEWED)}
+          measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''}
+        />
       </body>
     </html>
   )
