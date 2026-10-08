@@ -1,0 +1,60 @@
+{
+  "links": [
+    {
+      "path": "/ja/consultation",
+      "status": 200,
+      "url": "http://127.0.0.1:3108/ja/consultation"
+    },
+    {
+      "path": "/ja/consultation/",
+      "status": 200,
+      "url": "http://localhost:3108/ja/consultation"
+    },
+    {
+      "path": "/lp-a",
+      "status": 200,
+      "url": "http://127.0.0.1:3108/lp-a"
+    },
+    {
+      "path": "/lp-b",
+      "status": 200,
+      "url": "http://127.0.0.1:3108/lp-b"
+    },
+    {
+      "path": "/lp-c",
+      "status": 200,
+      "url": "http://127.0.0.1:3108/lp-c"
+    },
+    {
+      "path": "/ja/",
+      "status": 200,
+      "url": "http://127.0.0.1:3108/ja/"
+    },
+    {
+      "path": "/ja/contact",
+      "status": 200,
+      "url": "http://127.0.0.1:3108/ja/contact"
+    },
+    {
+      "path": "/ja/about",
+      "status": 200,
+      "url": "http://127.0.0.1:3108/ja/about"
+    },
+    {
+      "path": "/ja/privacy",
+      "status": 200,
+      "url": "http://127.0.0.1:3108/ja/privacy"
+    },
+    {
+      "path": "/ja/travel",
+      "status": 200,
+      "url": "http://127.0.0.1:3108/ja/travel"
+    },
+    {
+      "path": "/lp-a-reference/service-overview.html",
+      "status": 200,
+      "url": "http://127.0.0.1:3108/lp-a-reference/service-overview.html"
+    }
+  ],
+  "previewExcludedFromSitemap": true
+}

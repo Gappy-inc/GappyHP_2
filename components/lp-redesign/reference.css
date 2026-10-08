@@ -1113,3 +1113,15 @@
   .ra-tablet-copy > p { font-size: 14px; }
   .ra-tablet-copy .ra-inline-actions { margin-top: 22px; }
 }
+
+/* Center hero button labels independently of their trailing arrows. */
+.ra-hero-actions .ra-button {
+  position: relative;
+  justify-content: center;
+  padding-inline: 48px;
+  text-align: center;
+}
+.ra-hero-actions .ra-button > svg {
+  position: absolute;
+  right: 24px;
+}

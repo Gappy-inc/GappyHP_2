@@ -1,6 +1,6 @@
-import { GOODTIME_URL } from '@/lib/config';
+import { CONSULTATION_PATH } from '@/lib/consultation';
 export type Variant = 'a' | 'b' | 'c';
-export const salesUrl = GOODTIME_URL;
+export const salesUrl = CONSULTATION_PATH;
 export const headline = ['人を増やさずに、', '成長できる', '旅行事業へ。'];
 export const introduction = '旅行会社・ツアー運営の予約後業務を、AIで前に進める。既存システムを活かし、重要な判断は人へ。Gappyは実行結果と完了条件の確認を重視するAI Workforceです。';
 export const steps = [

@@ -1,0 +1,244 @@
+{
+  "viewports": [
+    {
+      "canonical": "https://gappy.jp/ja/consultation",
+      "ctas": [
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6"
+      ],
+      "footer": 1,
+      "h1": 1,
+      "header": 1,
+      "overflow": false,
+      "robots": "noindex, nofollow",
+      "width": 1440
+    },
+    {
+      "canonical": "https://gappy.jp/ja/consultation",
+      "ctas": [
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6"
+      ],
+      "footer": 1,
+      "h1": 1,
+      "header": 1,
+      "overflow": false,
+      "robots": "noindex, nofollow",
+      "width": 1280
+    },
+    {
+      "canonical": "https://gappy.jp/ja/consultation",
+      "ctas": [
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6"
+      ],
+      "footer": 1,
+      "h1": 1,
+      "header": 1,
+      "overflow": false,
+      "robots": "noindex, nofollow",
+      "width": 768
+    },
+    {
+      "canonical": "https://gappy.jp/ja/consultation",
+      "ctas": [
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6"
+      ],
+      "footer": 1,
+      "h1": 1,
+      "header": 1,
+      "overflow": false,
+      "robots": "noindex, nofollow",
+      "width": 390
+    },
+    {
+      "canonical": "https://gappy.jp/ja/consultation",
+      "ctas": [
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "https://calendar.app.google/2vsJBvYS8mhb3Qnw6"
+      ],
+      "footer": 1,
+      "h1": 1,
+      "header": 1,
+      "overflow": false,
+      "robots": "noindex, nofollow",
+      "width": 375
+    }
+  ],
+  "faq": [
+    {
+      "i": 0,
+      "expanded": "true",
+      "answerVisible": true
+    },
+    {
+      "i": 0,
+      "closed": true
+    },
+    {
+      "i": 1,
+      "expanded": "true",
+      "answerVisible": true
+    },
+    {
+      "i": 1,
+      "closed": true
+    },
+    {
+      "i": 2,
+      "expanded": "true",
+      "answerVisible": true
+    },
+    {
+      "i": 2,
+      "closed": true
+    },
+    {
+      "i": 3,
+      "expanded": "true",
+      "answerVisible": true
+    },
+    {
+      "i": 3,
+      "closed": true
+    },
+    {
+      "i": 4,
+      "expanded": "true",
+      "answerVisible": true
+    },
+    {
+      "i": 4,
+      "closed": true
+    },
+    {
+      "i": 5,
+      "expanded": "true",
+      "answerVisible": true
+    },
+    {
+      "i": 5,
+      "closed": true
+    }
+  ],
+  "mobileMenu": true,
+  "booking": {
+    "url": "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2UF4neRQXkYvg-1u_isJVEZ_YZUDbibyy9dh-xOinzVODcceKQYU7yPCQXzcAea5RbU4cvaocK",
+    "title": "【オンライン導入相談】-Gappy AI Workforce",
+    "reservationSubmitted": false
+  },
+  "lpFlows": [
+    {
+      "variant": "a",
+      "footers": 1,
+      "h1": 1,
+      "headers": 1,
+      "title": "Gappy | 日本語LP デザイン案A",
+      "destination": "http://127.0.0.1:3108/ja/consultation",
+      "arrived": true
+    },
+    {
+      "variant": "b",
+      "footers": 1,
+      "h1": 1,
+      "headers": 1,
+      "title": "Gappy | 日本語LP デザイン案B",
+      "destination": "http://127.0.0.1:3108/ja/consultation",
+      "arrived": true
+    },
+    {
+      "variant": "c",
+      "footers": 1,
+      "h1": 1,
+      "headers": 1,
+      "title": "Gappy | 日本語LP デザイン案C",
+      "destination": "http://127.0.0.1:3108/ja/consultation",
+      "arrived": true
+    }
+  ],
+  "regression": [
+    {
+      "route": "/ja/",
+      "unchanged": true,
+      "changes": []
+    },
+    {
+      "route": "/",
+      "unchanged": true,
+      "changes": []
+    },
+    {
+      "route": "/ja/travel",
+      "unchanged": true,
+      "changes": []
+    },
+    {
+      "route": "/ja/contact",
+      "unchanged": true,
+      "changes": []
+    }
+  ],
+  "consoleErrors": [],
+  "finalState": {
+    "badAnchors": [],
+    "heading": "オンライン導入相談",
+    "missingImages": [],
+    "nav": [
+      {
+        "href": "/lp-a#features",
+        "text": "機能"
+      },
+      {
+        "href": "/lp-a#flow",
+        "text": "導入イメージ"
+      },
+      {
+        "href": "#businesses",
+        "text": "活用領域"
+      },
+      {
+        "href": "#consultation-support",
+        "text": "導入のご相談"
+      },
+      {
+        "href": "/lp-a#features",
+        "text": "機能"
+      },
+      {
+        "href": "/lp-a#resources",
+        "text": "資料を見る"
+      },
+      {
+        "href": "#consultation-faq",
+        "text": "よくあるご質問"
+      },
+      {
+        "href": "https://calendar.app.google/2vsJBvYS8mhb3Qnw6",
+        "text": "Gappyに相談する"
+      }
+    ],
+    "stepColor": "rgb(79, 110, 89)"
+  },
+  "contrastIssues": []
+}
