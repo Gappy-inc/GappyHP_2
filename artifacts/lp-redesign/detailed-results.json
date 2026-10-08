@@ -1,0 +1,255 @@
+{
+  "regression": {
+    "/ja/": {
+      "status": 200,
+      "identical": true
+    },
+    "/": {
+      "status": 200,
+      "identical": true
+    },
+    "/ja/travel": {
+      "status": 200,
+      "identical": true
+    },
+    "/ja/contact": {
+      "status": 200,
+      "identical": true
+    },
+    "/en/": {
+      "status": 404,
+      "identical": true
+    }
+  },
+  "links": [
+    {
+      "v": "a",
+      "link": "/lp-a",
+      "status": 200
+    },
+    {
+      "v": "a",
+      "link": "/lp-b",
+      "status": 200
+    },
+    {
+      "v": "a",
+      "link": "/lp-c",
+      "status": 200
+    },
+    {
+      "v": "a",
+      "link": "/ja/",
+      "status": 200
+    },
+    {
+      "v": "a",
+      "link": "/ja/technology",
+      "status": 200
+    },
+    {
+      "v": "a",
+      "link": "/ja/#verification",
+      "status": 200
+    },
+    {
+      "v": "a",
+      "link": "/ja/about",
+      "status": 200
+    },
+    {
+      "v": "a",
+      "link": "/ja/travel",
+      "status": 200
+    },
+    {
+      "v": "a",
+      "link": "/ja/contact",
+      "status": 200
+    },
+    {
+      "v": "a",
+      "link": "/ja/resources",
+      "status": 200
+    },
+    {
+      "v": "b",
+      "link": "/lp-a",
+      "status": 200
+    },
+    {
+      "v": "b",
+      "link": "/lp-b",
+      "status": 200
+    },
+    {
+      "v": "b",
+      "link": "/lp-c",
+      "status": 200
+    },
+    {
+      "v": "b",
+      "link": "/ja/",
+      "status": 200
+    },
+    {
+      "v": "b",
+      "link": "/ja/technology",
+      "status": 200
+    },
+    {
+      "v": "b",
+      "link": "/ja/#verification",
+      "status": 200
+    },
+    {
+      "v": "b",
+      "link": "/ja/about",
+      "status": 200
+    },
+    {
+      "v": "b",
+      "link": "/ja/travel",
+      "status": 200
+    },
+    {
+      "v": "b",
+      "link": "/ja/contact",
+      "status": 200
+    },
+    {
+      "v": "b",
+      "link": "/ja/resources",
+      "status": 200
+    },
+    {
+      "v": "c",
+      "link": "/lp-a",
+      "status": 200
+    },
+    {
+      "v": "c",
+      "link": "/lp-b",
+      "status": 200
+    },
+    {
+      "v": "c",
+      "link": "/lp-c",
+      "status": 200
+    },
+    {
+      "v": "c",
+      "link": "/ja/",
+      "status": 200
+    },
+    {
+      "v": "c",
+      "link": "/ja/technology",
+      "status": 200
+    },
+    {
+      "v": "c",
+      "link": "/ja/#verification",
+      "status": 200
+    },
+    {
+      "v": "c",
+      "link": "/ja/about",
+      "status": 200
+    },
+    {
+      "v": "c",
+      "link": "/ja/travel",
+      "status": 200
+    },
+    {
+      "v": "c",
+      "link": "/ja/contact",
+      "status": 200
+    },
+    {
+      "v": "c",
+      "link": "/ja/resources",
+      "status": 200
+    }
+  ],
+  "keyboard": [
+    {
+      "v": "a",
+      "first": "本文へ移動",
+      "outline": "solid"
+    },
+    {
+      "v": "a",
+      "skipHash": "#main-content",
+      "target": 143
+    },
+    {
+      "v": "a",
+      "menuFirst": "仕組み↗",
+      "escapeReturnsFocus": true
+    },
+    {
+      "v": "b",
+      "first": "本文へ移動",
+      "outline": "solid"
+    },
+    {
+      "v": "b",
+      "skipHash": "#main-content",
+      "target": 143
+    },
+    {
+      "v": "b",
+      "menuFirst": "仕組み↗",
+      "escapeReturnsFocus": true
+    },
+    {
+      "v": "c",
+      "first": "本文へ移動",
+      "outline": "solid"
+    },
+    {
+      "v": "c",
+      "skipHash": "#main-content",
+      "target": 143
+    },
+    {
+      "v": "c",
+      "menuFirst": "仕組み↗",
+      "escapeReturnsFocus": true
+    }
+  ],
+  "contrast": [
+    {
+      "v": "a",
+      "bad": []
+    },
+    {
+      "v": "b",
+      "bad": []
+    },
+    {
+      "v": "c",
+      "bad": []
+    }
+  ],
+  "reducedMotion": [
+    {
+      "v": "a",
+      "scroll": "auto",
+      "transition": "0s"
+    },
+    {
+      "v": "b",
+      "scroll": "auto",
+      "transition": "0s"
+    },
+    {
+      "v": "c",
+      "scroll": "auto",
+      "transition": "0s"
+    }
+  ],
+  "sitemapExcludesPreviews": true
+}

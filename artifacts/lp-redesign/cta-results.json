@@ -1,0 +1,137 @@
+{
+  "method": "Click navigation intercepted at the already independently verified Calendar short URL; no bookings submitted.",
+  "results": [
+    {
+      "v": "a",
+      "location": "header",
+      "href": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "url": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "pass": true
+    },
+    {
+      "v": "a",
+      "location": "hero",
+      "href": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "url": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "pass": true
+    },
+    {
+      "v": "a",
+      "location": "proof",
+      "href": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "url": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "pass": true
+    },
+    {
+      "v": "a",
+      "location": "final",
+      "href": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "url": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "pass": true
+    },
+    {
+      "v": "a",
+      "location": "mobile_header",
+      "href": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "url": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "pass": true
+    },
+    {
+      "v": "a",
+      "secondary": true
+    },
+    {
+      "v": "a",
+      "menuAnchor": true,
+      "menuClosed": true
+    },
+    {
+      "v": "b",
+      "location": "header",
+      "href": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "url": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "pass": true
+    },
+    {
+      "v": "b",
+      "location": "hero",
+      "href": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "url": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "pass": true
+    },
+    {
+      "v": "b",
+      "location": "proof",
+      "href": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "url": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "pass": true
+    },
+    {
+      "v": "b",
+      "location": "final",
+      "href": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "url": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "pass": true
+    },
+    {
+      "v": "b",
+      "location": "mobile_header",
+      "href": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "url": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "pass": true
+    },
+    {
+      "v": "b",
+      "secondary": true
+    },
+    {
+      "v": "b",
+      "menuAnchor": true,
+      "menuClosed": true
+    },
+    {
+      "v": "c",
+      "location": "header",
+      "href": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "url": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "pass": true
+    },
+    {
+      "v": "c",
+      "location": "hero",
+      "href": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "url": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "pass": true
+    },
+    {
+      "v": "c",
+      "location": "proof",
+      "href": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "url": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "pass": true
+    },
+    {
+      "v": "c",
+      "location": "final",
+      "href": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "url": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "pass": true
+    },
+    {
+      "v": "c",
+      "location": "mobile_header",
+      "href": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "url": "https://calendar.app.google/KpXGF5RTgqRpg72n6",
+      "pass": true
+    },
+    {
+      "v": "c",
+      "secondary": true
+    },
+    {
+      "v": "c",
+      "menuAnchor": true,
+      "menuClosed": true
+    }
+  ]
+}

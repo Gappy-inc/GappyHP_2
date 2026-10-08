@@ -16,7 +16,9 @@ export function middleware(request: NextRequest) {
   }
 
   const requestHeaders = new Headers(request.headers)
-  const isJapanese =
+  const isLPPreview = ['/lp-a', '/lp-b', '/lp-c'].includes(pathname)
+  requestHeaders.set('x-gappy-lp-preview', isLPPreview ? 'true' : 'false')
+  const isJapanese = isLPPreview ||
     pathname === '/ja/' || pathname.startsWith('/ja/')
 
   requestHeaders.set('x-gappy-locale', isJapanese ? 'ja' : 'en')

@@ -1,0 +1,60 @@
+   ▲ Next.js 15.5.24
+
+   Creating an optimized production build ...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+Browserslist: browsers data (caniuse-lite) is 11 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+(node:10793) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ ✓ Compiled successfully in 2.7s
+   Linting and checking validity of types ...
+   Collecting page data ...
+ ⚠ Using edge runtime on a page currently disables static generation for that page
+   Generating static pages (0/29) ...
+   Generating static pages (7/29)
+   Generating static pages (14/29)
+   Generating static pages (21/29)
+ ✓ Generating static pages (29/29)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ƒ /                                      138 B         124 kB
+├ ƒ /_not-found                             1 kB         104 kB
+├ ƒ /about                                 177 B         112 kB
+├ ƒ /api/travel/demo-access                151 B         103 kB
+├ ƒ /api/travel/events                     151 B         103 kB
+├ ƒ /careers                               182 B         107 kB
+├ ƒ /cases                                 169 B         107 kB
+├ ƒ /contact                               151 B         103 kB
+├ ƒ /ja                                    139 B         124 kB
+├ ƒ /ja/about                              177 B         112 kB
+├ ƒ /ja/careers                            182 B         107 kB
+├ ƒ /ja/cases                              169 B         107 kB
+├ ƒ /ja/contact                            151 B         103 kB
+├ ƒ /ja/privacy                          1.92 kB         105 kB
+├ ƒ /ja/resources                          182 B         107 kB
+├ ƒ /ja/technology                         182 B         107 kB
+├ ƒ /ja/travel                             129 B         131 kB
+├ ƒ /lp-a                                  130 B         113 kB
+├ ƒ /lp-b                                  130 B         113 kB
+├ ƒ /lp-c                                  130 B         113 kB
+├ ƒ /og                                    151 B         103 kB
+├ ƒ /privacy                             1.92 kB         105 kB
+├ ƒ /resources                             182 B         107 kB
+├ ○ /robots.txt                            151 B         103 kB
+├ ○ /sitemap.xml                           151 B         103 kB
+├ ƒ /technology                            182 B         107 kB
+├ ƒ /travel                                129 B         131 kB
+└ ƒ /travel/preview-privacy                151 B         103 kB
++ First Load JS shared by all             103 kB
+  ├ chunks/1255-e6b2de29f9a50594.js      46.4 kB
+  ├ chunks/4bd1b696-f785427dddbba9fb.js  54.2 kB
+  └ other shared chunks (total)           2.5 kB
+
+
+ƒ Middleware                             34.6 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
