@@ -1,0 +1,12 @@
+.gappy-consent { position: fixed; z-index: 90; bottom: 16px; left: 16px; right: 16px; max-width: 960px; margin: 0 auto; padding: 18px 20px; display: flex; align-items: center; gap: 24px; border: 1px solid #c7cbc8; border-radius: 4px; background: #fafbf8; color: #19201c; font-size: 14px; line-height: 1.6; }
+.gappy-consent p { margin: 0 0 4px; }
+.gappy-consent a { text-decoration: underline; text-underline-offset: 3px; }
+.gappy-consent-current { font-size: 12px; }
+.gappy-consent-actions { display: flex; flex-shrink: 0; gap: 8px; }
+.gappy-consent button { min-height: 44px; padding: 8px 14px; border: 1px solid #737b75; border-radius: 3px; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.gappy-consent button:hover { background: #edf0eb; }
+.gappy-consent :focus-visible, .gappy-consent:focus-visible, .gappy-privacy-links :focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.gappy-privacy-links { display: inline-flex; flex-wrap: wrap; gap: 16px; font-size: 12px; text-transform: none; letter-spacing: normal; }
+.gappy-privacy-links button, .gappy-privacy-links a { display: inline-flex; align-items: center; min-height: 44px; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.gappy-consent-storage { position: fixed; bottom: 8px; left: 16px; right: 16px; z-index: 91; background: #fafbf8; color: #19201c; border: 1px solid #c7cbc8; padding: 8px; font-size: 12px; }
+@media (max-width: 640px) { .gappy-consent { flex-direction: column; align-items: stretch; gap: 12px; padding: 16px; max-height: calc(100dvh - 32px); overflow-y: auto; } .gappy-consent-actions { display: grid; grid-template-columns: 1fr 1fr; } }

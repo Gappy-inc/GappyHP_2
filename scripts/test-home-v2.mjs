@@ -176,8 +176,15 @@ check("final P1 pass preserves dc78226 copy, IA, product and verification/recove
     "components/home-v2/HomeFooter.tsx": "5e008ca074de6e43cd7bd8dd56de77b45f7dedf8400a285fe67f5393b6ff9263",
     "lib/home-demo.ts": "762d13fc7960b6f59e3de0fbec350625be5cf3baef35e42d44ace3e8be87ec4d",
   };
-  for (const [file, hash] of Object.entries(frozen))
-    assert.equal(createHash("sha256").update(readFileSync(file)).digest("hex"), hash, file);
+  for (const [file, hash] of Object.entries(frozen)) {
+    let source = readFileSync(file, "utf8");
+    if (file === "components/home-v2/HomeFooter.tsx") {
+      // Explicitly authorized Analytics-only insertion; original footer stays byte-frozen.
+      assert.equal(createHash("sha256").update(source).digest("hex"), "e276ba23ca2b315a14150027055c94eb7f8144dadef7490280125f89a16bc8ff");
+      source = source.replace("import { PrivacySettings } from '@/components/analytics/AnalyticsConsent';\n", "").replace("          <PrivacySettings locale={locale} />\n", "");
+    }
+    assert.equal(createHash("sha256").update(source).digest("hex"), hash, file);
+  }
   const interactions = readFileSync("components/home-v2/HomeInteractions.tsx", "utf8");
   assert.equal(createHash("sha256").update(interactions.slice(interactions.indexOf("export function Verification("))).digest("hex"), "ef2bd73ef1fc2f96277d31e81bae7a427ef5702ff272c34720e89e2088bd67ca");
   const signals = interactions.slice(interactions.indexOf("function WorkflowSignals("), interactions.indexOf("function JobUI("));

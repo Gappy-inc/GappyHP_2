@@ -1,0 +1,51 @@
+import Image from 'next/image';
+import { ChevronRight, ChartNoAxesColumnIncreasing, Users, Settings, MessageSquare, MousePointerClick, Cloud, ShieldCheck } from 'lucide-react';
+import { Button, ReferenceHeader, ReferenceFooter } from './ReferenceChrome';
+import { salesUrl, steps } from './content';
+import './reference.css';
+const demo = 'https://gappy-workforce-lab-0925.mitsuki222581.chatgpt.site/';
+function Devices({ hero = false }: {
+    hero?: boolean;
+}) { return <div className={`ra-devices ${hero ? 'ra-hero-devices' : ''}`}><Image width={1920} height={1080} sizes="(max-width: 600px) 900px, 1400px" priority={hero} loading={hero ? undefined : "eager"} src={`/lp-a-reference/${hero ? 'hero-operations' : 'features'}.png`} alt="Gappyのタスク管理を表現した端末イメージ"/></div>; }
+const questions = [['Gappyとはどのようなサービスですか？', '旅行会社・ツアー運営の予約後業務をAIで前に進めるサービスです。確認・催促・変更・照合を対象に、実行結果と完了条件の確認を重視しています。'], ['どのシステムと連携できますか？', '現在の業務システムを活かす方針です。接続方法や実行できる範囲は、ご利用中の環境と対象業務を確認して個別に検討します。'], ['導入にはどのくらいの期間がかかりますか？', '対象業務やシステム環境によって異なります。導入相談で現在の業務を伺い、進め方と必要な準備を一緒に整理します。'], ['料金プランを教えてください', '対象業務と導入範囲を確認したうえでご案内します。まずは導入相談からお問い合わせください。'], ['個人事業主でも相談できますか？', '事業規模にかかわらず、旅行業務の具体的なお困りごとをお聞かせください。対応可否や導入範囲は個別に確認します。']];
+export default function ReferenceLanding() {
+    return <div className="ra">
+    <ReferenceHeader />
+    <main id="main-content" tabIndex={-1}>
+    <section className="ra-hero ra-operations-hero"><div className="ra-container ra-hero-grid"><div className="ra-hero-copy"><p className="ra-eyebrow">AI Workforce for Travel Operations</p><h1>簡単に始められる<br /><span>旅行業務特化</span><br /><em>AI Agent</em></h1><p className="ra-lead">予約後の確認・催促・変更・照合を、<br />AIが実行し、完了まで確認。</p><div className="ra-hero-actions"><Button href="/ja/signup">無料登録</Button><Button outline>オンライン導入相談</Button></div></div><div className="ra-hero-visual"><Devices hero/><p className="ra-image-note">画面はサービスの説明用イメージです。</p></div></div><div className="ra-quick ra-container">{[[ChartNoAxesColumnIncreasing, '選ばれる理由', '#reasons'], [Users, '活用イメージ', '#features'], [Settings, '導入の流れ', '#flow'], [MessageSquare, '導入の相談', '#support']].map(([Icon, label, href]) => { const I = Icon as typeof Users; return <a key={String(label)} href={String(href)}><I size={26}/><span>{String(label)}</span><ChevronRight size={18}/></a>; })}</div></section>
+    <section className="ra-campaign"><div className="ra-container ra-campaign-card"><div className="ra-campaign-title">いつもの業務から、<br /><strong>AIのある運用へ。</strong></div><div className="ra-mini-device"><Devices /></div><div><p className="ra-eyebrow">まずは、ひとつの業務から</p><h2>AIオペレーションの<br />導入をサポート</h2><small>対象業務・費用・導入範囲は個別にご案内します。</small></div><a className="ra-campaign-link" href={salesUrl}>詳しくは<br />導入相談へ<ChevronRight /></a></div></section>
+    <section id="features" className="ra-tablet-feature">
+      <div className="ra-container ra-tablet-grid ra-section">
+        <div className="ra-tablet-visual">
+          <div className="ra-tablet-crop ra-tablet-tasks"><Image src="/lp-a-reference/tasks-tablet.png" width={1933} height={814} sizes="(max-width: 850px) 150vw, 100vw" alt="予約確認・送迎・ガイド手配などのタスクを一覧で確認する画面イメージ" /></div>
+          <p className="ra-image-note">合成データによる説明用UI。実際の運用画面ではありません。</p>
+        </div>
+        <div className="ra-tablet-copy">
+          <div className="ra-number-title"><span>2</span><h2>シンプル、使いやすい機能</h2></div>
+          <p>Gappyは、旅行手配後のオペレーション業務を、素早く、正確に進めるためのツールです。</p>
+          <p>サプライヤーへの確認、予約変更、ガイドの手配。散らばる情報と対応待ちの仕事を整理し、旅行チームの業務を前に進めます。既存の業務システムを活かしながら、大切なお客様への旅をスムーズに支えます。</p>
+          <div className="ra-inline-actions"><Button href="#flow">機能について詳しく見る</Button><Button href={demo} outline>製品デモを見る</Button></div>
+        </div>
+      </div>
+    </section>
+    <section id="analytics" className="ra-tablet-analytics">
+      <div className="ra-container ra-tablet-grid ra-section">
+        <div className="ra-tablet-copy">
+          <div className="ra-number-title"><span>3</span><h2>業務状況の可視化・分析もおまかせ</h2></div>
+          <p>対応待ちのタスクやサプライヤーの回答状況、手配の進み具合。旅行業務に関する情報を、チームで把握しやすい形へ。</p>
+          <p>どこに確認が必要で、どの仕事が残っているのか。業務の進捗を見渡し、次に進めることを判断するための画面イメージです。</p>
+        </div>
+        <div className="ra-tablet-visual">
+          <div className="ra-tablet-crop ra-tablet-dashboard"><Image src="/lp-a-reference/analytics-tablet.png" width={1933} height={814} sizes="(max-width: 850px) 150vw, 100vw" alt="進行中の案件・手配状況・回答待ちタスクをグラフと一覧で表現したダッシュボードのイメージ" /></div>
+          <p className="ra-image-note">画面・数値は説明用のサンプルです。提供範囲は導入相談でご確認ください。</p>
+        </div>
+      </div>
+    </section>
+    <section id="reasons" className="ra-reasons"><div className="ra-container ra-section"><h2><em>Gappy</em> が選ばれる理由</h2><p className="ra-section-intro">旅行オペレーションの現場に必要な仕組みを、シンプルに。<br />今の業務を活かしながら、確認から完了までをつなぎます。</p><div className="ra-benefits">{[[ShieldCheck, '今のシステムを', '活かして始める'], [MousePointerClick, '重要な判断は', '人につなぐ'], [Cloud, '実行した結果を', '完了まで確かめる']].map(([Icon, a, b]) => { const I = Icon as typeof Cloud; return <div key={String(a)}><div className="ra-circle"><I strokeWidth={1.5}/></div><h3>{String(a)}<br />{String(b)}</h3></div>; })}</div></div></section>
+    <section id="resources" className="ra-container ra-section"><div className="ra-section-heading"><h2>Gappyを知るための資料</h2><a href="/lp-a-reference/service-overview.html">サービス概要を見る <ChevronRight size={19}/></a></div><div className="ra-resources">{[['overview', 'これひとつでわかる「Gappy」', '機能の考え方と、導入相談の流れをまとめました。', '/lp-a-reference/service-overview.html'], ['guide', 'AIオペレーション導入ガイド', '導入前に整理したい業務・権限・確認事項をご紹介。', '#flow'], ['travel', '旅行業での活用イメージ', '予約後の確認や変更対応を、具体的な業務から。', '/ja/travel'], ['service', '操作できる製品デモ', '合成データで、検知から完了確認まで体験できます。', demo]].map(([key, title, body, href]) => <a className="ra-resource" key={key} href={href}><div className={`ra-thumbnail ra-thumb-${key}`}><Image width={1672} height={941} sizes="1000px" src="/lp-a-reference/resources.png" alt="" loading="eager"/></div><div><h3>{title}</h3><p>{body}</p></div><ChevronRight /></a>)}</div></section>
+    <section id="flow" className="ra-flow"><div className="ra-container ra-section"><p className="ra-eyebrow">HOW GAPPY WORKS</p><h2>見つける。進める。確かめる。</h2><div className="ra-steps">{steps.map((step, i) => <article key={step.en}><span>0{i + 1} / {step.en}</span><h3>{step.short}</h3><p>{step.body}</p></article>)}</div><p className="ra-flow-note">導入は、対象業務のヒアリング → 実行範囲・承認ルールの整理 → 確認方法の設計から。<br />利用中の環境に合わせて、一緒に進め方を検討します。</p></div></section>
+    <section id="faq" className="ra-container ra-section ra-faq"><div className="ra-section-heading"><h2>よくあるご質問</h2><a href={salesUrl}>その他のご質問 <ChevronRight size={19}/></a></div>{questions.map(([q, a]) => <details key={q}><summary><span>Q</span><h3>{q}</h3><ChevronRight /></summary><p>{a}</p></details>)}</section>
+    <section id="support" className="ra-container ra-support ra-section"><h2>分からないことや困ったことがあれば、<br />いつでもお気軽にご相談ください。</h2><p className="ra-section-intro">まずは、いまの業務で困っていることから。<br />導入前のご相談を通じて、お手伝いできる範囲を整理します。</p><div className="ra-support-cards">{[['consult', 'オンラインでの導入相談', '画面を見ながら、具体的な運用方法や導入の進め方についてご相談いただけます。', '相談を予約する', salesUrl], ['contact', 'サービスについてのお問い合わせ', '対象業務や利用環境など、導入前のご質問をお気軽にお寄せください。', 'お問い合わせ', salesUrl]].map(([key, title, body, cta, href]) => <article key={key}><div className={`ra-support-photo ra-photo-${key}`}><Image width={1672} height={941} sizes="1400px" src="/lp-a-reference/support.png" alt="" loading="eager"/></div><h3>{title}</h3><p>{body}</p><a href={href}>{cta}<ChevronRight /></a></article>)}</div><p className="ra-image-note">写真はサポートのイメージです。</p></section>
+    <section className="ra-integrations"><div className="ra-container ra-section"><h2>いま使っている業務システムを、<br />Gappyと、もっと活かす。</h2><p className="ra-section-intro">すべてを入れ替えるのではなく、今の業務から。<br />対象のシステムや接続方法は、ご利用環境に合わせて検討します。</p><div className="ra-integration-row"><div><Cloud /><span>予約・業務システム</span></div><span className="ra-connector">······</span><Devices /><span className="ra-connector">······</span><div><MessageSquare /><span>確認・連絡業務</span></div></div><Button>連携・導入について相談する</Button></div></section>
+    </main><ReferenceFooter /></div>;
+}

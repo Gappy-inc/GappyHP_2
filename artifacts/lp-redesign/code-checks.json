@@ -1,0 +1,56 @@
+[
+  {
+    "command": "node node_modules/next/dist/bin/next lint",
+    "exitCode": 0,
+    "stdout": "✔ No ESLint warnings or errors\n",
+    "stderr": "`next lint` is deprecated and will be removed in Next.js 16.\nFor new projects, use create-next-app to choose your preferred linter.\nFor existing projects, migrate to the ESLint CLI:\nnpx @next/codemod@canary next-lint-to-eslint-cli .\n\n"
+  },
+  {
+    "command": "node node_modules/typescript/bin/tsc --noEmit",
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": "node --experimental-strip-types scripts/test-home-v2.mjs",
+    "exitCode": 0,
+    "stdout": "PASS canonical specifications remain byte-for-byte frozen\nPASS source-backed discrete readiness sequence\nPASS reply alone cannot complete verification\nPASS recovery requires invalidation and candidate evaluation\nPASS unknown intermediate counts are never fabricated\nPASS bilingual schema parity and exact workflow/check counts\nPASS stable demo and existing Calendar destinations\nPASS homepage never introduces capture, storage or outbound sends\nPASS explicit accessibility and cleanup contracts\nPASS 11-block IA and no unapproved proof elements\nPASS editorial workflow has one changing canvas and readable fallbacks\nPASS handoff presentation primitives and source-backed proof fragments\nPASS structural reference preserves truthful product state and final CTA\nPASS final P1 pass preserves dc78226 copy, IA, product and verification/recovery\nPASS homepage locale switches reload the SSR document in desktop and mobile navigation\nHome V2: 15 test groups passed\n",
+    "stderr": "(node:10345) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:10345) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/asanomitsuruakira/Documents/ChatGPT/LP%20forAI%20Workforce/GappyHP_2_localization/lib/home-demo.ts is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /Users/asanomitsuruakira/Documents/ChatGPT/LP forAI Workforce/GappyHP_2_localization/package.json.\n"
+  },
+  {
+    "command": "node --experimental-strip-types scripts/test-site-analytics.mjs",
+    "exitCode": 0,
+    "stdout": "PASS: GA4 environment, consent guard, PII/UTM redaction, CTA taxonomy and non-blocking navigation contracts\n",
+    "stderr": "(node:10346) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:10346) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/asanomitsuruakira/Documents/ChatGPT/LP%20forAI%20Workforce/GappyHP_2_localization/lib/site-analytics.ts is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /Users/asanomitsuruakira/Documents/ChatGPT/LP forAI Workforce/GappyHP_2_localization/package.json.\n"
+  },
+  {
+    "command": "node --experimental-strip-types scripts/test-site-analytics-runtime.mjs",
+    "exitCode": 0,
+    "stdout": "PASS: actual TSX effects — consent/revocation, EN/JA views, CTA and language commands, redaction, duplicate render, provider failure, QA/localhost/Preview exclusion (no network)\nPASS: section_view consent/threshold/dedup/revoke, persisted EN/JP document views, header/hero/final CTAs, DNT\n",
+    "stderr": "(node:10347) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:10347) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/asanomitsuruakira/Documents/ChatGPT/LP%20forAI%20Workforce/GappyHP_2_localization/lib/site-analytics.ts is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /Users/asanomitsuruakira/Documents/ChatGPT/LP forAI Workforce/GappyHP_2_localization/package.json.\n"
+  },
+  {
+    "command": "node --experimental-strip-types scripts/test-analytics-consent.mjs",
+    "exitCode": 0,
+    "stdout": "PASS: actual consent TSX — shared disabled gate, first visit, decline, grant, reopen/revoke, storage-only decision, restore EN/JP, cross-tab sync, invalid/blocked storage and bounded cookie removal\n",
+    "stderr": "(node:10348) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:10348) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/asanomitsuruakira/Documents/ChatGPT/LP%20forAI%20Workforce/GappyHP_2_localization/lib/analytics-consent.ts is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /Users/asanomitsuruakira/Documents/ChatGPT/LP forAI Workforce/GappyHP_2_localization/package.json.\n"
+  },
+  {
+    "command": "node --experimental-strip-types scripts/test-travel-demo-machine.mjs",
+    "exitCode": 0,
+    "stdout": "travel-demo-machine: lifecycle, persistence, failure paths, repeated actions, and reset passed\n",
+    "stderr": "(node:10349) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:10349) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/asanomitsuruakira/Documents/ChatGPT/LP%20forAI%20Workforce/GappyHP_2_localization/lib/travel-demo-machine.ts is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /Users/asanomitsuruakira/Documents/ChatGPT/LP forAI Workforce/GappyHP_2_localization/package.json.\n"
+  },
+  {
+    "command": "node --experimental-strip-types scripts/test-travel-acquisition.mjs",
+    "exitCode": 0,
+    "stdout": "travel-acquisition: validation, auth forwarding, durable response contract, failure, timeout, event allowlist, and disabled/test/production configuration gates passed\n",
+    "stderr": "(node:10350) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:10350) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/asanomitsuruakira/Documents/ChatGPT/LP%20forAI%20Workforce/GappyHP_2_localization/lib/travel-acquisition-server.ts is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /Users/asanomitsuruakira/Documents/ChatGPT/LP forAI Workforce/GappyHP_2_localization/package.json.\n"
+  },
+  {
+    "command": "node --experimental-strip-types scripts/test-travel-localization.mjs",
+    "exitCode": 0,
+    "stdout": "travel-localization: section parity, dictionary shape, locale-neutral v3/v4 lifecycle, CTA URL, and no-capture guards passed\n",
+    "stderr": "(node:10353) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:10353) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/asanomitsuruakira/Documents/ChatGPT/LP%20forAI%20Workforce/GappyHP_2_localization/lib/config.ts is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /Users/asanomitsuruakira/Documents/ChatGPT/LP forAI Workforce/GappyHP_2_localization/package.json.\n"
+  }
+]

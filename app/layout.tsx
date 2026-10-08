@@ -5,6 +5,7 @@ import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import SiteAnalytics from '@/components/analytics/SiteAnalytics'
+import AnalyticsConsent from '@/components/analytics/AnalyticsConsent'
 import { analyticsEnabled } from '@/lib/site-analytics'
 import { getContent, type Locale } from '@/content'
 import {
@@ -89,7 +90,9 @@ export default async function RootLayout({
   const requestHeaders = await headers()
   const locale: Locale =
     requestHeaders.get('x-gappy-locale') === 'ja' ? 'ja' : 'en'
+  const isLPPreview = requestHeaders.get('x-gappy-lp-preview') === 'true'
   const copy = getContent(locale)
+  const analyticsAvailable = analyticsEnabled(process.env.VERCEL_ENV, process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID, process.env.GA_CONFIGURATION_REVIEWED)
 
   return (
     <html
@@ -154,15 +157,19 @@ export default async function RootLayout({
         >
           {copy.navigation.skip}
         </a>
-        <Header />
-        <main id="main-content" className="min-h-screen">
-          {children}
-        </main>
-        <Footer locale={locale} />
+        <AnalyticsConsent enabled={analyticsAvailable}>
+        {!isLPPreview && <Header />}
+        {isLPPreview ? children : (
+          <main id="main-content" className="min-h-screen">
+            {children}
+          </main>
+        )}
+        {!isLPPreview && <Footer locale={locale} />}
         <SiteAnalytics
-          enabled={analyticsEnabled(process.env.VERCEL_ENV, process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID, process.env.GA_CONFIGURATION_REVIEWED)}
+          enabled={analyticsAvailable}
           measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''}
         />
+        </AnalyticsConsent>
       </body>
     </html>
   )
