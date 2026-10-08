@@ -1,0 +1,70 @@
+{
+  "results": [
+    {
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "missingImages": [],
+      "badAnchors": []
+    },
+    {
+      "width": 1024,
+      "overflow": false,
+      "h1": 1,
+      "missingImages": [],
+      "badAnchors": []
+    },
+    {
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "missingImages": [],
+      "badAnchors": []
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "missingImages": [],
+      "badAnchors": []
+    },
+    {
+      "width": 375,
+      "overflow": false,
+      "h1": 1,
+      "missingImages": [],
+      "badAnchors": []
+    },
+    {
+      "faq": true
+    },
+    {
+      "menu": true
+    },
+    {
+      "link": "/ja/contact",
+      "status": 200
+    },
+    {
+      "link": "/ja/",
+      "status": 200
+    },
+    {
+      "link": "/ja/travel",
+      "status": 200
+    },
+    {
+      "link": "/lp-a-reference/service-overview.html",
+      "status": 200
+    },
+    {
+      "link": "/lp-b",
+      "status": 200
+    },
+    {
+      "link": "/lp-c",
+      "status": 200
+    }
+  ],
+  "errors": []
+}
