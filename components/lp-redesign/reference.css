@@ -1167,3 +1167,47 @@
   .ra-operations-hero .ra-hero-actions .ra-button { min-height: 52px; font-size: 15px; }
   .ra-operations-hero .ra-hero-visual { width: 100%; }
 }
+
+/* Shared editorial rules across the LP, consultation and registration pages. */
+.ra .ra-site-header { border-bottom:1px solid #dce5df; background:white; }
+.ra .ra-site-header .ra-nav { height:88px; gap:24px; }
+.ra .ra-site-header .ra-nav nav { font-size:15px; gap:22px; }
+.ra .ra-site-header .ra-nav .ra-button { min-height:48px; font-size:16px; padding:12px 38px 12px 22px; border-radius:8px; background:#075345; color:white; box-shadow:none; position:relative; }
+.ra .ra-site-header .ra-nav .ra-button svg { position:absolute; right:12px; width:18px; }
+.ra .ra-utility { font-size:14px; }
+.ra .ra-button { border-radius:8px; box-shadow:none; }
+.ra .ra-circle { border:0; border-radius:0; width:64px; height:64px; background:none; }
+.ra .ra-circle svg { width:48px; height:48px; }
+.ra .ra-image-note, .ra .ra-campaign small, .ra .ra-footer small { font-size:14px; color:#53645b; }
+.ra .ra-resource p, .ra .ra-support-cards p, .ra .ra-steps p, .ra .ra-faq details > p,
+.ra .ra-tablet-copy > p, .ra .ra-section-intro, .ra .ra-flow-note { font-size:16px; line-height:1.9; }
+.ra .ra-resource, .ra .ra-support-cards article, .ra .ra-quick, .ra .ra-campaign-card { border-radius:8px; box-shadow:none; }
+.ra .ra-tablet-copy .ra-number-title { display:block; }
+.ra .ra-evaluation { border-bottom:1px solid #dce5df; }
+.ra .ra-evaluation .ra-section-intro { margin-top:16px; text-align:left; }
+.ra-evaluation-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; margin-top:36px; }
+.ra-evaluation-grid article { border-top:2px solid #075345; padding-top:20px; }
+.ra-evaluation-grid span { font-size:14px; color:#075345; }
+.ra-evaluation-grid h3 { font-size:22px; margin:10px 0 14px; }
+.ra-evaluation-grid p { font-size:16px; line-height:1.9; color:#41534a; }
+.ra .ra-evaluation-note { font-size:14px; color:#53645b; margin-top:28px; }
+@media(max-width:1100px) { .ra .ra-site-header .ra-nav > nav { display:none; } .ra .ra-site-header .ra-nav-actions { margin-left:auto; } .ra .ra-site-header .ra-menu { display:block; } }
+@media(max-width:700px) {
+ .ra .ra-site-header .ra-nav { height:76px; gap:14px; }
+ .ra .ra-site-header .ra-nav > a img { width:110px; height:auto; }
+ .ra .ra-site-header .ra-nav .ra-button { font-size:14px; min-height:44px; padding:10px 32px 10px 14px; }
+ .ra .ra-utility { font-size:14px; }
+ .ra .ra-utility .ra-container > span { display:none; }
+ .ra .ra-utility .ra-container { justify-content:flex-end; }
+ .ra .ra-site-header .ra-menu nav a { padding:10px; min-height:44px; }
+ .ra-evaluation-grid { grid-template-columns:1fr; gap:24px; }
+ .ra-evaluation-grid h3 { font-size:21px; }
+}
+@media(max-width:1100px) {
+ .ra .ra-site-header .ra-menu { position:relative; }
+ .ra .ra-site-header .ra-menu summary { cursor:pointer; list-style:none; padding:10px; }
+ .ra .ra-site-header .ra-menu nav { display:grid; position:absolute; right:0; top:50px; width:260px; max-width:calc(100vw - 36px); padding:16px; background:white; border:1px solid #dce5df; border-radius:8px; box-shadow:0 8px 20px #12352a15; z-index:20; gap:4px; }
+ .ra .ra-site-header .ra-menu nav a { padding:10px; min-height:44px; }
+}
+
+@media(max-width:700px) { .ra .ra-utility { display:none; } }

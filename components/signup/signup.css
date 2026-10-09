@@ -5,14 +5,14 @@
 .su-page h1 { font-size:clamp(28px,4.1vw,48px); line-height:1.5; font-weight:700; text-align:center; letter-spacing:.015em; margin:0 0 12px; }
 .su-page h1 span { display:inline-block; }
 .su-intro { font-size:25px; line-height:1.8; text-align:center; color:#606871; margin:0 0 32px; }
-.su-existing { border:1px solid #d6e2de; border-radius:15px; padding:30px 32px 24px; background:#f7faf8; }
+.su-existing { border:1px solid #d6e2de; border-radius:8px; padding:30px 32px 24px; background:#f7faf8; }
 .su-existing p { font-size:21px; line-height:1.8; margin:0; }
 .su-page .su-note { color:#69757a; font-size:16px; line-height:1.8; margin:6px 0 0; }
 .su-products { display:grid; grid-template-columns:repeat(3,1fr); list-style:none; padding:25px 0 0; margin:22px 0 0; border-top:1px solid #dce5e1; }
 .su-products li { display:flex; justify-content:center; align-items:center; gap:12px; font-family:var(--lp-font-inter),sans-serif; color:#0e5742; font-size:25px; white-space:nowrap; }
 .su-products li+li { border-left:1px solid #dce5e1; }
 .su-products svg { width:33px; height:33px; color:#229d70; flex-shrink:0; }
-.su-form { border:1px solid #d5dadd; border-radius:15px; background:#fff; padding:40px 64px 44px; margin-top:32px; }
+.su-form { border:1px solid #d5dadd; border-radius:8px; background:#fff; padding:40px 64px 44px; margin-top:32px; }
 .su-form label { display:block; font-size:22px; font-weight:700; line-height:1.8; }
 .su-form input { width:100%; height:66px; border:1px solid #bcc5c8; border-radius:7px; background:white; color:#19272d; padding:15px 23px; font:inherit; font-size:22px; margin-top:18px; }
 .su-form input::placeholder { color:#899398; }
@@ -37,9 +37,16 @@
   .su-products svg { width:26px; height:26px; }
   .su-form { padding:24px 20px; margin-top:22px; }
   .su-form label { font-size:17px; }
-  .su-page .su-note { font-size:13px; }
+  .su-page .su-note { font-size:14px; }
   .su-form input { font-size:16px; height:56px; padding:12px; }
-  .su-policies { flex-direction:column; align-items:center; font-size:13px; margin:24px 0; gap:10px; }
+  .su-policies { flex-direction:column; align-items:center; font-size:14px; margin:24px 0; gap:10px; }
   .su-submit { font-size:20px; min-height:62px; }
   .su-login { font-size:18px; }
 }
+
+.ra .su-page h1 { margin-bottom:16px; }
+.ra .su-intro { max-width:740px; margin:0 auto 32px; font-size:18px; }
+.ra .su-existing p { margin:0; }
+.ra .su-form .su-note { margin-top:8px; }
+.ra .su-form input:disabled { background:#f5f7f5; cursor:not-allowed; }
+.ra .su-consultation { display:block; margin:28px auto 0; min-height:44px; font-size:16px; }
