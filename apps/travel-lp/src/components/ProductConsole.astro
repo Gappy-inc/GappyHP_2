@@ -1,0 +1,36 @@
+---
+interface Props { large?: boolean; hero?: boolean }
+const { large = false, hero = false } = Astro.props
+---
+<div class:list={['product-console', { 'product-console-large': large, 'product-console-hero': hero }]} aria-label="Illustrative Gappy operations control interface">
+  <div class="console-topbar">
+    <div class="console-brand"><span class="window-dots"><i></i><i></i><i></i></span><strong>GAPPY</strong><small>OPERATIONS</small></div><span class="demo-badge">ILLUSTRATIVE UI / DEMO DATA</span><span class="live-status"><i></i> SYSTEMS CONNECTED</span>
+  </div>
+  <div class="console-body">
+    <nav class="console-nav" aria-label="Illustrative product navigation">
+      <span class="console-nav-mark">G</span>
+      <span class="console-nav-item active"><i></i><small>OPS</small></span>
+      <span class="console-nav-item"><i></i><small>FLOW</small></span>
+      <span class="console-nav-item"><i></i><small>LOG</small></span>
+      <span class="console-nav-item"><i></i><small>RULE</small></span>
+      <span class="console-nav-user">AI</span>
+    </nav>
+    <section class="ops-panel">
+      <div class="panel-heading"><div><small>OPERATIONS / OVERVIEW</small><strong class="panel-title">Today’s Operations</strong><p>Work that is moving across your travel systems.</p></div><span class="operator">ALL WORKFLOWS <i></i></span></div>
+      <div class="stats-grid">
+        <div><span>Active Workflows</span><strong>12</strong><small>in execution</small></div><div><span>Awaiting Reply</span><strong>04</strong><small>monitored</small></div><div class="review-stat"><span>Human Review</span><strong>02</strong><small>action needed</small></div><div class="verified-stat"><span>Verified</span><strong>06</strong><small>completed</small></div>
+      </div>
+      <div class="queue-heading"><span>WORKFLOW QUEUE</span><span>UPDATED NOW</span></div>
+      <div class="workflow-row active"><div><i></i><span><b>Supplier Confirmation</b><small>WF-2048 · Booking / TYO</small></span></div><span><time>18:40</time><em>RUNNING</em></span></div>
+      <div class="workflow-row"><div><i></i><span><b>Guide Readiness</b><small>WF-2047 · Departure / KIX</small></span></div><span><time>16:20</time><em class="waiting">WAITING</em></span></div>
+      <div class="workflow-row"><div><i></i><span><b>Booking Change</b><small>WF-2046 · Booking / NGO</small></span></div><span><time>15:05</time><em class="review">REVIEW</em></span></div>
+      <div class="workflow-row"><div><i></i><span><b>Reconciliation</b><small>WF-2045 · Finance / APAC</small></span></div><span><time>13:12</time><em class="verified">VERIFIED</em></span></div>
+    </section>
+    <aside class="trace-panel">
+      <div class="trace-head"><div><small>EXECUTION TRACE</small><strong>Supplier confirmation</strong></div><span>WF-2048</span></div>
+      <dl class="trace-meta"><div><dt>SLA / DEADLINE</dt><dd>18:40 JST</dd></div><div><dt>ASSIGNED OPERATOR</dt><dd>GAPPY-OPS-01</dd></div><div><dt>EVIDENCE</dt><dd>6 RECORDS</dd></div></dl>
+      <ol>{['Booking detected', 'Context loaded', 'Supplier contacted', 'Reply received', 'Response understood', 'Booking updated', 'Completion verified'].map((item, index) => <li class={index === 6 ? 'pending' : ''}><span>{String(index + 1).padStart(2, '0')}</span><i></i><b>{item}</b></li>)}</ol>
+      <div class="exception-card"><small>EXCEPTION / REVIEW</small><b>Missing supplier response</b><p>Human review required before the deadline.</p><a href="#safety">Review with context <span aria-hidden="true">→</span></a></div>
+    </aside>
+  </div>
+</div>

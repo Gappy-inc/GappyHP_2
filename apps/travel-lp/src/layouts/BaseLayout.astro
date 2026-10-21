@@ -1,0 +1,58 @@
+---
+import '../styles/global.css'
+import type { SiteCopy } from '../data/site'
+
+interface Props { page: SiteCopy; noindex?: boolean }
+const { page, noindex = false } = Astro.props
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://travel.gappy.jp'
+const canonical = new URL(page.path, siteUrl)
+const alternate = new URL(page.alternatePath, siteUrl)
+const jaUrl = page.lang === 'ja' ? canonical : alternate
+const enUrl = page.lang === 'en' ? canonical : alternate
+const logoUrl = new URL('/gappy-logo-official.png', siteUrl)
+const ogUrl = new URL('/og.png', siteUrl)
+const organization = {
+  '@context': 'https://schema.org', '@type': 'Organization', name: '株式会社Gappy', alternateName: 'Gappy, Inc.',
+  url: 'https://gappy.jp', logo: logoUrl.toString(),
+  address: { '@type': 'PostalAddress', postalCode: '150-0043', streetAddress: '道玄坂1丁目10番8号 渋谷道玄坂東急ビル2F', addressLocality: '渋谷区', addressRegion: '東京都', addressCountry: 'JP' },
+}
+const service = {
+  '@context': 'https://schema.org', '@type': 'Service', name: 'Gappy AI Workforce for Travel Operations', serviceType: 'AI Workforce for Travel Operations',
+  provider: { '@type': 'Organization', name: '株式会社Gappy', url: 'https://gappy.jp' },
+  areaServed: { '@type': 'Country', name: 'Japan' }, description: page.meta.description, url: canonical.toString(),
+}
+---
+<!doctype html>
+<html lang={page.lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#FAFAF7" />
+    <title>{page.meta.title}</title>
+    <meta name="description" content={page.meta.description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="ja" href={jaUrl} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="x-default" href={jaUrl} />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Gappy" />
+    <meta property="og:locale" content={page.ogLocale} />
+    <meta property="og:title" content={page.meta.title} />
+    <meta property="og:description" content={page.meta.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:width" content="1730" />
+    <meta property="og:image:height" content="909" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={page.meta.title} />
+    <meta name="twitter:description" content={page.meta.description} />
+    <meta name="twitter:image" content={ogUrl} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(organization)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(service)} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
