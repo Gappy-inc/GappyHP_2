@@ -11,5 +11,5 @@ export const metadata = pageMetadata({
 });
 
 export default function Page() {
-  return <div className={inter.variable}><ReferenceLanding /></div>;
+  return <div className={inter.variable}><ReferenceLanding integrationOrbit /></div>;
 }
