@@ -102,8 +102,8 @@ check("stable demo and existing Calendar destinations", () => {
     /https:\/\/calendar\.app\.google\/KpXGF5RTgqRpg72n6/,
   );
 });
-const source = readdirSync("components/home-v2")
-  .filter((f) => f.endsWith(".tsx"))
+const source = readdirSync("components/home-v2", { recursive: true })
+  .filter((f) => f.endsWith(".tsx") || f.endsWith(".js"))
   .map((f) => readFileSync(`components/home-v2/${f}`, "utf8"))
   .join("\n");
 check("homepage never introduces capture, storage or outbound sends", () => {
@@ -178,6 +178,19 @@ check("final P1 pass preserves dc78226 copy, IA, product and verification/recove
   };
   for (const [file, hash] of Object.entries(frozen)) {
     let source = readFileSync(file, "utf8");
+    if (file === "components/home-v2/HomePageV2.tsx") {
+      // Authorized English context replacement: still freeze the original Japanese
+      // fallback and every byte outside this one section/import pair.
+      source = source.replace('import GappyIntegrationOrbit from "./orbit/GappyIntegrationOrbit";\n', "")
+        .replace('import orbitStyles from "./orbit/OrbitSection.module.css";\n', "");
+      const start = source.indexOf('          {locale === "en" ? (', source.indexOf('<section id="context"'));
+      const end = source.indexOf('\n        </div>', start);
+      assert.ok(start > 0 && end > start);
+      const replacement = source.slice(start, end);
+      assert.match(replacement, /<GappyIntegrationOrbit \/>/);
+      const fallback = replacement.slice(replacement.indexOf('          <Heading copy={c.context} />'), replacement.lastIndexOf('\n            </>'));
+      source = source.slice(0, start) + fallback + source.slice(end);
+    }
     if (file === "components/home-v2/HomeFooter.tsx") {
       // Explicitly authorized Analytics-only insertion; original footer stays byte-frozen.
       assert.equal(createHash("sha256").update(source).digest("hex"), "e276ba23ca2b315a14150027055c94eb7f8144dadef7490280125f89a16bc8ff");

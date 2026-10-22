@@ -22,6 +22,8 @@ import {
   Verification,
   Workflow,
 } from "./HomeInteractions";
+import GappyIntegrationOrbit from "./orbit/GappyIntegrationOrbit";
+import orbitStyles from "./orbit/OrbitSection.module.css";
 import "./home-v2.css";
 
 type HeadingCopy = { eyebrow: string; title: readonly string[]; body: string };
@@ -122,6 +124,17 @@ export default function HomePageV2({ locale }: { locale: HomeLocale }) {
       </section>
       <section id="context" className="hv-section hv-dark hv-context">
         <div className="hv-container">
+          {locale === "en" ? (
+            <div className={orbitStyles.section}>
+              <Heading copy={{
+                eyebrow: "Operational context",
+                title: ["Your tools.", "One coordinated workforce."],
+                body: "Start with one workflow across the tools your team already uses. Connection methods and scope are agreed with your team.",
+              }} />
+              <GappyIntegrationOrbit />
+            </div>
+          ) : (
+            <>
           <Heading copy={c.context} />
           <ContextFlow>
             <ul className="hv-context-inputs">
@@ -149,6 +162,8 @@ export default function HomePageV2({ locale }: { locale: HomeLocale }) {
               ))}
             </ul>
           </ContextFlow>
+            </>
+          )}
         </div>
       </section>
       <section id="architecture" className="hv-section hv-dark hv-architecture">

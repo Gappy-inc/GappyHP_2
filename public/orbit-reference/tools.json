@@ -1,0 +1,50 @@
+[
+  {
+    "id": "gmail",
+    "name": "Gmail",
+    "shortName": "Gmail",
+    "logo": "/orbit-reference/gmail.svg",
+    "ring": 0,
+    "displayStatus": "illustrative"
+  },
+  {
+    "id": "googlecalendar",
+    "name": "Google Calendar",
+    "shortName": "Calendar",
+    "logo": "/orbit-reference/googlecalendar.svg",
+    "ring": 1,
+    "displayStatus": "illustrative"
+  },
+  {
+    "id": "googlesheets",
+    "name": "Google Sheets",
+    "shortName": "Sheets",
+    "logo": "/orbit-reference/googlesheets.svg",
+    "ring": 0,
+    "displayStatus": "illustrative"
+  },
+  {
+    "id": "notion",
+    "name": "Notion",
+    "shortName": "Notion",
+    "logo": "/orbit-reference/notion.svg",
+    "ring": 1,
+    "displayStatus": "illustrative"
+  },
+  {
+    "id": "whatsapp",
+    "name": "WhatsApp",
+    "shortName": "WhatsApp",
+    "logo": "/orbit-reference/whatsapp.svg",
+    "ring": 0,
+    "displayStatus": "illustrative"
+  },
+  {
+    "id": "googledrive",
+    "name": "Google Drive",
+    "shortName": "Drive",
+    "logo": "/orbit-reference/googledrive.svg",
+    "ring": 1,
+    "displayStatus": "illustrative"
+  }
+]
