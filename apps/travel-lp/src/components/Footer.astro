@@ -1,0 +1,16 @@
+---
+import { BOOKING_URL, COMPANY_URL, CONTACT_URL, CORPORATE_URL, type SiteCopy } from '../data/site'
+interface Props { page: SiteCopy }
+const { page } = Astro.props
+---
+<footer class="site-footer">
+  <div class="page-shell">
+    <div class="footer-top"><div><a class="footer-brand" href={page.path}><img src="/gappy-logo-official.png" alt="Gappy" width="401" height="184" /></a><p>{page.footer.line}</p></div><a class="button button-light" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">{page.hero.primary}<span aria-hidden="true">↗</span></a></div>
+    <div class="footer-grid">
+      <nav aria-label={page.footer.product}><p>{page.footer.product}</p>{page.nav.items.map(([label, href]) => <a href={href}>{label}</a>)}</nav>
+      <nav aria-label={page.footer.company}><p>{page.footer.company}</p><a href={COMPANY_URL} target="_blank" rel="noopener noreferrer">{page.nav.company} ↗</a><a href={CONTACT_URL} target="_blank" rel="noopener noreferrer">{page.final.secondary} ↗</a><a href={CORPORATE_URL} target="_blank" rel="noopener noreferrer">{page.footer.corporate} ↗</a><a href={CONTACT_URL} target="_blank" rel="noopener noreferrer">{page.footer.privacy} ↗</a></nav>
+      <div class="footer-company"><p>株式会社Gappy / Gappy, Inc.</p><address>〒150-0043<br />東京都渋谷区道玄坂1丁目10番8号<br />渋谷道玄坂東急ビル2F</address><a href="mailto:mitsuki@gappy.jp">mitsuki@gappy.jp</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Gappy, Inc.</span><span>{page.footer.line}</span><a href={page.alternatePath} lang={page.lang === 'ja' ? 'en' : 'ja'}>{page.nav.language === 'EN' ? 'English / EN' : '日本語 / JP'}</a></div>
+  </div>
+</footer>

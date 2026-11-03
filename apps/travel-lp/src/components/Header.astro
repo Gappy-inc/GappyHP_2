@@ -1,0 +1,53 @@
+---
+import { BOOKING_URL, COMPANY_URL, type SiteCopy } from '../data/site'
+interface Props { page: SiteCopy }
+const { page } = Astro.props
+---
+<a class="skip-link" href="#main">{page.lang === 'ja' ? '本文へ移動' : 'Skip to content'}</a>
+<header class="site-header" data-header>
+  <div class="header-inner">
+    <a class="brand" href={page.path} aria-label="Gappy home"><img src="/gappy-logo-official.png" alt="Gappy" width="401" height="184" /></a>
+    <nav class="desktop-nav" aria-label={page.nav.label}>
+      {page.nav.items.map(([label, href]) => <a href={href}>{label}</a>)}
+      <a href={COMPANY_URL} target="_blank" rel="noopener noreferrer">{page.nav.company}<span aria-hidden="true">↗</span></a>
+    </nav>
+    <div class="header-actions">
+      <a class="language-link" href={page.alternatePath} lang={page.lang === 'ja' ? 'en' : 'ja'}>{page.nav.language}</a>
+      <a class="button button-small" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">{page.nav.cta}<span aria-hidden="true">↗</span></a>
+    </div>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu" data-open-label={page.nav.menu} data-close-label={page.nav.close} data-menu-button>
+      <span data-menu-label>{page.nav.menu}</span><span class="menu-icon" aria-hidden="true"><i></i><i></i></span>
+    </button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobile-menu" hidden data-mobile-menu>
+  <nav aria-label={page.nav.label}>
+    {page.nav.items.map(([label, href], index) => <a href={href}><span>{String(index + 1).padStart(2, '0')}</span>{label}<b aria-hidden="true">↓</b></a>)}
+    <a href={COMPANY_URL} target="_blank" rel="noopener noreferrer"><span>07</span>{page.nav.company}<b aria-hidden="true">↗</b></a>
+  </nav>
+  <a class="button" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">{page.hero.primary}<span aria-hidden="true">↗</span></a>
+  <a class="mobile-language" href={page.alternatePath} lang={page.lang === 'ja' ? 'en' : 'ja'}>{page.nav.language === 'EN' ? 'English / EN' : '日本語 / JP'}</a>
+</div>
+<script is:inline>
+  (() => {
+    const header = document.querySelector('[data-header]');
+    const button = document.querySelector('[data-menu-button]');
+    const menu = document.querySelector('[data-mobile-menu]');
+    const label = document.querySelector('[data-menu-label]');
+    if (!(header instanceof HTMLElement) || !(button instanceof HTMLButtonElement) || !(menu instanceof HTMLElement)) return;
+    const close = (restore = false) => {
+      button.setAttribute('aria-expanded', 'false'); menu.hidden = true; document.body.classList.remove('menu-open');
+      if (label) label.textContent = button.dataset.openLabel || 'Menu'; if (restore) button.focus();
+    };
+    const open = () => {
+      button.setAttribute('aria-expanded', 'true'); menu.hidden = false; document.body.classList.add('menu-open');
+      if (label) label.textContent = button.dataset.closeLabel || 'Close'; menu.querySelector('a')?.focus();
+    };
+    button.addEventListener('click', () => button.getAttribute('aria-expanded') === 'true' ? close() : open());
+    menu.addEventListener('click', (event) => { if (event.target instanceof HTMLAnchorElement) close(); });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') close(true); });
+    window.addEventListener('resize', () => { if (window.innerWidth >= 1040) close(); });
+    const update = () => header.classList.toggle('is-scrolled', window.scrollY > 12); update();
+    window.addEventListener('scroll', update, { passive: true });
+  })();
+</script>

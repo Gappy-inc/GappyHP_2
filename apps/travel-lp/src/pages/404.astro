@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { BOOKING_URL, copy, type SiteCopy } from '../data/site'
+const page: SiteCopy = { ...copy.ja, path: '/404.html', meta: { title: '404 | Gappy Travel', description: 'お探しのページは見つかりませんでした。Gappy Travelのトップページをご確認ください。' } }
+---
+<BaseLayout page={page} noindex>
+  <main class="not-found"><div><a class="brand" href="/"><img src="/gappy-logo-official.png" alt="Gappy" width="401" height="184" /></a><p class="eyebrow">404 / NOT FOUND</p><h1>お探しのページは<br />見つかりませんでした。</h1><p>URLをご確認いただくか、Gappy Travelのトップページへお戻りください。</p><div><a class="button" href="/">トップページへ戻る</a><a class="text-link" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">30分の業務診断を予約 ↗</a></div></div></main>
+</BaseLayout>
