@@ -17,7 +17,7 @@ import {
   SITE_URL,
 } from '@/lib/config'
 
-const HOME_HERO_VIDEO = '/hero/gappy-ai-workforce-hero.mp4'
+const HOME_HERO_VIDEO = '/hero/gappy-ai-workforce-hero.mp4?v=20261103'
 
 const spaceGrotesk = Space_Grotesk({
   variable: '--font-space-grotesk',

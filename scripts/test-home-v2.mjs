@@ -140,10 +140,15 @@ check("English hero uses the approved cinematic media, copy and controls", () =>
   assert.match(hero, /<video[\s\S]*autoPlay[\s\S]*loop[\s\S]*muted[\s\S]*playsInline/);
   assert.match(hero, /gappy-ai-workforce-hero\.mp4/);
   assert.match(hero, /gappy-ai-workforce-hero-poster\.jpg/);
+  assert.match(hero, /\?v=20261103/);
   assert.match(hero, /preload="auto"/);
   const layout = readFileSync("app/layout.tsx", "utf8");
   const middleware = readFileSync("middleware.ts", "utf8");
   assert.match(layout, /rel="preload"[\s\S]*as="video"[\s\S]*fetchPriority="high"/);
+  assert.match(layout, /gappy-ai-workforce-hero\.mp4\?v=20261103/);
+  const nextConfig = readFileSync("next.config.js", "utf8");
+  assert.match(nextConfig, /\/hero\/:asset\*/);
+  assert.match(nextConfig, /max-age=31536000, immutable/);
   assert.match(middleware, /x-gappy-home/);
   assert.match(hero, /The AI workforce for travel operations\./);
   assert.match(hero, /From booking changes to supplier coordination, Gappy moves operational[\s\S]*work toward verified completion—with people in control\./);

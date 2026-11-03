@@ -5,8 +5,8 @@ import { ArrowUpRight, Pause, Play } from "lucide-react";
 import type { HomeLocale } from "@/content/home-v2";
 import { demoRequestHref } from "@/lib/lead-forms";
 
-const VIDEO_SRC = "/hero/gappy-ai-workforce-hero.mp4";
-const POSTER_SRC = "/hero/gappy-ai-workforce-hero-poster.jpg";
+const VIDEO_SRC = "/hero/gappy-ai-workforce-hero.mp4?v=20261103";
+const POSTER_SRC = "/hero/gappy-ai-workforce-hero-poster.jpg?v=20261103";
 
 const heroCopy = {
   en: {
