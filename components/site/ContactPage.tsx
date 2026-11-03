@@ -1,13 +1,14 @@
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd'
 import PageHero from '@/components/PageHero'
 import { getContent, localizedPath, type Locale } from '@/content'
-import { CONTACT_EMAIL, GOODTIME_URL } from '@/lib/config'
+import { CONTACT_EMAIL } from '@/lib/config'
+import { demoRequestHref } from '@/lib/lead-forms'
 
 export default function ContactPage({ locale }: { locale: Locale }) {
   const page = getContent(locale).contact
   const path = localizedPath('/contact', locale)
   const links = [
-    GOODTIME_URL,
+    demoRequestHref(locale),
     `mailto:${CONTACT_EMAIL}?subject=Strategic%20inquiry`,
     `mailto:${CONTACT_EMAIL}?subject=Careers%20inquiry`,
     `mailto:${CONTACT_EMAIL}?subject=Media%20or%20industry%20inquiry`,
@@ -26,7 +27,7 @@ export default function ContactPage({ locale }: { locale: Locale }) {
         <div className="container-luxe grid border-l border-t border-navy-900/20 md:grid-cols-2">
           {page.paths.map(([title, body, label], index) => {
             const href = links[index]
-            const isSchedulingLink = href === GOODTIME_URL
+            const isSchedulingLink = false
 
             return (
               <article key={title} className="flex min-h-72 flex-col border-b border-r border-navy-900/20 bg-white p-7 md:p-10">
@@ -62,9 +63,7 @@ export default function ContactPage({ locale }: { locale: Locale }) {
           <div>
             <p className="text-base leading-8 text-white/55">{page.conversation.body}</p>
             <a
-              href={GOODTIME_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={demoRequestHref(locale)}
               className="btn-light mt-8"
             >
               {page.conversation.cta}

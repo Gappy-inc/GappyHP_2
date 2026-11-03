@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { getContent, localizedPath, type Locale } from '@/content'
-import { GOODTIME_URL } from '@/lib/config'
+import { demoRequestHref } from '@/lib/lead-forms'
 
 type CTASectionProps = { locale?: Locale; title?: string; body?: string; secondaryHref?: string; secondaryLabel?: string }
 
@@ -17,7 +17,7 @@ export default function CTASection({ locale = 'en', title, body, secondaryHref =
         <div>
           <p className="max-w-xl text-base leading-8 text-navy-950/70">{body ?? copy.ctaBody}</p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a href={GOODTIME_URL} target="_blank" rel="noopener noreferrer" className="btn-primary">{copy.ctaPrimary}</a>
+            <a href={demoRequestHref(locale)} className="btn-primary">{copy.ctaPrimary}</a>
             <Link href={localizedPath(secondaryHref, locale)} className="btn-secondary">{secondaryLabel ?? copy.ctaSecondary}</Link>
           </div>
         </div>

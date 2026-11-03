@@ -17,6 +17,8 @@ import {
   SITE_URL,
 } from '@/lib/config'
 
+const HOME_HERO_VIDEO = '/hero/gappy-ai-workforce-hero.mp4'
+
 const spaceGrotesk = Space_Grotesk({
   variable: '--font-space-grotesk',
   subsets: ['latin'],
@@ -91,6 +93,7 @@ export default async function RootLayout({
   const locale: Locale =
     requestHeaders.get('x-gappy-locale') === 'ja' ? 'ja' : 'en'
   const usesCustomLayout = requestHeaders.get('x-gappy-custom-layout') === 'true'
+  const isHome = requestHeaders.get('x-gappy-home') === 'true'
   const copy = getContent(locale)
   const analyticsAvailable = analyticsEnabled(process.env.VERCEL_ENV, process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID, process.env.GA_CONFIGURATION_REVIEWED)
 
@@ -101,6 +104,15 @@ export default async function RootLayout({
       className={`${spaceGrotesk.variable} ${notoSansJP.variable} ${dmMono.variable} scroll-smooth`}
     >
       <head>
+        {isHome && (
+          <link
+            rel="preload"
+            href={HOME_HERO_VIDEO}
+            as="video"
+            type="video/mp4"
+            fetchPriority="high"
+          />
+        )}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

@@ -13,6 +13,7 @@ type PageMetadataInput = {
   description: string
   path: string
   locale?: Locale
+  includeJapaneseAlternate?: boolean
 }
 
 export function pageMetadata({
@@ -20,6 +21,7 @@ export function pageMetadata({
   description,
   path,
   locale = 'en',
+  includeJapaneseAlternate = true,
 }: PageMetadataInput): Metadata {
   const canonicalPath = localizedPath(path, locale)
   const url = `${SITE_URL}${canonicalPath}`
@@ -33,11 +35,9 @@ export function pageMetadata({
     description,
     alternates: {
       canonical: url,
-      languages: {
-        en: englishUrl,
-        ja: japaneseUrl,
-        'x-default': englishUrl,
-      },
+      languages: includeJapaneseAlternate
+        ? { en: englishUrl, ja: japaneseUrl, 'x-default': englishUrl }
+        : { en: englishUrl, 'x-default': englishUrl },
     },
     openGraph: {
       title,

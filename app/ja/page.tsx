@@ -1,15 +1,13 @@
-import { Inter } from 'next/font/google';
-import ReferenceLanding from '@/components/lp-redesign/ReferenceLanding';
+import HomePage from '@/components/home-v2/HomePageV2';
 import { pageMetadata } from '@/lib/metadata';
 
-const inter = Inter({ subsets: ['latin'], variable: '--lp-font-inter', display: 'swap' });
 export const metadata = pageMetadata({
   locale: 'ja',
   path: '/',
-  title: 'Gappy | 旅行業務特化AI Agent',
-  description: '旅行会社・ツアー運営の予約後業務を支援。予約確認・催促・変更・照合から完了確認まで、Gappyの機能と導入方法をご紹介します。',
+  title: 'Gappy AI Workforce｜旅行業務のためのAI Workforce',
+  description: '旅行会社の予約後業務を支援するGappy AI Workforce。条件変更後の最新合意・未確定事項・根拠を整理し、人の承認のもとで確認・再確認を進めます。',
 });
 
 export default function Page() {
-  return <div className={inter.variable}><ReferenceLanding integrationOrbit /></div>;
+  return <HomePage locale="ja" />;
 }

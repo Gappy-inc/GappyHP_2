@@ -5,7 +5,8 @@ import { usePathname } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { DEMO_URL } from '@/content/home-v2'
 import { CONTACT_EMAIL, GOODTIME_URL } from '@/lib/config'
-import { eligibleBrowser, pageParameters, trackedLink } from '@/lib/site-analytics'
+import { careerAnalyticsEvent, eligibleBrowser, leadAnalyticsEvent, pageParameters, trackedLink } from '@/lib/site-analytics'
+import { getCareerJob } from '@/content/careers'
 
 type Consent = 'granted' | 'denied'
 const denied = { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' }
@@ -25,7 +26,6 @@ export default function SiteAnalytics({ enabled, measurementId }: { enabled: boo
   const initialized = useRef(false)
   const lastPage = useRef('')
   const originalReferrer = useRef('')
-  const seenSections = useRef(new Set<string>())
 
   useEffect(() => {
     if (!enabled) return
@@ -40,6 +40,7 @@ export default function SiteAnalytics({ enabled, measurementId }: { enabled: boo
       // Revocation must stop the already-loaded library, not merely unmount React.
       if (!allowed) {
         try { window.gtag?.('consent', 'update', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' }) } catch { /* navigation unaffected */ }
+        lastPage.current = ''
       }
       setConsented(allowed)
     }
@@ -75,6 +76,14 @@ export default function SiteAnalytics({ enabled, measurementId }: { enabled: boo
       window.gtag('config', measurementId, { ...parameters, send_page_view: false, allow_google_signals: false, allow_ad_personalization_signals: false })
       if (lastPage.current !== pathname) {
         window.gtag('event', 'page_view', { ...parameters, send_to: measurementId })
+        const formType = pathname.endsWith('/request-demo') ? 'demo'
+          : pathname.endsWith('/request-brochure') ? 'brochure' : null
+        if (formType) window.gtag('event', 'lead_form_view', { ...parameters, form_type: formType, send_to: measurementId })
+        if (pathname === '/careers') window.gtag('event', 'careers_view', { ...parameters, page_language: 'en', send_to: measurementId })
+        else if (pathname.startsWith('/careers/')) {
+          const job = getCareerJob(pathname.slice('/careers/'.length))
+          if (job) window.gtag('event', 'career_role_view', { ...parameters, role_slug: job.slug, team: job.team, market: job.market, page_language: 'en', send_to: measurementId })
+        }
         lastPage.current = pathname
       }
       setLoaded(true)
@@ -91,6 +100,12 @@ export default function SiteAnalytics({ enabled, measurementId }: { enabled: boo
         if (!anchor) return
         const parameters = pageParameters(window.location.href, originalReferrer.current)
         if (!parameters) return
+        const careerName = anchor.dataset?.careerEvent
+        if (careerName) {
+          const detail = careerAnalyticsEvent({ name: careerName, parameters: { role_slug: anchor.dataset?.roleSlug, team: anchor.dataset?.team, market: anchor.dataset?.market, page_language: 'en', cta_location: anchor.dataset?.ctaLocation } })
+          if (detail) window.gtag?.('event', detail.name, { ...parameters, ...detail.parameters, send_to: measurementId })
+          return
+        }
         const tracked = trackedLink(anchor, parameters.locale === 'ja' ? 'ja' : 'en', DEMO_URL, GOODTIME_URL, `mailto:${CONTACT_EMAIL}`)
         if (tracked) window.gtag?.('event', tracked.name, { ...parameters, ...tracked.parameters, send_to: measurementId })
       } catch { /* Never preventDefault, await delivery, or change the destination. */ }
@@ -104,31 +119,19 @@ export default function SiteAnalytics({ enabled, measurementId }: { enabled: boo
   }, [loaded, measurementId, permitted])
 
   useEffect(() => {
-    if (!loaded || !consented || !permitted() || typeof IntersectionObserver === 'undefined') return
-    // Observe chapter headings, not tall sticky sections that can never be 50% visible.
-    const targets = new Map<Element, string>()
-    for (const [selector, id] of [
-      ['#product-proof h2', 'product_proof'], ['#workflow h2', 'workflow'],
-      ['#verification h2', 'verification'], ['#recovery h2', 'recovery'],
-      ['#context h2', 'context'], ['.hv-final h2', 'final_cta'],
-    ]) {
-      const element = document.querySelector(selector)
-      if (element) targets.set(element, id)
+    if (!loaded) return
+    const onLeadEvent = (event: Event) => {
+      try {
+        if (!permitted()) return
+        const parameters = pageParameters(window.location.href, originalReferrer.current)
+        const detail = (event as CustomEvent<unknown>).detail
+        const tracked = leadAnalyticsEvent(detail) || careerAnalyticsEvent(detail)
+        if (parameters && tracked) window.gtag?.('event', tracked.name, { ...parameters, ...tracked.parameters, send_to: measurementId })
+      } catch { /* Lead analytics never affects form operation. */ }
     }
-    const observer = new IntersectionObserver(entries => {
-      if (!permitted()) return
-      const parameters = pageParameters(window.location.href, originalReferrer.current)
-      if (!parameters) return
-      for (const entry of entries) {
-        const id = targets.get(entry.target)
-        if (!id || !entry.isIntersecting || entry.intersectionRatio < 0.5 || seenSections.current.has(id)) continue
-        seenSections.current.add(id)
-        try { window.gtag?.('event', 'section_view', { ...parameters, section_id: id, send_to: measurementId }) } catch { /* non-blocking */ }
-      }
-    }, { threshold: 0.5 })
-    targets.forEach((_, target) => observer.observe(target))
-    return () => observer.disconnect()
-  }, [loaded, consented, pathname, permitted, measurementId])
+    window.addEventListener('gappy:analytics-event', onLeadEvent)
+    return () => window.removeEventListener('gappy:analytics-event', onLeadEvent)
+  }, [loaded, measurementId, permitted])
 
   if (!enabled || !loaded || !consented || !permitted()) return null
   return <Script id="gappy-ga4" src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`} strategy="afterInteractive" onError={() => setLoaded(false)} />

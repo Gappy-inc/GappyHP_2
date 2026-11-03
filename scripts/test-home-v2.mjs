@@ -8,6 +8,7 @@ import {
   recoveryScene,
 } from "../lib/home-demo.ts";
 import { homeCopy, DEMO_URL, workflowIds } from "../content/home-v2.ts";
+import { jaUseCases, useCases } from "../content/use-cases.ts";
 
 let checks = 0;
 const check = (name, run) => {
@@ -102,6 +103,28 @@ check("stable demo and existing Calendar destinations", () => {
     /https:\/\/calendar\.app\.google\/KpXGF5RTgqRpg72n6/,
   );
 });
+check("both locales remove the legacy workflow before the retained use cases", () => {
+  const page = readFileSync("components/home-v2/HomePageV2.tsx", "utf8");
+  const component = readFileSync("components/home-v2/UseCasesCarousel.tsx", "utf8");
+  const componentCss = readFileSync("components/home-v2/UseCasesCarousel.module.css", "utf8");
+  const data = readFileSync("content/use-cases.ts", "utf8");
+  assert.doesNotMatch(page, /id="workflow"|<Workflow\b/);
+  assert.match(page, /<ProductFamilyCards locale=\{locale\} \/>[\s\S]*<UseCasesCarousel locale=\{locale\} \/>[\s\S]*id="verification"/);
+  assert.equal(useCases.length, 6);
+  assert.equal(jaUseCases.length, 6);
+  assert.deepEqual(jaUseCases.map(({ id }) => id), useCases.map(({ id }) => id));
+  assert.match(component, /AUTOPLAY_INTERVAL = 6000/);
+  assert.match(component, /prefers-reduced-motion: reduce/);
+  assert.match(component, /IntersectionObserver/);
+  assert.match(component, /visibilitychange/);
+  assert.match(component, /demoRequestHref\(locale\)/);
+  assert.match(component, /href=\{demoHref\}/);
+  assert.match(component, /mobileTitle}>さまざまな<\/span>/);
+  assert.match(component, /mobileTitle}>確認業務に。<\/span>/);
+  assert.match(componentCss, /@media \(max-width: 640px\)[\s\S]*\.section\[data-locale="ja"\] \.heading h2 \.desktopTitle[\s\S]*display: none/);
+  assert.match(componentCss, /@media \(max-width: 640px\)[\s\S]*\.section\[data-locale="ja"\] \.heading h2 \.mobileTitle[\s\S]*display: block/);
+  assert.doesNotMatch(component, /fetch\(|sendBeacon|localStorage|sessionStorage/);
+});
 const source = readdirSync("components/home-v2", { recursive: true })
   .filter((f) => f.endsWith(".tsx") || f.endsWith(".js"))
   .map((f) => readFileSync(`components/home-v2/${f}`, "utf8"))
@@ -109,8 +132,106 @@ const source = readdirSync("components/home-v2", { recursive: true })
 check("homepage never introduces capture, storage or outbound sends", () => {
   assert.doesNotMatch(
     source,
-    /\bfetch\s*\(|XMLHttpRequest|sendBeacon|localStorage|sessionStorage|<iframe|<video|type=["']email|TravelAcquisitionProvider|TravelAnalytics/,
+    /\bfetch\s*\(|XMLHttpRequest|sendBeacon|localStorage|sessionStorage|<iframe|type=["']email|TravelAcquisitionProvider|TravelAnalytics/,
   );
+});
+check("English hero uses the approved cinematic media, copy and controls", () => {
+  const hero = readFileSync("components/home-v2/CinematicHero.tsx", "utf8");
+  assert.match(hero, /<video[\s\S]*autoPlay[\s\S]*loop[\s\S]*muted[\s\S]*playsInline/);
+  assert.match(hero, /gappy-ai-workforce-hero\.mp4/);
+  assert.match(hero, /gappy-ai-workforce-hero-poster\.jpg/);
+  assert.match(hero, /preload="auto"/);
+  const layout = readFileSync("app/layout.tsx", "utf8");
+  const middleware = readFileSync("middleware.ts", "utf8");
+  assert.match(layout, /rel="preload"[\s\S]*as="video"[\s\S]*fetchPriority="high"/);
+  assert.match(middleware, /x-gappy-home/);
+  assert.match(hero, /The AI workforce for travel operations\./);
+  assert.match(hero, /From booking changes to supplier coordination, Gappy moves operational[\s\S]*work toward verified completion—with people in control\./);
+  assert.match(hero, /Book a demo/);
+  assert.match(hero, /Pause background video/);
+  assert.match(hero, /prefers-reduced-motion: reduce/);
+  assert.match(hero, /onCanPlay=\{playWhenAllowed\}/);
+  assert.match(hero, /visibilitychange/);
+  assert.match(hero, /pageshow/);
+  assert.match(hero, /manuallyPaused\.current = true/);
+  assert.match(hero, /has-video-fallback/);
+});
+check("Japanese hero reuses the media and exposes approved localized controls", () => {
+  const hero = readFileSync("components/home-v2/CinematicHero.tsx", "utf8");
+  assert.match(hero, /旅行業務のためのAI Workforce。/);
+  assert.match(hero, /予約後の確認・再確認を、最新の条件と根拠に基づいて進める。/);
+  assert.match(hero, /デモを予約/);
+  assert.match(hero, /動画を一時停止/);
+  assert.match(hero, /動画を再生/);
+  assert.equal((hero.match(/<video\b/g) || []).length, 1);
+});
+check("English product showcase keeps synthetic states truthful and local", () => {
+  const showcase = readFileSync("components/home-v2/GappyWorkforceShowcase.tsx", "utf8");
+  const showcaseCss = readFileSync("components/home-v2/GappyWorkforceShowcase.module.css", "utf8");
+  assert.match(showcase, /See the work\. Trust the outcome\./);
+  assert.match(showcase, /Track changes, confirmations, evidence, and human approvals across/);
+  assert.match(showcase, /Work items[\s\S]*24/);
+  assert.match(showcase, /Awaiting supplier[\s\S]*06/);
+  assert.match(showcase, /Needs approval[\s\S]*03/);
+  assert.match(showcase, /Verified[\s\S]*15/);
+  assert.match(showcase, /08:30/);
+  assert.match(showcase, /Superseded/);
+  assert.match(showcase, /09:15/);
+  assert.match(showcase, /Awaiting supplier reply/);
+  assert.match(showcase, /Human review required/);
+  assert.match(showcase, /No live connections or sends/);
+  assert.doesNotMatch(showcase, /\bfetch\s*\(|sendBeacon|XMLHttpRequest/);
+  assert.match(showcase, /IntersectionObserver/);
+  assert.match(showcaseCss, /prefers-reduced-motion: reduce/);
+  assert.match(showcaseCss, /grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
+});
+check("English integration orbit keeps moving under the cursor", () => {
+  const page = readFileSync("components/home-v2/HomePageV2.tsx", "utf8");
+  assert.match(page, /<GappyIntegrationOrbit locale=\{locale\} pauseOnHover=\{false\} \/>/);
+});
+check("English homepage exposes the four linked product cards after the workspace", () => {
+  const page = readFileSync("components/home-v2/HomePageV2.tsx", "utf8");
+  assert.match(page, /<GappyWorkforceShowcase locale=\{locale\} \/>[\s\S]*<ProductFamilyCards locale=\{locale\} \/>/);
+  const cards = readFileSync("components/product-family/ProductFamilyCards.tsx", "utf8");
+  assert.match(cards, /productFamily\.map/);
+  assert.match(cards, /href=\{product\.path\}/);
+  assert.match(cards, /詳しく見る（英語）/);
+});
+check("localized closing CTA and footer reuse approved routes, controls and tracking hooks", () => {
+  const page = readFileSync("components/home-v2/HomePageV2.tsx", "utf8");
+  const closing = readFileSync("components/home-v2/EnglishClosingCta.tsx", "utf8");
+  const footer = readFileSync("components/home-v2/EnglishHomeFooter.tsx", "utf8");
+  const homeFooter = readFileSync("components/home-v2/HomeFooter.tsx", "utf8");
+  const footerSelector = readFileSync("components/home-v2/FooterSelector.tsx", "utf8");
+  const css = readFileSync("components/home-v2/EnglishHomeEnd.module.css", "utf8");
+  assert.match(page, /<EnglishClosingCta locale=\{locale\} \/>/);
+  assert.match(closing, /className=\{`hv-final \$\{styles\.closing\}`\}/);
+  assert.match(closing, /See what Gappy can do for your team\./);
+  assert.match(closing, /あなたの業務で、Gappyにできること。/);
+  assert.match(closing, /Explore Gappy AI Workforce with your team’s workflow in mind\. Start[\s\S]*with one recurring confirmation task\./);
+  assert.match(closing, /demoRequestHref\(locale\)/);
+  assert.match(closing, /leadFormsPublicEnabled/);
+  assert.match(closing, /brochureRequestHref\(locale\)/);
+  assert.equal((closing.match(/<a\b/g) || []).length, 2);
+  assert.match(footerSelector, /pathname === "\/"[\s\S]*<HomeFooter locale=\{locale\} \/>/);
+  assert.match(homeFooter, /return <EnglishHomeFooter locale=\{locale\} \/>/);
+  assert.equal((footer.match(/<footer\b/g) || []).length, 1);
+  assert.match(footer, /className=\{`hv-footer \$\{styles\.footer\}`\}/);
+  assert.match(footer, /productFamily\.map/);
+  for (const route of ["/#use-cases", "/technology", "/resources", "/travel", "/cases", "/about", "/careers", "/contact"]) {
+    assert.ok(footer.includes(route), route);
+  }
+  assert.match(footer, /<BrandMark href=\{locale === "ja" \? "\/ja\/" : "\/"\} \/>/);
+  assert.match(footer, /<LanguageSwitcher \/>/);
+  assert.match(footer, /<PrivacySettings locale=\{locale\} \/>/);
+  assert.match(footer, /\$\{displayName\}（英語）/);
+  assert.match(footer, /mailto:\$\{CONTACT_EMAIL\}/);
+  assert.match(footer, /LEGAL_NAME/);
+  assert.match(footer, /COMPANY_ADDRESS/);
+  assert.match(css, /grid-template-columns: minmax\(280px, 1\.3fr\) repeat\(3/);
+  assert.match(css, /@media \(max-width: 767px\)/);
+  assert.match(css, /@media \(max-width: 320px\)[\s\S]*grid-template-columns: 1fr/);
+  assert.match(css, /prefers-reduced-motion: reduce/);
 });
 check("explicit accessibility and cleanup contracts", () => {
   assert.match(source, /aria-pressed/);
@@ -124,24 +245,20 @@ check("explicit accessibility and cleanup contracts", () => {
   assert.match(source, /ArrowLeft/);
   assert.match(source, /ArrowRight/);
 });
-check("11-block IA and no unapproved proof elements", () => {
+check("workflow-free IA and no unapproved proof elements", () => {
   const page = readFileSync("components/home-v2/HomePageV2.tsx", "utf8");
-  assert.equal((page.match(/<section\b/g) || []).length, 9);
+  assert.equal((page.match(/<section\b/g) || []).length, 5);
   assert.doesNotMatch(
     source,
     /Trusted by|meeting_booked|Production proven|free trial|fully self-serve/,
   );
 });
-check("editorial workflow has one changing canvas and readable fallbacks", () => {
+check("legacy workflow runtime and observers are removed", () => {
   const interactions = readFileSync("components/home-v2/HomeInteractions.tsx", "utf8");
-  assert.equal((interactions.match(/data-active-workflow=/g) || []).length, 1);
-  assert.match(interactions, /<JobUI key=\{active\} locale=\{locale\} index=\{active\}/);
-  assert.match(interactions, /hv-workflow-fallback/);
-  assert.match(interactions, /observer\.disconnect\(\)/);
-  const css = readFileSync("components/home-v2/home-v2.css", "utf8");
-  assert.match(css, /prefers-reduced-motion: reduce/);
-  assert.match(css, /\.hv-workflow-fallback\s*\{\s*display: block/);
-  assert.doesNotMatch(css, /(?:linear|radial)-gradient/);
+  assert.doesNotMatch(interactions, /export function Workflow|function WorkflowSignals|data-active-workflow|data-job=/);
+  assert.doesNotMatch(interactions, /#job-|mobile-job-/);
+  assert.match(interactions, /export function Verification/);
+  assert.match(interactions, /export function Recovery/);
 });
 check("handoff presentation primitives and source-backed proof fragments", () => {
   const css = readFileSync("components/home-v2/home-v2.css", "utf8");
@@ -152,15 +269,9 @@ check("handoff presentation primitives and source-backed proof fragments", () =>
   assert.match(source, /data-context-visible/);
   assert.match(css, /\.hv-recovery-mobile > \.hv-recovery-rail\s*\{\s*grid-template-columns: 1fr/);
 });
-check("structural reference preserves truthful product state and final CTA", () => {
+check("structural reference preserves the hero evidence and final CTA", () => {
   const css = readFileSync("components/home-v2/home-v2.css", "utf8");
   assert.match(css, /--hv-page-width: 1392px/);
-  assert.match(css, /\.hv-job-instrument\s*\{\s*color: #142019;/);
-  assert.match(source, /hv-workflow-support/);
-  assert.match(source, /hv-workflow-progress/);
-  assert.match(source, /state="received"/);
-  assert.match(source, /state="response"/);
-  assert.match(source, /state="candidate"/);
   assert.match(source, /hv-hero-evidence/);
   assert.deepEqual(homeCopy.en.final.title, ["From task automation", "to verified operations."]);
   assert.equal(homeCopy.en.finalDemo, "View interactive demo");
@@ -171,42 +282,29 @@ check("structural reference preserves truthful product state and final CTA", () 
 check("final P1 pass preserves dc78226 copy, IA, product and verification/recovery", () => {
   const frozen = {
     "content/home-v2.ts": "ee4596447d9b0490aa520ac7948b520f58c3b365150de8f6574ad04de58a5fca",
-    "components/home-v2/HomePageV2.tsx": "5f3b6c82e4be8ced058bf195aa946a3e0b0824f7c1f1da6bf7b33f983eeec97a",
     "components/home-v2/ProductUI.tsx": "8e025cb19e825d16cea13288c50e09a83dd24c01a20818b162f2766ba907dc37",
-    "components/home-v2/HomeFooter.tsx": "5e008ca074de6e43cd7bd8dd56de77b45f7dedf8400a285fe67f5393b6ff9263",
     "lib/home-demo.ts": "762d13fc7960b6f59e3de0fbec350625be5cf3baef35e42d44ace3e8be87ec4d",
   };
   for (const [file, hash] of Object.entries(frozen)) {
-    let source = readFileSync(file, "utf8");
-    if (file === "components/home-v2/HomePageV2.tsx") {
-      // Authorized English context replacement: still freeze the original Japanese
-      // fallback and every byte outside this one section/import pair.
-      source = source.replace('import GappyIntegrationOrbit from "./orbit/GappyIntegrationOrbit";\n', "")
-        .replace('import orbitStyles from "./orbit/OrbitSection.module.css";\n', "");
-      const start = source.indexOf('          {locale === "en" ? (', source.indexOf('<section id="context"'));
-      const end = source.indexOf('\n        </div>', start);
-      assert.ok(start > 0 && end > start);
-      const replacement = source.slice(start, end);
-      assert.match(replacement, /<GappyIntegrationOrbit \/>/);
-      const fallback = replacement.slice(replacement.indexOf('          <Heading copy={c.context} />'), replacement.lastIndexOf('\n            </>'));
-      source = source.slice(0, start) + fallback + source.slice(end);
-    }
-    if (file === "components/home-v2/HomeFooter.tsx") {
-      // Explicitly authorized Analytics-only insertion; original footer stays byte-frozen.
-      assert.equal(createHash("sha256").update(source).digest("hex"), "e276ba23ca2b315a14150027055c94eb7f8144dadef7490280125f89a16bc8ff");
-      source = source.replace("import { PrivacySettings } from '@/components/analytics/AnalyticsConsent';\n", "").replace("          <PrivacySettings locale={locale} />\n", "");
-    }
+    const source = readFileSync(file, "utf8");
     assert.equal(createHash("sha256").update(source).digest("hex"), hash, file);
   }
+  const page = readFileSync("components/home-v2/HomePageV2.tsx", "utf8");
+  assert.match(page, /<GappyWorkforceShowcase locale=\{locale\} \/>/);
+  const downstreamBeforeClosing = page
+    .slice(
+      page.indexOf('      <section id="verification"'),
+      page.lastIndexOf('      <EnglishClosingCta locale={locale} />'),
+    )
+    .replace(
+      '<GappyIntegrationOrbit pauseOnHover={false} />',
+      '<GappyIntegrationOrbit />',
+    );
+  for (const sectionId of ["verification", "recovery", "context", "architecture", "proof"])
+    assert.match(downstreamBeforeClosing, new RegExp(`id="${sectionId}"`));
   const interactions = readFileSync("components/home-v2/HomeInteractions.tsx", "utf8");
   assert.equal(createHash("sha256").update(interactions.slice(interactions.indexOf("export function Verification("))).digest("hex"), "ef2bd73ef1fc2f96277d31e81bae7a427ef5702ff272c34720e89e2088bd67ca");
-  const signals = interactions.slice(interactions.indexOf("function WorkflowSignals("), interactions.indexOf("function JobUI("));
-  assert.match(signals, /homeStates\[key\]\.readiness/);
-  assert.match(signals, /"unresolved" in state/);
-  assert.match(signals, /index === 1 \? <ol/);
-  assert.doesNotMatch(signals, /onClick|useState|useEffect|fetch\(/);
   const css = readFileSync("components/home-v2/home-v2.css", "utf8");
-  assert.match(css, /\.hv-workflow-signals \{ display: none; \}/);
   assert.match(css, /\.home-v2\.hv-footer \{ background: #08111b;/);
 });
 check("homepage locale switches reload the SSR document in desktop and mobile navigation", () => {

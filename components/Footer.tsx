@@ -2,9 +2,9 @@ import Link from 'next/link'
 import BrandMark from '@/components/BrandMark'
 import { AxisMark } from '@/components/GappyAxis'
 import { getContent, localizedPath, type Locale } from '@/content'
-import { COMPANY_ADDRESS, CONTACT_EMAIL, GOODTIME_URL } from '@/lib/config'
+import { COMPANY_ADDRESS, CONTACT_EMAIL } from '@/lib/config'
+import { demoRequestHref } from '@/lib/lead-forms'
 import FooterSelector from '@/components/home-v2/FooterSelector'
-import { PrivacySettings } from '@/components/analytics/AnalyticsConsent'
 
 export default function Footer({ locale = 'en' }: { locale?: Locale }) {
   const copy = getContent(locale)
@@ -26,11 +26,10 @@ export default function Footer({ locale = 'en' }: { locale?: Locale }) {
           </div>
         </div>
         <div className="grid gap-8 border-b border-white/20 py-8 md:grid-cols-3 md:items-end">
-          <div><p className="eyebrow text-gold-300">{locale === 'ja' ? 'お問い合わせ' : copy.footer.connect}</p><a href={GOODTIME_URL} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex min-h-11 items-center text-sm text-white hover:text-gold-300">{locale === 'ja' ? 'デモを予約' : copy.footer.talk} ↗</a></div>
+          <div><p className="eyebrow text-gold-300">{locale === 'ja' ? 'お問い合わせ' : copy.footer.connect}</p><a href={demoRequestHref(locale)} className="mt-4 inline-flex min-h-11 items-center text-sm text-white hover:text-gold-300">{locale === 'ja' ? 'デモを予約' : copy.footer.talk} ↗</a></div>
           <div><a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex min-h-11 items-center text-sm text-white hover:text-gold-300">{CONTACT_EMAIL}</a><p className="mt-2 text-[13px] leading-6 text-white/45">{COMPANY_ADDRESS}</p></div>
           <div className="flex items-center gap-3 md:justify-end"><AxisMark inverse /><Link href={localizedPath('/', locale === 'en' ? 'ja' : 'en')} className="font-mono text-[12px] uppercase tracking-[0.1em] text-white hover:text-gold-300">{locale === 'en' ? '日本語 / JP' : 'English / EN'}</Link></div>
         </div>
-        <PrivacySettings locale={locale} />
         <div className="flex flex-col gap-3 pt-8 font-mono text-[12px] uppercase tracking-[0.1em] text-white/35 sm:flex-row sm:justify-between"><p>© 2026 Gappy, Inc.</p><p>{locale === 'ja' ? '事業オペレーションのためのAI Workforce' : 'AI Workforce for Business Operations'}</p></div>
       </div>
     </footer>

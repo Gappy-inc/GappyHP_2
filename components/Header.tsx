@@ -6,7 +6,8 @@ import { useEffect, useRef, useState } from 'react'
 import BrandMark from '@/components/BrandMark'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { getContent, isJapanesePath, localizedPath } from '@/content'
-import { GOODTIME_URL } from '@/lib/config'
+import { demoRequestHref } from '@/lib/lead-forms'
+import { getCareerJob } from '@/content/careers'
 import dynamic from 'next/dynamic'
 
 const HomeNavigation = dynamic(() => import('@/components/home-v2/HomeNavigation'))
@@ -14,6 +15,7 @@ const HomeNavigation = dynamic(() => import('@/components/home-v2/HomeNavigation
 export default function Header() {
   const pathname = usePathname()
   if (pathname === '/' || pathname === '/ja/' || pathname === '/ja') return <HomeNavigation locale={isJapanesePath(pathname) ? 'ja' : 'en'} />
+  if (pathname.startsWith('/product/')) return <HomeNavigation locale="en" mode="light" />
   return <CorporateHeader />
 }
 
@@ -21,7 +23,10 @@ function CorporateHeader() {
   const pathname = usePathname()
   const locale = isJapanesePath(pathname) ? 'ja' : 'en'
   const copy = getContent(locale).navigation
-  const primaryLinks = copy.primary.map(({ label, path }) => ({ label, href: localizedPath(path, locale) }))
+  const productLinks = pathname.startsWith('/product/')
+    ? [{ label: 'Product', href: '/#product-family' }]
+    : []
+  const primaryLinks = [...productLinks, ...copy.primary.map(({ label, path }) => ({ label, href: localizedPath(path, locale) }))]
   const companyLinks = copy.company.map(({ label, path }) => ({ label, href: localizedPath(path, locale) }))
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isCompanyOpen, setIsCompanyOpen] = useState(false)
@@ -60,7 +65,12 @@ function CorporateHeader() {
   const isActive = (href: string) => pathname === href
   const isCompanyActive = companyLinks.some(({ href }) => pathname === href)
   const isTravel = pathname === '/travel' || pathname === '/ja/travel'
-  const routeCtaLabel = isTravel ? (locale === 'ja' ? 'デモを予約' : 'Book a demo') : copy.talk
+  const isCareers = locale === 'en' && (pathname === '/careers' || pathname.startsWith('/careers/'))
+  const careerJob = pathname.startsWith('/careers/') ? getCareerJob(pathname.slice('/careers/'.length)) : undefined
+  const routeCtaLabel = isCareers ? (pathname === '/careers' ? 'Explore opportunities' : 'Apply')
+    : isTravel ? (locale === 'ja' ? 'デモを予約' : 'Book a demo') : copy.talk
+  const demoHref = demoRequestHref(locale)
+  const routeCtaHref = isCareers ? (pathname === '/careers' ? '#open-positions' : '#application') : demoHref
 
   return (
     <header className={`fixed inset-x-0 top-0 z-50 border-b transition-colors ${scrolled || isMenuOpen ? 'border-navy-900/15 bg-ivory-50/95 backdrop-blur-xl' : 'border-transparent bg-ivory-50/80 backdrop-blur-sm'}`}>
@@ -81,7 +91,7 @@ function CorporateHeader() {
         </nav>
         <div className="hidden items-center gap-4 lg:flex">
           <LanguageSwitcher />
-          <a href={GOODTIME_URL} target="_blank" rel="noopener noreferrer" className="btn-primary">{routeCtaLabel}</a>
+          <a href={routeCtaHref} className="btn-primary" data-career-event={isCareers ? 'career_apply_click' : undefined} data-role-slug={careerJob?.slug} data-team={careerJob?.team} data-market={careerJob?.market} data-cta-location={isCareers ? 'header' : undefined}>{routeCtaLabel}</a>
         </div>
         <button type="button" className="flex h-11 items-center gap-3 font-mono text-[12px] font-medium uppercase tracking-[0.1em] lg:hidden" onClick={() => setIsMenuOpen((open) => !open)} aria-label={isMenuOpen ? copy.closeMenu : copy.openMenu} aria-expanded={isMenuOpen} aria-controls="mobile-navigation">
           <span>{isMenuOpen ? 'Close' : 'Menu'}</span>
@@ -96,7 +106,7 @@ function CorporateHeader() {
             ))}
           </div>
           <div className="mt-auto grid gap-5 pt-7">
-            <a href={GOODTIME_URL} target="_blank" rel="noopener noreferrer" className="btn-light w-full">{routeCtaLabel}</a>
+            <a href={routeCtaHref} className="btn-light w-full" data-career-event={isCareers ? 'career_apply_click' : undefined} data-role-slug={careerJob?.slug} data-team={careerJob?.team} data-market={careerJob?.market} data-cta-location={isCareers ? 'mobile_header' : undefined}>{routeCtaLabel}</a>
             <LanguageSwitcher mobile />
           </div>
         </nav>

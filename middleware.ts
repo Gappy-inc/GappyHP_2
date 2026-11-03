@@ -16,9 +16,11 @@ export function middleware(request: NextRequest) {
   }
 
   const requestHeaders = new Headers(request.headers)
+  const isLeadForm = ['/request-demo', '/request-brochure', '/ja/request-demo', '/ja/request-brochure'].includes(pathname)
   const isLPPreview = ['/lp-a', '/lp-b', '/lp-c', '/ja/consultation', '/ja/signup'].includes(pathname)
   requestHeaders.set('x-gappy-lp-preview', isLPPreview ? 'true' : 'false')
-  requestHeaders.set('x-gappy-custom-layout', isLPPreview || pathname === '/ja/' ? 'true' : 'false')
+  requestHeaders.set('x-gappy-custom-layout', isLPPreview || isLeadForm ? 'true' : 'false')
+  requestHeaders.set('x-gappy-home', pathname === '/' || pathname === '/ja/' ? 'true' : 'false')
   const isJapanese = isLPPreview ||
     pathname === '/ja/' || pathname.startsWith('/ja/')
 

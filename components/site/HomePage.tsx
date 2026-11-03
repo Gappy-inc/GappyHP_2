@@ -6,7 +6,7 @@ import OperatingLoop from '@/components/OperatingLoop'
 import OperationalGraph from '@/components/OperationalGraph'
 import VerificationPath from '@/components/VerificationPath'
 import { getContent, localizedPath, type Locale } from '@/content'
-import { GOODTIME_URL } from '@/lib/config'
+import { demoRequestHref } from '@/lib/lead-forms'
 
 export default function HomePage({ locale }: { locale: Locale }) {
   const copy = getContent(locale)
@@ -26,7 +26,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
             <div>
               <p className="body-lead max-w-xl">{page.hero.body}</p>
               <p className="mt-5 text-lg font-medium text-navy-900">{page.hero.emphasis}</p>
-              <div className="mt-8 flex flex-wrap gap-3"><Link href={localizedPath('/travel', locale)} className="btn-primary">{page.hero.primary}</Link><a href={GOODTIME_URL} target="_blank" rel="noopener noreferrer" className="btn-secondary">{page.hero.secondary}</a></div>
+              <div className="mt-8 flex flex-wrap gap-3"><Link href={localizedPath('/travel', locale)} className="btn-primary">{page.hero.primary}</Link><a href={demoRequestHref(locale)} className="btn-secondary">{page.hero.secondary}</a></div>
             </div>
             <div className="relative h-[180px] overflow-hidden border-y border-navy-900/15 lg:h-[240px]">
               <div className="absolute left-1/2 top-0 h-full w-px bg-navy-900/25" />
