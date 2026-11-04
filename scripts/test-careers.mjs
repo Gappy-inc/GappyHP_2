@@ -4,14 +4,15 @@ import { careerJobs, careerMarkets, careerTeams } from '../content/careers.ts'
 import { handleCareerApplication, loadCareersReceiverConfiguration, normalizeResumeFilename } from '../lib/careers-applications-server.ts'
 import { careerAnalyticsEvent, publicPath } from '../lib/site-analytics.ts'
 
-assert.equal(careerJobs.length, 8)
+assert.equal(careerJobs.length, 10)
 assert.deepEqual(careerTeams, ['GTM Manager / Sales', 'Development Engineer'])
-assert.equal(careerJobs.filter(job => job.team === 'GTM Manager / Sales').length, 4)
-assert.equal(careerJobs.filter(job => job.team === 'Development Engineer').length, 4)
+assert.equal(careerJobs.filter(job => job.team === 'GTM Manager / Sales').length, 5)
+assert.equal(careerJobs.filter(job => job.team === 'Development Engineer').length, 5)
 assert.deepEqual([...new Set(careerJobs.map(job => job.market))], [...careerMarkets])
-assert.equal(new Set(careerJobs.map(job => job.slug)).size, 8)
+assert.deepEqual(careerMarkets, ['Japan', 'South Korea', 'Taiwan', 'Singapore', 'Thailand'])
+assert.equal(new Set(careerJobs.map(job => job.slug)).size, 10)
 for (const job of careerJobs) {
-  assert.match(job.slug, /^(gtm-manager-sales|development-engineer)-(south-korea|taiwan|singapore|thailand)$/)
+  assert.match(job.slug, /^(gtm-manager-sales|development-engineer)-(japan|south-korea|taiwan|singapore|thailand)$/)
   assert.equal(publicPath(`/careers/${job.slug}`), true)
 }
 
@@ -75,7 +76,12 @@ assert.equal(normalizeResumeFilename('../../ résumé 2026.PDF', '.pdf'), 'r_sum
 
 const form = readFileSync('components/careers/ApplicationForm.tsx', 'utf8')
 const explorer = readFileSync('components/careers/JobExplorer.tsx', 'utf8')
+const landing = readFileSync('components/careers/CareersLandingPage.tsx', 'utf8')
+const landingStyles = readFileSync('components/careers/Careers.module.css', 'utf8')
 assert.match(explorer, /All teams/); assert.match(explorer, /All markets/); assert.match(explorer, /Search positions/)
+assert.doesNotMatch(landing, /Life at Gappy|A small team with global ambitions|styles\.life|teamGrid/)
+assert.doesNotMatch(landingStyles, /\.life\{|\.teamGrid/)
+assert.match(landingStyles, /\.values \+ \.markets\{padding-top:0\}/)
 assert.match(form, /crypto\.randomUUID\(\)/); assert.match(form, /submission === 'sending'/); assert.match(form, /disabled=\{availability !== 'available'/)
 assert.match(form, /\.pdf,\.doc,\.docx/); assert.match(form, /privacyAccepted/); assert.match(form, /result\?\.status !== 'accepted'/)
 assert.doesNotMatch(form, /localStorage|sessionStorage|mailto:|mitsuki@gappy.jp/)
@@ -88,4 +94,4 @@ assert.equal(careerAnalyticsEvent({ name: 'career_role_view', parameters: { page
 const sitemap = readFileSync('app/sitemap.ts', 'utf8')
 const rolePage = readFileSync('app/careers/[slug]/page.tsx', 'utf8')
 assert.match(sitemap, /careerJobs/); assert.match(rolePage, /JobPosting/); assert.doesNotMatch(rolePage, /baseSalary|employmentType|jobLocationType|streetAddress|validThrough/)
-console.log('PASS: exactly 8 roles, filters/routes, strict CV validation, preselection, privacy, idempotency, durable resume + notification success, PII-safe analytics and JobPosting constraints')
+console.log('PASS: exactly 10 roles across 5 markets, filters/routes, strict CV validation, preselection, privacy, idempotency, durable resume + notification success, PII-safe analytics and JobPosting constraints')

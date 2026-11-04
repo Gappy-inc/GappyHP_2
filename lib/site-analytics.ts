@@ -92,11 +92,13 @@ export function leadAnalyticsEvent(value: unknown): AnalyticsEvent | null {
 
 const careerEvents = new Set<CareerEventName>(['careers_view', 'career_role_view', 'career_apply_click', 'career_application_start', 'career_resume_selected', 'career_application_submit', 'career_application_success', 'career_application_error'])
 const careerSlugs = new Set([
+  'gtm-manager-sales-japan',
   'gtm-manager-sales-south-korea', 'gtm-manager-sales-taiwan', 'gtm-manager-sales-singapore', 'gtm-manager-sales-thailand',
+  'development-engineer-japan',
   'development-engineer-south-korea', 'development-engineer-taiwan', 'development-engineer-singapore', 'development-engineer-thailand',
 ])
 const careerTeams = new Set(['GTM Manager / Sales', 'Development Engineer'])
-const careerMarkets = new Set(['South Korea', 'Taiwan', 'Singapore', 'Thailand'])
+const careerMarkets = new Set(['Japan', 'South Korea', 'Taiwan', 'Singapore', 'Thailand'])
 const careerLocations = new Set(['header', 'mobile_header', 'hero', 'final', 'positions', 'role_hero', 'application'])
 
 export function careerAnalyticsEvent(value: unknown): AnalyticsEvent | null {

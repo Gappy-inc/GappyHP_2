@@ -1,5 +1,5 @@
 export const careerTeams = ['GTM Manager / Sales', 'Development Engineer'] as const
-export const careerMarkets = ['South Korea', 'Taiwan', 'Singapore', 'Thailand'] as const
+export const careerMarkets = ['Japan', 'South Korea', 'Taiwan', 'Singapore', 'Thailand'] as const
 
 export type CareerTeam = (typeof careerTeams)[number]
 export type CareerMarket = (typeof careerMarkets)[number]
