@@ -1,12 +1,11 @@
 // No browser storage, identity, raw form values or arbitrary campaign values.
-export const PUBLIC_PATHS = [
-  '/', '/technology', '/travel', '/cases', '/resources', '/about', '/careers', '/contact',
-  '/request-demo', '/request-brochure',
-  '/product/ai-workforce', '/product/verified-work', '/product/change-monitor', '/product/evidence-approval',
-] as const
+export const PUBLIC_PATHS = ['/', '/technology', '/travel', '/cases', '/resources', '/about', '/careers', '/contact', '/request-demo', '/request-brochure', '/product/ai-workforce', '/product/verified-work', '/product/change-monitor', '/product/evidence-approval'] as const
 export type AnalyticsLocale = 'en' | 'ja'
 type CareerEventName = 'careers_view' | 'career_role_view' | 'career_apply_click' | 'career_application_start' | 'career_resume_selected' | 'career_application_submit' | 'career_application_success' | 'career_application_error'
-export type AnalyticsEvent = { name: 'cta_click' | 'language_switch' | 'lead_form_view' | 'form_start' | 'generate_lead' | 'lead_form_error' | 'booking_link_click' | 'resource_download_click' | CareerEventName; parameters: Record<string, string> }
+export type AnalyticsEvent = {
+  name: 'cta_click' | 'language_switch' | 'lead_form_view' | 'form_start' | 'generate_lead' | 'lead_form_error' | 'booking_link_click' | 'resource_download_click' | CareerEventName
+  parameters: Record<string, string>
+}
 
 export function publicPath(path: string): boolean {
   const base = path === '/ja/' ? '/' : path.replace(/^\/ja(?=\/)/, '')
@@ -20,9 +19,10 @@ export function analyticsEnabled(environment: string | undefined, id: string | u
 export function eligibleBrowser(url: string, automated: boolean, optedOut: boolean): boolean {
   try {
     const u = new URL(url)
-    return u.origin === 'https://gappy.jp' && publicPath(u.pathname)
-      && !automated && !optedOut && !u.searchParams.has('analytics_qa')
-  } catch { return false }
+    return u.origin === 'https://gappy.jp' && publicPath(u.pathname) && !automated && !optedOut && !u.searchParams.has('analytics_qa')
+  } catch {
+    return false
+  }
 }
 
 // Fixed values, not just key names: even utm_campaign=email@example.test is dropped.
@@ -42,7 +42,9 @@ export function pageParameters(href: string, referrer: string) {
     // Keep only origin; never conversation IDs, query, credentials, or fragments.
     const hosts = ['gappy.jp', 'chatgpt.com', 'chat.openai.com', 'www.google.com', 'www.google.co.jp', 'www.bing.com', 'www.linkedin.com', 'linkedin.com', 'perplexity.ai', 'www.perplexity.ai']
     if (['https:', 'http:'].includes(ref.protocol) && !ref.username && !ref.password && !ref.port && hosts.includes(ref.hostname)) source = ref.origin
-  } catch { /* direct visit */ }
+  } catch {
+    /* direct visit */
+  }
   const parameters: Record<string, string> = {
     page_location: `${url.origin}${url.pathname}`,
     page_path: url.pathname,
@@ -67,10 +69,15 @@ export function pageParameters(href: string, referrer: string) {
 export function ctaEvent(location: string, destination: string, locale: AnalyticsLocale): AnalyticsEvent | null {
   if (!['header', 'hero', 'final', 'announcement', 'proof', 'use_cases', 'footer', 'mobile_header'].includes(location)) return null
   if (!['demo', 'sales', 'contact', 'request_demo', 'request_brochure'].includes(destination)) return null
-  return { name: 'cta_click', parameters: {
-    cta_id: `${location}_${destination}`, cta_location: location, locale,
-    destination_type: destination === 'demo' ? 'demo' : destination === 'sales' ? 'booking' : destination === 'contact' ? 'email' : destination,
-  } }
+  return {
+    name: 'cta_click',
+    parameters: {
+      cta_id: `${location}_${destination}`,
+      cta_location: location,
+      locale,
+      destination_type: destination === 'demo' ? 'demo' : destination === 'sales' ? 'booking' : destination === 'contact' ? 'email' : destination,
+    },
+  }
 }
 
 const leadEvents = new Set(['lead_form_view', 'form_start', 'generate_lead', 'lead_form_error', 'booking_link_click', 'resource_download_click'])
@@ -91,12 +98,7 @@ export function leadAnalyticsEvent(value: unknown): AnalyticsEvent | null {
 }
 
 const careerEvents = new Set<CareerEventName>(['careers_view', 'career_role_view', 'career_apply_click', 'career_application_start', 'career_resume_selected', 'career_application_submit', 'career_application_success', 'career_application_error'])
-const careerSlugs = new Set([
-  'gtm-manager-sales-japan',
-  'gtm-manager-sales-south-korea', 'gtm-manager-sales-taiwan', 'gtm-manager-sales-singapore', 'gtm-manager-sales-thailand',
-  'development-engineer-japan',
-  'development-engineer-south-korea', 'development-engineer-taiwan', 'development-engineer-singapore', 'development-engineer-thailand',
-])
+const careerSlugs = new Set(['gtm-manager-sales-japan', 'gtm-manager-sales-south-korea', 'gtm-manager-sales-taiwan', 'gtm-manager-sales-singapore', 'gtm-manager-sales-thailand', 'development-engineer-japan', 'development-engineer-south-korea', 'development-engineer-taiwan', 'development-engineer-singapore', 'development-engineer-thailand'])
 const careerTeams = new Set(['GTM Manager / Sales', 'Development Engineer'])
 const careerMarkets = new Set(['Japan', 'South Korea', 'Taiwan', 'Singapore', 'Thailand'])
 const careerLocations = new Set(['header', 'mobile_header', 'hero', 'final', 'positions', 'role_hero', 'application'])
@@ -106,8 +108,8 @@ export function careerAnalyticsEvent(value: unknown): AnalyticsEvent | null {
   const detail = value as { name?: unknown; parameters?: unknown }
   if (typeof detail.name !== 'string' || !careerEvents.has(detail.name as CareerEventName) || !detail.parameters || typeof detail.parameters !== 'object') return null
   const input = detail.parameters as Record<string, unknown>
-  if (input.page_language !== 'en') return null
-  const safe: Record<string, string> = { page_language: 'en' }
+  if (input.page_language !== 'en' && input.page_language !== 'ja') return null
+  const safe: Record<string, string> = { page_language: input.page_language }
   if (typeof input.role_slug === 'string' && careerSlugs.has(input.role_slug)) safe.role_slug = input.role_slug
   if (typeof input.team === 'string' && careerTeams.has(input.team)) safe.team = input.team
   if (typeof input.market === 'string' && careerMarkets.has(input.market)) safe.market = input.market
@@ -121,16 +123,25 @@ export function trackedLink(anchor: HTMLAnchorElement, locale: AnalyticsLocale, 
   const href = anchor.getAttribute('href')
   if (anchor.closest('.hv-languages') && (href === '/' || href === '/ja/')) {
     const to = href === '/ja/' ? 'ja' : 'en'
-    return to === locale ? null : { name: 'language_switch', parameters: { from_locale: locale, to_locale: to } }
+    return to === locale
+      ? null
+      : {
+          name: 'language_switch',
+          parameters: { from_locale: locale, to_locale: to },
+        }
   }
-  const destination = href === demoUrl ? 'demo' : href === salesUrl ? 'sales' : href === contactUrl ? 'contact'
-    : href === '/request-demo' || href === '/ja/request-demo' ? 'request_demo'
-      : href === '/request-brochure' || href === '/ja/request-brochure' ? 'request_brochure' : null
+  const destination = href === demoUrl ? 'demo' : href === salesUrl ? 'sales' : href === contactUrl ? 'contact' : href === '/request-demo' || href === '/ja/request-demo' ? 'request_demo' : href === '/request-brochure' || href === '/ja/request-brochure' ? 'request_brochure' : null
   if (!destination) return null
   const locations = [
-    ['.hv-announcement', 'announcement'], ['#home-mobile-menu', 'mobile_header'],
-    ['.hv-nav-actions', 'header'], ['.hv-cinematic-hero', 'hero'], ['.hv-hero', 'hero'], ['.hv-final', 'final'],
-    ['#proof', 'proof'], ['#use-cases', 'use_cases'], ['.hv-footer', 'footer'],
+    ['.hv-announcement', 'announcement'],
+    ['#home-mobile-menu', 'mobile_header'],
+    ['.hv-nav-actions', 'header'],
+    ['.hv-cinematic-hero', 'hero'],
+    ['.hv-hero', 'hero'],
+    ['.hv-final', 'final'],
+    ['#proof', 'proof'],
+    ['#use-cases', 'use_cases'],
+    ['.hv-footer', 'footer'],
   ]
   const location = locations.find(([selector]) => anchor.closest(selector))?.[1]
   return location ? ctaEvent(location, destination, locale) : null

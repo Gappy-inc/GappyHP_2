@@ -32,28 +32,93 @@ for (const val of ['email@example.test', 'JaneSmith', '123456789', 'secret-token
 assert.equal(pageParameters('https://gappy.jp/', 'https://chat.openai.com/c/private').utm_source, 'chatgpt.com')
 assert.equal(pageParameters('https://gappy.jp/', 'https://private:password@example.test/').page_referrer, '')
 assert.equal(pageParameters('https://gappy.jp/api/private', ''), null)
-for (const locale of ['en', 'ja']) for (const location of ['hero', 'header', 'final', 'announcement', 'proof', 'use_cases', 'mobile_header', 'footer']) {
-  for (const kind of ['demo', 'sales']) {
-    const e = ctaEvent(location, kind, locale)
-    assert.equal(e.name, 'cta_click')
-    assert.deepEqual(Object.keys(e.parameters).sort(), ['cta_id', 'cta_location', 'destination_type', 'locale'])
-    assert.equal(e.parameters.cta_id, `${location}_${kind}`)
+for (const locale of ['en', 'ja'])
+  for (const location of ['hero', 'header', 'final', 'announcement', 'proof', 'use_cases', 'mobile_header', 'footer']) {
+    for (const kind of ['demo', 'sales']) {
+      const e = ctaEvent(location, kind, locale)
+      assert.equal(e.name, 'cta_click')
+      assert.deepEqual(Object.keys(e.parameters).sort(), ['cta_id', 'cta_location', 'destination_type', 'locale'])
+      assert.equal(e.parameters.cta_id, `${location}_${kind}`)
+    }
   }
-}
 assert.equal(ctaEvent('workflow', 'demo', 'en'), null) // No such CTA in frozen markup.
-assert.deepEqual(leadAnalyticsEvent({ name: 'generate_lead', parameters: { form_type: 'demo', email: 'private@example.test' } }), { name: 'generate_lead', parameters: { form_type: 'demo' } })
-assert.deepEqual(leadAnalyticsEvent({ name: 'lead_form_error', parameters: { form_type: 'brochure', error_code: 'rate_limited', message: 'private' } }), { name: 'lead_form_error', parameters: { form_type: 'brochure', error_code: 'rate_limited' } })
-assert.equal(leadAnalyticsEvent({ name: 'generate_lead', parameters: { form_type: 'invalid' } }), null)
-assert.deepEqual(careerAnalyticsEvent({ name: 'career_apply_click', parameters: { page_language: 'en', cta_location: 'hero', email: 'private@example.test' } }), { name: 'career_apply_click', parameters: { page_language: 'en', cta_location: 'hero' } })
-assert.equal(careerAnalyticsEvent({ name: 'career_role_view', parameters: { page_language: 'en' } }), null)
-const anchor = (href, selector) => ({ getAttribute: () => href, closest: s => s === selector })
-assert.deepEqual(trackedLink(anchor('/ja/', '.hv-languages'), 'en', 'demo', 'sales', 'email'), { name: 'language_switch', parameters: { from_locale: 'en', to_locale: 'ja' } })
+assert.deepEqual(
+  leadAnalyticsEvent({
+    name: 'generate_lead',
+    parameters: { form_type: 'demo', email: 'private@example.test' },
+  }),
+  { name: 'generate_lead', parameters: { form_type: 'demo' } },
+)
+assert.deepEqual(
+  leadAnalyticsEvent({
+    name: 'lead_form_error',
+    parameters: {
+      form_type: 'brochure',
+      error_code: 'rate_limited',
+      message: 'private',
+    },
+  }),
+  {
+    name: 'lead_form_error',
+    parameters: { form_type: 'brochure', error_code: 'rate_limited' },
+  },
+)
+assert.equal(
+  leadAnalyticsEvent({
+    name: 'generate_lead',
+    parameters: { form_type: 'invalid' },
+  }),
+  null,
+)
+assert.deepEqual(
+  careerAnalyticsEvent({
+    name: 'career_apply_click',
+    parameters: {
+      page_language: 'en',
+      cta_location: 'hero',
+      email: 'private@example.test',
+    },
+  }),
+  {
+    name: 'career_apply_click',
+    parameters: { page_language: 'en', cta_location: 'hero' },
+  },
+)
+assert.deepEqual(
+  careerAnalyticsEvent({
+    name: 'career_apply_click',
+    parameters: {
+      page_language: 'ja',
+      cta_location: 'hero',
+      email: 'private@example.test',
+    },
+  }),
+  {
+    name: 'career_apply_click',
+    parameters: { page_language: 'ja', cta_location: 'hero' },
+  },
+)
+assert.equal(
+  careerAnalyticsEvent({
+    name: 'career_role_view',
+    parameters: { page_language: 'en' },
+  }),
+  null,
+)
+const anchor = (href, selector) => ({
+  getAttribute: () => href,
+  closest: (s) => s === selector,
+})
+assert.deepEqual(trackedLink(anchor('/ja/', '.hv-languages'), 'en', 'demo', 'sales', 'email'), {
+  name: 'language_switch',
+  parameters: { from_locale: 'en', to_locale: 'ja' },
+})
 assert.equal(trackedLink(anchor('demo', '.hv-hero'), 'en', 'demo', 'sales', 'email').parameters.cta_id, 'hero_demo')
 assert.equal(trackedLink(anchor('sales', '#use-cases'), 'en', 'demo', 'sales', 'email').parameters.cta_id, 'use_cases_sales')
 assert.equal(trackedLink(anchor('/request-demo', '.hv-hero'), 'en', 'demo', 'sales', 'email').parameters.cta_id, 'hero_request_demo')
 assert.equal(trackedLink(anchor('unapproved', '.hv-hero'), 'en', 'demo', 'sales', 'email'), null)
 const component = readFileSync('components/analytics/SiteAnalytics.tsx', 'utf8')
-assert.match(component, /from 'next\/script'/)
+assert.match(component, /from ["']next\/script["']/)
 assert.match(component, /send_page_view: false/)
 assert.match(component, /allow_google_signals: false/)
 assert.match(component, /allow_ad_personalization_signals: false/)

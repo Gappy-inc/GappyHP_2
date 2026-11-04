@@ -1,8 +1,8 @@
-import CareersPage from '@/components/site/CareersPage'
+import CareersLandingPage from '@/components/careers/CareersLandingPage'
 import { localizedPageMetadata } from '@/lib/metadata'
 
 export const metadata = localizedPageMetadata('ja', 'careers')
 
 export default function Page() {
-  return <CareersPage locale="ja" />
+  return <CareersLandingPage locale="ja" />
 }

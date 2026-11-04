@@ -9,7 +9,12 @@ import { careerAnalyticsEvent, eligibleBrowser, leadAnalyticsEvent, pageParamete
 import { getCareerJob } from '@/content/careers'
 
 type Consent = 'granted' | 'denied'
-const denied = { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' }
+const denied = {
+  analytics_storage: 'denied',
+  ad_storage: 'denied',
+  ad_user_data: 'denied',
+  ad_personalization: 'denied',
+}
 declare global {
   interface Window {
     dataLayer?: unknown[]
@@ -32,14 +37,25 @@ export default function SiteAnalytics({ enabled, measurementId }: { enabled: boo
     // QA opt-out survives hard locale navigation; no visitor ID is stored.
     try {
       if (new URL(window.location.href).searchParams.has('analytics_qa')) sessionStorage.setItem('gappy-analytics-qa', '1')
-    } catch { return }
+    } catch {
+      return
+    }
     originalReferrer.current = document.referrer
     const update = () => {
       const allowed = window.gappyAnalyticsConsent === 'granted'
       ;(window as unknown as Record<string, unknown>)[`ga-disable-${measurementId}`] = !allowed
       // Revocation must stop the already-loaded library, not merely unmount React.
       if (!allowed) {
-        try { window.gtag?.('consent', 'update', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' }) } catch { /* navigation unaffected */ }
+        try {
+          window.gtag?.('consent', 'update', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          })
+        } catch {
+          /* navigation unaffected */
+        }
         lastPage.current = ''
       }
       setConsented(allowed)
@@ -51,11 +67,10 @@ export default function SiteAnalytics({ enabled, measurementId }: { enabled: boo
 
   const permitted = useCallback(() => {
     try {
-      return enabled && window.gappyAnalyticsConsent === 'granted' && eligibleBrowser(
-        window.location.href, navigator.webdriver,
-        sessionStorage.getItem('gappy-analytics-qa') === '1' || navigator.doNotTrack === '1',
-      )
-    } catch { return false }
+      return enabled && window.gappyAnalyticsConsent === 'granted' && eligibleBrowser(window.location.href, navigator.webdriver, sessionStorage.getItem('gappy-analytics-qa') === '1' || navigator.doNotTrack === '1')
+    } catch {
+      return false
+    }
   }, [enabled])
 
   useEffect(() => {
@@ -64,30 +79,70 @@ export default function SiteAnalytics({ enabled, measurementId }: { enabled: boo
     const parameters = pageParameters(window.location.href, originalReferrer.current)
     if (!parameters) return
     window.dataLayer = window.dataLayer || []
-    window.gtag = window.gtag || ((...args: unknown[]) => { window.dataLayer?.push(args) })
+    window.gtag =
+      window.gtag ||
+      ((...args: unknown[]) => {
+        window.dataLayer?.push(args)
+      })
     try {
       if (!initialized.current) {
         window.gtag('consent', 'default', denied)
         window.gtag('js', new Date())
         initialized.current = true
       }
-      window.gtag('consent', 'update', { ...denied, analytics_storage: 'granted' })
-      window.gtag('set', { ...parameters, allow_google_signals: false, allow_ad_personalization_signals: false, ads_data_redaction: true, url_passthrough: false })
-      window.gtag('config', measurementId, { ...parameters, send_page_view: false, allow_google_signals: false, allow_ad_personalization_signals: false })
+      window.gtag('consent', 'update', {
+        ...denied,
+        analytics_storage: 'granted',
+      })
+      window.gtag('set', {
+        ...parameters,
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false,
+        ads_data_redaction: true,
+        url_passthrough: false,
+      })
+      window.gtag('config', measurementId, {
+        ...parameters,
+        send_page_view: false,
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false,
+      })
       if (lastPage.current !== pathname) {
-        window.gtag('event', 'page_view', { ...parameters, send_to: measurementId })
-        const formType = pathname.endsWith('/request-demo') ? 'demo'
-          : pathname.endsWith('/request-brochure') ? 'brochure' : null
-        if (formType) window.gtag('event', 'lead_form_view', { ...parameters, form_type: formType, send_to: measurementId })
-        if (pathname === '/careers') window.gtag('event', 'careers_view', { ...parameters, page_language: 'en', send_to: measurementId })
+        window.gtag('event', 'page_view', {
+          ...parameters,
+          send_to: measurementId,
+        })
+        const formType = pathname.endsWith('/request-demo') ? 'demo' : pathname.endsWith('/request-brochure') ? 'brochure' : null
+        if (formType)
+          window.gtag('event', 'lead_form_view', {
+            ...parameters,
+            form_type: formType,
+            send_to: measurementId,
+          })
+        if (pathname === '/careers' || pathname === '/ja/careers')
+          window.gtag('event', 'careers_view', {
+            ...parameters,
+            page_language: parameters.locale,
+            send_to: measurementId,
+          })
         else if (pathname.startsWith('/careers/')) {
           const job = getCareerJob(pathname.slice('/careers/'.length))
-          if (job) window.gtag('event', 'career_role_view', { ...parameters, role_slug: job.slug, team: job.team, market: job.market, page_language: 'en', send_to: measurementId })
+          if (job)
+            window.gtag('event', 'career_role_view', {
+              ...parameters,
+              role_slug: job.slug,
+              team: job.team,
+              market: job.market,
+              page_language: 'en',
+              send_to: measurementId,
+            })
         }
         lastPage.current = pathname
       }
       setLoaded(true)
-    } catch { /* analytics never affects the page */ }
+    } catch {
+      /* analytics never affects the page */
+    }
   }, [consented, pathname, measurementId, permitted, enabled])
 
   useEffect(() => {
@@ -102,13 +157,34 @@ export default function SiteAnalytics({ enabled, measurementId }: { enabled: boo
         if (!parameters) return
         const careerName = anchor.dataset?.careerEvent
         if (careerName) {
-          const detail = careerAnalyticsEvent({ name: careerName, parameters: { role_slug: anchor.dataset?.roleSlug, team: anchor.dataset?.team, market: anchor.dataset?.market, page_language: 'en', cta_location: anchor.dataset?.ctaLocation } })
-          if (detail) window.gtag?.('event', detail.name, { ...parameters, ...detail.parameters, send_to: measurementId })
+          const detail = careerAnalyticsEvent({
+            name: careerName,
+            parameters: {
+              role_slug: anchor.dataset?.roleSlug,
+              team: anchor.dataset?.team,
+              market: anchor.dataset?.market,
+              page_language: parameters.locale,
+              cta_location: anchor.dataset?.ctaLocation,
+            },
+          })
+          if (detail)
+            window.gtag?.('event', detail.name, {
+              ...parameters,
+              ...detail.parameters,
+              send_to: measurementId,
+            })
           return
         }
         const tracked = trackedLink(anchor, parameters.locale === 'ja' ? 'ja' : 'en', DEMO_URL, GOODTIME_URL, `mailto:${CONTACT_EMAIL}`)
-        if (tracked) window.gtag?.('event', tracked.name, { ...parameters, ...tracked.parameters, send_to: measurementId })
-      } catch { /* Never preventDefault, await delivery, or change the destination. */ }
+        if (tracked)
+          window.gtag?.('event', tracked.name, {
+            ...parameters,
+            ...tracked.parameters,
+            send_to: measurementId,
+          })
+      } catch {
+        /* Never preventDefault, await delivery, or change the destination. */
+      }
     }
     document.addEventListener('click', click, true)
     document.addEventListener('auxclick', click, true)
@@ -126,8 +202,15 @@ export default function SiteAnalytics({ enabled, measurementId }: { enabled: boo
         const parameters = pageParameters(window.location.href, originalReferrer.current)
         const detail = (event as CustomEvent<unknown>).detail
         const tracked = leadAnalyticsEvent(detail) || careerAnalyticsEvent(detail)
-        if (parameters && tracked) window.gtag?.('event', tracked.name, { ...parameters, ...tracked.parameters, send_to: measurementId })
-      } catch { /* Lead analytics never affects form operation. */ }
+        if (parameters && tracked)
+          window.gtag?.('event', tracked.name, {
+            ...parameters,
+            ...tracked.parameters,
+            send_to: measurementId,
+          })
+      } catch {
+        /* Lead analytics never affects form operation. */
+      }
     }
     window.addEventListener('gappy:analytics-event', onLeadEvent)
     return () => window.removeEventListener('gappy:analytics-event', onLeadEvent)
