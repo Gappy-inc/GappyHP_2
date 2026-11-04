@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync, statSync } from "node:fs";
 import { createHash } from "node:crypto";
 import {
   homeStates,
@@ -139,13 +139,20 @@ check("English hero uses the approved cinematic media, copy and controls", () =>
   const hero = readFileSync("components/home-v2/CinematicHero.tsx", "utf8");
   assert.match(hero, /<video[\s\S]*autoPlay[\s\S]*loop[\s\S]*muted[\s\S]*playsInline/);
   assert.match(hero, /gappy-ai-workforce-hero\.mp4/);
+  assert.match(hero, /gappy-ai-workforce-hero-mobile\.mp4/);
+  assert.match(hero, /media="\(max-width: 767px\)"/);
   assert.match(hero, /gappy-ai-workforce-hero-poster\.jpg/);
-  assert.match(hero, /\?v=20261103/);
+  assert.match(hero, /\?v=20261104-fast-final/);
   assert.match(hero, /preload="auto"/);
   const layout = readFileSync("app/layout.tsx", "utf8");
   const middleware = readFileSync("middleware.ts", "utf8");
   assert.match(layout, /rel="preload"[\s\S]*as="video"[\s\S]*fetchPriority="high"/);
-  assert.match(layout, /gappy-ai-workforce-hero\.mp4\?v=20261103/);
+  assert.match(layout, /gappy-ai-workforce-hero\.mp4\?v=20261104-fast-final/);
+  assert.match(layout, /gappy-ai-workforce-hero-mobile\.mp4\?v=20261104-fast-final/);
+  assert.match(layout, /media="\(max-width: 767px\)"/);
+  assert.match(layout, /media="\(min-width: 768px\)"/);
+  assert.ok(statSync("public/hero/gappy-ai-workforce-hero.mp4").size < 4_000_000);
+  assert.ok(statSync("public/hero/gappy-ai-workforce-hero-mobile.mp4").size < 2_400_000);
   const nextConfig = readFileSync("next.config.js", "utf8");
   assert.match(nextConfig, /\/hero\/:asset\*/);
   assert.match(nextConfig, /max-age=31536000, immutable/);

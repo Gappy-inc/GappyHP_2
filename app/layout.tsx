@@ -17,7 +17,9 @@ import {
   SITE_URL,
 } from '@/lib/config'
 
-const HOME_HERO_VIDEO = '/hero/gappy-ai-workforce-hero.mp4?v=20261103'
+const HOME_HERO_VIDEO = '/hero/gappy-ai-workforce-hero.mp4?v=20261104-fast-final'
+const HOME_HERO_VIDEO_MOBILE = '/hero/gappy-ai-workforce-hero-mobile.mp4?v=20261104-fast-final'
+const HOME_HERO_POSTER = '/hero/gappy-ai-workforce-hero-poster.jpg?v=20261104-fast-final'
 
 const spaceGrotesk = Space_Grotesk({
   variable: '--font-space-grotesk',
@@ -105,13 +107,30 @@ export default async function RootLayout({
     >
       <head>
         {isHome && (
-          <link
-            rel="preload"
-            href={HOME_HERO_VIDEO}
-            as="video"
-            type="video/mp4"
-            fetchPriority="high"
-          />
+          <>
+            <link
+              rel="preload"
+              href={HOME_HERO_POSTER}
+              as="image"
+              fetchPriority="high"
+            />
+            <link
+              rel="preload"
+              href={HOME_HERO_VIDEO_MOBILE}
+              as="video"
+              type="video/mp4"
+              media="(max-width: 767px)"
+              fetchPriority="high"
+            />
+            <link
+              rel="preload"
+              href={HOME_HERO_VIDEO}
+              as="video"
+              type="video/mp4"
+              media="(min-width: 768px)"
+              fetchPriority="high"
+            />
+          </>
         )}
         <script
           type="application/ld+json"

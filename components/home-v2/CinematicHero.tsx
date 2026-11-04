@@ -5,8 +5,9 @@ import { ArrowUpRight, Pause, Play } from "lucide-react";
 import type { HomeLocale } from "@/content/home-v2";
 import { demoRequestHref } from "@/lib/lead-forms";
 
-const VIDEO_SRC = "/hero/gappy-ai-workforce-hero.mp4?v=20261103";
-const POSTER_SRC = "/hero/gappy-ai-workforce-hero-poster.jpg?v=20261103";
+const DESKTOP_VIDEO_SRC = "/hero/gappy-ai-workforce-hero.mp4?v=20261104-fast-final";
+const MOBILE_VIDEO_SRC = "/hero/gappy-ai-workforce-hero-mobile.mp4?v=20261104-fast-final";
+const POSTER_SRC = "/hero/gappy-ai-workforce-hero-poster.jpg?v=20261104-fast-final";
 
 const heroCopy = {
   en: {
@@ -127,7 +128,12 @@ export default function CinematicHero({ locale }: { locale: HomeLocale }) {
             setPlaying(false);
           }}
         >
-          <source src={VIDEO_SRC} type="video/mp4" />
+          <source
+            src={MOBILE_VIDEO_SRC}
+            type="video/mp4"
+            media="(max-width: 767px)"
+          />
+          <source src={DESKTOP_VIDEO_SRC} type="video/mp4" />
         </video>
       </div>
 
